@@ -8,7 +8,7 @@
 - [Supervisor] Kévin Goilard
 - Louka Doz
 - Yvon Cocks
-- Martial Hulot
+- Martial Huot
 - Baptiste Santoni
 - Paul Vancauwenberghe
 
