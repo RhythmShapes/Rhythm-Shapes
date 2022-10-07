@@ -20,3 +20,4 @@
 - Organisation
   - [Issues](https://github.com/RhythmShapes/Rhythm-Shapes/issues)
   - [Board](https://github.com/orgs/RhythmShapes/projects/1/views/2?layout=board)
+  - [Trello](https://trello.com/invite/b/q9nAheVG/55accf110d106d88bf61a6953d01f250/kanban-rhythm-shapes)
