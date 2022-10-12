@@ -90,5 +90,7 @@
 /RhythmShapes/.DS_Store
 
 #Unity personal test scenes
-/RhythmShapes/Scenes/PaulScene
-/RhythmShapes/Scenes/UsherScene
+/RhythmShapes/[Aa]ssets/Scenes/PaulScene.unity
+/RhythmShapes/[Aa]ssets/Scenes/PaulScene.unity.meta
+/RhythmShapes/[Aa]ssets/Scenes/UsherScene.unity
+/RhythmShapes/[Aa]ssets/Scenes/UsherScene.unity.meta

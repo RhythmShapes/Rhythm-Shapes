@@ -90,4 +90,7 @@ Desktop.ini
 .DS_Store
 
 #Unity personal test scenes
-"./Rythm Shapes/Scenes/PaulScene"
+/[Aa]ssets/Scenes/PaulScene.unity
+/[Aa]ssets/Scenes/PaulScene.unity.meta
+/[Aa]ssets/Scenes/UsherScene.unity
+/[Aa]ssets/Scenes/UsherScene.unity.meta
