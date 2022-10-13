@@ -6,9 +6,10 @@ public class Shape : MonoBehaviour
 {
     [SerializeField] private ShapeType _shapeType;
     [SerializeField] private Color _color;
-    [SerializeField] private int _pathToFollow;
+    [SerializeField] private List<Vector2> _pathToFollow;
     [SerializeField] private float _speed;
     [SerializeField] private float _timeToSpawn;
+    private SpriteRenderer _spriteRenderer;
 
     public ShapeType ShapeType
     {
@@ -22,7 +23,7 @@ public class Shape : MonoBehaviour
         set => _color = value;
     }
 
-    public int PathToFollow
+    public List<Vector2> PathToFollow
     {
         get => _pathToFollow;
         set => _pathToFollow = value;
@@ -39,11 +40,18 @@ public class Shape : MonoBehaviour
         get => _timeToSpawn;
         set => _timeToSpawn = value;
     }
-    
+
+    public SpriteRenderer SpriteRenderer
+    {
+        get => _spriteRenderer;
+        set => _spriteRenderer = value;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _color = _spriteRenderer.color;
     }
 
     // Update is called once per frame
@@ -51,4 +59,6 @@ public class Shape : MonoBehaviour
     {
         
     }
+
+    protected virtual void UpdateColor(){}
 }
