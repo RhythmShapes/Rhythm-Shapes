@@ -1,3 +1,8 @@
+# Beat mapping algorithm source
+- [Preprocessed algorithm article](https://medium.com/giant-scam/algorithmic-beat-mapping-in-unity-preprocessed-audio-analysis-d41c339c135a)
+- [Real-time algorithm article](https://medium.com/giant-scam/algorithmic-beat-mapping-in-unity-real-time-audio-analysis-using-the-unity-api-6e9595823ce4)
+- [Project](https://github.com/jesse-scam/algorithmic-beat-mapping-unity)
+
 # Rhythm Shapes
 
 ## Summary
