@@ -41,12 +41,6 @@ public class Shape : MonoBehaviour
         set => _timeToSpawn = value;
     }
 
-    public SpriteRenderer SpriteRenderer
-    {
-        get => _spriteRenderer;
-        set => _spriteRenderer = value;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -57,8 +51,14 @@ public class Shape : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateColor();
     }
 
-    protected virtual void UpdateColor(){}
+    protected void UpdateColor()
+    {
+        if (_color != _spriteRenderer.color)
+        {
+            _spriteRenderer.color = _color;
+        }
+    }
 }
