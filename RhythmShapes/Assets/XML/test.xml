@@ -5,23 +5,45 @@
             <type>Square</type>
             <timeToPress>2.5</timeToPress>
             <speed>10</speed>
-            <color>
+            <Color>
                 <r>255</r>
                 <g>0</g>
                 <b>0</b>
                 <a>255</a>
-            </color>
+            </Color>
         </ShapeDescription>
         <ShapeDescription>
             <type>Square</type>
             <timeToPress>3</timeToPress>
             <speed>5</speed>
-            <color>
+            <Color>
                 <r>0</r>
                 <g>255</g>
                 <b>0</b>
                 <a>255</a>
-            </color>
+            </Color>
+        </ShapeDescription>
+        <ShapeDescription>
+            <type>Square</type>
+            <timeToPress>3</timeToPress>
+            <speed>10</speed>
+            <Color>
+                <r>0</r>
+                <g>0</g>
+                <b>255</b>
+                <a>255</a>
+            </Color>
+        </ShapeDescription>
+        <ShapeDescription>
+            <type>Square</type>
+            <timeToPress>15</timeToPress>
+            <speed>20</speed>
+            <Color>
+                <r>255</r>
+                <g>235</g>
+                <b>4</b>
+                <a>255</a>
+            </Color>
         </ShapeDescription>
     </LevelDescription>
 </Datatable>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using XML;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -35,14 +36,15 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Triggered" + context);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init(LevelDescription level)
     {
-        
+        // level.title
+        // level.shapes
+        // shape.pathToFollow
+        // ...
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.P) && !_audioSource.isPlaying)
         {
