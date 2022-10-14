@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Datatable>
+    <LevelDescription title="Test">
+        <ShapeDescription>
+            <type>Square</type>
+            <timeToPress>2.5</timeToPress>
+            <speed>10</speed>
+            <color>
+                <r>255</r>
+                <g>0</g>
+                <b>0</b>
+                <a>255</a>
+            </color>
+        </ShapeDescription>
+        <ShapeDescription>
+            <type>Square</type>
+            <timeToPress>3</timeToPress>
+            <speed>5</speed>
+            <color>
+                <r>0</r>
+                <g>255</g>
+                <b>0</b>
+                <a>255</a>
+            </color>
+        </ShapeDescription>
+    </LevelDescription>
+</Datatable>

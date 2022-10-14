@@ -15,7 +15,7 @@ public class ShapeFactory : MonoBehaviour
         Instance = this;
     }
 
-    public Shape GetShape(ShapeType type, Color color)
+    public Shape GetShape(ShapeType type)
     {
         Shape shape;
 
@@ -28,7 +28,6 @@ public class ShapeFactory : MonoBehaviour
                 break;
         }
 
-        shape.Color = color;
         shape.gameObject.SetActive(true);
         return shape;
     }
@@ -37,7 +36,7 @@ public class ShapeFactory : MonoBehaviour
     {
         shape.gameObject.SetActive(false);
         
-        switch (shape.ShapeType)
+        switch (shape.Type)
         {
             case ShapeType.Square:
             default:

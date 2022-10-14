@@ -1,64 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using XML;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[Serializable]
 public class Shape : MonoBehaviour
 {
-    [SerializeField] private ShapeType _shapeType;
-    [SerializeField] private Color _color;
-    [SerializeField] private List<Vector2> _pathToFollow;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _timeToPress;
+    [SerializeField] private ShapeType type;
+    public ShapeType Type { get; private set; }
+
     private SpriteRenderer _spriteRenderer;
+    private Vector2[] _pathToFollow;
+    private float _timeToPress;
+    private float _speed;
 
-    public ShapeType ShapeType
+    public void Init(ShapeDescription description)
     {
-        get => _shapeType;
-        set => _shapeType = value;
+        _pathToFollow = description.pathToFollow;
+        _spriteRenderer.color = description.color;
+        _timeToPress = description.timeToPress;
+        _speed = description.speed;
     }
 
-    public Color Color
-    {
-        get => _color;
-        set => _color = value;
-    }
-
-    public List<Vector2> PathToFollow
-    {
-        get => _pathToFollow;
-        set => _pathToFollow = value;
-    }
-
-    public float Speed
-    {
-        get => _speed;
-        set => _speed = value;
-    }
-
-    public float TimeToPress
-    {
-        get => _timeToPress;
-        set => _timeToPress = value;
-    }
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _color = _spriteRenderer.color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateColor();
-    }
-
-    protected void UpdateColor()
-    {
-        if (_color != _spriteRenderer.color)
-        {
-            _spriteRenderer.color = _color;
-        }
     }
 }
