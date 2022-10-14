@@ -8,7 +8,7 @@ public class Shape : MonoBehaviour
     [SerializeField] private Color _color;
     [SerializeField] private List<Vector2> _pathToFollow;
     [SerializeField] private float _speed;
-    [SerializeField] private float _timeToSpawn;
+    [SerializeField] private float _timeToPress;
     private SpriteRenderer _spriteRenderer;
 
     public ShapeType ShapeType
@@ -35,10 +35,10 @@ public class Shape : MonoBehaviour
         set => _speed = value;
     }
 
-    public float TimeToSpawn
+    public float TimeToPress
     {
-        get => _timeToSpawn;
-        set => _timeToSpawn = value;
+        get => _timeToPress;
+        set => _timeToPress = value;
     }
 
     // Start is called before the first frame update
