@@ -73,6 +73,62 @@ public class GameManager : MonoBehaviour
                 goRight = false;
             }
         }
+
+        Debug.Log("------------------");
+        for (int i = 0; i < _diamondPaths[6].Length; i++)
+        {
+            Debug.Log(_diamondPaths[6][i]);
+        }
+        Debug.Log("------------------");
+
+        Debug.Log("------------------");
+        for (int i = 0; i < _squarePaths.Length; i++)
+        {
+            for (int j = 0; j < _squarePaths[i].Length; j++)
+            {
+                for (int k = 0; k < _squarePaths[i].Length; k++)
+                {
+                    if (j!=k && _squarePaths[i][j].Equals(_squarePaths[i][k]))
+                    {
+                        Debug.LogError(_squarePaths[i][j]);
+                        Debug.LogError(_squarePaths[i][k]);
+                        Debug.LogError("square "+i+" "+j+" "+k);
+                    }
+                }
+            }
+        }
+        Debug.Log("------------------");
+        for (int i = 0; i < _circlePaths.Length; i++)
+        {
+            for (int j = 0; j < _circlePaths[i].Length; j++)
+            {
+                for (int k = 0; k < _circlePaths[i].Length; k++)
+                {
+                    if (j!=k && _circlePaths[i][j].Equals(_circlePaths[i][k]))
+                    {
+                        Debug.LogError(_circlePaths[i][j]);
+                        Debug.LogError(_circlePaths[i][k]);
+                        Debug.LogError("circle "+i+" "+j+" "+k);
+                    }
+                }
+            }
+        }
+        Debug.Log("------------------");
+        for (int i = 0; i < _diamondPaths.Length; i++)
+        {
+            for (int j = 0; j < _diamondPaths[i].Length; j++)
+            {
+                for (int k = 0; k < _diamondPaths[i].Length; k++)
+                {
+                    if (j!=k && _diamondPaths[i][j].Equals(_diamondPaths[i][k]))
+                    {
+                        Debug.LogError(_diamondPaths[i][j]);
+                        Debug.LogError(_diamondPaths[i][k]);
+                        Debug.LogError("square "+i+" "+j+" "+k);
+                    }
+                }
+            }
+        }
     }
 
     private void Start()
@@ -150,7 +206,7 @@ public class GameManager : MonoBehaviour
         List<Vector2> path = new List<Vector2>();
         LineRenderer road;
         LineRenderer shapeRoad;
-        Transform targetPosition;
+        Vector3 targetPosition;
         int crossPoint;
 
         switch (type)
@@ -161,8 +217,6 @@ public class GameManager : MonoBehaviour
                 break;
             
             case ShapeType.Circle:
-                //shapeRoad = circleShapeRoad;
-                // TODO : circle road not working cause positions not perfectly going through targets
                 shapeRoad = circleShapeRoad;
                 crossPoint = circleCrossPoint;
                 break;
@@ -183,28 +237,28 @@ public class GameManager : MonoBehaviour
         {
             case Target.Top:
                 road = goRight ? roadTopRight : roadTopLeft;
-                targetPosition = topTarget;
+                targetPosition = topTarget.position;
                 break;
             
             case Target.Bottom:
                 road = goRight ? roadBottomLeft : roadBottomRight;
-                targetPosition = bottomTarget;
+                targetPosition = bottomTarget.position;
                 break;
             
             case Target.Right:
                 road = goRight ? roadBottomRight : roadTopRight;
-                targetPosition = rightTarget;
+                targetPosition = rightTarget.position;
                 break;
             
             case Target.Left:
                 road = goRight ? roadTopLeft : roadBottomLeft;
-                targetPosition = leftTarget;
+                targetPosition = leftTarget.position;
                 break;
             
             default:
                 Debug.LogError("Unknown Target, using Top as default");
-                road = goRight ? roadBottomLeft : roadBottomRight;
-                targetPosition = bottomTarget;
+                road = goRight ? roadTopRight : roadTopLeft;
+                targetPosition = topTarget.position;
                 break;
         }
 
@@ -218,36 +272,44 @@ public class GameManager : MonoBehaviour
         // From cross point to color
         Vector3[] shapeRoadPositions = new Vector3[shapeRoad.positionCount];
         shapeRoad.GetPositions(shapeRoadPositions);
-
+        
         int crossPointIndex = 0;
-        int addDirection = goRight ? -1 : 1;
-        for (; crossPointIndex < shapeRoadPositions.Length; crossPointIndex++)
+        int addDirection = 1;
+        for (int pointA = 0, pointB = 1; pointA <= shapeRoadPositions.Length; pointA++, pointB++)
         {
-            if (((Vector2)shapeRoadPositions[crossPointIndex]).Equals(roadPositions[crossPoint]))
+            if (pointB >= shapeRoadPositions.Length)
+                pointB = 0;
+            
+            Vector2 roadPointPositionA = shapeRoadPositions[pointA];
+            Vector2 roadPointPositionB = shapeRoadPositions[pointB];
+            
+            if (IsBetween(roadPositions[crossPoint], roadPointPositionA, roadPointPositionB))
             {
-                crossPointIndex += addDirection;
-                break;
-            }
+                if (Vector2.Distance(roadPointPositionA, targetPosition) < 
+                    Vector2.Distance(roadPointPositionB, targetPosition))
+                {
+                    addDirection = -1;
+                    crossPointIndex = pointA;
+                } else
+                    crossPointIndex = pointB;
+                
+                if (((Vector2)shapeRoadPositions[crossPointIndex]).Equals(roadPositions[crossPoint]))
+                    crossPointIndex += addDirection;
 
-            if (crossPointIndex > 0 && 
-                IsBetween(roadPositions[crossPoint], shapeRoadPositions[crossPointIndex - 1], shapeRoadPositions[crossPointIndex]))
-            {
-                if(goRight)
-                    crossPointIndex--;
                 break;
             }
         }
-
+        
         for (int i = crossPointIndex; ; i += addDirection)
         {
             if (i < 0)
                 i = shapeRoadPositions.Length - 1;
             else if (i >= shapeRoadPositions.Length)
                 i = 0;
-            
+
             path.Add(shapeRoadPositions[i]);
             
-            if(((Vector2) shapeRoadPositions[i]).Equals(targetPosition.position))
+            if(((Vector2)shapeRoadPositions[i]).Equals(targetPosition))
                 break;
         }
 
