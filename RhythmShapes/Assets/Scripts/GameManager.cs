@@ -73,62 +73,6 @@ public class GameManager : MonoBehaviour
                 goRight = false;
             }
         }
-
-        Debug.Log("------------------");
-        for (int i = 0; i < _diamondPaths[6].Length; i++)
-        {
-            Debug.Log(_diamondPaths[6][i]);
-        }
-        Debug.Log("------------------");
-
-        Debug.Log("------------------");
-        for (int i = 0; i < _squarePaths.Length; i++)
-        {
-            for (int j = 0; j < _squarePaths[i].Length; j++)
-            {
-                for (int k = 0; k < _squarePaths[i].Length; k++)
-                {
-                    if (j!=k && _squarePaths[i][j].Equals(_squarePaths[i][k]))
-                    {
-                        Debug.LogError(_squarePaths[i][j]);
-                        Debug.LogError(_squarePaths[i][k]);
-                        Debug.LogError("square "+i+" "+j+" "+k);
-                    }
-                }
-            }
-        }
-        Debug.Log("------------------");
-        for (int i = 0; i < _circlePaths.Length; i++)
-        {
-            for (int j = 0; j < _circlePaths[i].Length; j++)
-            {
-                for (int k = 0; k < _circlePaths[i].Length; k++)
-                {
-                    if (j!=k && _circlePaths[i][j].Equals(_circlePaths[i][k]))
-                    {
-                        Debug.LogError(_circlePaths[i][j]);
-                        Debug.LogError(_circlePaths[i][k]);
-                        Debug.LogError("circle "+i+" "+j+" "+k);
-                    }
-                }
-            }
-        }
-        Debug.Log("------------------");
-        for (int i = 0; i < _diamondPaths.Length; i++)
-        {
-            for (int j = 0; j < _diamondPaths[i].Length; j++)
-            {
-                for (int k = 0; k < _diamondPaths[i].Length; k++)
-                {
-                    if (j!=k && _diamondPaths[i][j].Equals(_diamondPaths[i][k]))
-                    {
-                        Debug.LogError(_diamondPaths[i][j]);
-                        Debug.LogError(_diamondPaths[i][k]);
-                        Debug.LogError("square "+i+" "+j+" "+k);
-                    }
-                }
-            }
-        }
     }
 
     private void Start()
@@ -293,7 +237,7 @@ public class GameManager : MonoBehaviour
                 } else
                     crossPointIndex = pointB;
                 
-                if (((Vector2)shapeRoadPositions[crossPointIndex]).Equals(roadPositions[crossPoint]))
+                if ((Vector2) shapeRoadPositions[crossPointIndex] == (Vector2) roadPositions[crossPoint])
                     crossPointIndex += addDirection;
 
                 break;
@@ -309,7 +253,7 @@ public class GameManager : MonoBehaviour
 
             path.Add(shapeRoadPositions[i]);
             
-            if(((Vector2)shapeRoadPositions[i]).Equals(targetPosition))
+            if((Vector2) shapeRoadPositions[i] == (Vector2) targetPosition)
                 break;
         }
 

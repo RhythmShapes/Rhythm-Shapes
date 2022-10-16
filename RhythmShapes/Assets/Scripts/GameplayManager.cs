@@ -147,7 +147,7 @@ public class GameplayManager : MonoBehaviour
     {
         if (_audioSource.clip == null)
         {
-            Debug.Log("NoMusic");
+            Debug.LogError("NoMusic");
         }
         else
         {

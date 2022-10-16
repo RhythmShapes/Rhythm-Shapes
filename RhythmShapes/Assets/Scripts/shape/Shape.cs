@@ -29,12 +29,14 @@ namespace shape
         private float _distanceI;
         private float _timeI;
         private Queue<float> _timeIQueue;
+
         public void Init(ShapeDescription description, Color color)
         {
             _pathToFollow = description.pathToFollow;
             _spriteRenderer.color = color;
             TimeToPress = description.timeToPress;
             _speed = description.speed;
+            
             for (int i = 0; i < _pathToFollow.Length-1; i++)
             {
                 _distanceI = Vector3.Distance(_pathToFollow[i], _pathToFollow[i + 1]);
@@ -43,11 +45,16 @@ namespace shape
                 _totalPathDistance += Vector3.Distance(_pathToFollow[i], _pathToFollow[i + 1]);
                 _timeIQueue.Enqueue(_timeI);
             }
+
             Debug.Log("TotalPathDistance : " + _totalPathDistance);
             TimeToSpawn = TimeToPress - _totalPathDistance / _speed;
             startPosition = _pathToFollow[0];
             target = _pathToFollow[1];
             timeToReachTarget = _timeIQueue.Dequeue();
+
+            transform.position = startPosition;
+            i = 2;
+            Debug.Log("==> "+transform.position + " "+i);
         }
     
         private void Awake()
@@ -55,7 +62,7 @@ namespace shape
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _timeIQueue = new Queue<float>();
         }
-        
+
         void Update() 
         {
             t += Time.deltaTime/timeToReachTarget;
