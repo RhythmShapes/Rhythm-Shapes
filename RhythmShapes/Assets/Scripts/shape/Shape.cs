@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using utils.XML;
 
@@ -24,6 +25,10 @@ namespace shape
         Vector3 target;
         float timeToReachTarget;
         private float _totalPathDistance;
+        private float _totalTimeTravel;
+        private float _distanceI;
+        private float _timeI;
+        private Queue<float> _timeIQueue;
         public void Init(ShapeDescription description, Color color)
         {
             _pathToFollow = description.pathToFollow;
@@ -32,23 +37,29 @@ namespace shape
             _speed = description.speed;
             for (int i = 0; i < _pathToFollow.Length-1; i++)
             {
+                _distanceI = Vector3.Distance(_pathToFollow[i], _pathToFollow[i + 1]);
+                _timeI = _distanceI / _speed;
+                _totalTimeTravel += _timeI;
                 _totalPathDistance += Vector3.Distance(_pathToFollow[i], _pathToFollow[i + 1]);
+                _timeIQueue.Enqueue(_timeI);
             }
             Debug.Log("TotalPathDistance : " + _totalPathDistance);
             TimeToSpawn = TimeToPress - _totalPathDistance / _speed;
             startPosition = _pathToFollow[0];
             target = _pathToFollow[1];
-            timeToReachTarget = TimeToPress / _pathToFollow.Length;
+            timeToReachTarget = _timeIQueue.Dequeue();
         }
     
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _timeIQueue = new Queue<float>();
         }
-    
+        
         void Update() 
         {
             t += Time.deltaTime/timeToReachTarget;
+            // transform.position = Vector3.Lerp(startPosition, target, t);
             transform.position = Vector3.Lerp(startPosition, target, t);
             if (i < _pathToFollow.Length && transform.position == target)
             {
@@ -61,7 +72,8 @@ namespace shape
         {
             t = 0;
             startPosition = transform.position;
-            target = destination; 
+            target = destination;
+            timeToReachTarget = _timeIQueue.Dequeue();
         }
     
         // private float _totalPathDistance;
