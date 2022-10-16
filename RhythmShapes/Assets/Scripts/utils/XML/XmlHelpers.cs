@@ -7,7 +7,7 @@ using System.Text;
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace XML
+namespace utils.XML
 {
     public static class XmlHelpers
     {

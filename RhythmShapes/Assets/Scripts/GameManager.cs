@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using shape;
 using UnityEngine;
-using XML;
+using utils.XML;
 using Vector2 = UnityEngine.Vector2;
 
 public class GameManager : MonoBehaviour
@@ -10,18 +11,18 @@ public class GameManager : MonoBehaviour
 
     [Header("Targets")]
     [Space]
-    [SerializeField] private Transform redTarget;
-    [SerializeField] private Transform blueTarget;
-    [SerializeField] private Transform greenTarget;
-    [SerializeField] private Transform yellowTarget;
+    [SerializeField] private Transform topTarget;
+    [SerializeField] private Transform rightTarget;
+    [SerializeField] private Transform leftTarget;
+    [SerializeField] private Transform bottomTarget;
 
     [Space]
     [Header("Roads")]
     [Space]
-    [SerializeField] private LineRenderer roadBR;
-    [SerializeField] private LineRenderer roadRY;
-    [SerializeField] private LineRenderer roadYG;
-    [SerializeField] private LineRenderer roadGB;
+    [SerializeField] private LineRenderer roadTopRight;
+    [SerializeField] private LineRenderer roadBottomRight;
+    [SerializeField] private LineRenderer roadBottomLeft;
+    [SerializeField] private LineRenderer roadTopLeft;
 
     [Space]
     [Header("Shape Roads")]
@@ -42,13 +43,13 @@ public class GameManager : MonoBehaviour
 
     private LevelDescription _level;
     
-    // 8 paths : 0-1 = blue, 2-3 = red, 4-5 = green, 6-7 = yellow
+    // 8 paths : 0-1 = top, 2-3 = right, 4-5 = left, 6-7 = bottom
     // even = right, odd = left
     private const int MaxPathPerShape = 8;
-    private const int BluePath = 0;
-    private const int RedPath = 2;
-    private const int GreenPath = 4;
-    private const int YellowPath = 6;
+    private const int TopPath = 0;
+    private const int RightPath = 2;
+    private const int LeftPath = 4;
+    private const int BottomPath = 6;
     private readonly Vector2[][] _squarePaths = new Vector2[MaxPathPerShape][];
     private readonly Vector2[][] _circlePaths = new Vector2[MaxPathPerShape][];
     private readonly Vector2[][] _diamondPaths = new Vector2[MaxPathPerShape][];
@@ -58,15 +59,16 @@ public class GameManager : MonoBehaviour
         Debug.Assert(Instance == null);
         Instance = this;
 
+        Target[] targets = { Target.Top, Target.Right, Target.Left, Target.Bottom };
         for (int i = 0; i < MaxPathPerShape; i += 2)
         {
-            int color = i / 2;
+            Target target = targets[i / 2];
             bool goRight = true;
             for (int j = i; j < i + 2; j++)
             {
-                _squarePaths[j] = CalculatePath(ShapeType.Square, color, goRight);
-                _circlePaths[j] = CalculatePath(ShapeType.Circle, color, goRight);
-                _diamondPaths[j] = CalculatePath(ShapeType.Diamond, color, goRight);
+                _squarePaths[j] = CalculatePath(ShapeType.Square, target, goRight);
+                _circlePaths[j] = CalculatePath(ShapeType.Circle, target, goRight);
+                _diamondPaths[j] = CalculatePath(ShapeType.Diamond, target, goRight);
                 
                 goRight = false;
             }
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
         _level = XmlHelpers.DeserializeDatabaseFromXML<LevelDescription>(levelXML).ToArray()[0];
 
         foreach (ShapeDescription shape in _level.shapes)
-            shape.pathToFollow = GetPath(shape.type, shape.color, true);
+            shape.pathToFollow = GetPath(shape.type, shape.target, shape.goRight);
 
         GameplayManager.Instance.Init(_level);
     }
@@ -87,58 +89,63 @@ public class GameManager : MonoBehaviour
      * Get path from calculated paths
      * Returns an array of Vector2 representing the path
      * type : ShapeType to define which shape road
-     * target : Color to define which color to reach (blue, red, green, yellow)
+     * target : Target to define which target to reach
      * goRight : true to take right road at spawn point, false to take left road
     */
-    private Vector2[] GetPath(ShapeType type, Color target, bool goRight)
+    private Vector2[] GetPath(ShapeType type, Target target, bool goRight)
     {
         int targetIndex;
-        int direction = goRight ? 1 : 2;
-
-        if (CompareColor(target, Color.blue))
-            targetIndex = BluePath;
-        else if (CompareColor(target, Color.red))
-            targetIndex = RedPath;
-        else if (CompareColor(target, Color.green))
-            targetIndex = GreenPath;
-        else if (CompareColor(target, Color.yellow))
-            targetIndex = YellowPath;
-        else
+        int direction = goRight ? 0 : 1;
+        
+        switch (target)
         {
-            Debug.LogError("Unknown color, using blue as default");
-            targetIndex = BluePath;
+            case Target.Top:
+                targetIndex = TopPath;
+                break;
+            
+            case Target.Bottom:
+                targetIndex = BottomPath;
+                break;
+            
+            case Target.Right:
+                targetIndex = RightPath;
+                break;
+            
+            case Target.Left:
+                targetIndex = LeftPath;
+                break;
+            
+            default:
+                Debug.LogError("Unknown Target, using Top as default");
+                targetIndex = TopPath;
+                break;
         }
 
         switch (type)
         {
             case ShapeType.Square:
-                return _squarePaths[targetIndex * direction];
+                return _squarePaths[targetIndex + direction];
             
             case ShapeType.Circle:
-                return _circlePaths[targetIndex * direction];
+                return _circlePaths[targetIndex + direction];
             
             case ShapeType.Diamond:
-                return _diamondPaths[targetIndex * direction];
+                return _diamondPaths[targetIndex + direction];
             
             default:
                 Debug.LogError("Unknown ShapeType, using Square as default");
-                return _squarePaths[targetIndex * direction];
+                return _squarePaths[targetIndex + direction];
         }
-    }
-
-    private bool CompareColor(Color32 c1, Color32 c2)
-    {
-        return c1.r == c2.r && c1.g == c2.g && c1.b == c2.b && c1.a == c2.a;
     }
 
     /**
      * Calculate path from spawn point to color
      * Returns an array of Vector2 representing the path
      * type : ShapeType to define which shape road
-     * target : int to define which color to reach (0 = blue, 1 = red, 2 = green, 3 = yellow)
+     * target : Target to define which target to reach
      * goRight : true to take right road at spawn point, false to take left road
     */
-    private Vector2[] CalculatePath(ShapeType type, int target, bool goRight)
+    private Vector2[] CalculatePath(ShapeType type, Target target, bool goRight)
     {
         List<Vector2> path = new List<Vector2>();
         LineRenderer road;
@@ -156,7 +163,7 @@ public class GameManager : MonoBehaviour
             case ShapeType.Circle:
                 //shapeRoad = circleShapeRoad;
                 // TODO : circle road not working cause positions not perfectly going through targets
-                shapeRoad = squareShapeRoad;
+                shapeRoad = circleShapeRoad;
                 crossPoint = circleCrossPoint;
                 break;
             
@@ -174,30 +181,30 @@ public class GameManager : MonoBehaviour
 
         switch (target)
         {
-            case 0:
-                road = goRight ? roadBR : roadGB;
-                targetPosition = blueTarget;
+            case Target.Top:
+                road = goRight ? roadTopRight : roadTopLeft;
+                targetPosition = topTarget;
                 break;
             
-            case 1:
-                road = goRight ? roadRY : roadBR;
-                targetPosition = redTarget;
+            case Target.Bottom:
+                road = goRight ? roadBottomLeft : roadBottomRight;
+                targetPosition = bottomTarget;
                 break;
             
-            case 2:
-                road = goRight ? roadGB : roadYG;
-                targetPosition = greenTarget;
+            case Target.Right:
+                road = goRight ? roadBottomRight : roadTopRight;
+                targetPosition = rightTarget;
                 break;
             
-            case 3:
-                road = goRight ? roadYG : roadRY;
-                targetPosition = yellowTarget;
+            case Target.Left:
+                road = goRight ? roadTopLeft : roadBottomLeft;
+                targetPosition = leftTarget;
                 break;
             
             default:
-                Debug.LogError("Unknown color, using blue as default");
-                road = goRight ? roadYG : roadRY;
-                targetPosition = yellowTarget;
+                Debug.LogError("Unknown Target, using Top as default");
+                road = goRight ? roadBottomLeft : roadBottomRight;
+                targetPosition = bottomTarget;
                 break;
         }
 

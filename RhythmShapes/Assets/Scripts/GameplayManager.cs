@@ -1,19 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using shape;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using XML;
+using utils.XML;
 
 public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
     
     private PlayerInputAction _playerInputAction;
-    private Queue<Shape> _blueShapeQueue;
-    private Queue<Shape> _greenShapeQueue;
-    private Queue<Shape> _redShapeQueue;
-    private Queue<Shape> _yellowShapeQueue;
+    private Queue<Shape> _topTargetQueue;
+    private Queue<Shape> _leftTargetQueue;
+    private Queue<Shape> _rightTargetQueue;
+    private Queue<Shape> _bottomTargetQueue;
     
     //private Queue<float> _spawnTimes;
     //private Queue<Shape> _colors;
@@ -29,16 +28,16 @@ public class GameplayManager : MonoBehaviour
         
         _playerInputAction = new PlayerInputAction();
         _playerInputAction.Player.Enable();
-        _playerInputAction.Player.Blue.performed += BluePerformed;
-        _playerInputAction.Player.Green.performed += GreenPerformed;
-        _playerInputAction.Player.Red.performed += RedPerformed;
-        _playerInputAction.Player.Yellow.performed += YellowPerformed;
+        _playerInputAction.Player.Top.performed += TopPerformed;
+        _playerInputAction.Player.Left.performed += LeftPerformed;
+        _playerInputAction.Player.Right.performed += RightPerformed;
+        _playerInputAction.Player.Bottom.performed += BottomPerformed;
         _audioSource = GetComponent<AudioSource>();
 
-        _blueShapeQueue = new Queue<Shape>();
-        _greenShapeQueue = new Queue<Shape>();
-        _redShapeQueue = new Queue<Shape>();
-        _yellowShapeQueue = new Queue<Shape>();
+        _topTargetQueue = new Queue<Shape>();
+        _leftTargetQueue = new Queue<Shape>();
+        _rightTargetQueue = new Queue<Shape>();
+        _bottomTargetQueue = new Queue<Shape>();
     }
     
     public void TestingPlayerInputTriggered(InputAction.CallbackContext context)
@@ -48,9 +47,7 @@ public class GameplayManager : MonoBehaviour
 
     public void Init(LevelDescription level)
     {
-        // level.title
         Debug.Log("levelTitle : " + level.title);
-        // level.shapes
         Shape shape;
 
         for (int i = 0; i < level.shapes.Length; i++)
@@ -58,7 +55,7 @@ public class GameplayManager : MonoBehaviour
             Debug.Log("iteration :" + i);
             //_spawnTimes.Enqueue(level.shapes[i].timeToPress);
             shape = ShapeFactory.Instance.GetShape(level.shapes[i].type);
-            shape.Init(level.shapes[i]);
+            shape.Init(level.shapes[i], level.GetTargetColor(level.shapes[i].target));
             Debug.Log(shape.TimeToSpawn);
             
             //Debug.Log(level.shapes[i].pathToFollow + ", length : " + level.shapes[i].pathToFollow.Length );
@@ -67,23 +64,32 @@ public class GameplayManager : MonoBehaviour
             {
                 //Debug.Log(level.shapes[i].pathToFollow[j]);
             }
-            if (CompareColor(level.shapes[i].color, Color.blue))
-                _blueShapeQueue.Enqueue(shape);
-            else if (CompareColor(level.shapes[i].color, Color.red))
-                _redShapeQueue.Enqueue(shape);
-            else if (CompareColor(level.shapes[i].color, Color.green))
-                _greenShapeQueue.Enqueue(shape);
-            else if (CompareColor(level.shapes[i].color, Color.yellow))
-                _yellowShapeQueue.Enqueue(shape);
-            else
+            
+            switch (level.shapes[i].target)
             {
-                Debug.LogError("Unknown color, using blue as default");
-                _blueShapeQueue.Enqueue(shape);
+                case Target.Top:
+                    _topTargetQueue.Enqueue(shape);
+                    break;
+            
+                case Target.Bottom:
+                    _bottomTargetQueue.Enqueue(shape);
+                    break;
+            
+                case Target.Right:
+                    _rightTargetQueue.Enqueue(shape);
+                    break;
+            
+                case Target.Left:
+                    _leftTargetQueue.Enqueue(shape);
+                    break;
+            
+                default:
+                    Debug.LogError("Unknown Target, using Top as default");
+                    _topTargetQueue.Enqueue(shape);
+                    break;
             }
         }
-        // shape.pathToFollow
-        // ...
-        Debug.Log(_blueShapeQueue + ", " + _redShapeQueue + ", " +_greenShapeQueue +", " +_yellowShapeQueue);
+        Debug.Log(_topTargetQueue + ", " + _rightTargetQueue + ", " +_leftTargetQueue +", " +_bottomTargetQueue);
         
     }
 
@@ -116,19 +122,19 @@ public class GameplayManager : MonoBehaviour
         
     }
 
-    private void BluePerformed(InputAction.CallbackContext context)
+    private void TopPerformed(InputAction.CallbackContext context)
     {
         //Debug.Log("BluePerformed : " + context);
 
         
-        if (_blueShapeQueue.Count != 0)
+        if (_topTargetQueue.Count != 0)
         {
-            Shape currentShape = _blueShapeQueue.Peek();
+            Shape currentShape = _topTargetQueue.Peek();
             _tapTime = _audioSource.time;
             if (_tapTime > currentShape.TimeToPress - _goodWindow || _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Blue : GOOOOOOOD");
-                ShapeFactory.Instance.Release(_blueShapeQueue.Dequeue());
+                ShapeFactory.Instance.Release(_topTargetQueue.Dequeue());
             }
             else
             {
@@ -138,17 +144,17 @@ public class GameplayManager : MonoBehaviour
  
     }
     
-    private void GreenPerformed(InputAction.CallbackContext context)
+    private void LeftPerformed(InputAction.CallbackContext context)
     {
         //Debug.Log("GreenPerformed : " + context);
-        if (_greenShapeQueue.Count != 0)
+        if (_leftTargetQueue.Count != 0)
         {
-            Shape currentShape = _greenShapeQueue.Peek();
+            Shape currentShape = _leftTargetQueue.Peek();
             _tapTime = _audioSource.time;
             if (_tapTime > currentShape.TimeToPress - _goodWindow || _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Green : GOOOOOOOD");
-                ShapeFactory.Instance.Release(_greenShapeQueue.Dequeue());
+                ShapeFactory.Instance.Release(_leftTargetQueue.Dequeue());
             }
             else
             {
@@ -158,18 +164,18 @@ public class GameplayManager : MonoBehaviour
         
     }
     
-    private void RedPerformed(InputAction.CallbackContext context)
+    private void RightPerformed(InputAction.CallbackContext context)
     {
         //Debug.Log("RedPerformed : " + context);
 
-        if (_redShapeQueue.Count != 0)
+        if (_rightTargetQueue.Count != 0)
         {
-            Shape currentShape = _redShapeQueue.Peek();
+            Shape currentShape = _rightTargetQueue.Peek();
             _tapTime = _audioSource.time;
             if (_tapTime > currentShape.TimeToPress - _goodWindow || _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Red : GOOOOOOOD");
-                ShapeFactory.Instance.Release(_redShapeQueue.Dequeue());
+                ShapeFactory.Instance.Release(_rightTargetQueue.Dequeue());
             }
             else
             {
@@ -178,18 +184,18 @@ public class GameplayManager : MonoBehaviour
         }
     }
     
-    private void YellowPerformed(InputAction.CallbackContext context)
+    private void BottomPerformed(InputAction.CallbackContext context)
     {
         //Debug.Log("YellowPerformed : " + context);
 
-        if (_yellowShapeQueue.Count !=0)
+        if (_bottomTargetQueue.Count !=0)
         {
-            Shape currentShape = _yellowShapeQueue.Peek();
+            Shape currentShape = _bottomTargetQueue.Peek();
             _tapTime = _audioSource.time;
             if (_tapTime > currentShape.TimeToPress - _goodWindow || _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Yellow : GOOOOOOOD");
-                ShapeFactory.Instance.Release(_yellowShapeQueue.Dequeue());
+                ShapeFactory.Instance.Release(_bottomTargetQueue.Dequeue());
             }
             else
             {
@@ -197,11 +203,6 @@ public class GameplayManager : MonoBehaviour
             }
         }    
         
-    }
-    
-    private bool CompareColor(Color32 c1, Color32 c2)
-    {
-        return c1.r == c2.r && c1.g == c2.g && c1.b == c2.b && c1.a == c2.a;
     }
     
 }

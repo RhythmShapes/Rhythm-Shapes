@@ -1,12 +1,12 @@
 {
-    "name": "InputAction",
+    "name": "PlayerInputAction",
     "maps": [
         {
             "name": "Player",
             "id": "d65e7eaf-be4f-4006-a181-109055bfda37",
             "actions": [
                 {
-                    "name": "Green",
+                    "name": "Left",
                     "type": "Button",
                     "id": "40f84c24-e579-4e2f-840e-0dc5ae7ebe2a",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Blue",
+                    "name": "Top",
                     "type": "Button",
                     "id": "bed0005e-1ae8-4385-8e01-48d243192802",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Red",
+                    "name": "Right",
                     "type": "Button",
                     "id": "33f615b5-66e3-45be-bed5-704315af18f2",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Yellow",
+                    "name": "Bottom",
                     "type": "Button",
                     "id": "7d3f2cae-60bd-4b11-aa9a-326cd95c9116",
                     "expectedControlType": "Button",
@@ -50,7 +50,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Green",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -61,7 +61,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Green",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -72,7 +72,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Blue",
+                    "action": "Top",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -83,7 +83,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Blue",
+                    "action": "Top",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -94,7 +94,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Red",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -105,7 +105,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Red",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -116,7 +116,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Yellow",
+                    "action": "Bottom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -127,7 +127,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Yellow",
+                    "action": "Bottom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

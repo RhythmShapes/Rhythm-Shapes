@@ -28,7 +28,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
             ""id"": ""d65e7eaf-be4f-4006-a181-109055bfda37"",
             ""actions"": [
                 {
-                    ""name"": ""Green"",
+                    ""name"": ""Left"",
                     ""type"": ""Button"",
                     ""id"": ""40f84c24-e579-4e2f-840e-0dc5ae7ebe2a"",
                     ""expectedControlType"": ""Button"",
@@ -37,7 +37,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Blue"",
+                    ""name"": ""Top"",
                     ""type"": ""Button"",
                     ""id"": ""bed0005e-1ae8-4385-8e01-48d243192802"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Red"",
+                    ""name"": ""Right"",
                     ""type"": ""Button"",
                     ""id"": ""33f615b5-66e3-45be-bed5-704315af18f2"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Yellow"",
+                    ""name"": ""Bottom"",
                     ""type"": ""Button"",
                     ""id"": ""7d3f2cae-60bd-4b11-aa9a-326cd95c9116"",
                     ""expectedControlType"": ""Button"",
@@ -72,7 +72,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Green"",
+                    ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -83,7 +83,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Green"",
+                    ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -94,7 +94,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Blue"",
+                    ""action"": ""Top"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -105,7 +105,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Blue"",
+                    ""action"": ""Top"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -116,7 +116,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Red"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -127,7 +127,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Red"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -138,7 +138,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Yellow"",
+                    ""action"": ""Bottom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -149,7 +149,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Yellow"",
+                    ""action"": ""Bottom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -172,10 +172,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Green = m_Player.FindAction("Green", throwIfNotFound: true);
-        m_Player_Blue = m_Player.FindAction("Blue", throwIfNotFound: true);
-        m_Player_Red = m_Player.FindAction("Red", throwIfNotFound: true);
-        m_Player_Yellow = m_Player.FindAction("Yellow", throwIfNotFound: true);
+        m_Player_Left = m_Player.FindAction("Left", throwIfNotFound: true);
+        m_Player_Top = m_Player.FindAction("Top", throwIfNotFound: true);
+        m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
+        m_Player_Bottom = m_Player.FindAction("Bottom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -235,18 +235,18 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Green;
-    private readonly InputAction m_Player_Blue;
-    private readonly InputAction m_Player_Red;
-    private readonly InputAction m_Player_Yellow;
+    private readonly InputAction m_Player_Left;
+    private readonly InputAction m_Player_Top;
+    private readonly InputAction m_Player_Right;
+    private readonly InputAction m_Player_Bottom;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
         public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Green => m_Wrapper.m_Player_Green;
-        public InputAction @Blue => m_Wrapper.m_Player_Blue;
-        public InputAction @Red => m_Wrapper.m_Player_Red;
-        public InputAction @Yellow => m_Wrapper.m_Player_Yellow;
+        public InputAction @Left => m_Wrapper.m_Player_Left;
+        public InputAction @Top => m_Wrapper.m_Player_Top;
+        public InputAction @Right => m_Wrapper.m_Player_Right;
+        public InputAction @Bottom => m_Wrapper.m_Player_Bottom;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,34 +256,34 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Green.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGreen;
-                @Green.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGreen;
-                @Green.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGreen;
-                @Blue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlue;
-                @Blue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlue;
-                @Blue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlue;
-                @Red.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRed;
-                @Red.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRed;
-                @Red.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRed;
-                @Yellow.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYellow;
-                @Yellow.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYellow;
-                @Yellow.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnYellow;
+                @Left.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeft;
+                @Top.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTop;
+                @Top.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTop;
+                @Top.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTop;
+                @Right.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRight;
+                @Bottom.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBottom;
+                @Bottom.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBottom;
+                @Bottom.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBottom;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Green.started += instance.OnGreen;
-                @Green.performed += instance.OnGreen;
-                @Green.canceled += instance.OnGreen;
-                @Blue.started += instance.OnBlue;
-                @Blue.performed += instance.OnBlue;
-                @Blue.canceled += instance.OnBlue;
-                @Red.started += instance.OnRed;
-                @Red.performed += instance.OnRed;
-                @Red.canceled += instance.OnRed;
-                @Yellow.started += instance.OnYellow;
-                @Yellow.performed += instance.OnYellow;
-                @Yellow.canceled += instance.OnYellow;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Top.started += instance.OnTop;
+                @Top.performed += instance.OnTop;
+                @Top.canceled += instance.OnTop;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+                @Bottom.started += instance.OnBottom;
+                @Bottom.performed += instance.OnBottom;
+                @Bottom.canceled += instance.OnBottom;
             }
         }
     }
@@ -299,9 +299,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnGreen(InputAction.CallbackContext context);
-        void OnBlue(InputAction.CallbackContext context);
-        void OnRed(InputAction.CallbackContext context);
-        void OnYellow(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnTop(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnBottom(InputAction.CallbackContext context);
     }
 }
