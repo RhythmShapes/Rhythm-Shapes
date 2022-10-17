@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using shape;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using utils.XML;
+using Cache = UnityEngine.Cache;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -14,16 +16,18 @@ public class GameplayManager : MonoBehaviour
     private Queue<Shape> _leftTargetQueue;
     private Queue<Shape> _rightTargetQueue;
     private Queue<Shape> _bottomTargetQueue;
-    
+
     private Queue<ShapeDescription> _shapeDescriptionsQueue;
     private Queue<float> _spawnTimesQueue;
     private Queue<Color> _shapeColorsQueue;
+    private Queue<Queue<float>> _timeToTargetQueues;
 
     private AudioSource _audioSource;
-    //private AudioClip _audioClip;
+    // private AudioClip _audioClip;
     private float _globaleTime;
     private float _goodWindow = 0.2f;
     private float _tapTime;
+    
     private void Awake()
     {
         Debug.Assert(Instance == null);
@@ -42,41 +46,59 @@ public class GameplayManager : MonoBehaviour
         _rightTargetQueue = new Queue<Shape>();
         _bottomTargetQueue = new Queue<Shape>();
 
+        _timeToTargetQueues = new Queue<Queue<float>>();
+
         _shapeDescriptionsQueue = new Queue<ShapeDescription>();
         _spawnTimesQueue = new Queue<float>();
         _shapeColorsQueue = new Queue<Color>();
     }
     
-    public void TestingPlayerInputTriggered(InputAction.CallbackContext context)
-    {
-        Debug.Log("Triggered" + context);
-    }
+    
 
     public void Init(LevelDescription level)
     {
         Debug.Log("levelTitle : " + level.title);
         for (int i = 0; i < level.shapes.Length; i++)
         {
-            ShapeDescription shapeDescription;
-            Debug.Log("iteration :" + i);
-            //_spawnTimes.Enqueue(level.shapes[i].timeToPress);
-            shapeDescription = level.shapes[i];
+            ShapeDescription shapeDescription = level.shapes[i];
+            // Debug.Log("iteration :" + i);
+            // _spawnTimes.Enqueue(level.shapes[i].timeToPress);
             _shapeDescriptionsQueue.Enqueue(shapeDescription);
             _shapeColorsQueue.Enqueue(level.GetTargetColor(shapeDescription.target));
             
-            float totalPathDistance = 0; 
-            for (int j = 0; j < shapeDescription.pathToFollow.Length-1; j++)
-            {
-                totalPathDistance += 
-                    Vector3.Distance(
-                        shapeDescription.pathToFollow[j], 
-                        shapeDescription.pathToFollow[j + 1]);
-            }
-            Debug.Log("TotalPathDistance : " + totalPathDistance);
-            Debug.Log("SpawnTimes : " + (shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed));
+            float totalPathDistance = ComputeShapeElement(shapeDescription); 
+            // Debug.Log("shapeDescription.pathToFollow.Length : " + shapeDescription.pathToFollow.Length);
+            
+            // Debug.Log("TotalPathDistance : " + totalPathDistance);
+            // Debug.Log("SpawnTimes : " + (shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed));
             _spawnTimesQueue.Enqueue(shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed);
         }
     }
+
+    private float ComputeShapeElement(ShapeDescription shapeDescription)
+    {
+        float totalPathDistance = 0;
+        Vector2 lastElement = Vector2.zero;
+        Queue<float> timeTotargetQueue = new Queue<float>();
+        
+        foreach (var element in shapeDescription.pathToFollow)
+        {
+            float distanceI = Vector3.Distance(
+                lastElement, 
+                element);
+            totalPathDistance +=
+                distanceI;
+            float timeI = distanceI / shapeDescription.speed;
+            timeTotargetQueue.Enqueue(timeI);
+            // Debug.Log("CalculatePathLength -> lastElement : "+lastElement+", element : " + element);
+            lastElement = element;
+        }
+
+        _timeToTargetQueues.Enqueue(timeTotargetQueue);
+        return totalPathDistance;
+    }
+    
+    
 
     private void SpawnShapes(float globalTime, float deltaTime)
     {
@@ -85,14 +107,14 @@ public class GameplayManager : MonoBehaviour
         ShapeDescription nextSpawnableShape = _shapeDescriptionsQueue.Peek();
         float nextSpawnableShapeSpawnTime = _spawnTimesQueue.Peek();
         Color nextSpawnableShapeColor = _shapeColorsQueue.Peek();
-        //Debug.Log(globalTime);
+        // Debug.Log(globalTime);
 
         if (nextSpawnableShapeSpawnTime > globalTime-precision && nextSpawnableShapeSpawnTime < globalTime+precision)
         {
-            Debug.Log("SpawnShapes -> globalTime : " + globalTime);
+            // Debug.Log("SpawnShapes -> globalTime : " + globalTime);
             shape = ShapeFactory.Instance.GetShape(nextSpawnableShape.type);
-            shape.Init(nextSpawnableShape,nextSpawnableShapeColor);
-            Debug.Log("SpawnShapes -> TimeToSpawn : " + shape.TimeToSpawn);
+            shape.transform.position = Vector3.zero;
+            shape.Init(nextSpawnableShape,nextSpawnableShapeColor,_timeToTargetQueues.Dequeue());
 
             switch (nextSpawnableShape.target)
             {
@@ -126,7 +148,7 @@ public class GameplayManager : MonoBehaviour
     private void Update()
     {
         _globaleTime += Time.deltaTime;
-        //Debug.Log("_globalTime : " + _globaleTime);
+        // Debug.Log("_globalTime : " + _globaleTime);
         
         if (Input.GetKey(KeyCode.P) && !_audioSource.isPlaying)
         {
@@ -151,7 +173,7 @@ public class GameplayManager : MonoBehaviour
         }
         else
         {
-            //Debug.Log("StartMusic" + _audioSource.clip.name);
+            // Debug.Log("StartMusic" + _audioSource.clip.name);
             _audioSource.Play();
         }
         
@@ -195,45 +217,45 @@ public class GameplayManager : MonoBehaviour
             // Debug.Log("ReleaseIfOutOfTime -> Min : " + min);
             if (min == topTime && _globaleTime >  topTime + _goodWindow)
             {
-                Debug.Log("ReleaseIfOutOfTime -> topTime : " + min);
+                // Debug.Log("ReleaseIfOutOfTime -> topTime : " + min);
+                Debug.Log("ReleaseIfOutOfTime -> " + _topTargetQueue.Peek().Type);
                 ShapeFactory.Instance.Release(_topTargetQueue.Peek());
             }
             else if (min == leftTime && _globaleTime >  leftTime + _goodWindow)
             {
+                // Debug.Log("ReleaseIfOutOfTime -> leftTime : " + min);
+                Debug.Log("ReleaseIfOutOfTime -> " + _leftTargetQueue.Peek().Type);
                 ShapeFactory.Instance.Release(_leftTargetQueue.Peek());
             }
             else if (min == rightTime && _globaleTime >  rightTime + _goodWindow)
             {
+                // Debug.Log("ReleaseIfOutOfTime -> rightTime : " + min);
                 ShapeFactory.Instance.Release(_rightTargetQueue.Peek());
             }
             else if (min == bottomTime && _globaleTime >  bottomTime + _goodWindow)
             {
+                // Debug.Log("ReleaseIfOutOfTime -> bottomTime : " + min);
                 ShapeFactory.Instance.Release(_bottomTargetQueue.Peek());
             }
-            else
-            {
-                Debug.Log("Not supposed to happened");
-            }
+            // else
+            // {
+            //     Debug.Log("Not supposed to happened");
+            // }
         }
     }
     private void TopPerformed(InputAction.CallbackContext context)
     {
-        //Debug.Log("BluePerformed : " + context);
+        // Debug.Log("TopPerformed : " + context);
 
         
         if (_topTargetQueue.Count != 0)
         {
             Shape currentShape = _topTargetQueue.Peek();
-            //_tapTime = _audioSource.time;
+            // _tapTime = _audioSource.time;
             _tapTime = _globaleTime;
             if (_tapTime > currentShape.TimeToPress - _goodWindow && _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Top : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_topTargetQueue.Dequeue());
-            }
-            else if (_globaleTime >  currentShape.TimeToPress + _goodWindow)
-            {
-                Debug.Log("Top : FAILED, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_topTargetQueue.Dequeue());
             }
             else
@@ -247,20 +269,15 @@ public class GameplayManager : MonoBehaviour
     
     private void LeftPerformed(InputAction.CallbackContext context)
     {
-        //Debug.Log("GreenPerformed : " + context);
+        // Debug.Log("LeftPerformed : " + context);
         if (_leftTargetQueue.Count != 0)
         {
             Shape currentShape = _leftTargetQueue.Peek();
-            //_tapTime = _audioSource.time;
+            // _tapTime = _audioSource.time;
             _tapTime = _globaleTime;
             if (_tapTime > currentShape.TimeToPress - _goodWindow && _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Left : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_leftTargetQueue.Dequeue());
-            }
-            else if (_globaleTime >  currentShape.TimeToPress + _goodWindow)
-            {
-                Debug.Log("Left : FAILED, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_leftTargetQueue.Dequeue());
             }
             else
@@ -274,21 +291,16 @@ public class GameplayManager : MonoBehaviour
     
     private void RightPerformed(InputAction.CallbackContext context)
     {
-        //Debug.Log("RedPerformed : " + context);
+        // Debug.Log("RightPerformed : " + context);
 
         if (_rightTargetQueue.Count != 0)
         {
             Shape currentShape = _rightTargetQueue.Peek();
-            //_tapTime = _audioSource.time;
+            // _tapTime = _audioSource.time;
             _tapTime = _globaleTime;
             if (_tapTime > currentShape.TimeToPress - _goodWindow && _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Right : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_rightTargetQueue.Dequeue());
-            }
-            else if (_globaleTime >  currentShape.TimeToPress + _goodWindow)
-            {
-                Debug.Log("Right : FAILED, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_rightTargetQueue.Dequeue());
             }
             else
@@ -301,21 +313,16 @@ public class GameplayManager : MonoBehaviour
     
     private void BottomPerformed(InputAction.CallbackContext context)
     {
-        //Debug.Log("YellowPerformed : " + context);
+        // Debug.Log("BottomPerformed : " + context);
 
         if (_bottomTargetQueue.Count !=0)
         {
             Shape currentShape = _bottomTargetQueue.Peek();
-            //_tapTime = _audioSource.time;
+            // _tapTime = _audioSource.time;
             _tapTime = _globaleTime;
             if (_tapTime > currentShape.TimeToPress - _goodWindow && _tapTime < currentShape.TimeToPress + _goodWindow)
             {
                 Debug.Log("Bottom : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_bottomTargetQueue.Dequeue());
-            }
-            else if (_globaleTime >  currentShape.TimeToPress + _goodWindow)
-            {
-                Debug.Log("Bottom : FAILED, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_bottomTargetQueue.Dequeue());
             }
             else
@@ -325,6 +332,11 @@ public class GameplayManager : MonoBehaviour
             }
         }    
         
+    }
+    
+    public void TestingPlayerInputTriggered(InputAction.CallbackContext context)
+    {
+        Debug.Log("Triggered" + context);
     }
     
 }
