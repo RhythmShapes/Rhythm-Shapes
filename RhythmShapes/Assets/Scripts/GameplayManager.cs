@@ -219,23 +219,23 @@ public class GameplayManager : MonoBehaviour
             {
                 // Debug.Log("ReleaseIfOutOfTime -> topTime : " + min);
                 Debug.Log("ReleaseIfOutOfTime -> " + _topTargetQueue.Peek().Type);
-                ShapeFactory.Instance.Release(_topTargetQueue.Peek());
+                ShapeFactory.Instance.Release(_topTargetQueue.Dequeue());
             }
             else if (min == leftTime && _globaleTime >  leftTime + _goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> leftTime : " + min);
                 Debug.Log("ReleaseIfOutOfTime -> " + _leftTargetQueue.Peek().Type);
-                ShapeFactory.Instance.Release(_leftTargetQueue.Peek());
+                ShapeFactory.Instance.Release(_leftTargetQueue.Dequeue());
             }
             else if (min == rightTime && _globaleTime >  rightTime + _goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> rightTime : " + min);
-                ShapeFactory.Instance.Release(_rightTargetQueue.Peek());
+                ShapeFactory.Instance.Release(_rightTargetQueue.Dequeue());
             }
             else if (min == bottomTime && _globaleTime >  bottomTime + _goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> bottomTime : " + min);
-                ShapeFactory.Instance.Release(_bottomTargetQueue.Peek());
+                ShapeFactory.Instance.Release(_bottomTargetQueue.Dequeue());
             }
             // else
             // {

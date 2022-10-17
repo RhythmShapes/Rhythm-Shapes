@@ -97,8 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0892d42c8fd9e4db0fae8ad44f1e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeType: 2
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  _pathToFollow: []
-  _speed: 0
-  _timeToSpawn: 0
+  type: 2
