@@ -8,8 +8,12 @@ namespace shape
         public static ShapeFactory Instance { get; private set; }
     
         [SerializeField] private GameObject squarePrefab;
+        [SerializeField] private GameObject circlePrefab;
+        [SerializeField] private GameObject diamondPrefab;
     
         private readonly Queue<Shape> _squares = new();
+        private readonly Queue<Shape> _circles = new();
+        private readonly Queue<Shape> _diamonds = new();
 
         private void Awake()
         {
@@ -24,7 +28,22 @@ namespace shape
             switch (type)
             {
                 case ShapeType.Square:
+                    if (!_squares.TryDequeue(out shape))
+                        shape = Instantiate(squarePrefab).GetComponent<Shape>();
+                    break;
+                
+                case ShapeType.Circle:
+                    if (!_circles.TryDequeue(out shape))
+                        shape = Instantiate(circlePrefab).GetComponent<Shape>();
+                    break;
+                
+                case ShapeType.Diamond:
+                    if (!_diamonds.TryDequeue(out shape))
+                        shape = Instantiate(diamondPrefab).GetComponent<Shape>();
+                    break;
+                
                 default:
+                    Debug.LogError("Unknown ShapeType, using Square");
                     if (!_squares.TryDequeue(out shape))
                         shape = Instantiate(squarePrefab).GetComponent<Shape>();
                     break;
@@ -40,6 +59,14 @@ namespace shape
         
             switch (shape.Type)
             {
+                case ShapeType.Circle:
+                    _circles.Enqueue(shape);
+                    break;
+                
+                case ShapeType.Diamond:
+                    _diamonds.Enqueue(shape);
+                    break;
+                
                 case ShapeType.Square:
                 default:
                     _squares.Enqueue(shape);
