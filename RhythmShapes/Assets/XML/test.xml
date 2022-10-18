@@ -4,8 +4,8 @@
         <TargetDescription>
             <target>Top</target>
             <color>
-                <r>0</r>
-                <g>0</g>
+                <r>102</r>
+                <g>102</g>
                 <b>255</b>
                 <a>255</a>
             </color>
@@ -14,17 +14,17 @@
             <target>Right</target>
             <color>
                 <r>255</r>
-                <g>0</g>
-                <b>0</b>
+                <g>49</g>
+                <b>49</b>
                 <a>255</a>
             </color>
         </TargetDescription>
         <TargetDescription>
             <target>Left</target>
             <color>
-                <r>0</r>
-                <g>255</g>
-                <b>0</b>
+                <r>108</r>
+                <g>246</g>
+                <b>108</b>
                 <a>255</a>
             </color>
         </TargetDescription>
@@ -32,8 +32,8 @@
             <target>Bottom</target>
             <color>
                 <r>255</r>
-                <g>235</g>
-                <b>4</b>
+                <g>255</g>
+                <b>98</b>
                 <a>255</a>
             </color>
         </TargetDescription>
