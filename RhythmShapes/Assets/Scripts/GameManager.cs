@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _level = XmlHelpers.DeserializeDatabaseFromXML<LevelDescription>(levelXML).ToArray()[0];
+        _level = XmlHelpers.DeserializeFromXML<LevelDescription>(levelXML);
 
         foreach (ShapeDescription shape in _level.shapes)
             shape.pathToFollow = GetPath(shape.type, shape.target, shape.goRight);
