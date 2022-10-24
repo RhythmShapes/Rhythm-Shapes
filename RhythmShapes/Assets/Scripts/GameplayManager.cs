@@ -24,7 +24,7 @@ public class GameplayManager : MonoBehaviour
 
     private AudioSource _audioSource;
     // private AudioClip _audioClip;
-    private float _globaleTime;
+    private float _globaleTime = -5;
     private float _goodWindow = 0.2f;
     private float _tapTime;
     
@@ -150,7 +150,7 @@ public class GameplayManager : MonoBehaviour
         _globaleTime += Time.deltaTime;
         // Debug.Log("_globalTime : " + _globaleTime);
         
-        if (Input.GetKey(KeyCode.P) && !_audioSource.isPlaying)
+        if (/*Input.GetKey(KeyCode.P) && */!_audioSource.isPlaying && _globaleTime >= 0)
         {
             StartMusic();
         }

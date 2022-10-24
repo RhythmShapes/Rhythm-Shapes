@@ -40,7 +40,7 @@
     <type>Square</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>0</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -48,7 +48,7 @@
     <type>Square</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>0.835918367</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -56,7 +56,7 @@
     <type>Diamond</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>1.62539685</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -64,7 +64,7 @@
     <type>Circle</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>2.41487527</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -72,15 +72,15 @@
     <type>Square</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>3.20435381</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>3.993832</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -88,7 +88,7 @@
     <type>Diamond</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>4.82975054</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -96,15 +96,15 @@
     <type>Circle</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>5.619229</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>6.40870762</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -112,7 +112,7 @@
     <type>Diamond</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>7.198186</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -120,7 +120,7 @@
     <type>Diamond</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>8.034104</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -128,15 +128,15 @@
     <type>Circle</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>8.823583</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>9.613061</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -144,7 +144,7 @@
     <type>Diamond</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>10.4025393</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -152,15 +152,15 @@
     <type>Diamond</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>11.2384577</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>12.0279369</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -168,23 +168,23 @@
     <type>Square</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>12.8174152</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>13.6068935</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>14.3963718</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -192,15 +192,15 @@
     <type>Circle</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>15.23229</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>16.0217686</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -208,7 +208,7 @@
     <type>Diamond</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>16.8112469</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -216,15 +216,15 @@
     <type>Circle</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>17.6007252</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>18.4366436</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -232,15 +232,15 @@
     <type>Square</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>19.2261219</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>20.0156</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -248,15 +248,15 @@
     <type>Circle</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>20.8050785</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>21.5945587</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -264,7 +264,7 @@
     <type>Square</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>22.4304771</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -272,7 +272,7 @@
     <type>Diamond</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>23.2199554</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -280,7 +280,7 @@
     <type>Circle</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>24.0094337</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -288,23 +288,23 @@
     <type>Square</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>24.798912</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>25.63483</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>26.4243088</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -312,39 +312,39 @@
     <type>Circle</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>27.2137871</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>28.0032654</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>28.7927437</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>29.6286621</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>30.41814</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -352,7 +352,7 @@
     <type>Square</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>31.2076187</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -360,7 +360,7 @@
     <type>Diamond</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>31.997097</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -368,7 +368,7 @@
     <type>Diamond</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>32.8330154</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -376,7 +376,7 @@
     <type>Circle</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>33.6224937</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -384,7 +384,7 @@
     <type>Square</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>34.411972</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -392,23 +392,23 @@
     <type>Diamond</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>35.20145</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>36.03737</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>36.8268471</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -416,7 +416,7 @@
     <type>Square</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>37.6163254</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -424,7 +424,7 @@
     <type>Diamond</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>38.4058037</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -432,7 +432,7 @@
     <type>Circle</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>39.195282</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -440,7 +440,7 @@
     <type>Circle</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>40.0312</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -448,31 +448,31 @@
     <type>Square</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>40.82068</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>41.610157</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>42.3996353</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>43.2355537</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -480,15 +480,15 @@
     <type>Square</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>44.0250359</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>44.8145142</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -496,7 +496,7 @@
     <type>Circle</type>
     <target>Left</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>45.6039925</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -504,23 +504,23 @@
     <type>Square</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>46.39347</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>47.22939</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>48.0188675</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -528,7 +528,7 @@
     <type>Circle</type>
     <target>Top</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>48.8083458</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -536,7 +536,7 @@
     <type>Square</type>
     <target>Right</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>49.5978241</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
@@ -544,8 +544,8 @@
     <type>Square</type>
     <target>Bottom</target>
     <pathToFollow />
-    <speed>20</speed>
+    <speed>5</speed>
     <timeToPress>50.4337425</timeToPress>
-    <goRight>true</goRight>
+    <goRight>false</goRight>
   </ShapeDescription>
 </LevelDescription>

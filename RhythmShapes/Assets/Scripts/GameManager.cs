@@ -39,7 +39,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int diamondCrossPoint;
     
     [Space]
+    [Header("Test values")]
+    [Space]
     [SerializeField] private TextAsset levelXML;
+    [SerializeField] private SpriteRenderer topTargetColor;
+    [SerializeField] private SpriteRenderer rightTargetColor;
+    [SerializeField] private SpriteRenderer leftTargetColor;
+    [SerializeField] private SpriteRenderer bottomTargetColor;
+    [SerializeField] private float shapesSpeed;
 
     private LevelDescription _level;
     
@@ -79,8 +86,17 @@ public class GameManager : MonoBehaviour
     {
         _level = XmlHelpers.DeserializeFromXML<LevelDescription>(levelXML);
 
+        _level.targetColors = new TargetDescription[4];
+        _level.targetColors[0] = new TargetDescription { color = topTargetColor.color, target = Target.Top };
+        _level.targetColors[1] = new TargetDescription { color = rightTargetColor.color, target = Target.Right };
+        _level.targetColors[2] = new TargetDescription { color = leftTargetColor.color, target = Target.Left };
+        _level.targetColors[3] = new TargetDescription { color = bottomTargetColor.color, target = Target.Bottom };
+
         foreach (ShapeDescription shape in _level.shapes)
+        {
             shape.pathToFollow = GetPath(shape.type, shape.target, shape.goRight);
+            shape.speed = shapesSpeed;
+        }
 
         GameplayManager.Instance.Init(_level);
     }

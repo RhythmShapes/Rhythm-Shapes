@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using utils.XML;
 
@@ -10,7 +11,17 @@ namespace shape
     public class Shape : MonoBehaviour
     {
         [SerializeField] private ShapeType type;
-        public ShapeType Type { get; private set; }
+        public ShapeType Type
+        {
+            get => type;
+            private set
+            {
+                if (!Enum.IsDefined(typeof(ShapeType), value))
+                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(ShapeType));
+                Type = value;
+            }
+        }
+
         public float TimeToPress { get; private set; }
 
         private SpriteRenderer _spriteRenderer;
