@@ -37,6 +37,7 @@ public class FileLoader : MonoBehaviour
             shape.speed = shapesSpeed;
         }
         
+        onLoadedEvent.AddListener(GameplayManager.Instance.Init);
         onLoadedEvent.Invoke(level);
     }
 }
