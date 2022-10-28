@@ -33,22 +33,18 @@ namespace shape
         private int _i;
         private Vector3 _startPosition;
         private Vector3 _target;
-        private float _timeToReachTarget;
-        private Queue<float> _timeIQueue;
-        public void Init(ShapeDescription description, Color color, Queue<float> timeToTargetQueue)
+        public void Init(ShapeDescription description, Color color)
         {
             _pathToFollow = description.pathToFollow;
             _spriteRenderer.color = color;
             TimeToPress = description.timeToPress;
             _speed = description.speed;
-            _timeIQueue = timeToTargetQueue;
-            
+
             _startPosition = _pathToFollow[0];
             _target = _pathToFollow[1];
-            _timeToReachTarget = _timeIQueue.Dequeue();
             _t = 0;
             _i = 2;
-            // Debug.Log( "Init --> _startPosition : "+_startPosition+", _target :"+_target+", _timeToReachTarget : "+_timeToReachTarget);
+            // Debug.Log( "Init --> _startPosition : "+_startPosition+", _target :"+_target);
         }
     
         private void Awake()
@@ -73,8 +69,7 @@ namespace shape
             _t = 0;
             _startPosition = _target;
             _target = destination;
-            _timeToReachTarget = _timeIQueue.Dequeue();
-            // Debug.Log( "SetDestination --> _startPosition : "+_startPosition+", _target :"+_target+", _timeToReachTarget : "+_timeToReachTarget);
+            // Debug.Log( "SetDestination --> _startPosition : "+_startPosition+", _target :"+_target);
         }
         
     }
