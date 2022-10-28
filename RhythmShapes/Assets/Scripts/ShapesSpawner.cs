@@ -40,14 +40,13 @@ public class ShapesSpawner : MonoBehaviour
 
     public void SpawnShapes(float globalTime, float deltaTime)
     {
-        float precision = deltaTime/2;
         Shape shape;
         ShapeDescription nextSpawnableShape = _shapeDescriptionsQueue.Peek();
         float nextSpawnableShapeSpawnTime = _spawnTimesQueue.Peek();
         Color nextSpawnableShapeColor = _shapeColorsQueue.Peek();
         // Debug.Log(globalTime);
 
-        if (nextSpawnableShapeSpawnTime > globalTime-precision && nextSpawnableShapeSpawnTime < globalTime+precision)
+        if (nextSpawnableShapeSpawnTime > globalTime-deltaTime && nextSpawnableShapeSpawnTime < globalTime+deltaTime)
         {
             // Debug.Log("SpawnShapes -> globalTime : " + globalTime);
             shape = ShapeFactory.Instance.GetShape(nextSpawnableShape.type);

@@ -15,6 +15,7 @@ public class LevelPreparator : MonoBehaviour
     private Queue<float> _spawnTimesQueue;
     private Queue<Color> _shapeColorsQueue;
     private Queue<Queue<float>> _timeToTargetQueues;
+    // private Queue<AttendedInput> _attendedInputQueues;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class LevelPreparator : MonoBehaviour
         _shapeDescriptionsQueue = new Queue<ShapeDescription>();
         _spawnTimesQueue = new Queue<float>();
         _shapeColorsQueue = new Queue<Color>();
+        // _attendedInputQueues = new Queue<AttendedInput>();
         
         onLevelUnityEvent ??= new UnityEvent<Queue<ShapeDescription>,Queue<float>,Queue<Color>>();
     }
@@ -40,18 +42,18 @@ public class LevelPreparator : MonoBehaviour
     
     public void Init(LevelDescription level)
     {
-        Debug.Log("levelTitle : " + level.title);
+        // Debug.Log("levelTitle : " + level.title);
         for (int i = 0; i < level.shapes.Length; i++)
         {
             ShapeDescription shapeDescription = level.shapes[i];
-            
+
             // Debug.Log("iteration :" + i);
             // _spawnTimes.Enqueue(level.shapes[i].timeToPress);
             _shapeDescriptionsQueue.Enqueue(shapeDescription);
             _shapeColorsQueue.Enqueue(level.GetTargetColor(shapeDescription.target));
             
             float totalPathDistance = ComputeShapeElement(shapeDescription); 
-            Debug.Log("shapeDescription.pathToFollow.Length : " + shapeDescription.pathToFollow.Length);
+            // Debug.Log("shapeDescription.pathToFollow.Length : " + shapeDescription.pathToFollow.Length);
             float speedAdjustment;
             switch (shapeDescription.type) // speedAdjustment according to shape
             {
@@ -74,11 +76,11 @@ public class LevelPreparator : MonoBehaviour
                     break;
             }
             // Debug.Log("TotalPathDistance : " + totalPathDistance);
+            // Debug.Log("timeToPress : " + shapeDescription.timeToPress);
             // Debug.Log("SpawnTimes : " + (shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed));
             _spawnTimesQueue.Enqueue(shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed);
         }
-        Debug.Log("help me please");
-        
+
         onLevelUnityEvent.Invoke(_shapeDescriptionsQueue,_spawnTimesQueue,_shapeColorsQueue);
     }
     
