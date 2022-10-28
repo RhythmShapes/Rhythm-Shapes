@@ -85,14 +85,8 @@ public class GameplayManager : MonoBehaviour
         // Debug.Log("TopPerformed : " + context);
         if (_topTargetQueue.Count != 0)
         {
-            Shape currentShape = _topTargetQueue.Peek();
-            // _tapTime = _audioSource.time;
-            _tapTime = globalTime;
-            if (_tapTime > currentShape.TimeToPress - goodWindow && _tapTime < currentShape.TimeToPress + goodWindow)
+            if (Validation.Instance.TestInput(_topTargetQueue))
             {
-                
-                Debug.Log("Top : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_topTargetQueue.Dequeue());
                 UIManager.Instance.SetBlueTextGood();
             }
         }
@@ -104,13 +98,8 @@ public class GameplayManager : MonoBehaviour
         // Debug.Log("LeftPerformed : " + context);
         if (_leftTargetQueue.Count != 0)
         {
-            Shape currentShape = _leftTargetQueue.Peek();
-            // _tapTime = _audioSource.time;
-            _tapTime = globalTime;
-            if (_tapTime > currentShape.TimeToPress - goodWindow && _tapTime < currentShape.TimeToPress + goodWindow)
+            if (Validation.Instance.TestInput(_leftTargetQueue))
             {
-                Debug.Log("Left : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_leftTargetQueue.Dequeue());
                 UIManager.Instance.SetGreenTextGood();
             }
         }
@@ -122,13 +111,8 @@ public class GameplayManager : MonoBehaviour
         // Debug.Log("RightPerformed : " + context);
         if (_rightTargetQueue.Count != 0)
         {
-            Shape currentShape = _rightTargetQueue.Peek();
-            // _tapTime = _audioSource.time;
-            _tapTime = globalTime;
-            if (_tapTime > currentShape.TimeToPress - goodWindow && _tapTime < currentShape.TimeToPress + goodWindow)
+            if (Validation.Instance.TestInput(_rightTargetQueue))
             {
-                Debug.Log("Right : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_rightTargetQueue.Dequeue());
                 UIManager.Instance.SetRedTextGood();
             }
         }
@@ -139,13 +123,8 @@ public class GameplayManager : MonoBehaviour
         // Debug.Log("BottomPerformed : " + context);
         if (_bottomTargetQueue.Count !=0)
         {
-            Shape currentShape = _bottomTargetQueue.Peek();
-            // _tapTime = _audioSource.time;
-            _tapTime = globalTime;
-            if (_tapTime > currentShape.TimeToPress - goodWindow && _tapTime < currentShape.TimeToPress + goodWindow)
+            if (Validation.Instance.TestInput(_bottomTargetQueue))
             {
-                Debug.Log("Bottom : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
-                ShapeFactory.Instance.Release(_bottomTargetQueue.Dequeue());
                 UIManager.Instance.SetYellowTextGood();
             }
         }    
