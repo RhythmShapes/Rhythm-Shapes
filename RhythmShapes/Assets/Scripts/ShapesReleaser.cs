@@ -65,21 +65,25 @@ public class ShapesReleaser : MonoBehaviour
             if (min == topTime && GameplayManager.Instance.globalTime >  topTime + GameplayManager.Instance.goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> topTime : " + min);
+                UIManager.Instance.SetBlueTextMiss();
                 ShapeFactory.Instance.Release(GameplayManager.Instance._topTargetQueue.Dequeue());
             }
             else if (min == leftTime && GameplayManager.Instance.globalTime >  leftTime + GameplayManager.Instance.goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> leftTime : " + min);
+                UIManager.Instance.SetGreenTextMiss();
                 ShapeFactory.Instance.Release(GameplayManager.Instance._leftTargetQueue.Dequeue());
             }
             else if (min == rightTime && GameplayManager.Instance.globalTime >  rightTime + GameplayManager.Instance.goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> rightTime : " + min);
+                UIManager.Instance.SetRedTextMiss();
                 ShapeFactory.Instance.Release(GameplayManager.Instance._rightTargetQueue.Dequeue());
             }
             else if (min == bottomTime && GameplayManager.Instance.globalTime >  bottomTime + GameplayManager.Instance.goodWindow)
             {
                 // Debug.Log("ReleaseIfOutOfTime -> bottomTime : " + min);
+                UIManager.Instance.SetYellowTextMiss();
                 ShapeFactory.Instance.Release(GameplayManager.Instance._bottomTargetQueue.Dequeue());
             }
             // else

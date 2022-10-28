@@ -24,7 +24,7 @@ public class GameplayManager : MonoBehaviour
     private AudioSource _audioSource;
     // private AudioClip _audioClip;
     public float globalTime = -5;
-    public float goodWindow = 0.2f;
+    public float goodWindow = 0.1f;
     private float _tapTime;
     
     private void Awake()
@@ -90,8 +90,10 @@ public class GameplayManager : MonoBehaviour
             _tapTime = globalTime;
             if (_tapTime > currentShape.TimeToPress - goodWindow && _tapTime < currentShape.TimeToPress + goodWindow)
             {
+                
                 Debug.Log("Top : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_topTargetQueue.Dequeue());
+                UIManager.Instance.SetBlueTextGood();
             }
         }
  
@@ -109,6 +111,7 @@ public class GameplayManager : MonoBehaviour
             {
                 Debug.Log("Left : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_leftTargetQueue.Dequeue());
+                UIManager.Instance.SetGreenTextGood();
             }
         }
         
@@ -126,6 +129,7 @@ public class GameplayManager : MonoBehaviour
             {
                 Debug.Log("Right : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_rightTargetQueue.Dequeue());
+                UIManager.Instance.SetRedTextGood();
             }
         }
     }
@@ -142,6 +146,7 @@ public class GameplayManager : MonoBehaviour
             {
                 Debug.Log("Bottom : GOOOOOOOD, tapTime : " + _tapTime + ", TimeToPress : " + currentShape.TimeToPress);
                 ShapeFactory.Instance.Release(_bottomTargetQueue.Dequeue());
+                UIManager.Instance.SetYellowTextGood();
             }
         }    
         
