@@ -62,14 +62,34 @@ public class GameplayManager : MonoBehaviour
         for (int i = 0; i < level.shapes.Length; i++)
         {
             ShapeDescription shapeDescription = level.shapes[i];
+            float speedAdjustment;
             // Debug.Log("iteration :" + i);
             // _spawnTimes.Enqueue(level.shapes[i].timeToPress);
             _shapeDescriptionsQueue.Enqueue(shapeDescription);
             _shapeColorsQueue.Enqueue(level.GetTargetColor(shapeDescription.target));
             
             float totalPathDistance = ComputeShapeElement(shapeDescription); 
-            // Debug.Log("shapeDescription.pathToFollow.Length : " + shapeDescription.pathToFollow.Length);
-            
+            Debug.Log("shapeDescription.pathToFollow.Length : " + shapeDescription.pathToFollow.Length);
+            switch (shapeDescription.type) // speedAdjustment according to shape
+            {
+                case ShapeType.Square :
+                    speedAdjustment = 14.48528f/8.485281f; 
+                    shapeDescription.speed *= speedAdjustment;
+                    break;
+                case ShapeType.Circle :
+                    speedAdjustment = 10.7225f/8.485281f;
+                    shapeDescription.speed *= speedAdjustment;
+                    break;
+                case ShapeType.Diamond :
+                    speedAdjustment = 1;
+                    shapeDescription.speed *= speedAdjustment;
+                    break;
+                default:
+                    Debug.LogError("Unknown Type, using Square as default");
+                    speedAdjustment = 14.48528f/8.485281f;
+                    shapeDescription.speed *= speedAdjustment;
+                    break;
+            }
             // Debug.Log("TotalPathDistance : " + totalPathDistance);
             // Debug.Log("SpawnTimes : " + (shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed));
             _spawnTimesQueue.Enqueue(shapeDescription.timeToPress - totalPathDistance / shapeDescription.speed);
