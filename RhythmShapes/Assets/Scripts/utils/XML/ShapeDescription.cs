@@ -7,8 +7,6 @@ namespace utils.XML
     {
         public ShapeType type;
         public Target target;
-        public Vector2[] pathToFollow;
-        public float speed;
         public float timeToPress;
         public bool goRight;
     }

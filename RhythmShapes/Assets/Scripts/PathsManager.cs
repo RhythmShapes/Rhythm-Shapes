@@ -46,6 +46,12 @@ public class PathsManager : MonoBehaviour
     private readonly Vector2[][] _squarePaths = new Vector2[MaxPathPerShape][];
     private readonly Vector2[][] _circlePaths = new Vector2[MaxPathPerShape][];
     private readonly Vector2[][] _diamondPaths = new Vector2[MaxPathPerShape][];
+    
+    // Total distance for the 3 paths possible
+    private const int SquareDistance = 0;
+    private const int CircleDistance = 1;
+    private const int DiamondDistance = 2;
+    private readonly float[] _pathsTotalDistance = new float[3];
 
     private void Awake()
     {
@@ -66,6 +72,10 @@ public class PathsManager : MonoBehaviour
                 goRight = false;
             }
         }
+
+        _pathsTotalDistance[SquareDistance] = CalculatePathTotalDistance(_squarePaths[0]);
+        _pathsTotalDistance[CircleDistance] = CalculatePathTotalDistance(_circlePaths[0]);
+        _pathsTotalDistance[DiamondDistance] = CalculatePathTotalDistance(_diamondPaths[0]);
     }
     
     /**
@@ -118,6 +128,21 @@ public class PathsManager : MonoBehaviour
             default:
                 Debug.LogError("Unknown ShapeType, using Square as default");
                 return _squarePaths[targetIndex + direction];
+        }
+    }
+
+    public float GetPathTotalDistance(ShapeType type)
+    {
+        switch (type)
+        {
+            case ShapeType.Square:
+                return _pathsTotalDistance[SquareDistance];
+            case ShapeType.Circle:
+                return _pathsTotalDistance[CircleDistance];
+            case ShapeType.Diamond:
+                return _pathsTotalDistance[DiamondDistance];
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
     }
 
@@ -247,5 +272,24 @@ public class PathsManager : MonoBehaviour
     {
         return (value.x >= Math.Min(bound1.x, bound2.x) && value.x <= Math.Max(bound1.x ,bound2.x)) &&
                (value.y >= Math.Min(bound1.y, bound2.y) && value.y <= Math.Max(bound1.y ,bound2.y));
+    }
+
+    /**
+     * Calculate path distance
+     * Returns the distance
+     * path : Vector2[] representing the path
+    */
+    private float CalculatePathTotalDistance(Vector2[] path)
+    {
+        float totalPathDistance = 0;
+        Vector2 lastElement = Vector2.zero;
+        
+        foreach (var element in path)
+        {
+            totalPathDistance += Vector3.Distance(lastElement, element);
+            lastElement = element;
+        }
+
+        return totalPathDistance;
     }
 }
