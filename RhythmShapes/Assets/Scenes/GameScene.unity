@@ -408,7 +408,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &566953787 stripped
 SpriteRenderer:
@@ -656,8 +656,6 @@ GameObject:
   m_Component:
   - component: {fileID: 792051162}
   - component: {fileID: 792051161}
-  - component: {fileID: 792051167}
-  - component: {fileID: 792051164}
   - component: {fileID: 792051163}
   - component: {fileID: 792051166}
   - component: {fileID: 792051168}
@@ -792,21 +790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2183b96c67944226aabf7fbb28946f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &792051164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792051159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e786b9e7364db64a851a21141dacdbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  squarePrefab: {fileID: 6641044785536530058, guid: 8a152c80c89e53146a74c6a9f29a455e, type: 3}
-  circlePrefab: {fileID: 6834344386689168727, guid: 8b36a67463fb9ba4ebee627a55ee2c26, type: 3}
-  diamondPrefab: {fileID: 5476925593244918754, guid: 59cb898688405f24aacbe6576d2127de, type: 3}
 --- !u!114 &792051165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +802,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058af164467712b49bba68299a405972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInputValidated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1438464771}
+        m_TargetAssemblyTypeName: AccuracyTextManager, Assembly-CSharp
+        m_MethodName: SetAccuracyText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &792051166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,19 +829,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af755a77c00c412ab6c9589f8cae290a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &792051167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792051159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f9af2d5b3c943d38af366039a55417f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goodPressedWindow: 0.05
+  onInputMissed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1438464771}
+        m_TargetAssemblyTypeName: AccuracyTextManager, Assembly-CSharp
+        m_MethodName: SetAccuracyText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &792051168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,7 +1018,6 @@ GameObject:
   - component: {fileID: 992990945}
   - component: {fileID: 992990947}
   - component: {fileID: 992990948}
-  - component: {fileID: 992990949}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1113,13 +1112,45 @@ MonoBehaviour:
   leftTargetColor: {fileID: 566953788}
   bottomTargetColor: {fileID: 566953787}
   shapesSpeed: 10
---- !u!114 &992990949
+--- !u!1 &1163739776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1163739780}
+  - component: {fileID: 1163739779}
+  - component: {fileID: 1163739778}
+  - component: {fileID: 1163739777}
+  m_Layer: 0
+  m_Name: ModelsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1163739777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992990944}
+  m_GameObject: {fileID: 1163739776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9af2d5b3c943d38af366039a55417f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodPressedWindow: 0.05
+--- !u!114 &1163739778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163739776}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 178ec93d4fbd4ef3a31049f9afec8c77, type: 3}
@@ -1139,6 +1170,36 @@ MonoBehaviour:
   squareCrossPoint: 3
   circleCrossPoint: 2
   diamondCrossPoint: 1
+--- !u!114 &1163739779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163739776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e786b9e7364db64a851a21141dacdbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squarePrefab: {fileID: 6641044785536530058, guid: 8a152c80c89e53146a74c6a9f29a455e, type: 3}
+  circlePrefab: {fileID: 6834344386689168727, guid: 8b36a67463fb9ba4ebee627a55ee2c26, type: 3}
+  diamondPrefab: {fileID: 5476925593244918754, guid: 59cb898688405f24aacbe6576d2127de, type: 3}
+--- !u!4 &1163739780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163739776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249634501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,5 +1522,5 @@ Transform:
   m_Children:
   - {fileID: 664061837}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -1,9 +1,13 @@
 using shape;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PressValidation : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public class InputValidation : MonoBehaviour
 {
-    public static PressValidation Instance { get; private set; }
+    public static InputValidation Instance { get; private set; }
+
+    [SerializeField] private UnityEvent<Target, PressedAccuracy> onInputValidated;
     
     private AudioSource _audioSource;
     
@@ -29,7 +33,7 @@ public class PressValidation : MonoBehaviour
                 foreach (var shape in input.Shapes)
                 {
                     ShapeFactory.Instance.Release(shape);
-                    AccuracyTextManager.Instance.SetAccuracyText(shape.Target, PressedAccuracy.Good);
+                    onInputValidated.Invoke(shape.Target, PressedAccuracy.Good);
                 }
 
                 model.PopAttendedInput();

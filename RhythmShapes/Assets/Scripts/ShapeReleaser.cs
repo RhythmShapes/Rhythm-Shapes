@@ -1,9 +1,12 @@
 using shape;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class ShapeReleaser : MonoBehaviour
 {
+    [SerializeField] private UnityEvent<Target, PressedAccuracy> onInputMissed;
+    
     private AudioSource _audioSource;
 
     private void Awake()
@@ -24,7 +27,7 @@ public class ShapeReleaser : MonoBehaviour
                 foreach (var shape in input.Shapes)
                 {
                     ShapeFactory.Instance.Release(shape);
-                    AccuracyTextManager.Instance.SetAccuracyText(shape.Target, PressedAccuracy.Missed);
+                    onInputMissed.Invoke(shape.Target, PressedAccuracy.Missed);
                 }
 
                 model.PopAttendedInput();
