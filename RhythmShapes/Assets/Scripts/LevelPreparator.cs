@@ -41,7 +41,7 @@ public class LevelPreparator : MonoBehaviour
             );
         }
         
-        onReady.Invoke();
+        onReady?.Invoke();
     }
 
     private Color GetShapeColor(Target target)
