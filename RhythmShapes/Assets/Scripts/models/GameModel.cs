@@ -6,10 +6,16 @@ namespace models
 {
     public class GameModel : MonoBehaviour
     {
+        [SerializeField] private float perfectPressedWindow;
         [SerializeField] private float goodPressedWindow;
+        [SerializeField] private float okPressedWindow;
+        [SerializeField] private float badPressedWindow;
+        public float PerfectPressedWindow => perfectPressedWindow;
+        public float GoodPressedWindow => goodPressedWindow;
+        public float OkPressedWindow => okPressedWindow;
+        public float BadPressedWindow => badPressedWindow;
     
         public static GameModel Instance { get; private set; }
-        public float GoodPressedWindow => goodPressedWindow;
 
         private readonly Queue<ShapeModel> _shapeModels = new();
         private readonly Queue<AttendedInput> _attendedInputs = new();

@@ -29,28 +29,61 @@ public class InputValidation : MonoBehaviour
         if (model.HasNextAttendedInput())
         {
             AttendedInput input = model.GetNextAttendedInput();
-            
-            if(!input.ShouldBePressed(target))
-                return;
 
-            if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow &&
-                _audioSource.time <= input.TimeToPress + model.GoodPressedWindow)
+            if (input.ShouldBePressed(target))
             {
-                if(!input.MustPressAll)
-                    onInputValidated.Invoke(target, PressedAccuracy.Good);
-                
-                if (!input.AreAllPressed())
-                    return;
-                
-                foreach (var shape in input.Shapes)
+                PressedAccuracy accuracy = CalculateAccuracy(input);
+                if (accuracy != PressedAccuracy.Missed)
                 {
-                    ShapeFactory.Instance.Release(shape);
-                    if(input.MustPressAll)
-                        onInputValidated.Invoke(shape.Target, PressedAccuracy.Good);
-                }
+                    if(!input.MustPressAll)
+                        onInputValidated.Invoke(target, accuracy);
 
-                model.PopAttendedInput();
+                    if (input.AreAllPressed())
+                    {
+                        foreach (var shape in input.Shapes)
+                        {
+                            ShapeFactory.Instance.Release(shape);
+                            if(input.MustPressAll)
+                                onInputValidated.Invoke(shape.Target, accuracy);
+                        }
+
+                        model.PopAttendedInput();
+                    }
+                }
             }
+            
+            input.ResetAllPressed();
         }
+    }
+
+    private PressedAccuracy CalculateAccuracy(AttendedInput input)
+    {
+        GameModel model = GameModel.Instance;
+
+        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow &&
+            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow)
+        {
+            return PressedAccuracy.Perfect;
+        }
+        
+        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow &&
+            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow)
+        {
+            return PressedAccuracy.Good;
+        }
+        
+        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow &&
+            _audioSource.time <= input.TimeToPress + model.OkPressedWindow)
+        {
+            return PressedAccuracy.Ok;
+        }
+        
+        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow &&
+            _audioSource.time <= input.TimeToPress + model.BadPressedWindow)
+        {
+            return PressedAccuracy.Bad;
+        }
+
+        return PressedAccuracy.Missed;
     }
 }

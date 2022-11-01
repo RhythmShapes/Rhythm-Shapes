@@ -66,6 +66,8 @@ namespace ui
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            targetText.GetComponent<Animator>().SetTrigger("Show");
         }
     }
 }

@@ -49,6 +49,14 @@ namespace models
             }
         }
 
+        public void ResetAllPressed()
+        {
+            _pressed[TopTarget] = false;
+            _pressed[RightTarget] = false;
+            _pressed[LeftTarget] = false;
+            _pressed[BottomTarget] = false;
+        }
+
         public bool ShouldBePressed(Target target)
         {
             foreach (var shape in Shapes)
