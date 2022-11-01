@@ -6,9 +6,9 @@ public class LevelLoader : MonoBehaviour
 {
     public UnityEvent<LevelDescription> onLoadedEvent;
     
-    [Header("Test values")]
+    [Header("Tests")]
     [Space]
-    [SerializeField] private TextAsset levelXML;
+    [SerializeField] private TextAsset defaultXML;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class LevelLoader : MonoBehaviour
 
     private void Start()
     {
-        LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(levelXML);
+        LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(defaultXML);
         onLoadedEvent.Invoke(level);
     }
 }

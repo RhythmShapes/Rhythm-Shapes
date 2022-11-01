@@ -1,5 +1,6 @@
+using models;
 using shape;
-using UI;
+using ui;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,21 +21,31 @@ public class InputValidation : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void OnInputPerformed()
+    public void OnInputPerformed(Target target)
     {
         GameModel model = GameModel.Instance;
         
         if (model.HasNextAttendedInput())
         {
             AttendedInput input = model.GetNextAttendedInput();
+            
+            if(!input.ShouldBePressed(target))
+                return;
 
             if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow &&
-                _audioSource.time <= input.TimeToPress + model.GoodPressedWindow && input.IsAllPressed())
+                _audioSource.time <= input.TimeToPress + model.GoodPressedWindow)
             {
+                if(!input.MustPressAll)
+                    onInputValidated.Invoke(target, PressedAccuracy.Good);
+                
+                if (!input.AreAllPressed())
+                    return;
+                
                 foreach (var shape in input.Shapes)
                 {
                     ShapeFactory.Instance.Release(shape);
-                    onInputValidated.Invoke(shape.Target, PressedAccuracy.Good);
+                    if(input.MustPressAll)
+                        onInputValidated.Invoke(shape.Target, PressedAccuracy.Good);
                 }
 
                 model.PopAttendedInput();

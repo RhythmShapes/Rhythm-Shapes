@@ -3,7 +3,7 @@ using shape;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace ui
 {
     public class AccuracyTextManager : MonoBehaviour
     {

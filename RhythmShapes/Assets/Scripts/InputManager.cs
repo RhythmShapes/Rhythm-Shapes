@@ -1,10 +1,11 @@
-﻿using shape;
+﻿using models;
+using shape;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private UnityEvent onInputPerformed;
+    [SerializeField] private UnityEvent<Target> onInputPerformed;
     
     private InputSystem _inputSystem;
     
@@ -23,7 +24,7 @@ public class InputManager : MonoBehaviour
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);
-            onInputPerformed.Invoke();
+            onInputPerformed.Invoke(target);
         }
     }
 }

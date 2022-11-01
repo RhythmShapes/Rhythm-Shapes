@@ -1,4 +1,5 @@
 using System;
+using models;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
@@ -35,7 +36,7 @@ public class LevelPreparator : MonoBehaviour
             if(timeToSpawn < 0)
                 continue;
             
-            GameModel.Instance.AddShapeModel(
+            GameModel.Instance.PushShapeModel(
                 new ShapeModel(shapeDescription.type, shapeDescription.target, color, path, shapeDescription.timeToPress, timeToSpawn, speed)
             );
         }

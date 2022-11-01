@@ -1,67 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LevelDescription title="Test">
-    <TargetDescription>
-        <target>Top</target>
-        <color>
-            <r>102</r>
-            <g>102</g>
-            <b>255</b>
-            <a>255</a>
-        </color>
-    </TargetDescription>
-    <TargetDescription>
-        <target>Right</target>
-        <color>
-            <r>255</r>
-            <g>49</g>
-            <b>49</b>
-            <a>255</a>
-        </color>
-    </TargetDescription>
-    <TargetDescription>
-        <target>Left</target>
-        <color>
-            <r>108</r>
-            <g>246</g>
-            <b>108</b>
-            <a>255</a>
-        </color>
-    </TargetDescription>
-    <TargetDescription>
-        <target>Bottom</target>
-        <color>
-            <r>255</r>
-            <g>255</g>
-            <b>98</b>
-            <a>255</a>
-        </color>
-    </TargetDescription>
     <ShapeDescription>
         <type>Square</type>
         <target>Right</target>
         <goRight>true</goRight>
-        <timeToPress>2.5</timeToPress>
-        <speed>10</speed>
+        <timeToPress>1.2852154</timeToPress>
     </ShapeDescription>
     <ShapeDescription>
-        <type>Circle</type>
-        <target>Left</target>
-        <goRight>false</goRight>
-        <timeToPress>5</timeToPress>
-        <speed>10</speed>
+        <type>Square</type>
+        <target>Top</target>
+        <goRight>true</goRight>
+        <timeToPress>1.2852154</timeToPress>
     </ShapeDescription>
     <ShapeDescription>
         <type>Diamond</type>
-        <target>Top</target>
-        <goRight>false</goRight>
-        <timeToPress>7</timeToPress>
-        <speed>10</speed>
+        <target>Left</target>
+        <goRight>true</goRight>
+        <timeToPress>1.2852154</timeToPress>
     </ShapeDescription>
     <ShapeDescription>
-        <type>Square</type>
+        <type>Circle</type>
         <target>Bottom</target>
         <goRight>true</goRight>
-        <timeToPress>4</timeToPress>
-        <speed>10</speed>
+        <timeToPress>1.2852154</timeToPress>
+    </ShapeDescription>
+    <ShapeDescription>
+        <type>Circle</type>
+        <target>Bottom</target>
+        <goRight>true</goRight>
+        <timeToPress>1.385216</timeToPress>
+    </ShapeDescription>
+    <ShapeDescription>
+        <type>Circle</type>
+        <target>Bottom</target>
+        <goRight>true</goRight>
+        <timeToPress>2</timeToPress>
+    </ShapeDescription>
+    <ShapeDescription>
+        <type>Circle</type>
+        <target>Top</target>
+        <goRight>true</goRight>
+        <timeToPress>2</timeToPress>
     </ShapeDescription>
 </LevelDescription>

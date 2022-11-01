@@ -1,4 +1,7 @@
-﻿using shape;
+﻿using System;
+using System.Collections.Generic;
+using models;
+using shape;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -14,24 +17,30 @@ public class ShapeSpawner : MonoBehaviour
     private void Update()
     {
         GameModel model = GameModel.Instance;
+        List<Shape> shapes = new List<Shape>();
 
         while (model.HasNextShapeModel())
         {
             ShapeModel shapeModel = model.GetNextShapeModel();
-
+            
             if (shapeModel.TimeToSpawn <= _audioSource.time)
             {
-                Shape[] shape = new Shape[1];
-                shape[0] = ShapeFactory.Instance.GetShape(shapeModel.Type);
-                shape[0].Init(shapeModel);
-
-                Target[] target = new Target[1];
-                target[0] = shapeModel.Target;
-
-                model.AddAttendedInput(new AttendedInput(shapeModel.TimeToPress, shape, target));
+                if (shapes.Count > 0 && Math.Abs(shapes[0].TimeToPress - shapeModel.TimeToPress) != 0f)
+                {
+                    model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+                    shapes.Clear();
+                }
+                
+                Shape shape = ShapeFactory.Instance.GetShape(shapeModel.Type);
+                shape.Init(shapeModel);
+                
+                shapes.Add(shape);
                 model.PopShapeDescription();
             }
             else break;
         }
+
+        if (shapes.Count > 0)
+            model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
     }
 }

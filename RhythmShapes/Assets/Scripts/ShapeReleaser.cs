@@ -1,5 +1,6 @@
+using models;
 using shape;
-using UI;
+using ui;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,7 +29,9 @@ public class ShapeReleaser : MonoBehaviour
                 foreach (var shape in input.Shapes)
                 {
                     ShapeFactory.Instance.Release(shape);
-                    onInputMissed.Invoke(shape.Target, PressedAccuracy.Missed);
+                    
+                    if(!input.IsPressed(shape.Target) || input.MustPressAll)
+                        onInputMissed.Invoke(shape.Target, PressedAccuracy.Missed);
                 }
 
                 model.PopAttendedInput();
