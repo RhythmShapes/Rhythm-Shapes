@@ -14,6 +14,7 @@ public class ShapeReleaser : MonoBehaviour
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        onInputMissed ??= new UnityEvent<Target, PressedAccuracy>();
     }
     
     private void Update()
@@ -31,7 +32,7 @@ public class ShapeReleaser : MonoBehaviour
                     ShapeFactory.Instance.Release(shape);
                     
                     if(!input.IsPressed(shape.Target) || input.MustPressAll)
-                        onInputMissed?.Invoke(shape.Target, PressedAccuracy.Missed);
+                        onInputMissed.Invoke(shape.Target, PressedAccuracy.Missed);
                 }
 
                 model.PopAttendedInput();

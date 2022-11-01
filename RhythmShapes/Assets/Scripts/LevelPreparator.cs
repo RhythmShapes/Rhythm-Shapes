@@ -13,7 +13,12 @@ public class LevelPreparator : MonoBehaviour
     [SerializeField] private SpriteRenderer leftTargetColor;
     [SerializeField] private SpriteRenderer bottomTargetColor;
     [SerializeField] private float shapesSpeed;
-    
+
+    private void Awake()
+    {
+        onReady ??= new UnityEvent();
+    }
+
     public void Init(LevelDescription level)
     {
         float squareSpeedAdjustment = PathsManager.Instance.GetPathTotalDistance(ShapeType.Square) /
@@ -41,7 +46,7 @@ public class LevelPreparator : MonoBehaviour
             );
         }
         
-        onReady?.Invoke();
+        onReady.Invoke();
     }
 
     private Color GetShapeColor(Target target)
