@@ -31,7 +31,7 @@ public class ShapeReleaser : MonoBehaviour
                     ShapeFactory.Instance.Release(shape);
                     
                     if(!input.IsPressed(shape.Target) || input.MustPressAll)
-                        onInputMissed.Invoke(shape.Target, PressedAccuracy.Missed);
+                        onInputMissed?.Invoke(shape.Target, PressedAccuracy.Missed);
                 }
 
                 model.PopAttendedInput();

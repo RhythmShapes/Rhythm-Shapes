@@ -36,7 +36,7 @@ public class InputValidation : MonoBehaviour
                 _audioSource.time <= input.TimeToPress + model.GoodPressedWindow)
             {
                 if(!input.MustPressAll)
-                    onInputValidated.Invoke(target, PressedAccuracy.Good);
+                    onInputValidated?.Invoke(target, PressedAccuracy.Good);
                 
                 if (!input.AreAllPressed())
                     return;
@@ -45,7 +45,7 @@ public class InputValidation : MonoBehaviour
                 {
                     ShapeFactory.Instance.Release(shape);
                     if(input.MustPressAll)
-                        onInputValidated.Invoke(shape.Target, PressedAccuracy.Good);
+                        onInputValidated?.Invoke(shape.Target, PressedAccuracy.Good);
                 }
 
                 model.PopAttendedInput();

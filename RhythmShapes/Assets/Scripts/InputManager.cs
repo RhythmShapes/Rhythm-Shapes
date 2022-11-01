@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);
-            onInputPerformed.Invoke(target);
+            onInputPerformed?.Invoke(target);
         }
     }
 }

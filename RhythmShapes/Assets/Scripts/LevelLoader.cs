@@ -10,14 +10,9 @@ public class LevelLoader : MonoBehaviour
     [Space]
     [SerializeField] private TextAsset defaultXML;
 
-    private void Awake()
-    {
-        onLoadedEvent ??= new UnityEvent<LevelDescription>();
-    }
-
     private void Start()
     {
         LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(defaultXML);
-        onLoadedEvent.Invoke(level);
+        onLoadedEvent?.Invoke(level);
     }
 }
