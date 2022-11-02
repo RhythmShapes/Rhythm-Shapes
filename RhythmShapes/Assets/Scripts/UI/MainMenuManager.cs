@@ -23,8 +23,8 @@ public class MainMenuManager : MonoBehaviour
     { 
         Debug.Log("StartGame");
         // SceneManager.LoadScene("");
-        // mainMenuCanvas.SetActive(false);
-        // musicSelectionMenuCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(false);
+        musicSelectionMenuCanvas.SetActive(true);
     }
     
     public void ShowOptions()
@@ -46,6 +46,19 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("QuitGame");
         Application.Quit();
+    }
+    
+    public void BackToMainMenu()
+    { 
+        Debug.Log("BackToMainMenu");
+        
+        musicSelectionMenuCanvas.SetActive(false);
+        mainMenuCanvas.SetActive(true);
+    }
+    
+    public void PlayLeveLTest()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     public void SavePlayerMusicVolumePrefs()
