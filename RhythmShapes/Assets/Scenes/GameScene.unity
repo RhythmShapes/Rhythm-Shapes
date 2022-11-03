@@ -3528,6 +3528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4dc2a34250b6349b65456d1cb7063b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 33238346}
   pauseMenuCanvas: {fileID: 318697561}
   musicSlider: {fileID: 1252475323}
   effectSlider: {fileID: 795144042}

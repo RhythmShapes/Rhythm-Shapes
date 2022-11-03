@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
+    [SerializeField] private Transform mainCamera;
     [SerializeField] private GameObject pauseMenuCanvas;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider effectSlider;
@@ -37,6 +38,7 @@ public class PauseMenuManager : MonoBehaviour
     public void PauseGame()
     {
         Debug.Log("PauseGame");
+        mainCamera.position = Vector3.zero;
         audioSource.Pause();
         pauseMenuCanvas.SetActive(true);
         Time.timeScale = 0;
@@ -45,7 +47,8 @@ public class PauseMenuManager : MonoBehaviour
     public void ResumeGame()
     {
         Debug.Log("ResumeGame");
-        audioSource.Play();
+        mainCamera.position = -10*Vector3.forward;
+        audioSource.UnPause();
         pauseMenuCanvas.SetActive(false);
         Time.timeScale = 1;
         onGameResumed.Invoke();
@@ -54,7 +57,7 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("RestartGame");
-        audioSource.time = 0;
+        mainCamera.position = -10*Vector3.forward;
         Time.timeScale = 1;
         onGameResumed.Invoke();
         pauseMenuCanvas.SetActive(false);
@@ -66,6 +69,7 @@ public class PauseMenuManager : MonoBehaviour
     public void BackToMenu()
     {
         Debug.Log("BackToMenu");
+        mainCamera.position = -10*Vector3.forward;
         Time.timeScale = 1;
         onGameResumed.Invoke();
         pauseMenuCanvas.SetActive(false);
