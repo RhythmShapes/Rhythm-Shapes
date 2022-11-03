@@ -44,7 +44,7 @@ public class InputManager : MonoBehaviour
     private void PausePerformed()
     {
         
-        if (SceneManager.GetActiveScene().buildIndex == 1) //SceneManager.GetActiveScene().buildIndex == 1
+        if (SceneManager.GetActiveScene().name == "GameScene" && !GameModel.Instance.isGamePaused)
         {
             Debug.Log("PausePerformed");
             onGamePaused.Invoke();
@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
 
     private void UnPausePerformed()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().name == "GameScene" && GameModel.Instance.isGamePaused)
         {
             Debug.Log("UnPausePerformed");
             onGameUnpaused.Invoke();

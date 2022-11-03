@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,7 +21,6 @@ public class EndLevelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI missCounterTMP;
     [SerializeField] private RawImage musicImage;
     [SerializeField] private Transform mainCamera;
-    [SerializeField] private AudioSource audioSource;
 
     private void Awake()
     {
@@ -44,10 +44,7 @@ public class EndLevelManager : MonoBehaviour
         Debug.Log("RestartGame");
         mainCamera.position = -10*Vector3.forward;
         endLevelMenuCanvas.SetActive(false);
-        audioSource.Pause();
-        audioSource.time = 0;
-        LevelLoader.Instance.LoadLevelFromCurrentLevelDescription();
-        // SceneManager.LoadScene("GameScene");
+        GameModel.Instance.RestartGame();
     }
 
     public void BackToMenu()

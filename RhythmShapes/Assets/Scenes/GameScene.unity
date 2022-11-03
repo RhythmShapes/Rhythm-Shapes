@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 92095881}
   - component: {fileID: 92095883}
   - component: {fileID: 92095882}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 133598011}
   - component: {fileID: 133598013}
   - component: {fileID: 133598012}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BadCounterText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 140943560}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 188849975}
   - component: {fileID: 188849977}
   - component: {fileID: 188849976}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreTitleText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 189345607}
   - component: {fileID: 189345609}
   - component: {fileID: 189345608}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PerfectCounterText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 201214068}
   - component: {fileID: 201214070}
   - component: {fileID: 201214069}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,7 +931,7 @@ GameObject:
   - component: {fileID: 241529645}
   - component: {fileID: 241529646}
   - component: {fileID: 241529647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LeftGreenText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1086,7 +1086,7 @@ GameObject:
   - component: {fileID: 273784606}
   - component: {fileID: 273784607}
   - component: {fileID: 273784608}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 291934532}
   - component: {fileID: 291934534}
   - component: {fileID: 291934533}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 314118877}
   - component: {fileID: 314118876}
   - component: {fileID: 314118878}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackToMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1443,7 +1443,7 @@ GameObject:
   - component: {fileID: 318697565}
   - component: {fileID: 318697564}
   - component: {fileID: 318697563}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseMenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1604,6 +1604,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1163739777}
+        m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
+        m_MethodName: SetGamePauseStateFalse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPauseCountdownFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 792051161}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: UnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1163739777}
+        m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
+        m_MethodName: SetGamePauseStateFalse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &476971993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1752,7 +1791,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486466247}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImageBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1791,7 +1830,7 @@ GameObject:
   - component: {fileID: 552424603}
   - component: {fileID: 552424605}
   - component: {fileID: 552424604}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SliderTitleText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1946,7 +1985,7 @@ GameObject:
   - component: {fileID: 594598064}
   - component: {fileID: 594598066}
   - component: {fileID: 594598065}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2023,7 +2062,7 @@ GameObject:
   - component: {fileID: 664061840}
   - component: {fileID: 664061839}
   - component: {fileID: 664061838}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Accuracytexts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2302,7 +2341,7 @@ GameObject:
   - component: {fileID: 766497794}
   - component: {fileID: 766497796}
   - component: {fileID: 766497795}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2607,36 +2646,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 792051168}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: EnableInputSystemUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onGameUnpaused:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1438464773}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
         m_MethodName: ResumeGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 792051168}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: DisableInputSystemUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2656,7 +2671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 795144041}
   - component: {fileID: 795144042}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EffectSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2762,7 +2777,7 @@ GameObject:
   - component: {fileID: 842804432}
   - component: {fileID: 842804433}
   - component: {fileID: 842804434}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RightRedText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2918,7 +2933,7 @@ GameObject:
   - component: {fileID: 865973948}
   - component: {fileID: 865973947}
   - component: {fileID: 865973946}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EndLevelMenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3020,7 +3035,7 @@ GameObject:
   - component: {fileID: 874657574}
   - component: {fileID: 874657576}
   - component: {fileID: 874657575}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ResultPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3107,7 +3122,7 @@ GameObject:
   - component: {fileID: 888624603}
   - component: {fileID: 888624602}
   - component: {fileID: 888624601}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3168,45 +3183,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1163739777}
-          m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
-          m_MethodName: RefreshQueue
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1163739779}
-          m_TargetAssemblyTypeName: shape.ShapeFactory, Assembly-CSharp
-          m_MethodName: ReleaseAll
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1438464774}
           m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
           m_MethodName: RestartGame
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 792051168}
-          m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-          m_MethodName: DisableInputSystemUI
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3260,45 +3239,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1163739777}
-        m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
-        m_MethodName: RefreshQueue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1163739779}
-        m_TargetAssemblyTypeName: shape.ShapeFactory, Assembly-CSharp
-        m_MethodName: ReleaseAll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1438464774}
         m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
         m_MethodName: RestartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 792051168}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: DisableInputSystemUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3357,7 +3300,7 @@ GameObject:
   - component: {fileID: 927162507}
   - component: {fileID: 927162509}
   - component: {fileID: 927162508}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3492,7 +3435,7 @@ GameObject:
   - component: {fileID: 953539151}
   - component: {fileID: 953539153}
   - component: {fileID: 953539152}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MusicImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3815,7 +3758,7 @@ GameObject:
   - component: {fileID: 1097192275}
   - component: {fileID: 1097192274}
   - component: {fileID: 1097192276}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3866,45 +3809,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1163739777}
-        m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
-        m_MethodName: RefreshQueue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1163739779}
-        m_TargetAssemblyTypeName: shape.ShapeFactory, Assembly-CSharp
-        m_MethodName: ReleaseAll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1438464773}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
         m_MethodName: RestartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 792051168}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: DisableInputSystemUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3977,45 +3884,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1163739777}
-          m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
-          m_MethodName: RefreshQueue
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1163739779}
-          m_TargetAssemblyTypeName: shape.ShapeFactory, Assembly-CSharp
-          m_MethodName: ReleaseAll
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1438464773}
           m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
           m_MethodName: RestartGame
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 792051168}
-          m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-          m_MethodName: DisableInputSystemUI
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4067,7 +3938,7 @@ GameObject:
   - component: {fileID: 1110690763}
   - component: {fileID: 1110690762}
   - component: {fileID: 1110690764}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4121,18 +3992,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1438464773}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
         m_MethodName: ResumeGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 792051168}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: DisableInputSystemUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4217,18 +4076,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 792051168}
-          m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-          m_MethodName: DisableInputSystemUI
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!222 &1110690765
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4293,6 +4140,136 @@ MonoBehaviour:
   goodPressedWindow: 0.05
   okPressedWindow: 0.08
   badPressedWindow: 0.1
+  onGamePaused:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 792051161}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 792051168}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: EnableInputSystemUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameUnPaused:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 792051168}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DisableInputSystemUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 476971992}
+        m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
+        m_MethodName: StartPauseCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameRestarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 792051168}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DisableInputSystemUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 792051161}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1163739777}
+        m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
+        m_MethodName: RefreshQueue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1163739779}
+        m_TargetAssemblyTypeName: shape.ShapeFactory, Assembly-CSharp
+        m_MethodName: ReleaseAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 992990947}
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: LoadLevelFromCurrentLevelDescription
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 476971992}
+        m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
+        m_MethodName: StartCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isGamePaused: 1
 --- !u!114 &1163739778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4362,7 +4339,7 @@ GameObject:
   - component: {fileID: 1179749321}
   - component: {fileID: 1179749320}
   - component: {fileID: 1179749319}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4564,7 +4541,7 @@ GameObject:
   - component: {fileID: 1227928072}
   - component: {fileID: 1227928074}
   - component: {fileID: 1227928073}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RankTitleText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4697,7 +4674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1243902793}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4737,7 +4714,7 @@ GameObject:
   - component: {fileID: 1249634503}
   - component: {fileID: 1249634502}
   - component: {fileID: 1249634505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BottomYellowText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4891,7 +4868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252475324}
   - component: {fileID: 1252475323}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MusicSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4996,7 +4973,7 @@ GameObject:
   - component: {fileID: 1303592683}
   - component: {fileID: 1303592685}
   - component: {fileID: 1303592684}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MissCounterText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5131,7 +5108,7 @@ GameObject:
   - component: {fileID: 1368301603}
   - component: {fileID: 1368301605}
   - component: {fileID: 1368301604}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OkCounterText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5267,7 +5244,7 @@ GameObject:
   - component: {fileID: 1389876717}
   - component: {fileID: 1389876718}
   - component: {fileID: 1389876719}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopBlueText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5422,7 +5399,7 @@ GameObject:
   - component: {fileID: 1429917170}
   - component: {fileID: 1429917172}
   - component: {fileID: 1429917171}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SliderTitleText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5622,7 +5599,6 @@ MonoBehaviour:
   pauseMenuCanvas: {fileID: 318697561}
   musicSlider: {fileID: 1252475323}
   effectSlider: {fileID: 795144042}
-  audioSource: {fileID: 792051161}
 --- !u!114 &1438464774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5646,7 +5622,6 @@ MonoBehaviour:
   missCounterTMP: {fileID: 1303592684}
   musicImage: {fileID: 953539152}
   mainCamera: {fileID: 33238346}
-  audioSource: {fileID: 792051161}
 --- !u!1 &1446803534
 GameObject:
   m_ObjectHideFlags: 0
@@ -5734,7 +5709,7 @@ GameObject:
   - component: {fileID: 1452443269}
   - component: {fileID: 1452443271}
   - component: {fileID: 1452443270}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5810,7 +5785,7 @@ GameObject:
   - component: {fileID: 1514245620}
   - component: {fileID: 1514245622}
   - component: {fileID: 1514245621}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5945,7 +5920,7 @@ GameObject:
   - component: {fileID: 1599671850}
   - component: {fileID: 1599671852}
   - component: {fileID: 1599671851}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoodCounterText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6080,7 +6055,7 @@ GameObject:
   - component: {fileID: 1604392646}
   - component: {fileID: 1604392648}
   - component: {fileID: 1604392647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelTitleText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6215,7 +6190,7 @@ GameObject:
   - component: {fileID: 1965522445}
   - component: {fileID: 1965522447}
   - component: {fileID: 1965522446}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6350,7 +6325,7 @@ GameObject:
   - component: {fileID: 1992395939}
   - component: {fileID: 1992395941}
   - component: {fileID: 1992395940}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6426,7 +6401,7 @@ GameObject:
   - component: {fileID: 2101390205}
   - component: {fileID: 2101390207}
   - component: {fileID: 2101390206}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6505,7 +6480,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2128658853}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6542,7 +6517,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2143369502}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

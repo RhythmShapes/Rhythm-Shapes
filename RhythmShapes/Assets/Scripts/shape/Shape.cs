@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using models;
 using UnityEngine;
 using utils.XML;
 
@@ -45,8 +46,11 @@ namespace shape
                 _maxDistanceDelta = 0;
                 _currentStep++;
             }
-            
-            _maxDistanceDelta += Time.deltaTime * _model.Speed;
+
+            if (!GameModel.Instance.isGamePaused)
+            {
+                _maxDistanceDelta += Time.deltaTime * _model.Speed;
+            }
         }
     }
 }

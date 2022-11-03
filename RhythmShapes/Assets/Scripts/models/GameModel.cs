@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using shape;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace models
 {
@@ -10,11 +11,16 @@ namespace models
         [SerializeField] private float goodPressedWindow;
         [SerializeField] private float okPressedWindow;
         [SerializeField] private float badPressedWindow;
+        
+        [SerializeField] private UnityEvent onGamePaused;
+        [SerializeField] private UnityEvent onGameUnPaused;
+        [SerializeField] private UnityEvent onGameRestarted;
         public float PerfectPressedWindow => perfectPressedWindow;
         public float GoodPressedWindow => goodPressedWindow;
         public float OkPressedWindow => okPressedWindow;
         public float BadPressedWindow => badPressedWindow;
-    
+
+        public bool isGamePaused = true;
         public static GameModel Instance { get; private set; }
 
         private Queue<ShapeModel> _shapeModels = new();
@@ -24,8 +30,33 @@ namespace models
         {
             Debug.Assert(Instance == null);
             Instance = this;
+            
+            onGamePaused ??= new UnityEvent();
+            onGameUnPaused ??= new UnityEvent();
+            onGameRestarted ??= new UnityEvent();
         }
 
+        public void PauseGame()
+        {
+            isGamePaused = true;
+            onGamePaused.Invoke();
+        }
+
+        public void UnPauseGame()
+        {
+            onGameUnPaused.Invoke();
+        }
+        
+        public void RestartGame()
+        {
+            isGamePaused = true;
+            onGameRestarted.Invoke();
+        }
+
+        public void SetGamePauseStateFalse()
+        {
+            isGamePaused = false;
+        }
         public void RefreshQueue()
         {
             _shapeModels.Clear();
