@@ -17,8 +17,8 @@ namespace models
     
         public static GameModel Instance { get; private set; }
 
-        private readonly Queue<ShapeModel> _shapeModels = new();
-        private readonly Queue<AttendedInput> _attendedInputs = new();
+        private Queue<ShapeModel> _shapeModels = new();
+        private Queue<AttendedInput> _attendedInputs = new();
 
         private void Awake()
         {
@@ -26,6 +26,14 @@ namespace models
             Instance = this;
         }
 
+        public void RefreshQueue()
+        {
+            _shapeModels.Clear();
+            _attendedInputs.Clear();
+            _shapeModels = new();
+            _attendedInputs = new();
+
+        }
         public bool HasNextShapeModel()
         {
             return _shapeModels.Count > 0;

@@ -13,10 +13,12 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     
     [SerializeField] private UnityEvent onGameResumed;
+    [SerializeField] private UnityEvent onGameRestart;
     
     private void Awake()
     {
         onGameResumed ??= new UnityEvent();
+        onGameRestart ??= new UnityEvent();
         LoadPlayerPrefs();
     }
     
@@ -51,10 +53,13 @@ public class PauseMenuManager : MonoBehaviour
     
     public void RestartGame()
     {
-        // Debug.Log("RestartGame");
-        // Time.timeScale = 1;
-        // onGameResumed.Invoke();
-        // pauseMenuCanvas.SetActive(false);
+        Debug.Log("RestartGame");
+        audioSource.time = 0;
+        Time.timeScale = 1;
+        onGameResumed.Invoke();
+        pauseMenuCanvas.SetActive(false);
+        onGameRestart.Invoke();
+        LevelLoader.Instance.LoadLevelFromCurrentLevelDescription();
         // SceneManager.LoadScene("GameScene");
     }
 

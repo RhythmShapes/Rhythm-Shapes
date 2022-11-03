@@ -17,6 +17,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private AudioSource gameAudioSource;
     [SerializeField] private AudioSource analyseAudioSource;
     [SerializeField] private UnityEvent<LevelDescription> onLoadedEvent;
+    private LevelDescription _currentLevelDescription;
 
     private void Awake()
     {
@@ -40,6 +41,7 @@ public class LevelLoader : MonoBehaviour
 
         LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
         gameAudioSource.clip = LoadAudio(levelName);
+        _currentLevelDescription = level;
         onLoadedEvent.Invoke(level);
     }
 
@@ -47,7 +49,13 @@ public class LevelLoader : MonoBehaviour
     {
         analyseAudioSource.clip = LoadAudio(levelName);
         LevelDescription level = BasicBPM.AnalyseMusic();
+        _currentLevelDescription = level;
         onLoadedEvent.Invoke(level);
+    }
+
+    public void LoadLevelFromCurrentLevelDescription()
+    {
+        onLoadedEvent.Invoke(_currentLevelDescription);
     }
 
     private AudioClip LoadAudio(string levelName)
