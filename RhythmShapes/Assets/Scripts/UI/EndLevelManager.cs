@@ -5,6 +5,7 @@ using models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -36,7 +37,13 @@ public class EndLevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void ShowEndLevelMenu()
+    {
+        mainCamera.position = Vector3.zero;
+        endLevelMenuCanvas.SetActive(true);
     }
     
     public void RestartGame()

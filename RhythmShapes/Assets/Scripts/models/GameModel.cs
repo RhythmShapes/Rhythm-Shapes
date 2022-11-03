@@ -53,6 +53,11 @@ namespace models
             onGameRestarted.Invoke();
         }
 
+        public void SetGamePauseStateTrue()
+        {
+            isGamePaused = true;
+        }
+        
         public void SetGamePauseStateFalse()
         {
             isGamePaused = false;
