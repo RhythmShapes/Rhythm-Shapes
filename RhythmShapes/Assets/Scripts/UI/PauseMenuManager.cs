@@ -12,14 +12,9 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider effectSlider;
     [SerializeField] private AudioSource audioSource;
-    
-    [SerializeField] private UnityEvent onGameResumed;
-    [SerializeField] private UnityEvent onGameRestart;
-    
+
     private void Awake()
     {
-        onGameResumed ??= new UnityEvent();
-        onGameRestart ??= new UnityEvent();
         LoadPlayerPrefs();
     }
     
@@ -51,17 +46,17 @@ public class PauseMenuManager : MonoBehaviour
         audioSource.UnPause();
         pauseMenuCanvas.SetActive(false);
         Time.timeScale = 1;
-        onGameResumed.Invoke();
+        // onGameResumed.Invoke();
     }
     
     public void RestartGame()
     {
         Debug.Log("RestartGame");
         mainCamera.position = -10*Vector3.forward;
+        audioSource.time = 0;
         Time.timeScale = 1;
-        onGameResumed.Invoke();
+        // onGameResumed.Invoke();
         pauseMenuCanvas.SetActive(false);
-        onGameRestart.Invoke();
         LevelLoader.Instance.LoadLevelFromCurrentLevelDescription();
         // SceneManager.LoadScene("GameScene");
     }
@@ -71,7 +66,7 @@ public class PauseMenuManager : MonoBehaviour
         Debug.Log("BackToMenu");
         mainCamera.position = -10*Vector3.forward;
         Time.timeScale = 1;
-        onGameResumed.Invoke();
+        // onGameResumed.Invoke();
         pauseMenuCanvas.SetActive(false);
         SceneManager.LoadScene("MenuScene");
     }

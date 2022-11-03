@@ -21,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     { 
-        Debug.Log("StartGame");
+        // Debug.Log("StartGame");
         // SceneManager.LoadScene("");
         mainMenuCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
@@ -29,14 +29,14 @@ public class MainMenuManager : MonoBehaviour
     
     public void ShowOptions()
     {
-        Debug.Log("ShowOptions");
+        // Debug.Log("ShowOptions");
         mainMenuCanvas.SetActive(false);
         optionMenuCanvas.SetActive(true);
     }
     
     public void HideOptions()
     {
-        Debug.Log("ShowOptions");
+        // Debug.Log("ShowOptions");
         optionMenuCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
         
@@ -44,14 +44,13 @@ public class MainMenuManager : MonoBehaviour
     
     public void QuitGame()
     {
-        Debug.Log("QuitGame");
+        // Debug.Log("QuitGame");
         Application.Quit();
     }
     
     public void BackToMainMenu()
     { 
-        Debug.Log("BackToMainMenu");
-        
+        // Debug.Log("BackToMainMenu");
         musicSelectionMenuCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
@@ -67,7 +66,7 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("musicSliderVolume", musicSliderVolume);
         PlayerPrefs.Save();
         
-        Debug.Log("PlayerMusicVolumePrefs Saved !!!");
+        // Debug.Log("PlayerMusicVolumePrefs Saved !!!");
     }
     
     public void SavePlayerEffectVolumePrefs()
@@ -76,7 +75,7 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("effectSliderVolume", effectSliderVolume);
         PlayerPrefs.Save();
         
-        Debug.Log("PlayerEffectVolumePrefs Saved !!!");
+        // Debug.Log("PlayerEffectVolumePrefs Saved !!!");
     }
     
     public void LoadPlayerPrefs()
@@ -87,6 +86,7 @@ public class MainMenuManager : MonoBehaviour
             float effectSliderVolume =  PlayerPrefs.GetFloat("effectSliderVolume", 1);
             musicSlider.value = musicSliderVolume;
             effectSlider.value = effectSliderVolume;
+            // Debug.Log("PlayerVolumePrefs Loaded !!!");
         }
         else
         {
