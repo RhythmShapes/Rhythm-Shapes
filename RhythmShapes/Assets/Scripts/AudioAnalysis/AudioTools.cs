@@ -5,10 +5,10 @@ using System.Numerics;
 
 namespace AudioAnalysis
 {
-    public class AudioTools
+    public static class AudioTools
     {
 
-        public float[] preprocessAudioData(AudioClip clip, int SAMPLE_SIZE)
+        public static float[] preprocessAudioData(AudioClip clip)
         //Processes the clip from the given audio clip and return the samples combined as mono in a float[]  
         {
             try
@@ -37,9 +37,9 @@ namespace AudioAnalysis
             }
         }
 
-        public float[][] FFT(AudioClip clip, int SAMPLE_SIZE)
+        public static float[][] FFT(AudioClip clip, int SAMPLE_SIZE)
         {
-            float[] samples = preprocessAudioData(clip, SAMPLE_SIZE);
+            float[] samples = preprocessAudioData(clip);
             int iterations = samples.Length / SAMPLE_SIZE;
             FFT fft = new FFT();
             fft.Initialize((UInt32)SAMPLE_SIZE);
@@ -65,7 +65,7 @@ namespace AudioAnalysis
             return spectrum;
         }
 
-        public float timeFromIndex(int index, AudioClip clip)
+        public static float timeFromIndex(int index, AudioClip clip)
         //Gives the time in seconds corresponding to the given preprocessed samples index.
         {
             float clipSampleRate = clip.frequency;
@@ -79,7 +79,7 @@ namespace AudioAnalysis
         }
 
 
-        public bool[] TimewiseLocalMaximums(float[] data, int timeWindow)
+        public static bool[] TimewiseLocalMaximums(float[] data, int timeWindow)
         /*Implement a function that returns
          * a bool[] where bool[i] is true if and only if 
          * fftData[i] is a LocalMaximum within the timeWindow time range 
@@ -103,7 +103,7 @@ namespace AudioAnalysis
             return isMax;
         }
 
-        public float AverageEnergy(float[] data)
+        public static float AverageEnergy(float[] data)
         {
             float sum = 0;
             for (int i = 0; i < data.Length; i++)
@@ -113,7 +113,7 @@ namespace AudioAnalysis
             return Mathf.Sqrt(sum) / data.Length;
         }
 
-        public float[] GetBPM(AudioClip clip)
+        public static float[] GetBPM(AudioClip clip)
         {
             float[][] spectrum = FFT(clip, 2048);
             float[] BPMS = new float[spectrum.Length];
@@ -133,9 +133,9 @@ namespace AudioAnalysis
             float currentBPM=0;
             for(int i = 0; i < averageEnergies.Length; i++)
             {
-                if(averageEnergies[i] > averageEnergy)
+                if(averageEnergies[i] > averageEnergy && i > lastBeatIndex)
                 {
-                    currentBPM = 60 / ((i - lastBeatIndex)/clip.frequency);
+                    currentBPM = 60 / ((float)(i - lastBeatIndex)/clip.frequency);
                     lastBeatIndex = i;
                 }
                 BPMS[i] = currentBPM;

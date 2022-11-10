@@ -48,7 +48,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevelFromAnalyse(string levelName)
     {
         analyseAudioSource.clip = LoadAudio(levelName);
-        LevelDescription level = BasicBPM.AnalyseMusic(analyseAudioSource.clip);
+        LevelDescription level = MultiRangeAnalysis.AnalyseMusic(analyseAudioSource.clip,levelName);
         _currentLevelDescription = level;
         onLoadedEvent.Invoke(level);
     }

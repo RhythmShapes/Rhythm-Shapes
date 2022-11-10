@@ -5,11 +5,11 @@ using utils.XML;
 
 namespace AudioAnalysis
 {
-    public class MultiRangeAnalysis
+    public static class MultiRangeAnalysis
     {
         [SerializeField]
-        private int numberOfRanges = 4;
-        public LevelDescription AnalyseMusic(AudioClip clip)
+        private static int numberOfRanges = 4;
+        public static LevelDescription AnalyseMusic(AudioClip clip, string levelName)
         {
             const int SAMPLE_SIZE = 2048;
             float[] BPMs = AudioTools.GetBPM(clip);
@@ -19,10 +19,10 @@ namespace AudioAnalysis
             {
                 amplitudeEvolutionPerFrequency[i] = new float[fftData.Length];
             }
-            for(int i = 0; i < fftData.Length; i++)
+            for(int i = 0; i < fftData[0].Length; i++)
             {
                 Debug.Assert(fftData[i].Length == amplitudeEvolutionPerFrequency.Length);
-                for(int j = 0; j < fftData.Length;)
+                for(int j = 0; j < fftData.Length;j++)
                 {
                     amplitudeEvolutionPerFrequency[i][j] = fftData[j][i];
                 }
@@ -35,54 +35,59 @@ namespace AudioAnalysis
             }
 
             //TODO Faire les moyennes sur des ranges de fréquence et renvoyer un LevelDescription (et sauvegarder cet objet en XML)
-            float[][] noteOccurrence = new float[numberOfRanges][];
+
+            LevelDescription level = new LevelDescription();
+            level.title = clip.name + "_generated";
+            List<ShapeDescription> shapes = new List<ShapeDescription>();
+
+            float[][] noteProbability = new float[numberOfRanges][];
             int numberOfNotes = 0;
             int freqMin = 0;
             for(int i = 0; i < numberOfRanges; i++)
             {
-                int freqMax = (int)(Mathf.Log(i)*numberOfRanges/Mathf.Log(SAMPLE_SIZE));
-                noteOccurrence[i] = new float[amplitudeEvolutionPerFrequency[0].Length];
-                for(int j = 0; j < noteOccurrence[i].Length; j++)
+                int freqMax = (int)(Mathf.Exp((i+1)*Mathf.Log(SAMPLE_SIZE) / numberOfRanges ));
+                if(freqMax >= maximums.Length) { freqMax = maximums.Length-1; }
+                noteProbability[i] = new float[amplitudeEvolutionPerFrequency[0].Length];
+                for(int j = 0; j < noteProbability[i].Length; j++)
                 {
-                    noteOccurrence[i][j] = 0;
-                    for(int k = freqMin; k < freqMax; k++)
+                    noteProbability[i][j] = 0;
+                    for(int l = freqMin; l < freqMax; l++)
                     {
-                        if (maximums[k][j])
+                        if (maximums[l][j])
                         {
-                            noteOccurrence[i][j]++;
+                            noteProbability[i][j]++;
                         }
                     }
-                    noteOccurrence[i][j] /= (freqMax - freqMin);
-                    if(noteOccurrence[i][j] > 0.5)
-                    {
-                        numberOfNotes++;
-                    }
+                    noteProbability[i][j] /= (freqMax - freqMin);
+                    
                 }
                 freqMin= freqMax;
             }
-
-            LevelDescription level = new LevelDescription();
-            level.title = clip.name + "_generated";
-            level.shapes = new ShapeDescription[numberOfNotes];
-            int k = 0;
-            for(int i = 0; i < numberOfRanges; i++)
+            for (int j = 0; j < noteProbability[0].Length; j++)
             {
-                for(int j = 0; j < noteOccurrence[i].Length; j++)
+                float maxProbability = 0;
+                int maxProbabilityIndex = 0;
+                for (int i = 0; i < numberOfRanges; i++)
                 {
-                    if(noteOccurrence[i][j] > 0.5)
+                    if(maxProbability< noteProbability[i][j])
                     {
-                        ShapeDescription shape = new ShapeDescription();
-                        shape.target = (shape.Target)i;
-                        shape.type = (shape.ShapeType)((i + j) % 3);
-                        shape.timeToPress = AudioTools.timeFromIndex(j,clip);
-                        shape.goRight = ((i + j) % 2).Equals(0);
-                        level.shapes[k] = shape;
-                        k++;
+                        maxProbability = noteProbability[i][j];
+                        maxProbabilityIndex = i;
                     }
                 }
-
+                if (maxProbability > 0.3)
+                {
+                    numberOfNotes++;
+                    ShapeDescription shape = new ShapeDescription();
+                    shape.target = (shape.Target)maxProbabilityIndex;
+                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                    shape.timeToPress = AudioTools.timeFromIndex(j, clip) * SAMPLE_SIZE;
+                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                    shapes.Add(shape);
+                }
             }
-            
+            level.shapes = shapes.ToArray();
+            XmlHelpers.SerializeToXML<LevelDescription>("Assets/Resources/Levels/" + levelName + "/data.xml", level);
             return level;
         }
     }

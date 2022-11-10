@@ -3582,7 +3582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useDevVariables: 1
   loadFromAnalyse: 0
-  devLevelName: LevelTest
+  devLevelName: LevelTest1
 --- !u!4 &992990946
 Transform:
   m_ObjectHideFlags: 0
@@ -5698,8 +5698,6 @@ MonoBehaviour:
   missCounterTMP: {fileID: 1303592684}
   musicImage: {fileID: 953539152}
   mainCamera: {fileID: 33238346}
-  eventSystem: {fileID: 477631178}
-  restartButton: {fileID: 888624602}
 --- !u!1 &1446803534
 GameObject:
   m_ObjectHideFlags: 0

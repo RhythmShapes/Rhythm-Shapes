@@ -8,7 +8,7 @@ namespace AudioAnalysis
         [SerializeField]
         private const int SAMPLE_SIZE = 2048;
         [SerializeField]
-        private int beatWindowSize;
+        private static int beatWindowSize;
         public static LevelDescription AnalyseMusic(AudioClip clip)
         {
             //TODO : REPLACE WITH ANALYSIS CODE
