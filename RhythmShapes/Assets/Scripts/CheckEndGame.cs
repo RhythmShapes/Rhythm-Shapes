@@ -31,7 +31,7 @@ public class CheckEndGame : MonoBehaviour
         if (!GameModel.Instance.isGamePaused)
         {
             _timeCounter += Time.deltaTime;
-            Debug.Log("_timeCounter : "+_timeCounter);
+            //Debug.Log("_timeCounter : "+_timeCounter);
             if (_timeCounter >= _audioLength + 2*GameModel.Instance.BadPressedWindow)
             {
                 onGameEnded.Invoke();
