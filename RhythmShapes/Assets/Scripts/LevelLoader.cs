@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using AudioAnalysis;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using utils.XML;
@@ -61,63 +57,25 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevelFromAnalysis(string levelName)
     {
-        /*if (!File.Exists(audioFilePath))
-        {
-            Debug.LogError("Cannot find the source audio file : " + audioFilePath);
-            return;
-        }
-
-        if (!AssetDatabase.IsValidFolder(_resourcesFolderPath + levelName))
-        {
-            if (AssetDatabase.CreateFolder(_resourcesFolderPath, levelName).Length == 0)
-            {
-                Debug.LogError("Cannot create new folder : " + _resourcesFolderPath + levelName);
-                return;
-            }
-        }
-        
-        string audioPath = _resourcesFolderPath + levelName + "/" + audioFileName;
-
-        if (AssetDatabase.FindAssets(audioPath).Length > 0)
-        {
-            if (AssetDatabase.DeleteAsset(audioPath))
-            {
-                Debug.LogError("Cannot delete old audio file : " + audioPath);
-                return;
-            }
-        }
-
-        File.Copy(audioFilePath, _resourcesFolderPath + levelName);*/
-        
-        Debug.Log("0");
-        Thread.Sleep(2000);
         _loaded = false;
         analyseAudioSource.clip = LoadAudio(levelName);
         MultiRangeAnalysis.Init(analyseAudioSource.clip);
         onLoadFromAnalysisStart.Invoke();
-        Debug.Log("1");
-        Thread.Sleep(2000);
 
         new Thread(() =>
         {
-            Debug.Log("2");
             LevelDescription level = MultiRangeAnalysis.AnalyseMusic(_resourcesFolderPath + levelsFolderName + "/" + levelName + "/" + dataFileName + ".xml");
             _currentLevelDescription = level;
             _loaded = true;
-            Debug.Log("3");
         }).Start();
-
-        //StartCoroutine(CheckLoadedCo());
     }
 
-    private IEnumerator CheckLoadedCo()
+    private void Update()
     {
-        while (!_loaded)
-            yield return null;
+        if (!_loaded) return;
 
-        Debug.Log("4");
+        _loaded = false;
         onLoadedEvent.Invoke(_currentLevelDescription);
-        yield return null;
     }
 
     public void LoadLevelFromCurrentLevelDescription()

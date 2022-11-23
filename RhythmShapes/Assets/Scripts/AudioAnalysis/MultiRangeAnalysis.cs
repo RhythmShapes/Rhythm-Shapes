@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using utils;
 using utils.XML;
 
 namespace AudioAnalysis
@@ -10,57 +11,58 @@ namespace AudioAnalysis
     {
         [SerializeField]
         private static int numberOfRanges = 4;
-        
-        const int SAMPLE_SIZE = 2048;
 
-        private static AudioClip _clip;
-        private static float[] _BPMs;
-        private static float[][] _fftData;
-        private static float[][] _amplitudeEvolutionPerFrequency;
         private static string _clipName;
         private static float _clipFrequency;
+        private static float[] _totalSamples;
+        private static int _clipSamples;
+        private static int _clipChannels;
 
-        private static float _progress = 0f;
-        private static float _progressTotal = 1f;
+        public static ProgressUtil Progress { get; private set; }
 
         public static void Init(AudioClip clip)
         {
-            _clip = clip;
-            _BPMs = AudioTools.GetBPM(clip);
-            _fftData = AudioTools.FFT(clip, SAMPLE_SIZE);
-            _amplitudeEvolutionPerFrequency = new float[_fftData[0].Length][];
             _clipName = clip.name;
-            _clipFrequency = _clip.frequency;
-
-            _progress = 0f;
-            _progressTotal = _amplitudeEvolutionPerFrequency.Length * 3 + _fftData[0].Length + numberOfRanges;
+            _clipFrequency = clip.frequency;
+            _clipSamples = clip.samples;
+            _clipChannels = clip.channels;
+            _totalSamples = new float[_clipSamples * _clipChannels];
+            clip.GetData(_totalSamples, 0);
+            
+            Progress ??= new ProgressUtil();
+            Progress.Init(8f);
         }
         
         public static LevelDescription AnalyseMusic(string saveFilePath)
         {
-            Thread.Sleep(2000);
-            //float[] BPMs = AudioTools.GetBPM(clip);
-            //float[][] fftData = AudioTools.FFT(clip,SAMPLE_SIZE);
-            //float[][] amplitudeEvolutionPerFrequency = new float[fftData[0].Length][];
+            float[] BPMs = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
+            Progress.TaskDone();
+            float[][] fftData = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
+            Progress.TaskDone();
+            float[][] amplitudeEvolutionPerFrequency = new float[fftData[0].Length][];
             
-            for (int i = 0; i < _amplitudeEvolutionPerFrequency.Length; i++, _progress++)
+            for (int i = 0; i < amplitudeEvolutionPerFrequency.Length; i++)
             {
-                _amplitudeEvolutionPerFrequency[i] = new float[_fftData.Length];
+                amplitudeEvolutionPerFrequency[i] = new float[fftData.Length];
             }
-            for(int i = 0; i < _fftData[0].Length; i++, _progress++)
+            Progress.TaskDone();
+            
+            for(int i = 0; i < fftData[0].Length; i++)
             {
-                Debug.Assert(_fftData[i].Length == _amplitudeEvolutionPerFrequency.Length);
-                for(int j = 0; j < _fftData.Length;j++)
+                Debug.Assert(fftData[i].Length == amplitudeEvolutionPerFrequency.Length);
+                for(int j = 0; j < fftData.Length;j++)
                 {
-                    _amplitudeEvolutionPerFrequency[i][j] = _fftData[j][i];
+                    amplitudeEvolutionPerFrequency[i][j] = fftData[j][i];
                 }
             }
+            Progress.TaskDone();
 
-            bool[][] maximums = new bool[_amplitudeEvolutionPerFrequency.Length][];
-            for(int i = 0; i < _amplitudeEvolutionPerFrequency.Length; i++, _progress++)
+            bool[][] maximums = new bool[amplitudeEvolutionPerFrequency.Length][];
+            for(int i = 0; i < amplitudeEvolutionPerFrequency.Length; i++)
             {
-                maximums[i] = AudioTools.TimewiseLocalMaximums(_amplitudeEvolutionPerFrequency[i], 30);
+                maximums[i] = AudioTools.TimewiseLocalMaximums(amplitudeEvolutionPerFrequency[i], 30);
             }
+            Progress.TaskDone();
 
             //TODO Faire les moyennes sur des ranges de fréquence et renvoyer un LevelDescription (et sauvegarder cet objet en XML)
 
@@ -71,11 +73,11 @@ namespace AudioAnalysis
             float[][] noteProbability = new float[numberOfRanges][];
             int numberOfNotes = 0;
             int freqMin = 0;
-            for(int i = 0; i < numberOfRanges; i++, _progress++)
+            for(int i = 0; i < numberOfRanges; i++)
             {
-                int freqMax = (int)(Mathf.Exp((i+1)*Mathf.Log(SAMPLE_SIZE) / numberOfRanges ));
+                int freqMax = (int)(Mathf.Exp((i+1)*Mathf.Log(AudioTools.SampleSize) / numberOfRanges ));
                 if(freqMax >= maximums.Length) { freqMax = maximums.Length-1; }
-                noteProbability[i] = new float[_amplitudeEvolutionPerFrequency[0].Length];
+                noteProbability[i] = new float[amplitudeEvolutionPerFrequency[0].Length];
                 for(int j = 0; j < noteProbability[i].Length; j++)
                 {
                     noteProbability[i][j] = 0;
@@ -91,7 +93,9 @@ namespace AudioAnalysis
                 }
                 freqMin= freqMax;
             }
-            for (int j = 0; j < noteProbability[0].Length; j++, _progress++)
+            Progress.TaskDone();
+            
+            for (int j = 0; j < noteProbability[0].Length; j++)
             {
                 float maxProbability = 0;
                 int maxProbabilityIndex = 0;
@@ -109,19 +113,18 @@ namespace AudioAnalysis
                     ShapeDescription shape = new ShapeDescription();
                     shape.target = (shape.Target)maxProbabilityIndex;
                     shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                    shape.timeToPress = AudioTools.timeFromIndex(j, _clipFrequency) * SAMPLE_SIZE;
+                    shape.timeToPress = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
                     shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                     shapes.Add(shape);
                 }
             }
+            Progress.TaskDone();
+            
             level.shapes = shapes.ToArray();
             XmlHelpers.SerializeToXML<LevelDescription>(saveFilePath, level);
+            Progress.TaskDone();
+            
             return level;
-        }
-
-        public static float GetProgress()
-        {
-            return _progress / _progressTotal;
         }
     }
 }

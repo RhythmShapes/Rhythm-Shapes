@@ -11,7 +11,7 @@ namespace AudioAnalysis
         private static int beatWindowSize;
         
         // Still used ?
-        public static LevelDescription AnalyseMusic(AudioClip clip, string dataPath)
+        /*public static LevelDescription AnalyseMusic(AudioClip clip, string dataPath)
         {
             TextAsset xml = Resources.Load<TextAsset>(dataPath);
 
@@ -52,6 +52,6 @@ namespace AudioAnalysis
             }
 
             return  XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
-        }
+        }*/
     }
 }

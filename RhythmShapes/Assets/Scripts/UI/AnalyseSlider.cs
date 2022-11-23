@@ -18,7 +18,6 @@ namespace ui
         {
             Stop();
             _coroutine = StartCoroutine(UpdateCo());
-            Debug.Log("6");
         }
 
         public void Stop()
@@ -30,11 +29,10 @@ namespace ui
         private IEnumerator UpdateCo()
         {
             slider.value = 0;
-            Debug.Log("5");
             
-            while (Math.Abs(slider.value - slider.maxValue) >= 0)
+            while (MultiRangeAnalysis.Progress.IsComplete())
             {
-                slider.value += MultiRangeAnalysis.GetProgress();
+                slider.value = slider.maxValue * MultiRangeAnalysis.Progress.ToPercent();
                 yield return null;
             }
             
