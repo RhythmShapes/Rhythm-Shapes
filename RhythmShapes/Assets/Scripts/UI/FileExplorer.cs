@@ -22,8 +22,9 @@ public class FileExplorer : MonoBehaviour
     {
         Debug.Assert(Instance == null);
         Instance = this;
-        
-        applicationDataPath = Application.dataPath;
+
+        applicationDataPath = Application.persistentDataPath;
+        Debug.Log(applicationDataPath);//Application.dataPath;
         levelPath = applicationDataPath + "/Resources/Levels";
         DontDestroyOnLoad(gameObject);
     }
@@ -70,7 +71,7 @@ public class FileExplorer : MonoBehaviour
             Directory.CreateDirectory(levelPath);
             try
             {
-                FileUtil.CopyFileOrDirectory(selectedAudioPath, levelPath+"/Audio."+audioExtension);
+                FileUtil.CopyFileOrDirectory(selectedAudioPath, levelPath+"/Audio"+audioExtension);
                 SceneTransition.Instance.LoadScene(1);
             }
             catch (Exception e)
