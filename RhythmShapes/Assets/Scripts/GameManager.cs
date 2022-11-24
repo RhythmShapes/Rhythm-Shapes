@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        string levelName = useDevVariables ? devLevelName : LevelName;
+        string levelName = useDevVariables ? devLevelName : FindObjectOfType<FileExplorer>().levelName;
         
         if((!useDevVariables && Analyse) || (useDevVariables && loadFromAnalyse))
             LevelLoader.Instance.LoadLevelFromAnalysis(levelName);
