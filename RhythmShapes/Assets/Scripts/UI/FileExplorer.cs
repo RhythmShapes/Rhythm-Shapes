@@ -25,7 +25,7 @@ public class FileExplorer : MonoBehaviour
 
         applicationDataPath = Application.persistentDataPath;
         Debug.Log(applicationDataPath);//Application.dataPath;
-        levelPath = applicationDataPath + "/Resources/Levels";
+        levelPath = applicationDataPath + "/Levels";
         DontDestroyOnLoad(gameObject);
     }
 

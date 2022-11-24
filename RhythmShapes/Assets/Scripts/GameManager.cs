@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,8 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool useDevVariables;
     [SerializeField] private bool loadFromAnalyse;
     [SerializeField] private string devLevelName;
-    public string LevelName { get; set; }
-    public bool Analyse { get; set; }
+    public bool Analyse { get; set; } = true;
 
     private void Start()
     {

@@ -784,10 +784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54903565f0874c45b018d7a99869a526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useDevVariables: 1
+  useDevVariables: 0
   loadFromAnalyse: 1
   devLevelName: LevelTestSlider
-  devAudioFilePath: D:\Unity\projects\Rhythm-Shapes\RhythmShapes\Assets\Audio\Music\Test4_150_75_50BPM.mp3
 --- !u!4 &992990946
 Transform:
   m_ObjectHideFlags: 0

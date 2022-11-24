@@ -1,18 +1,18 @@
-using System;
 using System.Collections;
-using System.Threading;
 using AudioAnalysis;
 using UnityEngine;
 using UnityEngine.UI;
+using utils;
 
 namespace ui
 {
     public class AnalyseSlider : MonoBehaviour
     {
+        public static ProgressUtil Progress { get; } = new();
+        
         [SerializeField] private Slider slider;
 
-        private Thread _thread;
-        private Coroutine _coroutine = null;
+        private Coroutine _coroutine;
 
         public void Start()
         {
@@ -28,11 +28,12 @@ namespace ui
 
         private IEnumerator UpdateCo()
         {
+            Progress.Reset();
             slider.value = 0;
             
-            while (MultiRangeAnalysis.Progress.IsComplete())
+            while (Progress.IsComplete())
             {
-                slider.value = slider.maxValue * MultiRangeAnalysis.Progress.ToPercent();
+                slider.value = slider.maxValue * Progress.ToPercent();
                 yield return null;
             }
             

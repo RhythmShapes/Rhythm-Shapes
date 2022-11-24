@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using ui;
 using UnityEngine;
 using utils;
 using utils.XML;
@@ -18,8 +19,6 @@ namespace AudioAnalysis
         private static int _clipSamples;
         private static int _clipChannels;
 
-        public static ProgressUtil Progress { get; private set; }
-
         public static void Init(AudioClip clip)
         {
             _clipName = clip.name;
@@ -28,24 +27,23 @@ namespace AudioAnalysis
             _clipChannels = clip.channels;
             _totalSamples = new float[_clipSamples * _clipChannels];
             clip.GetData(_totalSamples, 0);
-            
-            Progress ??= new ProgressUtil();
-            Progress.Init(8f);
         }
         
         public static LevelDescription AnalyseMusic(string saveFilePath)
         {
             float[] BPMs = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
+            
             float[][] fftData = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
+            
             float[][] amplitudeEvolutionPerFrequency = new float[fftData[0].Length][];
             
             for (int i = 0; i < amplitudeEvolutionPerFrequency.Length; i++)
             {
                 amplitudeEvolutionPerFrequency[i] = new float[fftData.Length];
             }
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
             
             for(int i = 0; i < fftData[0].Length; i++)
             {
@@ -55,14 +53,14 @@ namespace AudioAnalysis
                     amplitudeEvolutionPerFrequency[i][j] = fftData[j][i];
                 }
             }
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
 
             bool[][] maximums = new bool[amplitudeEvolutionPerFrequency.Length][];
             for(int i = 0; i < amplitudeEvolutionPerFrequency.Length; i++)
             {
                 maximums[i] = AudioTools.TimewiseLocalMaximums(amplitudeEvolutionPerFrequency[i], 30);
             }
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
 
             //TODO Faire les moyennes sur des ranges de fréquence et renvoyer un LevelDescription (et sauvegarder cet objet en XML)
 
@@ -93,7 +91,7 @@ namespace AudioAnalysis
                 }
                 freqMin= freqMax;
             }
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
             
             for (int j = 0; j < noteProbability[0].Length; j++)
             {
@@ -118,11 +116,11 @@ namespace AudioAnalysis
                     shapes.Add(shape);
                 }
             }
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
             
             level.shapes = shapes.ToArray();
             XmlHelpers.SerializeToXML<LevelDescription>(saveFilePath, level);
-            Progress.TaskDone();
+            AnalyseSlider.Progress.Update();
             
             return level;
         }
