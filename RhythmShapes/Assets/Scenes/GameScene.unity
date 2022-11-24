@@ -876,6 +876,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  useBasicBPM: 0
 --- !u!114 &992990948
 MonoBehaviour:
   m_ObjectHideFlags: 0
