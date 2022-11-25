@@ -8,6 +8,7 @@ using ui;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using utils.XML;
 
 public class LevelLoader : MonoBehaviour
@@ -49,9 +50,8 @@ public class LevelLoader : MonoBehaviour
     {
         onLoadFromFileStart.Invoke();
         string dataPath = GetDataFilePath(levelName);
-        
-        TextAsset xml = new TextAsset(dataPath);
 
+        TextAsset xml = new TextAsset(File.ReadAllText(dataPath));
         if (xml == null)
         {
             Debug.LogError("Cannot load data file : " + dataPath);
@@ -59,12 +59,12 @@ public class LevelLoader : MonoBehaviour
         }
 
         LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
-        LoadAudio(levelName, () =>
+        StartCoroutine(LoadAudio(levelName, () =>
         {
             gameAudioSource.clip = _loadedAudioClip;
             _currentLevelDescription = level;
             onLoadedEvent.Invoke(level);
-        });
+        }));
     }
 
     public void LoadLevelFromAnalysis(string levelName)

@@ -1052,6 +1052,7 @@ GameObject:
   - component: {fileID: 1163739779}
   - component: {fileID: 1163739778}
   - component: {fileID: 1163739777}
+  - component: {fileID: 1163739781}
   m_Layer: 0
   m_Name: ModelsManager
   m_TagString: Untagged
@@ -1297,6 +1298,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1163739781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163739776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050c880e72484697b4ae8070e1e31bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectsVolume: {fileID: 8413089935889002151}
+  musicVolume: {fileID: 8413089935889002150}
 --- !u!114 &1438464771 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8413089935043515814, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
@@ -1345,6 +1360,50 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 792051168}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 792051161}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1163739781}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateMusicVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: utils.PlayerPrefsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089935043515808, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: mainCamera
       value: 
@@ -1405,6 +1464,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 33238345}
+    - target: {fileID: 8413089935476064719, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1163739781}
+    - target: {fileID: 8413089935476064719, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateEffectVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089935476064719, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: utils.PlayerPrefsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089935678920729, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1471,3 +1542,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+--- !u!114 &8413089935889002150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8413089934993567518, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+  m_PrefabInstance: {fileID: 8413089935889002149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8413089935889002151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8413089935476064719, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+  m_PrefabInstance: {fileID: 8413089935889002149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
