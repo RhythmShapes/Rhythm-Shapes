@@ -1,5 +1,4 @@
-﻿using UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +10,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        FileExplorer explorer = FindObjectOfType<FileExplorer>();
-        string levelName = useDevVariables ? devLevelName : explorer.levelName;
+        string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
         
-        if((!useDevVariables && explorer.requestAnalysis) || (useDevVariables && loadFromAnalyse))
+        if((!useDevVariables && GameInfo.requestAnalysis) || (useDevVariables && loadFromAnalyse))
             LevelLoader.Instance.LoadLevelFromAnalysis(levelName);
         else
             LevelLoader.Instance.LoadLevelFromFile(levelName);
