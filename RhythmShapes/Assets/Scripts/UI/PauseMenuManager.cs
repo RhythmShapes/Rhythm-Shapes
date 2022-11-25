@@ -36,6 +36,6 @@ public class PauseMenuManager : MonoBehaviour
         Debug.Log("BackToMenu");
         mainCamera.position = -10*Vector3.forward;
         pauseMenuCanvas.SetActive(false);
-        SceneManager.LoadScene("MenuScene");
+        SceneTransition.Instance.BackToMainMenu();
     }
 }

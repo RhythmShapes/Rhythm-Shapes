@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -11,7 +9,6 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     { 
         // Debug.Log("StartGame");
-        // SceneManager.LoadScene("");
         mainMenuCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
     }
@@ -34,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
     public void QuitGame()
     {
         // Debug.Log("QuitGame");
-        Application.Quit();
+        SceneTransition.Instance.Quit();
     }
     
     public void BackToMainMenu()
@@ -42,10 +39,5 @@ public class MainMenuManager : MonoBehaviour
         // Debug.Log("BackToMainMenu");
         musicSelectionMenuCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
-    }
-    
-    public void PlayLeveLTest()
-    {
-        SceneManager.LoadScene("GameScene");
     }
 }

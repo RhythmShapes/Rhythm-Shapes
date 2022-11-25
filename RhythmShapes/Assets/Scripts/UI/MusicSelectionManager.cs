@@ -1,27 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml;
+using ui;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MusicSelectionManager : MonoBehaviour
 {
     [SerializeField] private RectTransform content;
+    [SerializeField] private GameObject buttonPrefab;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        foreach (string levelName in Directory.GetDirectories(Path.Combine(Application.persistentDataPath, "Levels")))
+        {
+            Instantiate(buttonPrefab, content).GetComponent<MenuButton>().Init(Path.GetFileName(levelName));
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
-
 }

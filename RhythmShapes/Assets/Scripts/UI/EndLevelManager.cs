@@ -23,23 +23,6 @@ public class EndLevelManager : MonoBehaviour
     [SerializeField] private RawImage musicImage;
     [SerializeField] private Transform mainCamera;
 
-    private void Awake()
-    {
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void ShowEndLevelMenu()
     {
         mainCamera.position = Vector3.zero;
@@ -59,7 +42,7 @@ public class EndLevelManager : MonoBehaviour
         Debug.Log("BackToMenu");
         mainCamera.position = -10*Vector3.forward;
         endLevelMenuCanvas.SetActive(false);
-        SceneManager.LoadScene("MenuScene");
+        SceneTransition.Instance.BackToMainMenu();
     }
     
     

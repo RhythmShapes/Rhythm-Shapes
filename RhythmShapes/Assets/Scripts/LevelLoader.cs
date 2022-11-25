@@ -69,6 +69,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevelFromAnalysis(string levelName)
     {
+        GameInfo.requestAnalysis = false;
         _loaded = false;
         AnalyseSlider.Progress.Init(useBasicBPM ? 6 : 8);
         StartCoroutine(LoadAudio(levelName, () =>

@@ -32,6 +32,16 @@ public class InputManager : MonoBehaviour
         _inputSystem.UI.UnPause.performed += _ => UnPausePerformed();
     }
 
+    private void OnDisable()
+    {
+        _inputSystem.Player.Top.performed -= _ => InputPerformed(Target.Top);
+        _inputSystem.Player.Left.performed -= _ => InputPerformed(Target.Left);
+        _inputSystem.Player.Right.performed -= _ => InputPerformed(Target.Right);
+        _inputSystem.Player.Bottom.performed -= _ => InputPerformed(Target.Bottom);
+        _inputSystem.Player.Pause.performed -= _ => PausePerformed();
+        _inputSystem.UI.UnPause.performed -= _ => UnPausePerformed();
+    }
+
     private void InputPerformed(Target target)
     {
         if (GameModel.Instance.HasNextAttendedInput())
@@ -44,7 +54,7 @@ public class InputManager : MonoBehaviour
     private void PausePerformed()
     {
         
-        if (SceneManager.GetActiveScene().name == "GameScene" && !GameModel.Instance.isGamePaused)
+        if (!GameModel.Instance.isGamePaused)
         {
             Debug.Log("PausePerformed");
             onGamePaused.Invoke();
@@ -53,7 +63,7 @@ public class InputManager : MonoBehaviour
 
     private void UnPausePerformed()
     {
-        if (SceneManager.GetActiveScene().name == "GameScene" && GameModel.Instance.isGamePaused)
+        if (GameModel.Instance.isGamePaused)
         {
             Debug.Log("UnPausePerformed");
             onGameUnpaused.Invoke();
