@@ -570,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2183b96c67944226aabf7fbb28946f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sameTimeToPressTolerance: 1
 --- !u!114 &792051165
 MonoBehaviour:
   m_ObjectHideFlags: 0
