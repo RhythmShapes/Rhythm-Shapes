@@ -45,12 +45,12 @@ namespace AudioAnalysis
             }
             AnalyseSlider.Progress.Update();
             
-            for(int i = 0; i < fftData[0].Length; i++)
+            for(int i = 0; i < fftData.Length; i++)
             {
                 Debug.Assert(fftData[i].Length == amplitudeEvolutionPerFrequency.Length);
-                for(int j = 0; j < fftData.Length;j++)
+                for(int j = 0; j < fftData[i].Length;j++)
                 {
-                    amplitudeEvolutionPerFrequency[i][j] = fftData[j][i];
+                    amplitudeEvolutionPerFrequency[j][i] = fftData[i][j];
                 }
             }
             AnalyseSlider.Progress.Update();
