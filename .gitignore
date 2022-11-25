@@ -73,6 +73,8 @@
 
 # Rider
 # Rider auto-generates .iml files, and contentModel.xml
+/RyhthmShapes/.idea
+/RyhthmShapes/.idea/*
 /RhythmShapes/**/.idea/**/*.iml
 /RhythmShapes/**/.idea/**/contentModel.xml
 /RhythmShapes/**/.idea/**/modules.xml
