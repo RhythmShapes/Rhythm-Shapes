@@ -1,70 +1,51 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
+using SimpleFileBrowser;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using File = UnityEngine.Windows.File;
 
-public class FileExplorer : MonoBehaviour
+namespace UI
 {
-    public static FileExplorer Instance { get; private set; }
-    public string selectedAudioPath;
-    public AudioClip audioClip;
-    private string applicationDataPath;
-    // private string _resourcesFolderPath = "Assets/Resources/";
-    private string levelPath;
-    // public string GameInfo.LevelName = "LevelTest";
-    public string audioExtension;
-
-    public void Awake()
+    public class FileExplorer : MonoBehaviour
     {
-        Debug.Assert(Instance == null);
-        Instance = this;
+        public static FileExplorer Instance { get; private set; }
+        public string selectedAudioPath;
+        public AudioClip audioClip;
+        private string applicationDataPath;
+        // private string _resourcesFolderPath = "Assets/Resources/";
+        private string levelPath;
+        // public string GameInfo.LevelName = "LevelTest";
+        public string audioExtension;
 
-        GameInfo.LevelName = "LevelTest";
-        applicationDataPath = Application.persistentDataPath;
-        Debug.Log(applicationDataPath);//Application.dataPath;
-        levelPath = applicationDataPath + "/Levels";
-    }
-
-    public void OpenExplorer()
-    {
-        selectedAudioPath = EditorUtility.OpenFilePanel("Select your music", "", "mp3");
-        if (selectedAudioPath != null && selectedAudioPath.Length>0)
+        public void Awake()
         {
-            var qqch = Path.GetFileName(selectedAudioPath);
-            GameInfo.LevelName = qqch.Split(".")[0];
-            audioExtension = Path.GetExtension(selectedAudioPath);
-            Debug.Log(GameInfo.LevelName + ", "+audioExtension);
-            UpdateAudioClip();
-        }
-        
-    }
+            Debug.Assert(Instance == null);
+            Instance = this;
 
-    // public void CreateFolder()
-    // {
-    //     // Debug.Log(Application.dataPath);
-    //     
-    //     if (!Directory.Exists(levelPath))
-    //     {
-    //         Debug.Log("kebab");
-    //         
-    //         // AssetDatabase.CreateFolder("Assets/Resources/", GameInfo.LevelName); not working
-    //     }
-    // }
-
-    private void UpdateAudioClip() 
-    {
-        if (!File.Exists(selectedAudioPath))
-        {
-            Debug.LogError("Cannot find the source audio file : " + selectedAudioPath);
-            return;
+            GameInfo.LevelName = "LevelTest";
+            applicationDataPath = Application.persistentDataPath;
+            Debug.Log(applicationDataPath);//Application.dataPath;
+            levelPath = applicationDataPath + "/Levels";
         }
 
-        levelPath += "/"+ GameInfo.LevelName;
-        Debug.Log(levelPath);
+        public void OpenExplorer()
+        {
+            FileBrowser.SetFilters(true, new FileBrowser.Filter("Musics", ".mp3"));
+            FileBrowser.SetDefaultFilter(".mp3");
+            StartCoroutine(ShowLoadDialogCoroutine());
+        }
+
+        private void UpdateAudioClip() 
+        {
+            if (!File.Exists(selectedAudioPath))
+            {
+                Debug.LogError("Cannot find the source audio file : " + selectedAudioPath);
+                return;
+            }
+
+            levelPath += "/"+ GameInfo.LevelName;
+            Debug.Log(levelPath);
         
             if (!Directory.Exists(levelPath))
             {
@@ -72,7 +53,7 @@ public class FileExplorer : MonoBehaviour
                 try
                 {
                     GameInfo.requestAnalysis = true;
-                    FileUtil.CopyFileOrDirectory(selectedAudioPath, levelPath+"/Audio"+audioExtension);
+                    File.Copy(selectedAudioPath, levelPath+"/Audio"+audioExtension);
                     SceneTransition.Instance.LoadScene(1);
                 }
                 catch (Exception e)
@@ -84,39 +65,38 @@ public class FileExplorer : MonoBehaviour
             else
             {
                 Debug.LogError("level"+ Path.GetDirectoryName(levelPath) +" exist already");
-                return;
             }
         
-    }
-    
-    
+        }
+        
+        private IEnumerator ShowLoadDialogCoroutine()
+        {
+            // Show a load file dialog and wait for a response from user
+            // Load file/folder: both, Allow multiple selection: true
+            // Initial path: default (Documents), Initial filename: empty
+            // Title: "Load File", Submit button text: "Load"
+            yield return FileBrowser.WaitForLoadDialog( FileBrowser.PickMode.FilesAndFolders, true, null, null, "Load Files and Folders", "Load" );
 
-    // if (!File.Exists(audioFilePath))
-    // {
-    //     Debug.LogError("Cannot find the source audio file : " + audioFilePath);
-    //     return;
-    // }
-    //     
-    //     
-    // if (!AssetDatabase.IsValidFolder(_resourcesFolderPath + GameInfo.LevelName))
-    // {
-    //     if (AssetDatabase.CreateFolder(_resourcesFolderPath, GameInfo.LevelName).Length == 0)
-    //     {
-    //         Debug.LogError("Cannot create new folder : " + _resourcesFolderPath + GameInfo.LevelName);
-    //         return;
-    //     }
-    // }
-    //     
-    // string audioPath = _resourcesFolderPath + GameInfo.LevelName + "/" + audioFileName;
-    //
-    // if (AssetDatabase.FindAssets(audioPath).Length > 0)
-    // {
-    //     if (AssetDatabase.DeleteAsset(audioPath))
-    //     {
-    //         Debug.LogError("Cannot delete old audio file : " + audioPath);
-    //         return;
-    //     }
-    // }
-    //
-    // File.Copy(audioFilePath, _resourcesFolderPath + GameInfo.LevelName);
+            // Dialog is closed
+            // Print whether the user has selected some files/folders or cancelled the operation (FileBrowser.Success)
+            Debug.Log(FileBrowser.Success);
+
+            if( FileBrowser.Success )
+            {
+                // Print paths of the selected files (FileBrowser.Result) (null, if FileBrowser.Success is false)
+                for(int i = 0; i < FileBrowser.Result.Length; i++)
+                    Debug.Log(FileBrowser.Result[i]);
+                
+                if (FileBrowser.Result.Length > 0 && FileBrowser.Result[0] != null && FileBrowser.Result[0].Length > 0)
+                {
+                    selectedAudioPath = FileBrowser.Result[0];
+                    var qqch = Path.GetFileName(selectedAudioPath);
+                    GameInfo.LevelName = qqch.Split(".")[0];
+                    audioExtension = Path.GetExtension(selectedAudioPath);
+                    Debug.Log(GameInfo.LevelName + ", "+audioExtension);
+                    UpdateAudioClip();
+                }
+            }
+        }
+    }
 }
