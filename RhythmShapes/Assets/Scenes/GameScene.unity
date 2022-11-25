@@ -597,6 +597,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 992990949}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: OnInputValidated
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &792051166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +744,78 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetScoreTitleText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetPerfectCounterText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetGoodCounterText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetOkCounterText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetBadCounterText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetMissCounterText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &870615056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8413089935685805749, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
@@ -765,6 +849,7 @@ GameObject:
   - component: {fileID: 992990945}
   - component: {fileID: 992990947}
   - component: {fileID: 992990948}
+  - component: {fileID: 992990949}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -909,6 +994,23 @@ MonoBehaviour:
   leftTargetColor: {fileID: 566953788}
   bottomTargetColor: {fileID: 566953787}
   shapesSpeed: 10
+--- !u!114 &992990949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992990944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba39e966f5597b42abfb4e2277125b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perfectPoints: 100
+  goodPoints: 60
+  okPoints: 30
+  badPoints: 10
+  missPoints: 0
 --- !u!1 &1110690761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8413089934849615212, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
@@ -1093,6 +1195,18 @@ MonoBehaviour:
       - m_Target: {fileID: 476971992}
         m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
         m_MethodName: StartCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 992990949}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: ResetScoreVariables
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
