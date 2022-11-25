@@ -961,6 +961,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 792051169}
+        m_TargetAssemblyTypeName: CheckEndGame, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   useBasicBPM: 0
 --- !u!114 &992990948
 MonoBehaviour:
@@ -1400,18 +1412,50 @@ PrefabInstance:
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 792051161}
+      objectReference: {fileID: 1163739777}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1163739777}
+      objectReference: {fileID: 792051161}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetGamePauseStateFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 792051161}
+      objectReference: {fileID: 1163739777}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1163739777}
+      objectReference: {fileID: 792051161}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetGamePauseStateFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UnPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: models.GameModel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: models.GameModel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}

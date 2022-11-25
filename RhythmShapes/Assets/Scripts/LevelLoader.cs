@@ -33,7 +33,6 @@ public class LevelLoader : MonoBehaviour
 
     private AudioClip _loadedAudioClip;
     private LevelDescription _currentLevelDescription;
-    private string _resourcesFolderPath = "Assets/Resources/";
     private bool _loaded;
 
     private void Awake()
@@ -77,8 +76,8 @@ public class LevelLoader : MonoBehaviour
             AnalyseSlider.Progress.Update();
             analyseAudioSource.clip = _loadedAudioClip;
             
-            if(useBasicBPM) BasicBPM.Init(analyseAudioSource.clip);
-            else MultiRangeAnalysis.Init(analyseAudioSource.clip);
+            if(useBasicBPM) BasicBPM.Init(_loadedAudioClip);
+            else MultiRangeAnalysis.Init(_loadedAudioClip);
             
             onLoadFromAnalysisStart.Invoke();
 
