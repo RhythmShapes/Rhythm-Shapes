@@ -31,6 +31,7 @@ namespace UI
 
         public void OpenExplorer()
         {
+            // https://github.com/yasirkula/UnitySimpleFileBrowser
             FileBrowser.SetFilters(true, new FileBrowser.Filter("Musics", ".mp3"));
             FileBrowser.SetDefaultFilter(".mp3");
             StartCoroutine(ShowLoadDialogCoroutine());
@@ -69,6 +70,7 @@ namespace UI
         
         }
         
+        // https://github.com/yasirkula/UnitySimpleFileBrowser
         private IEnumerator ShowLoadDialogCoroutine()
         {
             // Show a load file dialog and wait for a response from user
