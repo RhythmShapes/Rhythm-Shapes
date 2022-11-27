@@ -23,23 +23,6 @@ public class EndLevelManager : MonoBehaviour
     [SerializeField] private RawImage musicImage;
     [SerializeField] private Transform mainCamera;
 
-    private void Awake()
-    {
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void ShowEndLevelMenu()
     {
         mainCamera.position = Vector3.zero;
@@ -59,12 +42,13 @@ public class EndLevelManager : MonoBehaviour
         Debug.Log("BackToMenu");
         mainCamera.position = -10*Vector3.forward;
         endLevelMenuCanvas.SetActive(false);
-        SceneManager.LoadScene("MenuScene");
+        SceneTransition.Instance.BackToMainMenu();
     }
     
     
-    public void SetLevelTitleText(string text)
+    public void SetLevelTitleText()
     {
+        var text = GameInfo.LevelName;
         levelTitleTMP.text = text;
     }
     
@@ -73,34 +57,40 @@ public class EndLevelManager : MonoBehaviour
         rankTitleTMP.text = "RANK : "+text;
     }
     
-    public void SetScoreTitleText(string text)
+    public void SetScoreTitleText()
     {
+        var text = ScoreManager.Instance.Score.ToString();
         scoreTitleTMP.text = "SCORE : "+text;
     }
     
-    public void SetPerfectCounterText(string text)
+    public void SetPerfectCounterText()
     {
+        var text = ScoreManager.Instance.PerfectCounter.ToString();
         perfectCounterTMP.text = text + " PERFECT";
     }
     
-    public void SetGoodCounterText(string text)
+    public void SetGoodCounterText()
     {
+        var text = ScoreManager.Instance.GoodCounter.ToString();
         goodCounterTMP.text = text + " GOOD";
     }
     
-    public void SetOkCounterText(string text)
+    public void SetOkCounterText()
     {
-        okCounterTMP.text = text + " GOOD";
+        var text = ScoreManager.Instance.OkCounter.ToString();
+        okCounterTMP.text = text + " OK";
     }
     
-    public void SetBadCounterText(string text)
+    public void SetBadCounterText()
     {
-        badCounterTMP.text = text + " GOOD";
+        var text = ScoreManager.Instance.BadCounter.ToString();
+        badCounterTMP.text = text + " BAD";
     }
     
-    public void SetMissCounterText(string text)
+    public void SetMissCounterText()
     {
-        missCounterTMP.text = text + " GOOD";
+        var text = ScoreManager.Instance.MissCounter.ToString();
+        missCounterTMP.text = text + " MISS";
     }
     
     public void SetMusicImage(Texture2D texture)

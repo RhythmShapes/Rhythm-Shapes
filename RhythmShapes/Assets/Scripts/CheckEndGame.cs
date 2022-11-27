@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using models;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,21 +15,21 @@ public class CheckEndGame : MonoBehaviour
         onGameEnded ??= new UnityEvent();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         _audioSource = GetComponent<AudioSource>();
         _audioLength = _audioSource.clip.length;
+        _timeCounter = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!GameModel.Instance.isGamePaused)
         {
+            _timeCounter = _audioSource.time > 0 ? _audioSource.time : _timeCounter;
             _timeCounter += Time.deltaTime;
-            //Debug.Log("_timeCounter : "+_timeCounter);
-            if (_timeCounter >= _audioLength + 2*GameModel.Instance.BadPressedWindow)
+
+            if (_timeCounter - (_audioLength + 2*GameModel.Instance.BadPressedWindow) > 0)
             {
                 onGameEnded.Invoke();
             }

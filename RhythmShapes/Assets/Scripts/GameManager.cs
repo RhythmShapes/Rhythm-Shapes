@@ -7,16 +7,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool useDevVariables;
     [SerializeField] private bool loadFromAnalyse;
     [SerializeField] private string devLevelName;
-    
-    public string LevelName { get; set; }
-    public bool Analyse { get; set; }
 
     private void Start()
     {
-        string levelName = useDevVariables ? devLevelName : LevelName;
+        string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
         
-        if((!useDevVariables && Analyse) || (useDevVariables && loadFromAnalyse))
-            LevelLoader.Instance.LoadLevelFromAnalyse(levelName);
+        if((!useDevVariables && GameInfo.requestAnalysis) || (useDevVariables && loadFromAnalyse))
+            LevelLoader.Instance.LoadLevelFromAnalysis(levelName);
         else
             LevelLoader.Instance.LoadLevelFromFile(levelName);
     }

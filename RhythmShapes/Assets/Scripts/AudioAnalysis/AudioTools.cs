@@ -7,22 +7,21 @@ namespace AudioAnalysis
 {
     public static class AudioTools
     {
+        public const int SampleSize = 2048;
 
-        public static float[] preprocessAudioData(AudioClip clip)
+        public static float[] preprocessAudioData(float[] totalSamples, int clipSamples, int channels)
         //Processes the clip from the given audio clip and return the samples combined as mono in a float[]  
         {
             try
             {
-                float[] totalSamples = new float[clip.samples * clip.channels];
-                float[] samples = new float[clip.samples];
+                float[] samples = new float[clipSamples];
                 float averageValue = 0;
-                clip.GetData(totalSamples, 0);
                 for (int i = 0; i < totalSamples.Length; i++)
                 {
                     averageValue += totalSamples[i];
-                    if ((i + 1) % clip.channels == 0)
+                    if ((i + 1) % channels == 0)
                     {
-                        samples[(int)i / clip.channels] = averageValue / clip.channels;
+                        samples[(int)i / channels] = averageValue / channels;
                         averageValue = 0;
                     }
                 }
@@ -37,19 +36,19 @@ namespace AudioAnalysis
             }
         }
 
-        public static float[][] FFT(AudioClip clip, int SAMPLE_SIZE)
+        public static float[][] FFT(float[] totalSamples, int clipSamples, int channels, int sampleSize)
         {
-            float[] samples = preprocessAudioData(clip);
-            int iterations = samples.Length / SAMPLE_SIZE;
+            float[] samples = preprocessAudioData(totalSamples, clipSamples,  channels);
+            int iterations = samples.Length / sampleSize;
             FFT fft = new FFT();
-            fft.Initialize((UInt32)SAMPLE_SIZE);
-            double[] sampleChunk = new double[SAMPLE_SIZE];
+            fft.Initialize((UInt32)sampleSize);
+            double[] sampleChunk = new double[sampleSize];
             double[][] scaledFFTSpectrum = new double[iterations][];
             float[][] spectrum = new float[iterations][];
             for (int i = 0; i < iterations; i++)
             {
-                Array.Copy(samples, i * SAMPLE_SIZE, sampleChunk, 0, SAMPLE_SIZE);
-                double[] windowCoefs = DSP.Window.Coefficients(DSP.Window.Type.Hamming, (uint)SAMPLE_SIZE);
+                Array.Copy(samples, i * sampleSize, sampleChunk, 0, sampleSize);
+                double[] windowCoefs = DSP.Window.Coefficients(DSP.Window.Type.Hamming, (uint)sampleSize);
                 double[] scaledSpectrumChunk = DSP.Math.Multiply(sampleChunk, windowCoefs);
                 double scaleFactor = DSP.Window.ScaleFactor.Signal(windowCoefs);
 
@@ -68,14 +67,25 @@ namespace AudioAnalysis
         public static float timeFromIndex(int index, AudioClip clip)
         //Gives the time in seconds corresponding to the given preprocessed samples index.
         {
-            float clipSampleRate = clip.frequency;
+            return timeFromIndex(index, clip.frequency);
+        }
+
+        public static float timeFromIndex(int index, float clipSampleRate)
+            //Gives the time in seconds corresponding to the given preprocessed samples index.
+        {
             return index / clipSampleRate;
         }
 
         public static int indexFromTime(float time, AudioClip clip)
         //Gives the index in the preprocessed samples corresponding to the given time in seconds.
         {
-            return Mathf.FloorToInt(time * clip.samples / clip.length);
+            return indexFromTime(time, clip.samples, clip.length);
+        }
+
+        public static int indexFromTime(float time, float clipSample, float clipLength)
+            //Gives the index in the preprocessed samples corresponding to the given time in seconds.
+        {
+            return Mathf.FloorToInt(time * clipSample / clipLength);
         }
 
 
@@ -113,9 +123,9 @@ namespace AudioAnalysis
             return Mathf.Sqrt(sum) / data.Length;
         }
 
-        public static float[] GetBPM(AudioClip clip)
+        public static float[] GetBPM(float[] totalSamples, int clipSamples, int channels, float frequency)
         {
-            float[][] spectrum = FFT(clip, 2048);
+            float[][] spectrum = FFT(totalSamples, clipSamples,  channels, SampleSize);
             float[] BPMS = new float[spectrum.Length];
             float[] averageEnergies = new float[spectrum.Length];
             for(int i = 0; i < spectrum.Length; i++)
@@ -135,7 +145,7 @@ namespace AudioAnalysis
             {
                 if(averageEnergies[i] > averageEnergy && i > lastBeatIndex)
                 {
-                    currentBPM = 60 / ((float)(i - lastBeatIndex)/clip.frequency);
+                    currentBPM = 60 / ((float)(i - lastBeatIndex)/frequency);
                     lastBeatIndex = i;
                 }
                 BPMS[i] = currentBPM;
