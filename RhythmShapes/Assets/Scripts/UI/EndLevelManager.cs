@@ -46,8 +46,9 @@ public class EndLevelManager : MonoBehaviour
     }
     
     
-    public void SetLevelTitleText(string text)
+    public void SetLevelTitleText()
     {
+        var text = GameInfo.LevelName;
         levelTitleTMP.text = text;
     }
     

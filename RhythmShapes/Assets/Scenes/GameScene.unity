@@ -828,6 +828,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1438464774}
+        m_TargetAssemblyTypeName: EndLevelManager, Assembly-CSharp
+        m_MethodName: SetLevelTitleText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &870615056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8413089935685805749, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
