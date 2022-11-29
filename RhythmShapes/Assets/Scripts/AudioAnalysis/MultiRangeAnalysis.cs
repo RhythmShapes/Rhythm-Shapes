@@ -13,6 +13,8 @@ namespace AudioAnalysis
         [SerializeField]
         private static int numberOfRanges = 4;
 
+        [SerializeField]
+        private static float minimalNoteDelay = 0.1f;
         private static string _clipName;
         private static float _clipFrequency;
         private static float[] _totalSamples;
@@ -44,7 +46,8 @@ namespace AudioAnalysis
                 amplitudeEvolutionPerFrequency[i] = new float[fftData.Length];
             }
             AnalyseSlider.Progress.Update();
-            
+
+            float[] averageAmplitudePerFrequency = new float[numberOfRanges];
             for(int i = 0; i < fftData.Length; i++)
             {
                 Debug.Assert(fftData[i].Length == amplitudeEvolutionPerFrequency.Length);
@@ -92,7 +95,8 @@ namespace AudioAnalysis
                 freqMin= freqMax;
             }
             AnalyseSlider.Progress.Update();
-            
+
+            float oldTime = 0;
             for (int j = 0; j < noteProbability[0].Length; j++)
             {
                 float maxProbability = 0;
@@ -107,13 +111,16 @@ namespace AudioAnalysis
                 }
                 if (maxProbability > 0.3)
                 {
+                    float noteTime= AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                    if(noteTime-oldTime < minimalNoteDelay) { continue; }
                     numberOfNotes++;
                     ShapeDescription shape = new ShapeDescription();
                     shape.target = (shape.Target)maxProbabilityIndex;
                     shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                    shape.timeToPress = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                    shape.timeToPress = noteTime;
                     shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                     shapes.Add(shape);
+                    oldTime = noteTime;
                 }
             }
             AnalyseSlider.Progress.Update();

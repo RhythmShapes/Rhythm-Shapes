@@ -104,7 +104,7 @@ namespace AudioAnalysis
                 int end = Mathf.Min(data.Length, i + timeWindow/2);
                 for(int j = start; j < end; j++)
                 {
-                    if (data[j] > data[i] && j!=i)
+                    if (data[i] == 0 ||data[j] > data[i] && j!=i)
                     {
                         isMax[i] = false;
                     }
