@@ -20,3 +20,6 @@
 - Organisation
   - [Issues](https://github.com/RhythmShapes/Rhythm-Shapes/issues)
   - [Kanban](https://trello.com/invite/b/q9nAheVG/55accf110d106d88bf61a6953d01f250/kanban-rhythm-shapes)
+
+# External assets
+- [Runtime File Browser](https://assetstore.unity.com/packages/tools/gui/runtime-file-browser-113006#description)
