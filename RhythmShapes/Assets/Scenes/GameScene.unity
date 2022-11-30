@@ -1408,6 +1408,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 8413089934784750944, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_Name
+      value: MenuButton
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089934784750946, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1560,9 +1564,25 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 33238345}
+    - target: {fileID: 8413089935678920729, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089935678920733, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089935844617007, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_text
+      value: 'Menu
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936087819984, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_text
+      value: 'Menu
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1576,6 +1596,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 33238345}
+    - target: {fileID: 8413089936231492979, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
