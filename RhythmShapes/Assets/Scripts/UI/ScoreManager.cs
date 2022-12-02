@@ -21,7 +21,9 @@ public class ScoreManager : MonoBehaviour
     public int BadCounter { get; private set; }
     public int MissCounter { get; private set; }
 
-    public int Score { get; private set; }
+    public int Score { get; private set; } = 0;
+    public int Combo { get; private set; } = 0;
+    
     private float currrentAccuracy;
     private int currentNumberOfShape = 0;
 
@@ -39,33 +41,42 @@ public class ScoreManager : MonoBehaviour
         switch (accuracy)
         {
             case PressedAccuracy.Perfect:
-                amount = perfectPoints;
+                Combo++;
+                amount = perfectPoints * GetComboValue();
                 PerfectCounter++;
                 break;
             case PressedAccuracy.Good:
-                amount = goodPoints;
+                Combo++;
+                amount = goodPoints * GetComboValue();
                 GoodCounter++;
                 break;
             case PressedAccuracy.Ok:
-                amount = okPoints;
+                Combo++;
+                amount = okPoints * GetComboValue();
                 OkCounter++;
                 break;
             case PressedAccuracy.Bad:
+                Combo = 0;
                 amount = badPoints;
                 BadCounter++;
                 break;
             case PressedAccuracy.Missed:
+                Combo = 0;
                 amount = missPoints;
                 MissCounter++;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
-                amount = 0;
         }
 
         Score += amount;
         // currentNumberOfShape++;
         // currrentAccuracy = (500*perfectCounter + 200*goodCounter + 75*okCounter + 40*goodCounter + 10*badCounter)/((float)500*currentNumberOfShape);
+    }
+
+    private int GetComboValue()
+    {
+        return Combo > 0 ? Combo : 1;
     }
 
     public int GetScore()
