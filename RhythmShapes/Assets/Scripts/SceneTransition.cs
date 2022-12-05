@@ -20,6 +20,11 @@ public class SceneTransition : MonoBehaviour
     {
         SceneManager.LoadScene(buildIndex);
     }
+
+    public void LoadScene(string name)
+    {
+        LoadScene(SceneManager.GetSceneByName(name).buildIndex);
+    }
     
     public void LoadNextScene()
     {

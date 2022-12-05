@@ -8,8 +8,6 @@ namespace ui
 {
     public class AnalyseSlider : MonoBehaviour
     {
-        public static ProgressUtil Progress { get; } = new();
-        
         [SerializeField] private Slider slider;
 
         private Coroutine _coroutine;
@@ -28,12 +26,12 @@ namespace ui
 
         private IEnumerator UpdateCo()
         {
-            Progress.Reset();
+            ProgressUtil.Reset();
             slider.value = 0;
             
-            while (Progress.IsComplete())
+            while (ProgressUtil.IsComplete())
             {
-                slider.value = slider.maxValue * Progress.ToPercent();
+                slider.value = slider.maxValue * ProgressUtil.ToPercent();
                 yield return null;
             }
             

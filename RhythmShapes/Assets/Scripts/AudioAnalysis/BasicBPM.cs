@@ -30,7 +30,7 @@ namespace AudioAnalysis
         public static LevelDescription AnalyseMusic(string saveFilePath)
         {
             float[][] fullSpectrum = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
             
             float[] averageEnergyPerSample = new float[fullSpectrum.Length];
             int[] beatType = new int[fullSpectrum.Length];
@@ -42,7 +42,7 @@ namespace AudioAnalysis
                 overallAverageEnergy += averageEnergyPerSample[i];
             }
             overallAverageEnergy /= averageEnergyPerSample.Length;
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
 
             beatType = new int[averageEnergyPerSample.Length];
 
@@ -67,7 +67,7 @@ namespace AudioAnalysis
                     }
                 }
             }
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
             
             LevelDescription level = new LevelDescription();
             level.title = _clipName + "_generated";
@@ -85,11 +85,11 @@ namespace AudioAnalysis
                     shapes.Add(shape);
                 }
             }
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
             
             level.shapes = shapes.ToArray();
             XmlHelpers.SerializeToXML<LevelDescription>(saveFilePath, level);
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
 
             return level;
         }
