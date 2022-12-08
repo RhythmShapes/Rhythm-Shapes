@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using shape;
 using ui;
 using UnityEngine;
 using utils;
@@ -97,6 +98,9 @@ namespace AudioAnalysis
             AnalyseSlider.Progress.Update();
 
             float oldTime = 0;
+            // int counter = 0;
+            bool[] usedTarget = new []{false, false, false, false};
+            bool[] allFalse = new []{false, false, false, false};
             for (int j = 0; j < noteProbability[0].Length; j++)
             {
                 float maxProbability = 0;
@@ -111,16 +115,71 @@ namespace AudioAnalysis
                 }
                 if (maxProbability > 0.3)
                 {
-                    float noteTime= AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
-                    if(noteTime-oldTime < minimalNoteDelay) { continue; }
-                    numberOfNotes++;
-                    ShapeDescription shape = new ShapeDescription();
-                    shape.target = (shape.Target)maxProbabilityIndex;
-                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                    shape.timeToPress = noteTime;
-                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                    shapes.Add(shape);
-                    oldTime = noteTime;
+                    float noteTime = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                    if(noteTime-oldTime < minimalNoteDelay) {
+                        numberOfNotes++;
+                        ShapeDescription shape = new ShapeDescription();
+                        if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
+                        {
+                            if (!usedTarget[(maxProbabilityIndex + 1) % 4])
+                            {
+                                shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
+                                usedTarget[(maxProbabilityIndex + 1) % 4] = true;
+                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                shape.timeToPress = oldTime;
+                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                shapes.Add(shape);
+                            }
+                            else if (!usedTarget[(maxProbabilityIndex + 2) % 4])
+                            {
+                                shape.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
+                                usedTarget[(maxProbabilityIndex + 2) % 4] = true;
+                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                shape.timeToPress = oldTime;
+                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                shapes.Add(shape);
+                            }
+                            else if (!usedTarget[(maxProbabilityIndex + 3) % 4])
+                            {
+                                shape.target = (shape.Target)((maxProbabilityIndex + 3) % 4);
+                                usedTarget[(maxProbabilityIndex + 3) % 4] = true;
+                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                shape.timeToPress = oldTime;
+                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                shapes.Add(shape);
+                            }
+                            else
+                            {
+                                Debug.LogError("All Target Have Been Used" + j);
+                                // Debug.Log(usedTarget[0]+", "+usedTarget[1]+", "+usedTarget[2]+", "+usedTarget[3]);
+                            }
+                            
+                        }
+                        else
+                        {
+                            shape.target = (shape.Target)maxProbabilityIndex;
+                            usedTarget[maxProbabilityIndex] = true;
+                            shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            shape.timeToPress = oldTime;
+                            shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                            shapes.Add(shape);
+                        }
+                        // counter++;
+                    }
+                    else
+                    {
+                        numberOfNotes++;
+                        ShapeDescription shape = new ShapeDescription();
+                        shape.target = (shape.Target)maxProbabilityIndex;
+                        usedTarget = allFalse;
+                        usedTarget[maxProbabilityIndex] = true;
+                        shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                        shape.timeToPress = noteTime;
+                        shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                        shapes.Add(shape);
+                        oldTime = noteTime;
+                        // counter = 1;
+                    }
                 }
             }
             AnalyseSlider.Progress.Update();
