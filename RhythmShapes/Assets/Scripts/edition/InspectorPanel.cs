@@ -22,52 +22,30 @@ namespace edition
         [SerializeField] private UnityEvent<Target> onRequestChangeTarget;
         [SerializeField] private UnityEvent<bool> onRequestChangeGoRight;
         [SerializeField] private UnityEvent<float> onRequestChangeTimeToPress;
-        
-        public static InspectorPanel Instance { get; private set; }
-        
-        private ShapeDescription _shape;
 
         private void Awake()
         {
-            if (Instance != null && Instance != this) Destroy(gameObject);
-            else Instance = this;
-            
             onRequestChangeType ??= new UnityEvent<ShapeType>();
             onRequestChangeTarget ??= new UnityEvent<Target>();
             onRequestChangeGoRight ??= new UnityEvent<bool>();
             onRequestChangeTimeToPress ??= new UnityEvent<float>();
         }
 
-        public void SetShape(ShapeDescription shape)
-        {
-            _shape = shape;
-        }
-
-        public bool IsShapeDefined()
-        {
-            return _shape != null;
-        }
-
-        public ShapeDescription GetShape()
-        {
-            return _shape;
-        }
-
         public void SetActive(bool active)
         {
             if (active)
             {
-                if (!IsShapeDefined())
+                if (!EditorModel.IsInspectingShape())
                 {
-                    emptyContentPanel.SetActive(false);
-                    contentPanel.SetActive(true);
+                    emptyContentPanel.SetActive(true);
+                    contentPanel.SetActive(false);
                 }
                 else
                 {
-                    typeField.SetValueWithoutNotify((int) _shape.type);
-                    targetField.SetValueWithoutNotify((int) _shape.target);
-                    pressTimeField.SetTextWithoutNotify(_shape.timeToPress.ToString(CultureInfo.InvariantCulture));
-                    goRightField.SetIsOnWithoutNotify(_shape.goRight);
+                    typeField.SetValueWithoutNotify((int) EditorModel.Shape.type);
+                    targetField.SetValueWithoutNotify((int) EditorModel.Shape.target);
+                    pressTimeField.SetTextWithoutNotify(EditorModel.Shape.timeToPress.ToString(CultureInfo.InvariantCulture));
+                    goRightField.SetIsOnWithoutNotify(EditorModel.Shape.goRight);
                     
                     emptyContentPanel.SetActive(false);
                     contentPanel.SetActive(true);
@@ -79,14 +57,12 @@ namespace edition
 
         public void OnChangeType(Int32 type)
         {
-            if(IsShapeDefined())
-                onRequestChangeType.Invoke((ShapeType) type);
+            onRequestChangeType.Invoke((ShapeType) type);
         }
 
         public void OnChangeTarget(Int32 target)
         {
-            if(IsShapeDefined())
-                onRequestChangeTarget.Invoke((Target) target);
+            onRequestChangeTarget.Invoke((Target) target);
         }
 
         public void OnChangeGoRight(bool goRight)

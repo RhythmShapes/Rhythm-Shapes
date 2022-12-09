@@ -4,42 +4,49 @@ using utils.XML;
 
 namespace edition
 {
-    [Obsolete]
     public class EditorModel : MonoBehaviour
     {
-        public static LevelDescription Level;
-        public static ShapeDescription Shape;
-        public static string LevelName;
-        public static string SourceAudioPath;
+        public static LevelDescription OriginLevel { get; private set; }
+        public static LevelDescription AnalyzedLevel { get; private set; }
+        public static string MusicPath { get; set; } = string.Empty;
+        public static string AnalyzedMusicPath { get; set; } = string.Empty;
+        public static string LevelName { get; set; } = string.Empty;
+        public static bool UseLevelMusic { get; set; }
+        public static ShapeDescription Shape { get; private set; }
 
         public void SetLevel(LevelDescription level)
         {
-            Level = level;
+            if (!GameInfo.IsNewLevel && OriginLevel == null)
+                OriginLevel = level;
+            else
+                AnalyzedLevel = level;
         }
 
+        public void SetAfterSave(LevelDescription level)
+        {
+            GameInfo.IsNewLevel = false;
+            OriginLevel = level;
+            AnalyzedLevel = null;
+            MusicPath = String.Empty;
+            AnalyzedMusicPath = String.Empty;
+            LevelName = String.Empty;
+            UseLevelMusic = true;
+            Shape = null;
+        }
+        
         public void SetShape(ShapeDescription shape)
         {
             Shape = shape;
         }
 
-        public static bool IsLevelDefined()
+        public static bool HasBeenAnalyzed()
         {
-            return Level != null;
+            return AnalyzedLevel != null;
         }
 
-        public static bool IsShapeDefined()
+        public static bool IsInspectingShape()
         {
             return Shape != null;
-        }
-
-        public static bool IsLevelNameDefined()
-        {
-            return !string.IsNullOrEmpty(LevelName);
-        }
-
-        public static bool IsSourceAudioPathDefined()
-        {
-            return !string.IsNullOrEmpty(SourceAudioPath);
         }
     }
 }

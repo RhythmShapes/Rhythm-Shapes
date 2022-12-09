@@ -34,6 +34,11 @@ namespace utils
             return DoLevelContainsAudio(levelName) && DoLevelContainsData(levelName);
         }
 
+        public static bool IsFilePathValid(string path)
+        {
+            return File.Exists(path);
+        }
+
         public static string GetLevelFolderPath(string levelName)
         {
             return Path.Combine(Application.persistentDataPath, LevelsFolderName, levelName);
@@ -54,13 +59,26 @@ namespace utils
             Directory.CreateDirectory(GetLevelFolderPath(levelName));
         }
 
-        public static void CopyLevelAudioFile(string levelName, string sourcePath)
+        public static void DeleteLevelFolder(string levelName)
         {
-            File.Copy(sourcePath, GetLevelAudioFilePath(levelName));
+            Directory.Delete(GetLevelFolderPath(levelName), true);
+        }
+
+        public static void CopyLevelAudio(string oldLevelName, string newLevelName)
+        {
+            SaveLevelAudio(newLevelName, GetLevelAudioFilePath(oldLevelName));
+        }
+
+        public static void SaveLevelAudio(string levelName, string sourcePath)
+        {
+            string old = GetLevelAudioFilePath(levelName);
+            if(File.Exists(old)) File.Delete(old);
+            File.Copy(sourcePath, old);
         }
 
         public static void SaveLevelData(string levelName, LevelDescription level)
         {
+            level.title = levelName;
             XmlHelpers.SerializeToXML<LevelDescription>(GetLevelDataFilePath(levelName), level);
         }
 

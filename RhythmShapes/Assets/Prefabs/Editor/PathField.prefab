@@ -965,7 +965,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: {fileID: 5773808165819342506}
   errorText: {fileID: 3400684789607184549}
-  errorHeight: 0
 --- !u!1 &8506039646561145139
 GameObject:
   m_ObjectHideFlags: 0

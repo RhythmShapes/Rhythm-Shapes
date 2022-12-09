@@ -16,7 +16,7 @@ namespace edition
         private Action<bool> _questionCallback;
         private Action _infoCallback;
 
-        public void ShowInfo(string message, string titleValue = "Information", Action callback = null)
+        public async void ShowInfo(string message, string titleValue = "Information", Action callback = null)
         {
             _infoCallback = callback;
             text.text = message;
@@ -27,7 +27,7 @@ namespace edition
             hiddenContent.SetActive(true);
         }
 
-        public void ShowQuestion(string message, string titleValue = "Question", Action<bool> callback = null)
+        public async void ShowQuestion(string message, string titleValue = "Question", Action<bool> callback = null)
         {
             _questionCallback = callback;
             text.text = message;
@@ -38,7 +38,7 @@ namespace edition
             hiddenContent.SetActive(true);
         }
         
-        public void ShowError(string message, string titleValue = "Error", Action callback = null)
+        public async void ShowError(string message, string titleValue = "Error", Action callback = null)
         {
             _infoCallback = callback;
             text.text = message;

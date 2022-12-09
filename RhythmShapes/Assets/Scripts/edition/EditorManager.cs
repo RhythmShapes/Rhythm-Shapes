@@ -8,16 +8,15 @@ namespace edition
         [Space]
         [SerializeField] private bool useDevVariables;
         [SerializeField] private string devLevelName;
-        [SerializeField] private bool isNewMusic = true;
+        [SerializeField] private bool isNewLevel = true;
 
         private void Start()
         {
             string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
-            InspectorPanel.Instance.SetShape(null);
+            GameInfo.IsNewLevel = useDevVariables && isNewLevel;
+            EditorPanel.Init();
         
-            if (GameInfo.IsNewMusic || (useDevVariables && isNewMusic))
-                EditorPanel.Instance.SetLevel(null);
-            else
+            if (!GameInfo.IsNewLevel)
                 LevelLoader.Instance.LoadLevelFromFile(levelName);
         }
     }
