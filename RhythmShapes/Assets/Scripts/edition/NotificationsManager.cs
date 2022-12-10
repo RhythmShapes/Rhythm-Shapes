@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace edition
 {
@@ -9,32 +8,25 @@ namespace edition
         [SerializeField] private Transform parentComponent;
         [SerializeField] private Color infoColor;
         [SerializeField] private Color errorColor;
-        [SerializeField] [Min(1)] private int maxCount;
+        [SerializeField] private Sprite infoIcon;
+        [SerializeField] private Sprite errorIcon;
         [SerializeField] [Min(1)] private float lifeTime;
 
-        private List<Notification> _notifications;
-
-        public void Start()
+        public void ShowInfo(string message)
         {
-            _notifications = new List<Notification>(maxCount);
+            AddNotification(message, infoColor, infoIcon);
         }
 
-        public void AddInfo(string message)
+        public void ShowError(string message)
         {
-            AddNotification(message, infoColor);
+            AddNotification(message, errorColor, errorIcon);
         }
 
-        public void AddError(string message)
-        {
-            AddNotification(message, errorColor);
-        }
-
-        private void AddNotification(string message, Color color)
+        private void AddNotification(string message, Color color, Sprite icon)
         {
             Notification notification = Instantiate(notificationPrefab).GetComponent<Notification>();
-            notification.Init(message, color, lifeTime);
-            notification.gameObject.transform.SetParent(parentComponent);
-            _notifications.Add(notification);
+            notification.Init(message, color, lifeTime, icon);
+            notification.gameObject.transform.SetParent(parentComponent, false);
         }
     }
 }

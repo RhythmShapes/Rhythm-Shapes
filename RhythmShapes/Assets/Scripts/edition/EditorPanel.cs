@@ -24,6 +24,7 @@ namespace edition
         [SerializeField] private ErrorMessage musicPathError;
         [SerializeField] private ErrorMessage levelNameError;
         [SerializeField] private PopupWindow popupWindow;
+        [SerializeField] private NotificationsManager notificationsManager;
         [Space]
         [SerializeField] private UnityEvent<string> onRequestAnalysis;
 
@@ -37,11 +38,6 @@ namespace edition
             onRequestAnalysis ??= new UnityEvent<string>();
         }
 
-        private void FixedUpdate()
-        {
-            analyseButton.enabled = musicPathField.text.Length > 0 && levelNameField.text.Length > 0;
-        }
-
         public static void Init()
         {
             EditorModel.UseLevelMusic = !GameInfo.IsNewLevel;
@@ -53,7 +49,6 @@ namespace edition
         {
             if (!GameInfo.IsNewLevel)
             {
-                musicPathField.SetTextWithoutNotify(string.Empty);
                 levelNameField.SetTextWithoutNotify(EditorModel.OriginLevel.title);
                 OnSetLevelName(EditorModel.OriginLevel.title);
             }
@@ -69,12 +64,14 @@ namespace edition
 
         public void OnSetRequestAnalysis()
         {
-            string sourceAudioPath = musicPathField.text;
+            string sourceAudioPath = !GameInfo.IsNewLevel && EditorModel.UseLevelMusic
+                ? LevelTools.GetLevelAudioFilePath(EditorModel.OriginLevel.title)
+                : musicPathField.text;
             analyseButton.enabled = false;
 
             if (!CheckMusicPath(sourceAudioPath))
             {
-                popupWindow.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
+                notificationsManager.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
                 analyseButton.enabled = true;
                 return;
             }

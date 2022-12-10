@@ -1,51 +1,50 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace edition
 {
     public class PopupWindow : MonoBehaviour
     {
         [SerializeField] private GameObject hiddenContent;
-        [SerializeField] private GameObject errorIcon;
         [SerializeField] private GameObject infoButtons;
         [SerializeField] private GameObject questionButtons;
+        [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private Sprite errorIcon;
+        [SerializeField] private Sprite infoIcon;
+        [SerializeField] private Sprite questionIcon;
 
         private Action<bool> _questionCallback;
         private Action _infoCallback;
 
-        public async void ShowInfo(string message, string titleValue = "Information", Action callback = null)
+        public void ShowInfo(string message, string titleValue = "Information", Action callback = null)
         {
             _infoCallback = callback;
-            text.text = message;
-            title.text = titleValue;
-            infoButtons.SetActive(true);
-            questionButtons.SetActive(false);
-            errorIcon.SetActive(false);
-            hiddenContent.SetActive(true);
+            Show(message, titleValue, infoIcon, false);
         }
 
-        public async void ShowQuestion(string message, string titleValue = "Question", Action<bool> callback = null)
+        public void ShowQuestion(string message, string titleValue = "Question", Action<bool> callback = null)
         {
             _questionCallback = callback;
-            text.text = message;
-            title.text = titleValue;
-            infoButtons.SetActive(false);
-            questionButtons.SetActive(true);
-            errorIcon.SetActive(false);
-            hiddenContent.SetActive(true);
+            Show(message, titleValue, questionIcon, true);
         }
         
-        public async void ShowError(string message, string titleValue = "Error", Action callback = null)
+        public void ShowError(string message, string titleValue = "Error", Action callback = null)
         {
             _infoCallback = callback;
+            Show(message, titleValue, errorIcon, false);
+        }
+
+        private void Show(string message, string titleValue, Sprite iconImage, bool isQuestion)
+        {
             text.text = message;
             title.text = titleValue;
-            infoButtons.SetActive(true);
-            questionButtons.SetActive(false);
-            errorIcon.SetActive(true);
+            infoButtons.SetActive(!isQuestion);
+            questionButtons.SetActive(isQuestion);
+            icon.sprite = iconImage;
             hiddenContent.SetActive(true);
         }
         

@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 1995269558133603755}
   - component: {fileID: 834204271041941697}
   m_Layer: 5
-  m_Name: ErrorIcon
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1697,7 +1697,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
+  m_fontSize: 13
   m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
@@ -1790,11 +1790,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hiddenContent: {fileID: 2279230215537922300}
-  errorIcon: {fileID: 2252635767422102943}
   infoButtons: {fileID: 4334400751409166910}
   questionButtons: {fileID: 4334400750447307813}
+  icon: {fileID: 834204271041941697}
   text: {fileID: 2740592167360326595}
   title: {fileID: 499605954568359599}
+  errorIcon: {fileID: 21300000, guid: 5679a74364f6b4440ab7e7aed55cd95e, type: 3}
+  infoIcon: {fileID: 21300000, guid: 652dd6423fa93d94fa66590444d3b5ce, type: 3}
+  questionIcon: {fileID: 21300000, guid: 652dd6423fa93d94fa66590444d3b5ce, type: 3}
 --- !u!1 &7014825579999515222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,7 +1873,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -440, y: -300}
+  m_SizeDelta: {x: -500, y: -300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8348292030600017489
 GameObject:

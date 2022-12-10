@@ -12,7 +12,7 @@ namespace edition
         public static string AnalyzedMusicPath { get; set; } = string.Empty;
         public static string LevelName { get; set; } = string.Empty;
         public static bool UseLevelMusic { get; set; }
-        public static ShapeDescription Shape { get; private set; }
+        public static EditorShape Shape { get; set; }
 
         public void SetLevel(LevelDescription level)
         {
@@ -34,7 +34,7 @@ namespace edition
             Shape = null;
         }
         
-        public void SetShape(ShapeDescription shape)
+        public void SetShape(EditorShape shape)
         {
             Shape = shape;
         }

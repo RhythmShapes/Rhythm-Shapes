@@ -8,6 +8,7 @@ namespace edition
     public class ActionBar : MonoBehaviour
     {
         [SerializeField] private PopupWindow popupWindow;
+        [SerializeField] private NotificationsManager notificationsManager;
         [SerializeField] private UnityEvent<LevelDescription> onSaved;
 
         private bool _hasStartAnalysisDuringSave = false;
@@ -30,14 +31,14 @@ namespace edition
             // Verify fields value
             if (!EditorPanel.CheckFields())
             {
-                popupWindow.ShowError("An error prevents saving. Please fix it and try again.");
+                notificationsManager.ShowError("An error prevents saving. Please fix it and try again.");
                 return;
             }
             
             // Nothing to save
             if (!EditorModel.HasBeenAnalyzed() && !GameInfo.IsNewLevel && EditorModel.UseLevelMusic && levelName.Equals(EditorModel.OriginLevel.title))
             {
-                popupWindow.ShowInfo("Nothing to save.");
+                notificationsManager.ShowInfo("Nothing to save.");
                 return;
             }
 
@@ -73,7 +74,6 @@ namespace edition
             if (GameInfo.IsNewLevel)
             {
                 // New level
-                Debug.Log("NEW");
                 LevelTools.CreateLevelFolder(levelName);
                 LevelTools.SaveLevelAudio(levelName, musicPath);
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
@@ -95,18 +95,17 @@ namespace edition
             if (!string.IsNullOrEmpty(musicPath))
             { 
                 // Change level audio
-                Debug.Log("CHANGE AUDIO");
                 LevelTools.SaveLevelAudio(levelName, musicPath);
             }
 
             if (EditorModel.HasBeenAnalyzed())
             { 
                 // Change level data
-                Debug.Log("CHANGE DATA");
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
                 newOriginLevel = EditorModel.AnalyzedLevel;
             }
 
+            notificationsManager.ShowInfo("Level saved !");
             onSaved.Invoke(newOriginLevel);
         }
 

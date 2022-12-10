@@ -42,10 +42,10 @@ namespace edition
                 }
                 else
                 {
-                    typeField.SetValueWithoutNotify((int) EditorModel.Shape.type);
-                    targetField.SetValueWithoutNotify((int) EditorModel.Shape.target);
-                    pressTimeField.SetTextWithoutNotify(EditorModel.Shape.timeToPress.ToString(CultureInfo.InvariantCulture));
-                    goRightField.SetIsOnWithoutNotify(EditorModel.Shape.goRight);
+                    typeField.SetValueWithoutNotify((int) EditorModel.Shape.Description.type);
+                    targetField.SetValueWithoutNotify((int) EditorModel.Shape.Description.target);
+                    pressTimeField.SetTextWithoutNotify(EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture));
+                    goRightField.SetIsOnWithoutNotify(EditorModel.Shape.Description.goRight);
                     
                     emptyContentPanel.SetActive(false);
                     contentPanel.SetActive(true);
