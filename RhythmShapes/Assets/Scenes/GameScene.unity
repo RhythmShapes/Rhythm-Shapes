@@ -877,6 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54903565f0874c45b018d7a99869a526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoader: {fileID: 992990947}
   useDevVariables: 0
   devLevelName: LevelTestSlider
 --- !u!4 &992990946
@@ -906,7 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dda8f89e74e447db0c7cf88e2edad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAudioSource: {fileID: 0}
+  targetAudioSource: {fileID: 792051161}
   onLoadFromFileStart:
     m_PersistentCalls:
       m_Calls: []

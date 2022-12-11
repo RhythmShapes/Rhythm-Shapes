@@ -77,6 +77,8 @@ namespace edition
                 LevelTools.CreateLevelFolder(levelName);
                 LevelTools.SaveLevelAudio(levelName, musicPath);
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
+                
+                notificationsManager.ShowInfo("Level saved !");
                 onSaved.Invoke(EditorModel.AnalyzedLevel);
                 return;
             }

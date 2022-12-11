@@ -47,11 +47,8 @@ namespace edition
 
         public void SetActive(bool active)
         {
-            if (!GameInfo.IsNewLevel)
-            {
+            if (!GameInfo.IsNewLevel && string.IsNullOrEmpty(levelNameField.text))
                 levelNameField.SetTextWithoutNotify(EditorModel.OriginLevel.title);
-                OnSetLevelName(EditorModel.OriginLevel.title);
-            }
 
             CheckFields();
             gameObject.SetActive(active);

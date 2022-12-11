@@ -27,9 +27,8 @@ namespace edition
             GameInfo.IsNewLevel = false;
             OriginLevel = level;
             AnalyzedLevel = null;
-            MusicPath = String.Empty;
-            AnalyzedMusicPath = String.Empty;
-            LevelName = String.Empty;
+            MusicPath = string.Empty;
+            AnalyzedMusicPath = string.Empty;
             UseLevelMusic = true;
             Shape = null;
         }

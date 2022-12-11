@@ -4,6 +4,7 @@ namespace edition
 {
     public class EditorManager : MonoBehaviour
     {
+        [SerializeField] private LevelLoader levelLoader;
         [Header("Dev variables")]
         [Space]
         [SerializeField] private bool useDevVariables;
@@ -17,7 +18,7 @@ namespace edition
             EditorPanel.Init();
         
             if (!GameInfo.IsNewLevel)
-                LevelLoader.Instance.LoadLevelFromFile(levelName);
+                levelLoader.LoadLevelFromFile(levelName);
         }
     }
 }

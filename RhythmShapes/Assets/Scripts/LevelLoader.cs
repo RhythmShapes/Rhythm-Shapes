@@ -14,8 +14,6 @@ using utils.XML;
 
 public class LevelLoader : MonoBehaviour
 {
-    public static LevelLoader Instance { get; private set; }
-    
     [SerializeField] private AudioSource targetAudioSource;
     [SerializeField] private UnityEvent onLoadFromFileStart;
     [SerializeField] private UnityEvent onLoadFromAnalysisStart;
@@ -27,9 +25,6 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Assert(Instance == null);
-        Instance = this;
-        
         onLoadFromFileStart ??= new UnityEvent();
         onLoadFromAnalysisStart ??= new UnityEvent();
         onLoadedEvent ??= new UnityEvent<LevelDescription>();
