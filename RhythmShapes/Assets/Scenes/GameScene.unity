@@ -840,22 +840,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &870615056 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8413089935685805749, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
-  m_PrefabInstance: {fileID: 8413089935889002149}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &870615061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8413089935685805744, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
-  m_PrefabInstance: {fileID: 8413089935889002149}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870615056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836ab14c64f6a5f4bacdb302792a8b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &888624599 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8413089935567141746, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
@@ -934,7 +918,7 @@ MonoBehaviour:
   onLoadFromAnalysisStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 870615056}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -946,7 +930,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 870615061}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ui.AnalyseSlider, Assembly-CSharp
         m_MethodName: Start
         m_Mode: 1
@@ -961,7 +945,7 @@ MonoBehaviour:
   onLoadedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 870615056}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1392,6 +1376,22 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7637981723954928707, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637981723954928707, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637981723954928707, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637981723954928707, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 8112077821402486164, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_SizeDelta.x
       value: 250
@@ -1407,6 +1407,22 @@ PrefabInstance:
     - target: {fileID: 8112077821402486164, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201869954636615128, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201869954636615128, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201869954636615128, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201869954636615128, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -125
       objectReference: {fileID: 0}
     - target: {fileID: 8413089934784750944, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Name
@@ -1647,6 +1663,14 @@ PrefabInstance:
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763668118453149982, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763668118453149982, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
