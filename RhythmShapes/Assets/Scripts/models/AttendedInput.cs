@@ -28,21 +28,21 @@ namespace models
             MustPressAll = mustPressAll;
         }
 
-        public void SetPressed(Target target)
+        public void SetPressed(Target target, bool pressed = true)
         {
             switch (target)
             {
                 case Target.Top:
-                    _pressed[TopTarget] = true;
+                    _pressed[TopTarget] = pressed;
                     break;
                 case Target.Right:
-                    _pressed[RightTarget] = true;
+                    _pressed[RightTarget] = pressed;
                     break;
                 case Target.Left:
-                    _pressed[LeftTarget] = true;
+                    _pressed[LeftTarget] = pressed;
                     break;
                 case Target.Bottom:
-                    _pressed[BottomTarget] = true;
+                    _pressed[BottomTarget] = pressed;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
