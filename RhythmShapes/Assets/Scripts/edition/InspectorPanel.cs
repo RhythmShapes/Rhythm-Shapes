@@ -17,7 +17,7 @@ namespace edition
         [SerializeField] private TMP_Dropdown typeField;
         [SerializeField] private TMP_Dropdown targetField;
         [SerializeField] private TMP_InputField pressTimeField;
-        [SerializeField] private Toggle goRightField;
+        [SerializeField] private TMP_Dropdown goRightField;
         [SerializeField] private UnityEvent<ShapeType> onRequestChangeType;
         [SerializeField] private UnityEvent<Target> onRequestChangeTarget;
         [SerializeField] private UnityEvent<bool> onRequestChangeGoRight;
@@ -45,7 +45,7 @@ namespace edition
                     typeField.SetValueWithoutNotify((int) EditorModel.Shape.Description.type);
                     targetField.SetValueWithoutNotify((int) EditorModel.Shape.Description.target);
                     pressTimeField.SetTextWithoutNotify(EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture));
-                    goRightField.SetIsOnWithoutNotify(EditorModel.Shape.Description.goRight);
+                    goRightField.SetValueWithoutNotify(EditorModel.Shape.Description.goRight ? 1 : 0);
                     
                     emptyContentPanel.SetActive(false);
                     contentPanel.SetActive(true);
@@ -65,9 +65,10 @@ namespace edition
             onRequestChangeTarget.Invoke((Target) target);
         }
 
-        public void OnChangeGoRight(bool goRight)
+        public void OnChangeGoRight(Int32 goRight)
         {
-            onRequestChangeGoRight.Invoke(goRight);
+            // 0 = left, 1 = right
+            onRequestChangeGoRight.Invoke(goRight == 1);
         }
 
         public void OnChangePressTime(string textPressTime)
