@@ -36,7 +36,8 @@ namespace edition
             }
             
             // Nothing to save
-            if (!EditorModel.HasBeenAnalyzed() && !GameInfo.IsNewLevel && EditorModel.UseLevelMusic && levelName.Equals(EditorModel.OriginLevel.title))
+            if (!EditorModel.HasShapeBeenModified && !EditorModel.HasBeenAnalyzed() && !GameInfo.IsNewLevel
+                && EditorModel.UseLevelMusic && levelName.Equals(EditorModel.OriginLevel.title))
             {
                 notificationsManager.ShowInfo("Nothing to save.");
                 return;
@@ -105,6 +106,11 @@ namespace edition
                 // Change level data
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
                 newOriginLevel = EditorModel.AnalyzedLevel;
+            } else if (EditorModel.HasShapeBeenModified)
+            { 
+                // Change level data
+                LevelTools.SaveLevelData(levelName, EditorModel.OriginLevel);
+                newOriginLevel = EditorModel.OriginLevel;
             }
 
             notificationsManager.ShowInfo("Level saved !");

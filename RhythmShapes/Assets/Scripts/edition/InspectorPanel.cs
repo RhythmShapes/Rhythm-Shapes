@@ -55,18 +55,30 @@ namespace edition
             gameObject.SetActive(active);
         }
 
-        public void OnChangeType(Int32 type)
+        public void OnChangeType(int type)
         {
+            if((ShapeType) type == EditorModel.Shape.Description.type)
+                return;
+            
+            EditorModel.HasShapeBeenModified = true;
             onRequestChangeType.Invoke((ShapeType) type);
         }
 
-        public void OnChangeTarget(Int32 target)
+        public void OnChangeTarget(int target)
         {
+            if((Target) target == EditorModel.Shape.Description.target)
+                return;
+
+            EditorModel.HasShapeBeenModified = true;
             onRequestChangeTarget.Invoke((Target) target);
         }
 
-        public void OnChangeGoRight(Int32 goRight)
+        public void OnChangeGoRight(int goRight)
         {
+            if(goRight == 1 && EditorModel.Shape.Description.goRight)
+                return;
+
+            EditorModel.HasShapeBeenModified = true;
             // 0 = left, 1 = right
             onRequestChangeGoRight.Invoke(goRight == 1);
         }
@@ -76,12 +88,16 @@ namespace edition
             if (!float.TryParse(textPressTime.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out var pressTime))
             {
                 //pressTimeField.GetComponentInParent<ErrorMessage>().ShowError("Invalid float");
-                pressTimeField.SetTextWithoutNotify("0");
-                return;
+                pressTime = 0f;
             }
             
             pressTime = Mathf.Clamp(pressTime, 0f, audioSource.clip.length);
             pressTimeField.SetTextWithoutNotify(pressTime.ToString(CultureInfo.InvariantCulture));
+
+            if(Math.Abs(pressTime - EditorModel.Shape.Description.timeToPress) == 0f)
+                return;
+            
+            EditorModel.HasShapeBeenModified = true;
             onRequestChangeTimeToPress.Invoke(pressTime);
         }
     }
