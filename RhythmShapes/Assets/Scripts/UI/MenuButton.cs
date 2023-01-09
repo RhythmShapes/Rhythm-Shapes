@@ -19,6 +19,7 @@ namespace ui
         private void OnClickButton()
         {
             GameInfo.LevelName = _levelName;
+            GameInfo.IsNewLevel = false;
             SceneTransition.Instance.LoadNextScene();
         }
         

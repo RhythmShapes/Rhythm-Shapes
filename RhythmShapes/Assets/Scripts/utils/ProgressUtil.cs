@@ -2,24 +2,24 @@
 
 namespace utils
 {
-    public class ProgressUtil
+    public static class ProgressUtil
     {
-        public float Progress { get; private set; }
-        public float Total { get; private set; }
+        public static float Progress { get; private set; }
+        public static float Total { get; private set; }
 
-        public void Init(int total)
+        public static void Init(int total)
         {
             SetTotal(total);
             Reset();
         }
         
-        public void Init(float total)
+        public static void Init(float total)
         {
             SetTotal(total);
             Reset();
         }
 
-        public void SetTotal(int total)
+        public static void SetTotal(int total)
         {
             if (total <= 0)
                 throw new Exception("Total cannot be <= 0");
@@ -27,7 +27,7 @@ namespace utils
             Total = total;
         }
 
-        public void SetTotal(float total)
+        public static void SetTotal(float total)
         {
             if (total <= 0)
                 throw new Exception("Total cannot be <= 0");
@@ -35,32 +35,32 @@ namespace utils
             Total = total;
         }
 
-        public void Reset()
+        public static void Reset()
         {
             Progress = 0f;
         }
 
-        public void Update()
+        public static void Update()
         {
             Progress++;
         }
 
-        public void Update(int amount)
+        public static void Update(int amount)
         {
             Progress += amount;
         }
 
-        public void Update(float amount)
+        public static void Update(float amount)
         {
             Progress += amount;
         }
 
-        public float ToPercent()
+        public static float ToPercent()
         {
             return Progress / Total;
         }
 
-        public bool IsComplete()
+        public static bool IsComplete()
         {
             return Math.Abs(Progress - Total) >= 0;
         }

@@ -9,28 +9,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using utils;
 using utils.XML;
 
 public class LevelLoader : MonoBehaviour
 {
-    public static LevelLoader Instance { get; private set; }
-    
-    [Header("Levels file paths and names")]
-    [Space]
-    /* Must be a path in Assets/Resources/ */
-    [SerializeField] private string levelsFolderName;
-    [SerializeField] private string dataFileName;
-    [SerializeField] private string audioFileName;
-    [Space]
-    [SerializeField] private AudioSource gameAudioSource;
-    [SerializeField] private AudioSource analyseAudioSource;
+    [SerializeField] private AudioSource targetAudioSource;
     [SerializeField] private UnityEvent onLoadFromFileStart;
     [SerializeField] private UnityEvent onLoadFromAnalysisStart;
     [SerializeField] private UnityEvent<LevelDescription> onLoadedEvent;
-    [Space]
-    [Header("Dev variables")]
-    [Space]
-    [SerializeField] private bool useBasicBPM;
 
     private AudioClip _loadedAudioClip;
     private LevelDescription _currentLevelDescription;
@@ -38,9 +25,6 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Assert(Instance == null);
-        Instance = this;
-        
         onLoadFromFileStart ??= new UnityEvent();
         onLoadFromAnalysisStart ??= new UnityEvent();
         onLoadedEvent ??= new UnityEvent<LevelDescription>();
@@ -49,50 +33,70 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevelFromFile(string levelName)
     {
         onLoadFromFileStart.Invoke();
-        string dataPath = GetDataFilePath(levelName);
 
-        TextAsset xml = new TextAsset(File.ReadAllText(dataPath));
-        if (xml == null)
+        if (!LevelTools.DoLevelContainsData(levelName))
         {
-            Debug.LogError("Cannot load data file : " + dataPath);
+            Debug.LogError("Cannot find data file : " + LevelTools.GetLevelDataFilePath(levelName));
             return;
         }
-
-        LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
-        StartCoroutine(LoadAudio(levelName, () =>
+        
+        LevelDescription level = LevelTools.LoadLevelData(levelName);
+        
+        StartCoroutine(LoadAudio(LevelTools.GetLevelAudioFilePath(levelName), () =>
         {
-            gameAudioSource.clip = _loadedAudioClip;
+            targetAudioSource.clip = _loadedAudioClip;
             _currentLevelDescription = level;
             onLoadedEvent.Invoke(level);
-        }));
+        }, levelName));
     }
 
-    public void LoadLevelFromAnalysis(string levelName)
+    public void LoadLevelFromAnalysis(string sourceAudioPath)
     {
-        GameInfo.requestAnalysis = false;
         _loaded = false;
-        AnalyseSlider.Progress.Init(useBasicBPM ? 6 : 8);
-        StartCoroutine(LoadAudio(levelName, () =>
+        ProgressUtil.Init(7);
+        
+        StartCoroutine(LoadAudio(sourceAudioPath, () =>
         {
-            AnalyseSlider.Progress.Update();
-            analyseAudioSource.clip = _loadedAudioClip;
-            
-            if(useBasicBPM) BasicBPM.Init(_loadedAudioClip);
-            else MultiRangeAnalysis.Init(_loadedAudioClip);
-            
+            targetAudioSource.clip = _loadedAudioClip;
+            ProgressUtil.Update();
+            MultiRangeAnalysis.Init(_loadedAudioClip);
             onLoadFromAnalysisStart.Invoke();
-
-            string dataPath = GetDataFilePath(levelName);
+        
             new Thread(() =>
             {
-                LevelDescription level = useBasicBPM ? BasicBPM.AnalyseMusic(dataPath) : MultiRangeAnalysis.AnalyseMusic(dataPath);
+                LevelDescription level = MultiRangeAnalysis.AnalyseMusic();
                 _currentLevelDescription = level;
                 _loaded = true;
             }).Start();
         }));
     }
 
-    private void Update()
+    // Uses _loadedAudioClip so it need to be not null
+    /*public void LaunchAnalysis()
+    {
+        if (_loadedAudioClip == null)
+        {
+            Debug.Log("Cannot launch analysis because _loadedAudioClip is null");
+            return;
+        }
+
+        _loaded = false;
+        ProgressUtil.Init(7);
+        
+        targetAudioSource.clip = _loadedAudioClip;
+        ProgressUtil.Update();
+        MultiRangeAnalysis.Init(_loadedAudioClip);
+        onLoadFromAnalysisStart.Invoke();
+        
+        new Thread(() =>
+        {
+            LevelDescription level = MultiRangeAnalysis.AnalyseMusic();
+            _currentLevelDescription = level;
+            _loaded = true;
+        }).Start();
+    }*/
+
+    private void FixedUpdate()
     {
         if (!_loaded) return;
 
@@ -105,12 +109,11 @@ public class LevelLoader : MonoBehaviour
         onLoadedEvent.Invoke(_currentLevelDescription);
     }
 
-    private IEnumerator LoadAudio(string levelName, Action callback)
+    private IEnumerator LoadAudio(string audioFilePath, Action callback, string audioName = "")
     {
-        string songPath = GetAudioFilePath(levelName);
-        if(File.Exists(songPath))
+        if(File.Exists(audioFilePath))
         {
-            using var uwr = UnityWebRequestMultimedia.GetAudioClip("file://" + songPath, AudioType.MPEG);
+            using var uwr = UnityWebRequestMultimedia.GetAudioClip("file://" + audioFilePath, AudioType.MPEG);
             ((DownloadHandlerAudioClip)uwr.downloadHandler).streamAudio = false;
  
             yield return uwr.SendWebRequest();
@@ -130,7 +133,7 @@ public class LevelLoader : MonoBehaviour
                 if (audioClip != null)
                 {
                     _loadedAudioClip = DownloadHandlerAudioClip.GetContent(uwr);
-                    _loadedAudioClip.name = levelName;
+                    _loadedAudioClip.name = audioName;
                     callback();
                 }
                 else Debug.LogError("Couldn't find a valid AudioClip :(");
@@ -138,20 +141,5 @@ public class LevelLoader : MonoBehaviour
             else Debug.LogError("The download process is not completely finished.");
         }
         else Debug.LogError("Unable to locate converted song file.");
-    }
-
-    private string GetLevelDirectoryPath(string levelName)
-    {
-        return Path.Combine(Application.persistentDataPath, "Levels/", levelName);
-    }
-
-    private string GetDataFilePath(string levelName)
-    {
-        return Path.Combine(GetLevelDirectoryPath(levelName), dataFileName + ".xml");
-    }
-
-    private string GetAudioFilePath(string levelName)
-    {
-        return Path.Combine(GetLevelDirectoryPath(levelName), audioFileName + ".mp3");
     }
 }

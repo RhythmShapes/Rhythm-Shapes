@@ -32,13 +32,13 @@ namespace AudioAnalysis
             clip.GetData(_totalSamples, 0);
         }
         
-        public static LevelDescription AnalyseMusic(string saveFilePath)
+        public static LevelDescription AnalyseMusic()
         {
             float[] BPMs = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
             
             float[][] fftData = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
             
             float[][] amplitudeEvolutionPerFrequency = new float[fftData[0].Length][];
             
@@ -46,7 +46,7 @@ namespace AudioAnalysis
             {
                 amplitudeEvolutionPerFrequency[i] = new float[fftData.Length];
             }
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
 
             float[] averageAmplitudePerFrequency = new float[numberOfRanges];
             for(int i = 0; i < fftData.Length; i++)
@@ -57,19 +57,17 @@ namespace AudioAnalysis
                     amplitudeEvolutionPerFrequency[j][i] = fftData[i][j];
                 }
             }
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
 
             bool[][] maximums = new bool[amplitudeEvolutionPerFrequency.Length][];
             for(int i = 0; i < amplitudeEvolutionPerFrequency.Length; i++)
             {
                 maximums[i] = AudioTools.TimewiseLocalMaximums(amplitudeEvolutionPerFrequency[i], 30);
             }
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
 
-            //TODO Faire les moyennes sur des ranges de fréquence et renvoyer un LevelDescription (et sauvegarder cet objet en XML)
 
-            LevelDescription level = new LevelDescription();
-            level.title = _clipName + "_generated";
+            LevelDescription level = new LevelDescription { title = _clipName };
             List<ShapeDescription> shapes = new List<ShapeDescription>();
 
             float[][] noteProbability = new float[numberOfRanges][];
@@ -95,7 +93,7 @@ namespace AudioAnalysis
                 }
                 freqMin= freqMax;
             }
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
 
             float oldTime = 0;
             // int counter = 0;
@@ -218,11 +216,9 @@ namespace AudioAnalysis
                 /*TODO remap the shape type according to the detected frequency of the 
                  * note relatively to the maxFreq and minFreq of the audioClip*/
             }
-            AnalyseSlider.Progress.Update();
             
             level.shapes = shapes.ToArray();
-            XmlHelpers.SerializeToXML<LevelDescription>(saveFilePath, level);
-            AnalyseSlider.Progress.Update();
+            ProgressUtil.Update();
             
             return level;
         }

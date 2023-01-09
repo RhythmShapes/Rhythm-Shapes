@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +18,11 @@ public class SceneTransition : MonoBehaviour
     public void LoadScene(int buildIndex)
     {
         SceneManager.LoadScene(buildIndex);
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        LoadScene(SceneManager.GetSceneByName(sceneName).buildIndex);
     }
     
     public void LoadNextScene()
