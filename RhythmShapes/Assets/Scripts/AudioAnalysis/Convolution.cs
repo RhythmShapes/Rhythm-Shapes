@@ -8,12 +8,12 @@ public static class Convolution
         List<float> result = new List<float>();
         int n = f.Length;
         int m = g.Length;
-        for(int i = 0; i < n+m-1; i++)
+        for(int k = 0; k < n+m-1; k++)
         {
             float sum = 0;
-            for(int j = Mathf.Max(0,i-(m-1)); j < Mathf.Min(n-1,i); j++)
+            for (int i = Mathf.Max(0,k+1-m); i<Mathf.Min(m,k+1); i++)
             {
-                    sum += f[i-j] * g[m-1 - j];
+                sum += f[i] * g[k - i];
             }
             result.Add(sum);
         }
