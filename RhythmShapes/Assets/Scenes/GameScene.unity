@@ -918,7 +918,7 @@ MonoBehaviour:
   onLoadFromAnalysisStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1753551230}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -930,7 +930,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1753551229}
         m_TargetAssemblyTypeName: ui.AnalyseSlider, Assembly-CSharp
         m_MethodName: Start
         m_Mode: 1
@@ -945,7 +945,7 @@ MonoBehaviour:
   onLoadedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1753551230}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1341,6 +1341,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e4ad61c36336849b9597cceb73b636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1753551229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8413089935685805744, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+  m_PrefabInstance: {fileID: 8413089935889002149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753551230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836ab14c64f6a5f4bacdb302792a8b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1753551230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8413089935685805749, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+  m_PrefabInstance: {fileID: 8413089935889002149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8413089935889002149
 PrefabInstance:
   m_ObjectHideFlags: 0
