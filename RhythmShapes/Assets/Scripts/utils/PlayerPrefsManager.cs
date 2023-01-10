@@ -5,11 +5,16 @@
 
     public class PlayerPrefsManager : MonoBehaviour
     {
+        public static PlayerPrefsManager Instance { get; private set; }
         [SerializeField] private Slider effectsVolume;
         [SerializeField] private Slider musicVolume;
 
-        private void Start()
+        private void Awake()
         {
+            if (Instance != null && Instance != this)
+                Destroy(gameObject);    // Suppression d'une instance précédente (sécurité...sécurité...)
+            else
+                Instance = this;
             effectsVolume.value = GetPref("EffectsVolume", 1f);
             musicVolume.value = GetPref("MusicVolume", 1f);
             effectsVolume.onValueChanged.Invoke(effectsVolume.value);
@@ -22,7 +27,7 @@
             PlayerPrefs.Save();
         }
 
-        private float GetPref(string key, float placeholder)
+        public float GetPref(string key, float placeholder)
         {
             return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetFloat(key) : placeholder;
         }
