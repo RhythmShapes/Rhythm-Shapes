@@ -60,6 +60,8 @@ public class InputManager : MonoBehaviour
 
     private void InputPerformed(Target target)
     {
+        Debug.Log("InputManager -> InputPerformed : " + gameObject.GetComponent<AudioSource>().time);
+        TestingCalibration.Instance.inputReceivedTimeQueue.Enqueue(gameObject.GetComponent<AudioSource>().time);
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);

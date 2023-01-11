@@ -32,6 +32,8 @@ public class InputValidation : MonoBehaviour
 
             if (input.ShouldBePressed(target))
             {
+                Debug.Log("InputValidation -> OnInputPerformed : " + input.TimeToPress);
+                TestingCalibration.Instance.shapeTheoricalPressTimeQueue.Enqueue(input.TimeToPress);
                 PressedAccuracy accuracy = CalculateAccuracy(input);
                 if (accuracy != PressedAccuracy.Missed)
                 {
@@ -58,26 +60,26 @@ public class InputValidation : MonoBehaviour
     {
         GameModel model = GameModel.Instance;
 
-        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow &&
-            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow)
+        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow + TestingCalibration.Instance.calibration &&
+            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow + TestingCalibration.Instance.calibration)
         {
             return PressedAccuracy.Perfect;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow &&
-            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow)
+        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow + TestingCalibration.Instance.calibration&&
+            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow + TestingCalibration.Instance.calibration)
         {
             return PressedAccuracy.Good;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow &&
-            _audioSource.time <= input.TimeToPress + model.OkPressedWindow)
+        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow + TestingCalibration.Instance.calibration&&
+            _audioSource.time <= input.TimeToPress + model.OkPressedWindow + TestingCalibration.Instance.calibration)
         {
             return PressedAccuracy.Ok;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow &&
-            _audioSource.time <= input.TimeToPress + model.BadPressedWindow)
+        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow + TestingCalibration.Instance.calibration&&
+            _audioSource.time <= input.TimeToPress + model.BadPressedWindow + TestingCalibration.Instance.calibration)
         {
             return PressedAccuracy.Bad;
         }

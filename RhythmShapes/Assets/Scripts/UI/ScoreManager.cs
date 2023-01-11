@@ -97,6 +97,7 @@ public class ScoreManager : MonoBehaviour
         BadCounter = 0;
         MissCounter = 0;
         Score = 0;
+        Combo = 0;
         currrentAccuracy = 0;
     }
 }
