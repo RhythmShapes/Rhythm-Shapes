@@ -15,6 +15,8 @@ namespace AudioAnalysis
 
         [SerializeField]
         private static float minimalNoteDelay = 0.1f;
+        [SerializeField]
+        private static float analysisThreshold = 0.3f;
         private static string _clipName;
         private static float _clipFrequency;
         private static float[] _totalSamples;
@@ -108,7 +110,7 @@ namespace AudioAnalysis
                         maxProbabilityIndex = i;
                     }
                 }
-                if (maxProbability > 0.3)
+                if (maxProbability > analysisThreshold)
                 {
                     float noteTime= AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
                     if(noteTime-oldTime < minimalNoteDelay) { continue; }
