@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +11,7 @@ namespace edition
 {
     public class ShapeTimeLine : MonoBehaviour
     {
+        [SerializeField] private AudioSource audioSource;
         [SerializeField] private GameObject squareShapePrefab;
         [SerializeField] private GameObject circleShapePrefab;
         [SerializeField] private GameObject diamondShapePrefab;
@@ -21,16 +23,36 @@ namespace edition
         [SerializeField] private Color rightColor;
         [SerializeField] private Color leftColor;
         [SerializeField] private Color bottomColor;
-        [SerializeField] private float startOffset;
         [SerializeField] private UnityEvent onDisplayDone;
         [SerializeField] private UnityEvent onShapeSelected;
 
+        private List<EditorShape> _shapes = new();
+
         public void DisplayLevel(LevelDescription level)
         {
-            foreach (var shape in level.shapes)
-                CreateShape(shape);
+            foreach (var shape in _shapes)
+            {
+                Destroy(shape.gameObject);
+            }
+            _shapes.Clear();
             
+            if (level.shapes != null)
+            {
+                foreach (var shape in level.shapes)
+                    CreateShape(shape);
+            }
+
             onDisplayDone.Invoke();
+        }
+
+        public void UpdateTimeLine()
+        {
+            foreach (var shape in _shapes)
+            {
+                float ratio = shape.Description.timeToPress / audioSource.clip.length;
+                Debug.Log(shape.Description.target+" : "+shape.Description.timeToPress+ "/" +audioSource.clip.length+" --> "+ratio +" * "+ TimeLine.Width+" = "+(ratio * TimeLine.Width));
+                shape.UpdatePosX(GetPosX(shape.Description.timeToPress));
+            }
         }
 
         private EditorShape CreateShape(ShapeDescription shape)
@@ -69,17 +91,21 @@ namespace edition
                 onShapeSelected.Invoke();
             });
 
+            _shapes.Add(editorShape);
             return editorShape;
         }
 
         private float GetPosX(float timeToPress)
         {
-            return startOffset + timeToPress * TimeLine.WidthPerLength;
+            float ratio = timeToPress / audioSource.clip.length;
+            return TimeLine.StartOffset + ratio * TimeLine.Width;
+            //return startOffset + timeToPress * TimeLine.WidthPerLength;
         }
 
         public void UpdateSelectedType(ShapeType type)
         {
             EditorModel.Shape.Description.type = type;
+            _shapes.Remove(EditorModel.Shape);
             Destroy(EditorModel.Shape.gameObject);
             EditorModel.Shape = CreateShape(EditorModel.Shape.Description);
         }
@@ -87,6 +113,7 @@ namespace edition
         public void UpdateSelectedTarget(Target target)
         {
             EditorModel.Shape.Description.target = target;
+            _shapes.Remove(EditorModel.Shape);
             Destroy(EditorModel.Shape.gameObject);
             EditorModel.Shape = CreateShape(EditorModel.Shape.Description);
         }

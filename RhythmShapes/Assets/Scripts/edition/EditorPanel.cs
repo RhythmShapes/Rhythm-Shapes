@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using AudioAnalysis;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +17,8 @@ namespace edition
         [SerializeField] private GameObject musicPathObject;
         [SerializeField] private TMP_InputField musicPathField;
         [SerializeField] private TMP_InputField levelNameField;
+        [SerializeField] private RangeField minimalNoteDelayField;
+        [SerializeField] private RangeField peakThresholdField;
         [SerializeField] private Button analyseButton;
         
         [Space]
@@ -51,6 +54,8 @@ namespace edition
             {
                 levelNameField.SetTextWithoutNotify(EditorModel.OriginLevel.title);
                 OnSetLevelName(EditorModel.OriginLevel.title);
+                minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
+                peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
             }
 
             CheckFields();
@@ -108,6 +113,16 @@ namespace edition
         {
             EditorModel.LevelName = levelName;
             CheckLevelName(levelName);
+        }
+
+        public void OnSetMinimalNoteDelay(float delay)
+        {
+            MultiRangeAnalysis.minimalNoteDelay = delay;
+        }
+
+        public void OnSetPeakThreshold(float threshold)
+        {
+            MultiRangeAnalysis.analysisThreshold = threshold;
         }
 
         public static bool CheckFields()

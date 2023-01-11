@@ -88,7 +88,7 @@ namespace models
             return shape;
         }
 
-        public void PopShapeDescription()
+        public void PopShapeModel()
         {
             if(_shapeModels.Count > 0)
                 _shapeModels.Dequeue();

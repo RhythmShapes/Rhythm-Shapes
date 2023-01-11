@@ -35,7 +35,7 @@ public class ShapeSpawner : MonoBehaviour
                 shape.Init(shapeModel);
                 
                 shapes.Add(shape);
-                model.PopShapeDescription();
+                model.PopShapeModel();
             }
             else break;
         }

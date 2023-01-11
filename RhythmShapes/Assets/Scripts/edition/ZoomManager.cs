@@ -21,10 +21,13 @@ namespace edition
         private void Zoom(float scrollValue, Vector2 mousePos)
         {
             float zoom = Mathf.Abs(scrollValue) / scrollValue * -1 * _variables.zoomForce;
-            float zoomScaleX = Mathf.Clamp(content.localScale.x - zoom, _variables.minZoom.x, _variables.maxZoom.x);
-            float zoomScaleY = Mathf.Clamp(content.localScale.y - zoom, _variables.minZoom.y, _variables.maxZoom.y);
-            
-            content.localScale = new Vector3(zoomScaleX, _variables.scaleY ? zoomScaleY : 1, 1);
+            float zoomScale = content.localScale.x - zoom;
+
+            if (zoomScale >= _variables.minZoom && zoomScale <= _variables.maxZoom)
+            {
+                content.localScale = new Vector3(zoomScale, _variables.scaleY ? zoomScale : 1, 1);
+                TimeLine.WidthPerLengthScale -= zoom;
+            }
         }
 
         public override void OnScroll(PointerEventData eventData)

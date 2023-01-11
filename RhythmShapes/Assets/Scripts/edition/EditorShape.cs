@@ -1,3 +1,5 @@
+using System;
+using shape;
 using UnityEngine;
 using UnityEngine.UI;
 using utils.XML;
@@ -21,7 +23,7 @@ namespace edition
 
         public void UpdatePosX(float posX)
         {
-            transform.position = new Vector3(_startPosX + posX, transform.position.y);
+            transform.position = new Vector3(_startPosX*TimeLine.WidthPerLengthScale + posX, transform.position.y);
         }
 
         public void UpdateColor(Color color)
