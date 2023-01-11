@@ -14,9 +14,9 @@ namespace AudioAnalysis
         private static int numberOfRanges = 4;
 
         [SerializeField]
-        private static float minimalNoteDelay = 0.1f;
+        public static float minimalNoteDelay = 0.1f;
         [SerializeField]
-        private static float analysisThreshold = 0.3f;
+        public static float analysisThreshold = 0.3f;
         private static string _clipName;
         private static float _clipFrequency;
         private static float[] _totalSamples;
