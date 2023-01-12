@@ -13,9 +13,6 @@ namespace edition
         [SerializeField] private float startOffset = 10f;
         [SerializeField] private UnityEvent onWidthPerLengthChanged;
         [SerializeField] private RectTransform content;
-
-        private float _widthPerLengthScale = 1f;
-        private float _width = 0f;
         
         public static float WidthPerLengthScale
         {
@@ -28,14 +25,15 @@ namespace edition
             }
         }
 
-        public static float Width => _instance._width;
+        public static float Width { get; private set; }
 
         public static float WidthPerLength => _instance.widthPerLength * WidthPerLengthScale;
 
-        public static float StartOffset => _instance.startOffset * WidthPerLengthScale;
+        public static float StartOffset => _instance.startOffset;
         
         private static TimeLine _instance;
         private RectTransform _transform;
+        private float _widthPerLengthScale = 1f;
 
         private void Awake()
         {
@@ -50,12 +48,12 @@ namespace edition
 
         private void UpdateWidth()
         {
-            _width = audioSource.clip.length * WidthPerLength;
-            float realWidth = StartOffset + _width;
-            //_transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, realWidth);
+            Width = audioSource.clip.length * WidthPerLength;
+            float realWidth = StartOffset + Width;
+            
             _transform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, realWidth);
             content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, realWidth);
-            gridLayoutGroup.cellSize = new Vector2(realWidth, gridLayoutGroup.cellSize.y);
+            //gridLayoutGroup.cellSize = new Vector2(realWidth, gridLayoutGroup.cellSize.y);
         }
     }
 }

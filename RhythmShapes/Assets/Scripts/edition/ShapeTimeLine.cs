@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using utils.XML;
 
 namespace edition
@@ -19,6 +17,7 @@ namespace edition
         [SerializeField] private Transform rightLine;
         [SerializeField] private Transform leftLine;
         [SerializeField] private Transform bottomLine;
+        //[SerializeField] private EndLine endLine;
         [SerializeField] private Color topColor;
         [SerializeField] private Color rightColor;
         [SerializeField] private Color leftColor;
@@ -27,6 +26,17 @@ namespace edition
         [SerializeField] private UnityEvent onShapeSelected;
 
         private List<EditorShape> _shapes = new();
+        private float _posXCorrection = 0f;
+
+        private static ShapeTimeLine _instance;
+
+        private void Start()
+        {
+            if (_instance != null && _instance != this) Destroy(gameObject);
+            else _instance = this;
+            
+            _posXCorrection = topLine.position.x;
+        }
 
         public void DisplayLevel(LevelDescription level)
         {
@@ -42,6 +52,8 @@ namespace edition
                     CreateShape(shape);
             }
 
+            //endLine.Init(GetPosX(audioSource.clip.length));
+
             onDisplayDone.Invoke();
         }
 
@@ -49,10 +61,10 @@ namespace edition
         {
             foreach (var shape in _shapes)
             {
-                float ratio = shape.Description.timeToPress / audioSource.clip.length;
-                Debug.Log(shape.Description.target+" : "+shape.Description.timeToPress+ "/" +audioSource.clip.length+" --> "+ratio +" * "+ TimeLine.Width+" = "+(ratio * TimeLine.Width));
                 shape.UpdatePosX(GetPosX(shape.Description.timeToPress));
             }
+            
+            //endLine.UpdatePosX(GetPosX(audioSource.clip.length));
         }
 
         private EditorShape CreateShape(ShapeDescription shape)
@@ -82,11 +94,8 @@ namespace edition
                 Target.Bottom => bottomColor,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            
             EditorShape editorShape = createdShape.GetComponent<EditorShape>();
-            editorShape.Init(shape, GetPosX(shape.timeToPress), color);
-            createdShape.GetComponent<EventTrigger>().triggers[0].callback.AddListener(_ =>
-            {
+            editorShape.Init(shape, GetPosX(shape.timeToPress), color, () => {
                 EditorModel.Shape = editorShape;
                 onShapeSelected.Invoke();
             });
@@ -95,11 +104,15 @@ namespace edition
             return editorShape;
         }
 
-        private float GetPosX(float timeToPress)
+        public static float GetPosX(float timeToPress)
         {
-            float ratio = timeToPress / audioSource.clip.length;
-            return TimeLine.StartOffset + ratio * TimeLine.Width;
-            //return startOffset + timeToPress * TimeLine.WidthPerLength;
+            float ratio = timeToPress / _instance.audioSource.clip.length;
+            return GetCorrection() + TimeLine.StartOffset + ratio * TimeLine.Width;
+        }
+
+        public static float GetCorrection()
+        {
+            return _instance.topLine.position.x - _instance._posXCorrection;
         }
 
         public void UpdateSelectedType(ShapeType type)

@@ -1,3 +1,4 @@
+using System;
 using models;
 using shape;
 using UnityEngine;
@@ -16,17 +17,7 @@ namespace edition
         {
             if (EditorModel.IsInspectingShape())
             {
-                GameModel model = GameModel.Instance;
-                
-                audioSource.Stop();
-                while(model.HasNextShapeModel())
-                    model.PopShapeModel();
-                while (model.HasNextAttendedInput())
-                {
-                    foreach (var shape in model.GetNextAttendedInput().Shapes)
-                        ShapeFactory.Instance.Release(shape);
-                    model.PopAttendedInput();
-                }
+                OnReset();
 
                 ShapeDescription shapeDescription = EditorModel.Shape.Description;
                 ShapeDescription copy = new ShapeDescription()
@@ -44,6 +35,22 @@ namespace edition
                 };
 
                 levelLoader.Init(level);
+            }
+        }
+
+        public void OnReset()
+        {
+            audioSource.Stop();
+            GameModel model = GameModel.Instance;
+            
+            while(model.HasNextShapeModel())
+                model.PopShapeModel();
+            
+            while (model.HasNextAttendedInput())
+            {
+                foreach (var shape in model.GetNextAttendedInput().Shapes)
+                    ShapeFactory.Instance.Release(shape);
+                model.PopAttendedInput();
             }
         }
 
