@@ -36,8 +36,8 @@ public class MainMenuManager : MonoBehaviour
     
     public void StartCalibration()
     { 
-        // Debug.Log("StartGame");
-        // SceneTransition.Instance.LoadScene(2);
+        // Debug.Log("StartCalibration");
+        SceneTransition.Instance.LoadScene(2);
     }
     
     public void CalibrationPlus1()

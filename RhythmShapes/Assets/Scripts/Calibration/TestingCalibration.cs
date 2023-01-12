@@ -16,15 +16,12 @@ public class TestingCalibration : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
-        else
-            Instance = this;
-        
-        calibration = PlayerPrefsManager.Instance.GetPref("InputOffset",0.05f);
-        // onCalibrationCalculated ??= new UnityEvent<float>();
+        Debug.Assert(Instance == null);
+        Instance = this;
 
-        
+        calibration = GameInfo.Calibration;
+        gameObject.GetComponent<TestingCalibration>().enabled = true;
+        // onCalibrationCalculated ??= new UnityEvent<float>();
     }
 
     private void OnEnable()
@@ -55,8 +52,8 @@ public class TestingCalibration : MonoBehaviour
 
             calibration = total / count;
             GameInfo.Calibration = calibration;
-            PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
             Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
+            PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
             // onCalibrationCalculated.Invoke(total / count);
 
         }
@@ -84,8 +81,8 @@ public class TestingCalibration : MonoBehaviour
 
                 calibration = total / count;
                 GameInfo.Calibration = calibration;
-                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
+                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 // onCalibrationCalculated.Invoke(total / count);
             }
             else if (inputReceivedTimeQueue.Count > shapeTheoricalPressTimeQueue.Count)
@@ -110,11 +107,15 @@ public class TestingCalibration : MonoBehaviour
 
                 calibration = total / count;
                 GameInfo.Calibration = calibration;
-                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
+                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 // onCalibrationCalculated.Invoke(total / count);
             }
         }
-        
+    }
+
+    private void Update()
+    {
+        Debug.Log("TestingCalibration -> Update 3, count : " + inputReceivedTimeQueue.Count + ", " +shapeTheoricalPressTimeQueue.Count);
     }
 }
