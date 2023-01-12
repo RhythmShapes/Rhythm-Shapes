@@ -91,6 +91,26 @@ public class LevelLoader : MonoBehaviour
             }).Start();
         }));
     }
+    
+    public void LoadLevelFromRessourcesFolder(string levelName)
+    {
+        Debug.Log("Lezgooooooo");
+        string dataPath = levelsFolderName + "/" + levelName + "/" + dataFileName;
+        
+        TextAsset xml = Resources.Load<TextAsset>(dataPath);
+
+        if (xml == null)
+        {
+            Debug.LogError("Cannot find data file : " + dataPath);
+            return;
+        }
+        LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
+
+        gameAudioSource.clip = LoadAudioFromRessourcesFolder(levelName);
+
+        _currentLevelDescription = level;
+        onLoadedEvent.Invoke(level);
+    }
 
     private void Update()
     {
@@ -153,5 +173,21 @@ public class LevelLoader : MonoBehaviour
     private string GetAudioFilePath(string levelName)
     {
         return Path.Combine(GetLevelDirectoryPath(levelName), audioFileName + ".mp3");
+    }
+    
+    private AudioClip LoadAudioFromRessourcesFolder(string levelName)
+    {
+        string audioPath = levelsFolderName + "/" + levelName + "/" + audioFileName;
+        AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
+        
+        if (audioClip == null)
+        {
+            Debug.LogError("Cannot find audio file : " + audioPath);
+            return null;
+        }
+
+        _loadedAudioClip = audioClip;
+        
+        return audioClip;
     }
 }

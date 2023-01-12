@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
         
         if((!useDevVariables && GameInfo.requestAnalysis) || (useDevVariables && loadFromAnalyse))
             LevelLoader.Instance.LoadLevelFromAnalysis(levelName);
+        else if (useDevVariables && SceneManager.GetActiveScene().buildIndex==2)
+            LevelLoader.Instance.LoadLevelFromRessourcesFolder(levelName);
         else
             LevelLoader.Instance.LoadLevelFromFile(levelName);
     }
