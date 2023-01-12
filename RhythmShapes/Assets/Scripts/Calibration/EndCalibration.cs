@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using models;
 using TMPro;
 using UnityEngine;
+using utils;
 
 public class EndCalibration : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class EndCalibration : MonoBehaviour
     
     public void SetOffsetText()
     {
-        var text = Mathf.RoundToInt(TestingCalibration.Instance.calibration*1000).ToString() + " ms";
+        var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;
     }
 }

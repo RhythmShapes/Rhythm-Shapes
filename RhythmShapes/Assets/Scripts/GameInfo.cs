@@ -7,4 +7,6 @@ public static class GameInfo
     public static string LevelName;
 
     public static bool requestAnalysis;
+
+    public static float Calibration;
 }

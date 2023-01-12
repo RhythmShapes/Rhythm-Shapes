@@ -3,6 +3,8 @@ using shape;
 using ui;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using utils;
 
 [RequireComponent(typeof(AudioSource))]
 public class InputValidation : MonoBehaviour
@@ -20,6 +22,7 @@ public class InputValidation : MonoBehaviour
             
         _audioSource = GetComponent<AudioSource>();
         onInputValidated ??= new UnityEvent<Target, PressedAccuracy>();
+        Debug.Log("InputValidation : GameInfo" + GameInfo.Calibration);
     }
 
     public void OnInputPerformed(Target target)
@@ -33,7 +36,10 @@ public class InputValidation : MonoBehaviour
             if (input.ShouldBePressed(target))
             {
                 Debug.Log("InputValidation -> OnInputPerformed : " + input.TimeToPress);
-                TestingCalibration.Instance.shapeTheoricalPressTimeQueue.Enqueue(input.TimeToPress);
+                if (SceneManager.GetActiveScene().name == "TestingCalibration")
+                {
+                    TestingCalibration.Instance.shapeTheoricalPressTimeQueue.Enqueue(input.TimeToPress);
+                }
                 PressedAccuracy accuracy = CalculateAccuracy(input);
                 if (accuracy != PressedAccuracy.Missed)
                 {
@@ -60,26 +66,26 @@ public class InputValidation : MonoBehaviour
     {
         GameModel model = GameModel.Instance;
 
-        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow + TestingCalibration.Instance.calibration &&
-            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow + TestingCalibration.Instance.calibration)
+        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow + GameInfo.Calibration &&
+            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow + GameInfo.Calibration)
         {
             return PressedAccuracy.Perfect;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow + TestingCalibration.Instance.calibration&&
-            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow + TestingCalibration.Instance.calibration)
+        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow + GameInfo.Calibration&&
+            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow + GameInfo.Calibration)
         {
             return PressedAccuracy.Good;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow + TestingCalibration.Instance.calibration&&
-            _audioSource.time <= input.TimeToPress + model.OkPressedWindow + TestingCalibration.Instance.calibration)
+        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow + GameInfo.Calibration&&
+            _audioSource.time <= input.TimeToPress + model.OkPressedWindow + GameInfo.Calibration)
         {
             return PressedAccuracy.Ok;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow + TestingCalibration.Instance.calibration&&
-            _audioSource.time <= input.TimeToPress + model.BadPressedWindow + TestingCalibration.Instance.calibration)
+        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow + GameInfo.Calibration&&
+            _audioSource.time <= input.TimeToPress + model.BadPressedWindow + GameInfo.Calibration)
         {
             return PressedAccuracy.Bad;
         }

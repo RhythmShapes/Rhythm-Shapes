@@ -17,11 +17,12 @@
                 Instance = this;
             effectsVolume.value = GetPref("EffectsVolume", 1f);
             musicVolume.value = GetPref("MusicVolume", 1f);
+            GameInfo.Calibration = GetPref("InputOffset",0.05f);
             effectsVolume.onValueChanged.Invoke(effectsVolume.value);
             musicVolume.onValueChanged.Invoke(musicVolume.value);
         }
 
-        private void SetPref(string key, float value)
+        public void SetPref(string key, float value)
         {
             PlayerPrefs.SetFloat(key, value);
             PlayerPrefs.Save();

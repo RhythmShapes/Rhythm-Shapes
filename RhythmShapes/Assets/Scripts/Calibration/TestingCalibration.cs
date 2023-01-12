@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using utils;
 using Input = UnityEngine.Windows.Input;
 
 public class TestingCalibration : MonoBehaviour
 {
     public static TestingCalibration Instance { get; private set; }
-    public float calibration = 0.07372008f; //0,066417 //0,127751 //
+    [SerializeField] private float calibration; //0,066417 //0,127751 //
     public Queue<float> inputReceivedTimeQueue;
     public Queue<float> shapeTheoricalPressTimeQueue;
     
@@ -20,6 +21,7 @@ public class TestingCalibration : MonoBehaviour
         else
             Instance = this;
         
+        calibration = PlayerPrefsManager.Instance.GetPref("InputOffset",0.05f);
         // onCalibrationCalculated ??= new UnityEvent<float>();
 
         
@@ -52,6 +54,8 @@ public class TestingCalibration : MonoBehaviour
             }
 
             calibration = total / count;
+            GameInfo.Calibration = calibration;
+            PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
             Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
             // onCalibrationCalculated.Invoke(total / count);
 
@@ -79,6 +83,8 @@ public class TestingCalibration : MonoBehaviour
                 }
 
                 calibration = total / count;
+                GameInfo.Calibration = calibration;
+                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
                 // onCalibrationCalculated.Invoke(total / count);
             }
@@ -103,6 +109,8 @@ public class TestingCalibration : MonoBehaviour
                 }
 
                 calibration = total / count;
+                GameInfo.Calibration = calibration;
+                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
                 // onCalibrationCalculated.Invoke(total / count);
             }
