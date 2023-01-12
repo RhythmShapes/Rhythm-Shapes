@@ -44,6 +44,14 @@ public class MainMenuManager : MonoBehaviour
     { 
         // Debug.Log("CalibrationPlus1");
         GameInfo.Calibration += 0.001f;
+        if (GameInfo.Calibration < -0.05f)
+        {
+            GameInfo.Calibration = -0.05f;
+        }
+        else if (GameInfo.Calibration > 0.2f)
+        {
+            GameInfo.Calibration = 0.2f;
+        }
         SetOffsetText();
     }
     
@@ -51,7 +59,14 @@ public class MainMenuManager : MonoBehaviour
     { 
         // Debug.Log("CalibrationPlus1");
         GameInfo.Calibration -= 0.001f;
-        
+        if (GameInfo.Calibration < -0.05f)
+        {
+            GameInfo.Calibration = -0.05f;
+        }
+        else if (GameInfo.Calibration > 0.2f)
+        {
+            GameInfo.Calibration = 0.2f;
+        }
         SetOffsetText();
     }
     
@@ -92,6 +107,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void SetupCalibrationText()
     {
+        if (GameInfo.Calibration < -0.05f)
+        {
+            GameInfo.Calibration = -0.05f;
+        }
+        else if (GameInfo.Calibration > 0.2f)
+        {
+            GameInfo.Calibration = 0.2f;
+        }
         var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;
     }

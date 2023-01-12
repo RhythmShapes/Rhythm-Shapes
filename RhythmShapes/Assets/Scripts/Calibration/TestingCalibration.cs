@@ -47,6 +47,15 @@ public class TestingCalibration : MonoBehaviour
             }
 
             calibration = total / count;
+            if (calibration < -0.05f)
+            {
+                calibration = -0.05f;
+            }
+            else if (calibration > 0.2f)
+            {
+                calibration = 0.2f;
+            }
+            
             GameInfo.Calibration = calibration;
             // Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
             PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
@@ -76,6 +85,14 @@ public class TestingCalibration : MonoBehaviour
                 }
 
                 calibration = total / count;
+                if (calibration < -0.05)
+                {
+                    calibration = -0.05f;
+                }
+                else if (calibration > 0.2f)
+                {
+                    calibration = 0.2f;
+                }
                 GameInfo.Calibration = calibration;
                 // Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
                 PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
@@ -102,6 +119,14 @@ public class TestingCalibration : MonoBehaviour
                 }
 
                 calibration = total / count;
+                if (calibration < -0.05f)
+                {
+                    calibration = -0.05f;
+                }
+                else if (calibration > 0.2f)
+                {
+                    calibration = 0.2f;
+                }
                 GameInfo.Calibration = calibration;
                 // Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
                 PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
