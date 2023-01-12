@@ -9,8 +9,10 @@ public class TestingCalibration : MonoBehaviour
 {
     public static TestingCalibration Instance { get; private set; }
     [SerializeField] private float calibration; //0,066417 //0,127751 //
-    public Queue<float> inputReceivedTimeQueue;
-    public Queue<float> shapeTheoricalPressTimeQueue;
+    private Queue<float> inputReceivedTimeQueue = new();
+    private Queue<float> shapeTheoricalPressTimeQueue = new();
+    [SerializeField] private AudioSource _audioSource;
+    
     
     // [SerializeField] private UnityEvent<float> onCalibrationCalculated;
 
@@ -22,12 +24,6 @@ public class TestingCalibration : MonoBehaviour
         calibration = GameInfo.Calibration;
         gameObject.GetComponent<TestingCalibration>().enabled = true;
         // onCalibrationCalculated ??= new UnityEvent<float>();
-    }
-
-    private void OnEnable()
-    {
-        inputReceivedTimeQueue = new Queue<float>();
-        shapeTheoricalPressTimeQueue = new Queue<float>();
     }
 
     private void OnDisable()
@@ -46,13 +42,13 @@ public class TestingCalibration : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 diffI = inputReceivedTimeQueue.Dequeue() - shapeTheoricalPressTimeQueue.Dequeue();
-                Debug.Log("TestingCalibration -> CalculateMean 1, diffI : "+ diffI);
+                // Debug.Log("TestingCalibration -> CalculateMean 1, diffI : "+ diffI);
                 total += diffI;
             }
 
             calibration = total / count;
             GameInfo.Calibration = calibration;
-            Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
+            // Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
             PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
             // onCalibrationCalculated.Invoke(total / count);
 
@@ -73,7 +69,7 @@ public class TestingCalibration : MonoBehaviour
                     else
                     {
                         diffI = inputReceivedTimeQueue.Dequeue() - shapeTheoricalPressTimeQueue.Dequeue();
-                        Debug.Log("TestingCalibration -> CalculateMean 2, diffI : "+ diffI);
+                        // Debug.Log("TestingCalibration -> CalculateMean 2, diffI : "+ diffI);
                         total += diffI;
                     }
                     
@@ -81,7 +77,7 @@ public class TestingCalibration : MonoBehaviour
 
                 calibration = total / count;
                 GameInfo.Calibration = calibration;
-                Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
+                // Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
                 PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 // onCalibrationCalculated.Invoke(total / count);
             }
@@ -99,7 +95,7 @@ public class TestingCalibration : MonoBehaviour
                     else
                     {
                         diffI = inputReceivedTimeQueue.Dequeue() - shapeTheoricalPressTimeQueue.Dequeue();
-                        Debug.Log("TestingCalibration -> CalculateMean 3, diffI : "+ diffI);
+                        // Debug.Log("TestingCalibration -> CalculateMean 3, diffI : "+ diffI);
                         total += diffI;
                     }
                     
@@ -107,7 +103,7 @@ public class TestingCalibration : MonoBehaviour
 
                 calibration = total / count;
                 GameInfo.Calibration = calibration;
-                Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
+                // Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
                 PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                 // onCalibrationCalculated.Invoke(total / count);
             }
@@ -116,6 +112,24 @@ public class TestingCalibration : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("TestingCalibration -> Update 3, count : " + inputReceivedTimeQueue.Count + ", " +shapeTheoricalPressTimeQueue.Count);
+        // Debug.Log("TestingCalibration -> Update 3, count : " + inputReceivedTimeQueue.Count + ", " +shapeTheoricalPressTimeQueue.Count);
+    }
+
+    public void EnqueueInputReceivedTimeQueue()
+    {
+        // Debug.Log("EnqueueShapeTheoricalPressTimeQueue : "+ _audioSource.time);
+        inputReceivedTimeQueue.Enqueue(_audioSource.time);
+    }
+    
+    public void EnqueueShapeTheoricalPressTimeQueue(float value)
+    {
+        // Debug.Log("EnqueueShapeTheoricalPressTimeQueue : "+ value);
+        shapeTheoricalPressTimeQueue.Enqueue(value);
+    }
+
+    public void ClearQueue()
+    {
+        inputReceivedTimeQueue.Clear();
+        shapeTheoricalPressTimeQueue.Clear();
     }
 }

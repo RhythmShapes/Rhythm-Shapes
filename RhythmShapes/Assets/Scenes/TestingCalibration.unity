@@ -1260,9 +1260,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8413089934274424518}
-        m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
-        m_MethodName: StartCountdown
+      - m_Target: {fileID: 1660083818}
+        m_TargetAssemblyTypeName: TestingCalibration, Assembly-CSharp
+        m_MethodName: ClearQueue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 824601749}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: ResetScoreVariables
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1272,9 +1284,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 824601749}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
-        m_MethodName: ResetScoreVariables
+      - m_Target: {fileID: 8413089934274424518}
+        m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
+        m_MethodName: StartCountdown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1560,6 +1572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   calibration: 0
+  _audioSource: {fileID: 2071672786}
 --- !u!1 &1690135078
 GameObject:
   m_ObjectHideFlags: 0

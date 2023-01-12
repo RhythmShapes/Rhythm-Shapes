@@ -22,7 +22,7 @@ public class InputValidation : MonoBehaviour
             
         _audioSource = GetComponent<AudioSource>();
         onInputValidated ??= new UnityEvent<Target, PressedAccuracy>();
-        Debug.Log("InputValidation : GameInfo" + GameInfo.Calibration);
+        // Debug.Log("InputValidation : GameInfo" + GameInfo.Calibration);
     }
 
     public void OnInputPerformed(Target target)
@@ -35,10 +35,10 @@ public class InputValidation : MonoBehaviour
 
             if (input.ShouldBePressed(target))
             {
-                Debug.Log("InputValidation -> OnInputPerformed : " + input.TimeToPress);
+                // Debug.Log("InputValidation -> OnInputPerformed : " + input.TimeToPress);
                 if (SceneManager.GetActiveScene().name == "TestingCalibration")
                 {
-                    TestingCalibration.Instance.shapeTheoricalPressTimeQueue.Enqueue(input.TimeToPress);
+                    TestingCalibration.Instance.EnqueueShapeTheoricalPressTimeQueue(input.TimeToPress);
                 }
                 PressedAccuracy accuracy = CalculateAccuracy(input);
                 if (accuracy != PressedAccuracy.Missed)

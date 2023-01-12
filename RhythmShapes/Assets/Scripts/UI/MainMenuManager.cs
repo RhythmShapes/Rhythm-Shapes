@@ -67,6 +67,7 @@ public class MainMenuManager : MonoBehaviour
         // Debug.Log("ShowCalibration");
         optionMenuCanvas.SetActive(false);
         calibrationMenuCanvas.SetActive(true);
+        SetupCalibrationText();
     }
     
     public void HideCalibration()
@@ -89,7 +90,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenuCanvas.SetActive(true);
     }
 
-    private void Awake()
+    private void SetupCalibrationText()
     {
         var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;

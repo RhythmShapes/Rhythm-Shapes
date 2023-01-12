@@ -60,15 +60,15 @@ public class InputManager : MonoBehaviour
 
     private void InputPerformed(Target target)
     {
-        Debug.Log("InputManager -> InputPerformed : " + gameObject.GetComponent<AudioSource>().time);
-        if (SceneManager.GetActiveScene().name == "TestingCalibration")
-        {
-            TestingCalibration.Instance.inputReceivedTimeQueue.Enqueue(gameObject.GetComponent<AudioSource>().time);
-        }
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);
             onInputPerformed.Invoke(target);
+            // Debug.Log("InputManager -> InputPerformed : " + gameObject.GetComponent<AudioSource>().time);
+            if (SceneManager.GetActiveScene().name == "TestingCalibration")
+            {
+                TestingCalibration.Instance.EnqueueInputReceivedTimeQueue();
+            }
         }
     }
     
