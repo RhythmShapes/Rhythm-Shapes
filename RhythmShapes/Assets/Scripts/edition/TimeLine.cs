@@ -48,7 +48,9 @@ namespace edition
 
         private void UpdateWidth()
         {
-            Width = audioSource.clip.length * WidthPerLength;
+            AudioClip clip = audioSource.clip;
+            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            Width = audioLen * WidthPerLength;
             float realWidth = StartOffset + Width;
             
             _transform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, realWidth);

@@ -19,6 +19,7 @@ namespace edition
         private void Start()
         {
             _transform = GetComponent<RectTransform>();
+            Invoke("OnZoom", .05f);
         }
 
         public void OnZoom()
@@ -30,7 +31,9 @@ namespace edition
 
             int listLen = _graduations.Count;
             float precision = GetGraduationPrecision();
-            float total = audioSource.clip.length + bonusGraduation;
+            AudioClip clip = audioSource.clip;
+            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            float total = audioLen + bonusGraduation;
 
             int listI = 0;
             for (float i = 0; i < total; i += precision)

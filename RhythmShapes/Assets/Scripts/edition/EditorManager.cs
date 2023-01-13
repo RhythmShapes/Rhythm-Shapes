@@ -14,9 +14,9 @@ namespace edition
         private void Start()
         {
             string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
-            GameInfo.IsNewLevel = useDevVariables && isNewLevel;
+            GameInfo.IsNewLevel = (useDevVariables && isNewLevel) || (!useDevVariables && GameInfo.IsNewLevel);
             EditorPanel.Init();
-        
+
             if (!GameInfo.IsNewLevel)
                 levelLoader.LoadLevelFromFile(levelName);
         }

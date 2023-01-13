@@ -6681,7 +6681,6 @@ MonoBehaviour:
   rightLine: {fileID: 1004155036}
   leftLine: {fileID: 365142559}
   bottomLine: {fileID: 2116712894}
-  endLine: {fileID: 1314770118}
   topColor: {r: 0.4, g: 0.4, b: 1, a: 1}
   rightColor: {r: 1, g: 0.19215687, b: 0.19215687, a: 1}
   leftColor: {r: 0.42352942, g: 0.9647059, b: 0.42352942, a: 1}
@@ -7106,7 +7105,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cfce677c5e38890469c9da1e0193baa8, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -7235,7 +7234,7 @@ MonoBehaviour:
   levelLoader: {fileID: 1454797636}
   useDevVariables: 1
   devLevelName: Hello
-  isNewLevel: 0
+  isNewLevel: 1
 --- !u!114 &1454797636
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -44,8 +44,10 @@ namespace edition
         public static void Init()
         {
             EditorModel.UseLevelMusic = !GameInfo.IsNewLevel;
-            _instance.useLevelMusicObject.SetActive(!GameInfo.IsNewLevel);
+            _instance.useLevelMusicObject.SetActive(EditorModel.UseLevelMusic);
             _instance.musicPathObject.SetActive(GameInfo.IsNewLevel);
+            _instance.minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
+            _instance.peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
         }
 
         public void SetActive(bool active)

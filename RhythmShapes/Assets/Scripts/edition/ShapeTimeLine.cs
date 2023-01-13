@@ -30,11 +30,14 @@ namespace edition
 
         private static ShapeTimeLine _instance;
 
-        private void Start()
+        private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(gameObject);
             else _instance = this;
-            
+        }
+
+        private void Start()
+        {
             _posXCorrection = topLine.position.x;
         }
 
@@ -106,7 +109,9 @@ namespace edition
 
         public static float GetPosX(float timeToPress)
         {
-            float ratio = timeToPress / _instance.audioSource.clip.length;
+            AudioClip clip = _instance.audioSource.clip;
+            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            float ratio = timeToPress / audioLen;
             return GetCorrection() + TimeLine.StartOffset + ratio * TimeLine.Width;
         }
 
