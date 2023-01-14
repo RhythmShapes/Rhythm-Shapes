@@ -11,6 +11,7 @@ public class TestingCalibration : MonoBehaviour
     [SerializeField] private float calibration; //0,066417 //0,127751 //
     private Queue<float> inputReceivedTimeQueue = new();
     private Queue<float> shapeTheoricalPressTimeQueue = new();
+    private float[] shapeTheoricalPressTime;
     [SerializeField] private AudioSource _audioSource;
     
     
@@ -114,7 +115,7 @@ public class TestingCalibration : MonoBehaviour
                     PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
                     // onCalibrationCalculated.Invoke(total / count);
                 }
-                else if (inputReceivedTimeQueue.Count > shapeTheoricalPressTimeQueue.Count)
+                else if (inputReceivedTimeQueue.Count < shapeTheoricalPressTimeQueue.Count)
                 {
                     int count = shapeTheoricalPressTimeQueue.Count;
                     float total = 0;
