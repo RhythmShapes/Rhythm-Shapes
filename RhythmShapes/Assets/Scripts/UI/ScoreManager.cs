@@ -103,7 +103,7 @@ public class ScoreManager : MonoBehaviour
 
     public void PrintScoreDebug()
     {
-        Debug.Log("Score : "+ Score + ",PerfectCounter : "+ PerfectCounter+ ",GoodCounter : "+ GoodCounter+ ",OkCounter : "+ OkCounter+ ",BadCounter : "+ BadCounter+ ",MissCounter : "+ MissCounter);
+        // Debug.Log("Score : "+ Score + ",PerfectCounter : "+ PerfectCounter+ ",GoodCounter : "+ GoodCounter+ ",OkCounter : "+ OkCounter+ ",BadCounter : "+ BadCounter+ ",MissCounter : "+ MissCounter);
     }
 }
 

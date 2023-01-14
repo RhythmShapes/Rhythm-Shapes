@@ -94,7 +94,6 @@ public class LevelLoader : MonoBehaviour
     
     public void LoadLevelFromRessourcesFolder(string levelName)
     {
-        Debug.Log("Lezgooooooo");
         string dataPath = levelsFolderName + "/" + levelName + "/" + dataFileName;
         
         TextAsset xml = Resources.Load<TextAsset>(dataPath);
