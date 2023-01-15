@@ -3915,12 +3915,13 @@ MonoBehaviour:
   audioSource: {fileID: 1454797632}
   graduationsContent: {fileID: 1083474759}
   graduationPrefab: {fileID: 7007814509291349213, guid: 506603e21d2f8cd4c94a870d98bd91c2, type: 3}
+  specialGraduationPrefab: {fileID: 8777806026444558426, guid: 90481566b83555344b69fb08532f5846, type: 3}
   bonusGraduation: 300
   graduationThresholds:
   - {x: 60, y: 0.5}
   - {x: 26, y: 1}
   - {x: 8, y: 10}
-  - {x: 0, y: 50}
+  - {x: 0, y: 60}
 --- !u!1 &860551557
 GameObject:
   m_ObjectHideFlags: 0
@@ -7234,7 +7235,7 @@ MonoBehaviour:
   levelLoader: {fileID: 1454797636}
   useDevVariables: 1
   devLevelName: Hello
-  isNewLevel: 1
+  isNewLevel: 0
 --- !u!114 &1454797636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7308,6 +7309,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1706362606}
         m_TargetAssemblyTypeName: edition.ActionBar, Assembly-CSharp
         m_MethodName: ContinueSaving
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1415147216}
+        m_TargetAssemblyTypeName: edition.TimeLine, Assembly-CSharp
+        m_MethodName: UpdateWidth
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

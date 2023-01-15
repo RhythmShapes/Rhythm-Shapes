@@ -20,6 +20,20 @@ namespace edition
 
         public void OnQuit()
         {
+            //Quit without saving
+            if (EditorModel.HasBeenAnalyzed() || EditorModel.HasShapeBeenModified)
+            {
+                popupWindow.ShowQuestion(
+                    "Quit without saving ?",
+                    callback: confirm =>
+                    {
+                        if(confirm)
+                            SceneTransition.Instance.BackToMainMenu();
+                    });
+                
+                return;
+            }
+            
             SceneTransition.Instance.BackToMainMenu();
         }
 

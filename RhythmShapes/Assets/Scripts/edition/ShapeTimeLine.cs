@@ -112,12 +112,12 @@ namespace edition
             AudioClip clip = _instance.audioSource.clip;
             float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
             float ratio = timeToPress / audioLen;
-            return GetCorrection() + TimeLine.StartOffset + ratio * TimeLine.Width;
+            return _instance.GetCorrection() + TimeLine.StartOffset + ratio * TimeLine.Width;
         }
 
-        public static float GetCorrection()
+        private float GetCorrection()
         {
-            return _instance.topLine.position.x - _instance._posXCorrection;
+            return topLine.position.x - _posXCorrection;
         }
 
         public void UpdateSelectedType(ShapeType type)

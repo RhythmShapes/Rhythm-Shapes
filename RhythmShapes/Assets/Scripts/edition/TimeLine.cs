@@ -46,7 +46,7 @@ namespace edition
             UpdateWidth();
         }
 
-        private void UpdateWidth()
+        public void UpdateWidth()
         {
             AudioClip clip = audioSource.clip;
             float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
