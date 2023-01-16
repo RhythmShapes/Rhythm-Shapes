@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using DSPLib;
 using System.Numerics;
+using System.Collections.Generic;
 
 namespace AudioAnalysis
 {
@@ -152,5 +153,71 @@ namespace AudioAnalysis
             }
             return BPMS;
         }
+
+        public static float[] Normalize(float[] data)
+        {
+            float ratio = 1/Mathf.Max(data);
+            for(int i = 0; i < data.Length; i++)
+            {
+                data[i] *= ratio;
+            }
+            return data;
+        }
+
+        public static float[] GetSectionsTimestamps(float[] signal, int kernelSize, float frequency)
+        {
+            signal = Normalize(signal);
+            List<float> result = new List<float>();
+            float[] kernel = new float[kernelSize];
+            for (int i = 0; i < kernelSize; i++)
+            {
+                kernel[i] = (float)1 / kernelSize;
+            }
+            float[] convolution = Convolution.Convolve1D(signal, kernel);
+
+            float[] relevantData = new float[signal.Length];
+
+            for (int i = 0; i < signal.Length; i++)
+            {
+                relevantData[i] = convolution[kernelSize / 2 + i - 1];
+            }
+
+            for (int i = 0; i < kernelSize; i++)
+            {
+                if(i == kernelSize / 2)
+                {
+                    kernel[i] = 0;
+                }
+                else
+                {
+                    kernel[i] = 1/(float)(i-kernelSize/2);
+                }
+            }
+
+            float[] contrastKernel = { -1, -1, 1, 1, 1 };
+
+            convolution = Convolution.Convolve1D(convolution, contrastKernel);
+            
+            for (int i = 0; i < signal.Length; i++)
+            {
+                relevantData[i] = convolution[contrastKernel.Length / 2 + i-1];
+            }
+
+            List<float> timestamps = new List<float>();
+            for(int i = 0; i<relevantData.Length; i++)
+            {
+                if(Mathf.Abs(relevantData[i]) > 1.85)
+                {
+                    if (timestamps.Count <= 0 || timeFromIndex(i, frequency) - timestamps[timestamps.Count - 1] > 0.1)
+                    {
+                        timestamps.Add(timeFromIndex(i, frequency));
+                    }
+                }
+            }
+            
+            return timestamps.ToArray();
+        }
+
+
     }
 }

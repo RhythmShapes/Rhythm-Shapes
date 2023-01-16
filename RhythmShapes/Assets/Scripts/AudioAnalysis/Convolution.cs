@@ -11,8 +11,14 @@ public static class Convolution
         for(int k = 0; k < n+m-1; k++)
         {
             float sum = 0;
-            for (int i = Mathf.Max(0,k+1-m); i<Mathf.Min(m,k+1); i++)
+            int start = Mathf.Max(0, k + 1 - m);
+            int end = Mathf.Min(n, k);
+            for (int i = start; i<end; i++)
             {
+                if(k > 2000 && k<2020)
+                {
+                    //Debug.Log("f: " + f[i] + " g:" + g[k - i] + " f*g:" + f[i]*g[k-i]);
+                }
                 sum += f[i] * g[k - i];
             }
             result.Add(sum);
