@@ -25,7 +25,7 @@ namespace edition
         [SerializeField] private UnityEvent onDisplayDone;
         [SerializeField] private UnityEvent onShapeSelected;
 
-        private List<EditorShape> _shapes = new();
+        private readonly List<EditorShape> _shapes = new();
         private float _posXCorrection = 0f;
 
         private static ShapeTimeLine _instance;
@@ -41,6 +41,11 @@ namespace edition
             _posXCorrection = topLine.position.x;
         }
 
+        public static void StaticDisplayLevel(LevelDescription level)
+        {
+            _instance.DisplayLevel(level);
+        }
+
         public void DisplayLevel(LevelDescription level)
         {
             foreach (var shape in _shapes)
@@ -52,12 +57,32 @@ namespace edition
             if (level.shapes != null)
             {
                 foreach (var shape in level.shapes)
+                {
                     CreateShape(shape);
+                }
             }
 
             //endLine.Init(GetPosX(audioSource.clip.length));
-
+            EditorModel.Shape = null;
             onDisplayDone.Invoke();
+        }
+
+        public static void ForceSelectShape(ShapeDescription selectShape)
+        {
+            foreach (var editorShape in _instance._shapes)
+            {
+                ShapeDescription shape = editorShape.Description;
+                
+                if (selectShape.type == shape.type 
+                    && selectShape.target == shape.target
+                    && selectShape.timeToPress.Equals(shape.timeToPress)
+                    && selectShape.goRight == shape.goRight)
+                {
+                    EditorModel.Shape = editorShape;
+                    _instance.onShapeSelected.Invoke();
+                    return;
+                }
+            }
         }
 
         public void UpdateTimeLine()
@@ -98,7 +123,8 @@ namespace edition
                 _ => throw new ArgumentOutOfRangeException()
             };
             EditorShape editorShape = createdShape.GetComponent<EditorShape>();
-            editorShape.Init(shape, GetPosX(shape.timeToPress), color, () => {
+            editorShape.Init(shape, GetPosX(shape.timeToPress), color, () =>
+            {
                 EditorModel.Shape = editorShape;
                 onShapeSelected.Invoke();
             });
@@ -112,12 +138,26 @@ namespace edition
             AudioClip clip = _instance.audioSource.clip;
             float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
             float ratio = timeToPress / audioLen;
-            return _instance.GetCorrection() + TimeLine.StartOffset + ratio * TimeLine.Width;
+            return TimeLine.StartOffset + ratio * TimeLine.Width;
         }
 
-        private float GetCorrection()
+        public static float GetTimeFromPos(float posX)
+        {
+            AudioClip clip = _instance.audioSource.clip;
+            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            float time = posX / TimeLine.Width * audioLen;
+            
+            return Mathf.Clamp(time, 0f, audioLen);
+        }
+
+        private float GetCorrectedStartPos()
         {
             return topLine.position.x - _posXCorrection;
+        }
+
+        public static float GetCorrection()
+        {
+            return _instance._posXCorrection;
         }
 
         public void UpdateSelectedType(ShapeType type)

@@ -8,7 +8,6 @@ namespace edition
     public class ActionBar : MonoBehaviour
     {
         [SerializeField] private PopupWindow popupWindow;
-        [SerializeField] private NotificationsManager notificationsManager;
         [SerializeField] private UnityEvent<LevelDescription> onSaved;
 
         private bool _hasStartAnalysisDuringSave = false;
@@ -45,7 +44,7 @@ namespace edition
             // Verify fields value
             if (!EditorPanel.CheckFields())
             {
-                notificationsManager.ShowError("An error prevents saving. Please fix it and try again.");
+                NotificationsManager.ShowError("An error prevents saving. Please fix it and try again.");
                 return;
             }
             
@@ -53,7 +52,7 @@ namespace edition
             if (!EditorModel.HasShapeBeenModified && !EditorModel.HasBeenAnalyzed() && !GameInfo.IsNewLevel
                 && EditorModel.UseLevelMusic && levelName.Equals(EditorModel.OriginLevel.title))
             {
-                notificationsManager.ShowInfo("Nothing to save.");
+                NotificationsManager.ShowInfo("Nothing to save.");
                 return;
             }
 
@@ -93,7 +92,7 @@ namespace edition
                 LevelTools.SaveLevelAudio(levelName, musicPath);
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
                 
-                notificationsManager.ShowInfo("Level saved !");
+                NotificationsManager.ShowInfo("Level saved !");
                 onSaved.Invoke(EditorModel.AnalyzedLevel);
                 return;
             }
@@ -127,7 +126,7 @@ namespace edition
                 newOriginLevel = EditorModel.OriginLevel;
             }
 
-            notificationsManager.ShowInfo("Level saved !");
+            NotificationsManager.ShowInfo("Level saved !");
             onSaved.Invoke(newOriginLevel);
         }
 

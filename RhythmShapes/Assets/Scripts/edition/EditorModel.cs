@@ -40,6 +40,11 @@ namespace edition
             Shape = shape;
         }
 
+        public static bool HasLevelSet()
+        {
+            return OriginLevel != null || AnalyzedLevel != null;
+        }
+
         public static bool HasBeenAnalyzed()
         {
             return AnalyzedLevel != null;

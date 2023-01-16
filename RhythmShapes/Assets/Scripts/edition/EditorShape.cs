@@ -9,11 +9,13 @@ namespace edition
     [RequireComponent(typeof(Image))]
     public class EditorShape : MonoBehaviour, IPointerClickHandler
     {
+        [SerializeField] private float doubleClickDelay = .5f;
         public ShapeDescription Description { get; private set; }
-        
+
         private Image _image;
-        private float _startPosX;
         private UnityAction _onClickCallback;
+        private short _clickCount = 0;
+        private float _clickTime = 0;
         
         public void Init(ShapeDescription description, float posX, Color color, UnityAction onClick)
         {
@@ -25,7 +27,7 @@ namespace edition
 
         public void UpdatePosX(float posX)
         {
-            transform.position = new Vector3(_startPosX + posX, transform.position.y);
+            transform.localPosition = new Vector2(posX, transform.localPosition.y);
         }
 
         public void UpdateColor(Color color)
@@ -36,12 +38,24 @@ namespace edition
         private void Awake()
         {
             _image = GetComponent<Image>();
-            _startPosX = transform.position.x;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _onClickCallback();
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                if (_clickCount == 1 && eventData.clickTime - _clickTime <= doubleClickDelay)
+                {
+                    _clickCount = 0;
+                    InspectorPanel.OnDeleteShapeStatic(this);
+                }
+                else
+                {
+                    _clickCount = 1;
+                    _clickTime = eventData.clickTime;
+                }
+            } else if(eventData.button == PointerEventData.InputButton.Left)
+                _onClickCallback();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace edition
 
         public static float Width { get; private set; }
 
+        public static float RealWidth => Width + StartOffset * 2;
+
         public static float WidthPerLength => _instance.widthPerLength * WidthPerLengthScale;
 
         public static float StartOffset => _instance.startOffset;
@@ -51,10 +53,9 @@ namespace edition
             AudioClip clip = audioSource.clip;
             float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
             Width = audioLen * WidthPerLength;
-            float realWidth = StartOffset + Width;
             
-            _transform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, realWidth);
-            content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, realWidth);
+            _transform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, RealWidth);
+            content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, RealWidth);
             //gridLayoutGroup.cellSize = new Vector2(realWidth, gridLayoutGroup.cellSize.y);
         }
     }

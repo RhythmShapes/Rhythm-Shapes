@@ -11,6 +11,8 @@ namespace edition
 {
     public class InspectorPanel : MonoBehaviour
     {
+        [Header("Panel components")]
+        [Space]
         [SerializeField] private GameObject emptyContentPanel;
         [SerializeField] private GameObject contentPanel;
         [SerializeField] private AudioSource audioSource;
@@ -18,6 +20,7 @@ namespace edition
         [SerializeField] private TMP_Dropdown targetField;
         [SerializeField] private TMP_InputField pressTimeField;
         [SerializeField] private TMP_Dropdown goRightField;
+        [Space]
         [SerializeField] private UnityEvent<ShapeType> onRequestChangeType;
         [SerializeField] private UnityEvent<Target> onRequestChangeTarget;
         [SerializeField] private UnityEvent<bool> onRequestChangeGoRight;
@@ -99,6 +102,71 @@ namespace edition
             
             EditorModel.HasShapeBeenModified = true;
             onRequestChangeTimeToPress.Invoke(pressTime);
+        }
+
+        public void OnCreateShape(float time)
+        {
+            OnCreateShape(time, Target.Top);
+        }
+
+        public static void OnCreateShape(float time, Target target)
+        {
+            if (!EditorModel.HasLevelSet())
+            {
+                NotificationsManager.ShowError("A music has to be analysed before creating a new shape.");
+                return;
+            }
+            
+            ShapeDescription shape = new ShapeDescription()
+            {
+                goRight = true,
+                target = target,
+                timeToPress = time,
+                type = ShapeType.Square
+            };
+
+            LevelDescription level = EditorModel.HasBeenAnalyzed() ? EditorModel.AnalyzedLevel : EditorModel.OriginLevel;
+            ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length + 1];
+            Array.Copy(level.shapes, shapes, level.shapes.Length);
+            level.shapes = shapes;
+            level.shapes[^1] = shape;
+
+            EditorModel.HasShapeBeenModified = true;
+            ShapeTimeLine.StaticDisplayLevel(level);
+            ShapeTimeLine.ForceSelectShape(shape);
+        }
+
+        public void OnDeleteShape()
+        {
+            OnDeleteShapeStatic(null);
+        }
+
+        public static void OnDeleteShapeStatic(EditorShape shape)
+        {
+            shape ??= EditorModel.Shape;
+
+            if (shape != null)
+            {
+                LevelDescription level = EditorModel.HasBeenAnalyzed() ? EditorModel.AnalyzedLevel : EditorModel.OriginLevel;
+                ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length - 1];
+                
+                for (int i = 0, j = 0; i < level.shapes.Length; i++, j++)
+                {
+                    if (level.shapes[i].Equals(shape.Description))
+                    {
+                        j--;
+                        Destroy(shape.gameObject);
+                        continue;
+                    }
+
+                    shapes[j] = level.shapes[i];
+                }
+                
+                level.shapes = shapes;
+                EditorModel.HasShapeBeenModified = true;
+                FindObjectOfType<PathDemo>().OnReset();
+                ShapeTimeLine.StaticDisplayLevel(level);
+            }
         }
     }
 }

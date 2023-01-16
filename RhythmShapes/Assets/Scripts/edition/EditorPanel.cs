@@ -27,7 +27,6 @@ namespace edition
         [SerializeField] private ErrorMessage musicPathError;
         [SerializeField] private ErrorMessage levelNameError;
         [SerializeField] private PopupWindow popupWindow;
-        [SerializeField] private NotificationsManager notificationsManager;
         [Space]
         [SerializeField] private UnityEvent<string> onRequestAnalysis;
 
@@ -78,7 +77,7 @@ namespace edition
 
             if (!CheckMusicPath(sourceAudioPath))
             {
-                notificationsManager.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
+                NotificationsManager.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
                 analyseButton.enabled = true;
                 return;
             }

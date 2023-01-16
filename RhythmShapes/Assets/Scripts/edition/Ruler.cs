@@ -45,7 +45,6 @@ namespace edition
                 {
                     var graduation = CreateGraduation(listLen);
                     graduation.Init(ShapeTimeLine.GetPosX(i), i.ToString(CultureInfo.InvariantCulture), Color.black);
-                    if(i is 0f or 59f) Debug.Log(i.ToString(CultureInfo.InvariantCulture)+" : "+ShapeTimeLine.GetPosX(i));
                 }
 
                 if (_endGraduation == null)

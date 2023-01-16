@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace edition
 {
@@ -12,21 +13,29 @@ namespace edition
         [SerializeField] private Sprite errorIcon;
         [SerializeField] [Min(1)] private float lifeTime;
 
-        public void ShowInfo(string message)
+        private static NotificationsManager _instance;
+
+        private void Awake()
         {
-            AddNotification(message, infoColor, infoIcon);
+            if (_instance != null && _instance != this) Destroy(gameObject);
+            else _instance = this;
         }
 
-        public void ShowError(string message)
+        public static void ShowInfo(string message)
         {
-            AddNotification(message, errorColor, errorIcon);
+            AddNotification(message, _instance.infoColor, _instance.infoIcon);
         }
 
-        private void AddNotification(string message, Color color, Sprite icon)
+        public static void ShowError(string message)
         {
-            Notification notification = Instantiate(notificationPrefab).GetComponent<Notification>();
-            notification.Init(message, color, lifeTime, icon);
-            notification.gameObject.transform.SetParent(parentComponent, false);
+            AddNotification(message, _instance.errorColor, _instance.errorIcon);
+        }
+
+        private static void AddNotification(string message, Color color, Sprite icon)
+        {
+            Notification notification = Instantiate(_instance.notificationPrefab).GetComponent<Notification>();
+            notification.Init(message, color, _instance.lifeTime, icon);
+            notification.gameObject.transform.SetParent(_instance.parentComponent, false);
         }
     }
 }
