@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using models;
 using shape;
 using UnityEngine;
@@ -25,27 +26,34 @@ public class LevelPreparator : MonoBehaviour
                                       PathsManager.Instance.GetPathTotalDistance(ShapeType.Diamond);
         float circleSpeedAdjustment = PathsManager.Instance.GetPathTotalDistance(ShapeType.Circle) /
                                       PathsManager.Instance.GetPathTotalDistance(ShapeType.Diamond);
-        
-        foreach (var shapeDescription in level.shapes)
+
+        if (level.shapes != null)
         {
-            Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target, shapeDescription.goRight);
-            Color color = GetShapeColor(shapeDescription.target);
-            float speed = shapesSpeed * shapeDescription.type switch // speedAdjustment according to shape
+            Array.Sort(level.shapes, (shape, compare) => shape.timeToPress.CompareTo(compare.timeToPress));
+
+            foreach (var shapeDescription in level.shapes)
             {
-                ShapeType.Square =>  squareSpeedAdjustment,
-                ShapeType.Circle => circleSpeedAdjustment,
-                _ => 1
-            };
-            float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.type, shapeDescription.timeToPress, speed);
-            
-            if(timeToSpawn < 0)
-                continue;
-            
-            GameModel.Instance.PushShapeModel(
-                new ShapeModel(shapeDescription.type, shapeDescription.target, color, path, shapeDescription.timeToPress, timeToSpawn, speed)
-            );
+                Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target,
+                    shapeDescription.goRight);
+                Color color = GetShapeColor(shapeDescription.target);
+                float speed = shapesSpeed * shapeDescription.type switch // speedAdjustment according to shape
+                {
+                    ShapeType.Square => squareSpeedAdjustment,
+                    ShapeType.Circle => circleSpeedAdjustment,
+                    _ => 1
+                };
+                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.type, shapeDescription.timeToPress, speed);
+
+                if (timeToSpawn < 0)
+                    continue;
+
+                GameModel.Instance.PushShapeModel(
+                    new ShapeModel(shapeDescription.type, shapeDescription.target, color, path,
+                        shapeDescription.timeToPress, timeToSpawn, speed)
+                );
+            }
         }
-        
+
         onReady.Invoke();
     }
 

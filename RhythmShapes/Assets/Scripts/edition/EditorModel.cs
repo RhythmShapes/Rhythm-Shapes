@@ -45,6 +45,11 @@ namespace edition
             return OriginLevel != null || AnalyzedLevel != null;
         }
 
+        public static LevelDescription GetCurrentLevel()
+        {
+            return HasBeenAnalyzed() ? AnalyzedLevel : OriginLevel;
+        }
+
         public static bool HasBeenAnalyzed()
         {
             return AnalyzedLevel != null;

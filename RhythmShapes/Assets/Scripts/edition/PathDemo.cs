@@ -11,6 +11,7 @@ namespace edition
         [SerializeField] private LevelPreparator levelLoader;
 
         private ShapeModel _current;
+        private bool _doActWhenLevelIsLoaded;
         
         public void OnShapeSelected()
         {
@@ -33,6 +34,7 @@ namespace edition
                     shapes = new[] { copy }
                 };
 
+                _doActWhenLevelIsLoaded = true;
                 levelLoader.Init(level);
             }
         }
@@ -55,7 +57,7 @@ namespace edition
 
         public void OnPreparationDone()
         {
-            if (GameModel.Instance.HasNextShapeModel())
+            if (_doActWhenLevelIsLoaded && GameModel.Instance.HasNextShapeModel())
             {
                 _current = GameModel.Instance.GetNextShapeModel();
                 audioSource.Play();

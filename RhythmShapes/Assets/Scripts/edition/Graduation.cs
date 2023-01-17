@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace edition
 {
     [RequireComponent(typeof(Image))]
-    public class Graduation : MonoBehaviour
+    public class Graduation : TestLine
     {
         [SerializeField] private TextMeshProUGUI text;
         
@@ -14,11 +14,6 @@ namespace edition
             UpdateAll(posX, value);
             text.color = color;
             GetComponent<Image>().color = color;
-        }
-
-        public void UpdatePosX(float posX)
-        {
-            transform.localPosition = new Vector2(posX, transform.localPosition.y);
         }
 
         public void UpdateAll(float posX, string value)

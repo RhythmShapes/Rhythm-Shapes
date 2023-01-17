@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using AudioAnalysis;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,7 +19,6 @@ namespace edition
         [SerializeField] private Transform rightLine;
         [SerializeField] private Transform leftLine;
         [SerializeField] private Transform bottomLine;
-        //[SerializeField] private EndLine endLine;
         [SerializeField] private Color topColor;
         [SerializeField] private Color rightColor;
         [SerializeField] private Color leftColor;
@@ -41,11 +42,6 @@ namespace edition
             _posXCorrection = topLine.position.x;
         }
 
-        public static void StaticDisplayLevel(LevelDescription level)
-        {
-            _instance.DisplayLevel(level);
-        }
-
         public void DisplayLevel(LevelDescription level)
         {
             foreach (var shape in _shapes)
@@ -61,8 +57,7 @@ namespace edition
                     CreateShape(shape);
                 }
             }
-
-            //endLine.Init(GetPosX(audioSource.clip.length));
+            
             EditorModel.Shape = null;
             onDisplayDone.Invoke();
         }
@@ -73,15 +68,105 @@ namespace edition
             {
                 ShapeDescription shape = editorShape.Description;
                 
-                if (selectShape.type == shape.type 
-                    && selectShape.target == shape.target
-                    && selectShape.timeToPress.Equals(shape.timeToPress)
-                    && selectShape.goRight == shape.goRight)
+                if (selectShape.IsEqualTo(shape))
                 {
                     EditorModel.Shape = editorShape;
                     _instance.onShapeSelected.Invoke();
                     return;
                 }
+            }
+        }
+        
+        public void OnCreateShape(float time)
+        {
+            OnCreateShape(time, Target.Top);
+        }
+
+        public void OnCreateShape(float time, Target target)
+        {
+            if (!EditorModel.HasLevelSet())
+            {
+                NotificationsManager.ShowError("A music has to be analysed before creating a new shape.");
+                return;
+            }
+            
+            LevelDescription level = EditorModel.GetCurrentLevel();
+
+            if (level.shapes == null)
+                return;
+            
+            /*foreach (var shapeDescription in level.shapes)
+            {
+                if (shapeDescription.target == target && Mathf.Abs(shapeDescription.timeToPress - time) < MultiRangeAnalysis.minimalNoteDelay)
+                {
+                    NotificationsManager.ShowError("Cannot create shape at " + time.ToString(CultureInfo.InvariantCulture) + "s, because another shape is to close. Try changing the Minimal delay between notes value.");
+                    return;
+                }
+            }*/
+
+            ShapeDescription shape = new ShapeDescription()
+            {
+                goRight = true,
+                target = target,
+                timeToPress = time,
+                type = ShapeType.Square
+            };
+
+            ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length + 1];
+            Array.Copy(level.shapes, shapes, level.shapes.Length);
+            level.shapes = shapes;
+            level.shapes[^1] = shape;
+
+            EditorModel.HasShapeBeenModified = true;
+            DisplayLevel(level);
+            ForceSelectShape(shape);
+        }
+
+        public static void OnDeleteShapeStatic(EditorShape shape)
+        {
+            _instance.OnDeleteShape(shape);
+        }
+
+        public void OnDeleteShape()
+        {
+            OnDeleteShape(null);
+        }
+
+        public void OnDeleteShape(EditorShape shape)
+        {
+            shape ??= EditorModel.Shape;
+
+            if (shape != null)
+            {
+                LevelDescription level = EditorModel.GetCurrentLevel();
+                if (level.shapes == null)
+                    return;
+                
+                ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length - 1];
+                
+                for (int i = 0, j = 0; i < level.shapes.Length; i++, j++)
+                {
+                    if (level.shapes[i].Equals(shape.Description))
+                    {
+                        j--;
+                        continue;
+                    }
+
+                    shapes[j] = level.shapes[i];
+                }
+                
+                level.shapes = shapes;
+                EditorModel.HasShapeBeenModified = true;
+                FindObjectOfType<PathDemo>().OnReset();
+
+                EditorShape currentSelected = EditorModel.Shape;
+                DisplayLevel(level);
+
+                if (currentSelected != null && !currentSelected.IsEqualTo(shape))
+                    ForceSelectShape(currentSelected.Description);
+                else
+                    EditorModel.Shape = null;
+                Destroy(shape.gameObject);
             }
         }
 
@@ -91,8 +176,6 @@ namespace edition
             {
                 shape.UpdatePosX(GetPosX(shape.Description.timeToPress));
             }
-            
-            //endLine.UpdatePosX(GetPosX(audioSource.clip.length));
         }
 
         private EditorShape CreateShape(ShapeDescription shape)

@@ -7,7 +7,7 @@ using utils.XML;
 namespace edition
 {
     [RequireComponent(typeof(Image))]
-    public class EditorShape : MonoBehaviour, IPointerClickHandler
+    public class EditorShape : TestLine, IPointerClickHandler
     {
         [SerializeField] private float doubleClickDelay = .5f;
         public ShapeDescription Description { get; private set; }
@@ -23,11 +23,6 @@ namespace edition
             _onClickCallback = onClick;
             UpdateColor(color);
             UpdatePosX(posX);
-        }
-
-        public void UpdatePosX(float posX)
-        {
-            transform.localPosition = new Vector2(posX, transform.localPosition.y);
         }
 
         public void UpdateColor(Color color)
@@ -47,7 +42,7 @@ namespace edition
                 if (_clickCount == 1 && eventData.clickTime - _clickTime <= doubleClickDelay)
                 {
                     _clickCount = 0;
-                    InspectorPanel.OnDeleteShapeStatic(this);
+                    ShapeTimeLine.OnDeleteShapeStatic(this);
                 }
                 else
                 {
@@ -56,6 +51,11 @@ namespace edition
                 }
             } else if(eventData.button == PointerEventData.InputButton.Left)
                 _onClickCallback();
+        }
+
+        public bool IsEqualTo(EditorShape compare)
+        {
+            return Description.IsEqualTo(compare.Description);
         }
     }
 }
