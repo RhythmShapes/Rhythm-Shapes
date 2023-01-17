@@ -42,7 +42,7 @@ public class LevelPreparator : MonoBehaviour
                 continue;
             
             GameModel.Instance.PushShapeModel(
-                new ShapeModel(shapeDescription.type, shapeDescription.target, color, path, shapeDescription.timeToPress, timeToSpawn, speed)
+                new ShapeModel(shapeDescription.type, shapeDescription.target, color, path, shapeDescription.timeToPress, timeToSpawn, speed)  
             );
         }
         
@@ -61,8 +61,9 @@ public class LevelPreparator : MonoBehaviour
         };
     }
 
-    private float GetShapeTimeToSpawn(ShapeType type, float timeToPress, float speed)
+    private float GetShapeTimeToSpawn(ShapeType type, float timeToPress, float speed, float travelTime = 0.85f)
     {
-        return timeToPress - PathsManager.Instance.GetPathTotalDistance(type) / speed;
+        return timeToPress - travelTime;
+        //return timeToPress - PathsManager.Instance.GetPathTotalDistance(type) / speed;
     }
 }
