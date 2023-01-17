@@ -15,7 +15,10 @@ namespace AudioAnalysis
         private static int numberOfRanges = 4;
 
         [SerializeField]
-        private static float minimalNoteDelay = 0.1f;
+        public static float minimalNoteDelay = 0.1f;
+        [SerializeField]
+        public static float analysisThreshold = 0.3f;
+        public static float doubleNoteAnalysisThreshold = 0.4f;
         private static string _clipName;
         private static float _clipFrequency;
         private static float[] _totalSamples;
@@ -113,7 +116,7 @@ namespace AudioAnalysis
                         maxProbabilityIndex = i;
                     }
                 }
-                if (maxProbability > 0.3)
+                if (maxProbability > analysisThreshold)
                 {
                     float noteTime = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
                     if( j > curatedFreqMax)
@@ -124,90 +127,124 @@ namespace AudioAnalysis
                     {
                         curatedFreqMin = j;
                     }
-                    if(noteTime-oldTime < minimalNoteDelay) {
-                        numberOfNotes++;
-                        ShapeDescription shape = new ShapeDescription();
-                        if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
+                    if (maxProbability > doubleNoteAnalysisThreshold)
+                    {
+                        if (noteTime - oldTime < minimalNoteDelay)
                         {
-                            int selectedIndex = -1;
-                            int k = 1;
-                            while(selectedIndex == -1 && k < numberOfRanges)
-                            {
-                                if (!usedTarget[(maxProbabilityIndex + k) % numberOfRanges])
-                                {
-                                    selectedIndex = (maxProbabilityIndex+k) % numberOfRanges;
-                                }
-                            }
-                            if(selectedIndex != -1)
-                            {
-                                shape.target = (shape.Target)selectedIndex;
-                                usedTarget[selectedIndex] = true;
-                                shape.type = (shape.ShapeType)((selectedIndex + j) % 3);
-                                shape.timeToPress = oldTime;
-                                shape.goRight = ((selectedIndex + j) % 2).Equals(0);
-                                shapes.Add(shape);
-                                numberOfNotes++;
-                                }
-
-                            /*if (!usedTarget[(maxProbabilityIndex + 1) % 4])
-                            {
-                                shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
-                                usedTarget[(maxProbabilityIndex + 1) % 4] = true;
-                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                shape.timeToPress = oldTime;
-                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                shapes.Add(shape);
-                            }
-                            else if (!usedTarget[(maxProbabilityIndex + 2) % 4])
-                            {
-                                shape.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
-                                usedTarget[(maxProbabilityIndex + 2) % 4] = true;
-                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                shape.timeToPress = oldTime;
-                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                shapes.Add(shape);
-                            }
-                            else if (!usedTarget[(maxProbabilityIndex + 3) % 4])
-                            {
-                                shape.target = (shape.Target)((maxProbabilityIndex + 3) % 4);
-                                usedTarget[(maxProbabilityIndex + 3) % 4] = true;
-                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                shape.timeToPress = oldTime;
-                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                shapes.Add(shape);
-                            }*/
-                            else
-                            {
-                                Debug.LogError("All Target Have Been Used" + j);
-                                // Debug.Log(usedTarget[0]+", "+usedTarget[1]+", "+usedTarget[2]+", "+usedTarget[3]);
-                            }
-                            
+                            continue;
                         }
                         else
                         {
-                            shape.target = (shape.Target)maxProbabilityIndex;
-                            usedTarget[maxProbabilityIndex] = true;
-                            shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                            shape.timeToPress = oldTime;
-                            shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                            shapes.Add(shape);
                             numberOfNotes++;
-                            }
-                        // counter++;
+                            ShapeDescription shape1 = new ShapeDescription();
+                            shape1.target = (shape.Target)maxProbabilityIndex;
+                            usedTarget = allFalse;
+                            usedTarget[maxProbabilityIndex] = true;
+                            shape1.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            shape1.timeToPress = noteTime;
+                            shape1.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                            shapes.Add(shape1);
+                            
+                            
+                            numberOfNotes++;
+                            ShapeDescription shape2 = new ShapeDescription();
+                            shape2.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
+                            usedTarget = allFalse;
+                            usedTarget[(maxProbabilityIndex + 2) % 4] = true;
+                            shape2.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            shape2.timeToPress = noteTime;
+                            shape2.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                            shapes.Add(shape2);
+                            oldTime = noteTime;
+                            
+                        }
                     }
                     else
                     {
-                        numberOfNotes++;
-                        ShapeDescription shape = new ShapeDescription();
-                        shape.target = (shape.Target)maxProbabilityIndex;
-                        usedTarget = allFalse;
-                        usedTarget[maxProbabilityIndex] = true;
-                        shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                        shape.timeToPress = noteTime;
-                        shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                        shapes.Add(shape);
-                        oldTime = noteTime;
-                        // counter = 1;
+                        if(noteTime-oldTime < minimalNoteDelay) {
+                            numberOfNotes++;
+                            ShapeDescription shape = new ShapeDescription();
+                            if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
+                            {
+                                int selectedIndex = -1;
+                                int k = 1;
+                                while(selectedIndex == -1 && k < numberOfRanges)
+                                {
+                                    if (!usedTarget[(maxProbabilityIndex + k) % numberOfRanges])
+                                    {
+                                        selectedIndex = (maxProbabilityIndex+k) % numberOfRanges;
+                                    }
+                                }
+                                if(selectedIndex != -1)
+                                {
+                                    shape.target = (shape.Target)selectedIndex;
+                                    usedTarget[selectedIndex] = true;
+                                    shape.type = (shape.ShapeType)((selectedIndex + j) % 3);
+                                    shape.timeToPress = oldTime;
+                                    shape.goRight = ((selectedIndex + j) % 2).Equals(0);
+                                    shapes.Add(shape);
+                                    numberOfNotes++;
+                                }
+                                /*if (!usedTarget[(maxProbabilityIndex + 1) % 4])
+                                {
+                                    shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
+                                    usedTarget[(maxProbabilityIndex + 1) % 4] = true;
+                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                    shape.timeToPress = oldTime;
+                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                    shapes.Add(shape);
+                                }
+                                else if (!usedTarget[(maxProbabilityIndex + 2) % 4])
+                                {
+                                    shape.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
+                                    usedTarget[(maxProbabilityIndex + 2) % 4] = true;
+                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                    shape.timeToPress = oldTime;
+                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                    shapes.Add(shape);
+                                }
+                                else if (!usedTarget[(maxProbabilityIndex + 3) % 4])
+                                {
+                                    shape.target = (shape.Target)((maxProbabilityIndex + 3) % 4);
+                                    usedTarget[(maxProbabilityIndex + 3) % 4] = true;
+                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                    shape.timeToPress = oldTime;
+                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                    shapes.Add(shape);
+                                }*/
+                                else
+                                {
+                                    Debug.LogError("All Target Have Been Used" + j);
+                                    // Debug.Log(usedTarget[0]+", "+usedTarget[1]+", "+usedTarget[2]+", "+usedTarget[3]);
+                                }
+                                
+                            }
+                            else
+                            {
+                                shape.target = (shape.Target)maxProbabilityIndex;
+                                usedTarget[maxProbabilityIndex] = true;
+                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                shape.timeToPress = oldTime;
+                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                shapes.Add(shape);
+                                numberOfNotes++;
+                                }
+                            // counter++;
+                        }
+                        else
+                        {
+                            numberOfNotes++;
+                            ShapeDescription shape = new ShapeDescription();
+                            shape.target = (shape.Target)maxProbabilityIndex;
+                            usedTarget = allFalse;
+                            usedTarget[maxProbabilityIndex] = true;
+                            shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            shape.timeToPress = noteTime;
+                            shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                            shapes.Add(shape);
+                            oldTime = noteTime;
+                            // counter = 1;
+                        }
                     }
                 }
             }
