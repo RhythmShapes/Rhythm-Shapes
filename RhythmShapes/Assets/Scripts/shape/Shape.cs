@@ -42,7 +42,6 @@ namespace shape
             {
                 _pathLength += Vector2.Distance(_model.PathToFollow[i], _model.PathToFollow[i - 1]);
                 _pathDistances[i] = _pathLength;
-                Debug.Log(_pathLength);
             }
         }
     
