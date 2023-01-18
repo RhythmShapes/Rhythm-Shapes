@@ -16,6 +16,7 @@ namespace shape
         public float TimeToPress => _model.TimeToPress;
 
         private SpriteRenderer _spriteRenderer;
+        private SpriteRenderer _secondarySpriteRenderer;
         private ShapeModel _model;
         private float _maxDistanceDelta = 0;
         private int _currentStep = 0;
@@ -29,6 +30,7 @@ namespace shape
         {
             _model = model;
             _spriteRenderer.color = model.Color;
+            _secondarySpriteRenderer.gameObject.SetActive(false);
             _maxDistanceDelta = 0;
             _currentStep = 0;
             transform.position = _model.PathToFollow[0];
@@ -45,9 +47,15 @@ namespace shape
             }
         }
     
+        public void ShowSecondarySpriteRenderer()
+        {
+            _secondarySpriteRenderer.gameObject.SetActive(true);
+        }
+        
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _secondarySpriteRenderer = GetComponentsInChildren<SpriteRenderer>(true)[1];
         }
 
 

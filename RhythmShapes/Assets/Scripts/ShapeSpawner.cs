@@ -41,6 +41,19 @@ public class ShapeSpawner : MonoBehaviour
         }
 
         if (shapes.Count > 0)
-            model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+        {
+            if (shapes.Count > 1)
+            {
+                foreach (var shape in shapes)
+                {
+                    shape.ShowSecondarySpriteRenderer();
+                }
+                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+            }
+            else
+            {
+                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+            }
+        }
     }
 }
