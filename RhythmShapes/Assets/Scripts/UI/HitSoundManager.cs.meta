@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6307e0a719e5caa4f98790a236a89337
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - perfectClip: {fileID: 8300000, guid: 93828e84809f7ff45855d7d6c06200d0, type: 3}
+  - goodClip: {fileID: 8300000, guid: b5beb04c1ab0dbd46b2410e8472555e5, type: 3}
+  - okClip: {fileID: 8300000, guid: 02f8ab4322fe7364b85788d29ebf40ce, type: 3}
+  - badClip: {fileID: 8300000, guid: 8b8d21fad1c6a2645949727acb265d84, type: 3}
+  - missClip: {fileID: 8300000, guid: 692b079799f163344989b1d796db5828, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
