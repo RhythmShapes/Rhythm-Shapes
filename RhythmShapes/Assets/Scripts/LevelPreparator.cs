@@ -29,6 +29,7 @@ public class LevelPreparator : MonoBehaviour
 
         if (level.shapes != null)
         {
+            GameModel.Instance.Reset();
             Array.Sort(level.shapes, (shape, compare) => shape.timeToPress.CompareTo(compare.timeToPress));
 
             foreach (var shapeDescription in level.shapes)

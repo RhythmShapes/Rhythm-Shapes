@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using models;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace edition
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private UnityEvent<LevelDescription> onTestStart;
+        [SerializeField] private UnityEvent onTestStop;
 
         private bool _isPaused;
         private bool _isTestRunning;
@@ -25,6 +27,7 @@ namespace edition
             ResetCursor();
             ChangeVolume(PlayerPrefsManager.GetPref("volume", 1f));
             onTestStart ??= new UnityEvent<LevelDescription>();
+            onTestStop ??= new UnityEvent();
         }
 
         public void StartTest()
@@ -32,6 +35,8 @@ namespace edition
             if (_isPaused)
             {
                 audioSource.UnPause();
+                Time.timeScale = 1f;
+                _isPaused = false;
                 return;
             }
             
@@ -62,6 +67,7 @@ namespace edition
             if (audioSource.isPlaying)
             {
                 audioSource.Pause();
+                Time.timeScale = 0f;
                 _isPaused = true;
             }
         }
@@ -74,6 +80,9 @@ namespace edition
                 audioSource.Stop();
                 _isPaused = false;
                 _isTestRunning = false;
+                Time.timeScale = 1f;
+                GameModel.Instance.Reset();
+                onTestStop.Invoke();
                 //testLine.gameObject.SetActive(false);
             }
         }
@@ -118,6 +127,23 @@ namespace edition
 
         public void UpdateCursor(float time)
         {
+            if (_isTestRunning)
+            {
+                LevelDescription level = EditorModel.GetCurrentLevel();
+                LevelDescription newLevel = new LevelDescription();
+                List<ShapeDescription> shapes = new List<ShapeDescription>();
+
+                foreach (var shape in level.shapes)
+                {
+                    if(shape.timeToPress > time)
+                        shapes.Add(shape);
+                }
+
+                newLevel.title = level.title;
+                newLevel.shapes = shapes.ToArray();
+                onTestStart.Invoke(newLevel);
+            }
+
             testLine.UpdatePosX(ShapeTimeLine.GetPosX(time));
             _time = time;
 

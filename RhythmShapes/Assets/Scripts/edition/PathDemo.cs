@@ -1,3 +1,4 @@
+using System;
 using models;
 using shape;
 using UnityEngine;
@@ -8,11 +9,47 @@ namespace edition
     public class PathDemo : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private LevelPreparator levelLoader;
 
         private ShapeModel _current;
-        private bool _doActWhenLevelIsLoaded;
-        
+        private bool _doAct;
+
+        private void Update()
+        {
+            if(!_doAct)
+                return;
+            
+            GameModel model = GameModel.Instance;
+            
+            if (model.HasNextShapeModel())
+            {
+                ShapeModel shapeModel = model.GetNextShapeModel();
+
+                if (shapeModel.TimeToSpawn <= audioSource.time)
+                {
+                    Shape shape = ShapeFactory.Instance.GetShape(shapeModel.Type);
+                    shape.Init(shapeModel);
+                    model.PushAttendedInput(new AttendedInput(shape.TimeToPress, new[] { shape }));
+                    model.PopShapeModel();
+                }
+            }
+
+            if (!model.HasNextAttendedInput()) return;
+
+            AttendedInput input = model.GetNextAttendedInput();
+
+            if (!(audioSource.time > input.TimeToPress + model.GoodPressedWindow)) return;
+
+            foreach (var shape in input.Shapes)
+            {
+                ShapeFactory.Instance.Release(shape);
+            
+                if(!input.IsPressed(shape.Target) || input.MustPressAll)
+                    OnShapeArrived();
+            }
+
+            model.PopAttendedInput();
+        }
+
         public void OnShapeSelected()
         {
             if (EditorModel.IsInspectingShape())
@@ -34,30 +71,20 @@ namespace edition
                     shapes = new[] { copy }
                 };
 
-                _doActWhenLevelIsLoaded = true;
-                levelLoader.Init(level);
+                _doAct = true;
+                FindObjectOfType<LevelPreparator>().Init(level);
             }
         }
 
         public void OnReset()
         {
             audioSource.Stop();
-            GameModel model = GameModel.Instance;
-            
-            while(model.HasNextShapeModel())
-                model.PopShapeModel();
-            
-            while (model.HasNextAttendedInput())
-            {
-                foreach (var shape in model.GetNextAttendedInput().Shapes)
-                    ShapeFactory.Instance.Release(shape);
-                model.PopAttendedInput();
-            }
+            GameModel.Instance.Reset();
         }
 
         public void OnPreparationDone()
         {
-            if (_doActWhenLevelIsLoaded && GameModel.Instance.HasNextShapeModel())
+            if (_doAct && GameModel.Instance.HasNextShapeModel())
             {
                 _current = GameModel.Instance.GetNextShapeModel();
                 audioSource.Play();
@@ -66,14 +93,22 @@ namespace edition
 
         public void OnShapeArrived()
         {
-            audioSource.Stop();
-            GameModel.Instance.PushShapeModel(_current);
-            audioSource.Play();
+            if (_doAct)
+            {
+                audioSource.Stop();
+                GameModel.Instance.PushShapeModel(_current);
+                audioSource.Play();
+            }
         }
 
         public void OnShapeChanged()
         {
             OnShapeSelected();
+        }
+
+        public void DoAct(bool act)
+        {
+            _doAct = act;
         }
     }
 }

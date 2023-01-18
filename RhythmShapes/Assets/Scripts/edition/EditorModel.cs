@@ -59,5 +59,10 @@ namespace edition
         {
             return Shape != null;
         }
+
+        public void ResetInspectedShape()
+        {
+            Shape = null;
+        }
     }
 }
