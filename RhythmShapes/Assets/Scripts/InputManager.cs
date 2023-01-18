@@ -52,6 +52,7 @@ public class InputManager : MonoBehaviour
 
     private void InputPerformed(Target target)
     {
+        GetComponent<TargetLightOnKeyPress>().On(target);
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);
@@ -61,6 +62,7 @@ public class InputManager : MonoBehaviour
     
     private void InputCanceled(Target target)
     {
+        GetComponent<TargetLightOnKeyPress>().Off(target);
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target,false);
