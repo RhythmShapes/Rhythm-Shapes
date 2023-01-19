@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace edition
+namespace edition.test
 {
     public class TestLine : MonoBehaviour
     {

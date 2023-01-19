@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using edition.messages;
+using UnityEngine;
 using UnityEngine.Events;
 using utils;
 using utils.XML;
 
-namespace edition
+namespace edition.panels
 {
     public class ActionBar : MonoBehaviour
     {

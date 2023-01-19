@@ -1,3 +1,4 @@
+using edition.test;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -5,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using utils.XML;
 
-namespace edition
+namespace edition.timeLine
 {
     [RequireComponent(typeof(Image))]
     public class EditorShape : TestLine, IPointerClickHandler

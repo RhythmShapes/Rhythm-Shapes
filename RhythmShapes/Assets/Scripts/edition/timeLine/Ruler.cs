@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using UnityEngine;
 
-namespace edition
+namespace edition.timeLine
 {
     public class Ruler : MonoBehaviour
     {

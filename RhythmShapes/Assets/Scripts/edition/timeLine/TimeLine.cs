@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.timeLine
 {
     [RequireComponent(typeof(RectTransform))]
     public class TimeLine : MonoBehaviour

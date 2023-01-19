@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.timeLine
 {
     public class Line : MonoBehaviour, IPointerClickHandler
     {

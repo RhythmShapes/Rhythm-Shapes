@@ -1,8 +1,9 @@
+using edition.test;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.timeLine
 {
     [RequireComponent(typeof(Image))]
     public class Graduation : TestLine

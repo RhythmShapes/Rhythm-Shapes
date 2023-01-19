@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace edition
+namespace edition.messages
 {
     public class NotificationsManager : MonoBehaviour
     {

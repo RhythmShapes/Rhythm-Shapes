@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using edition.timeLine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.zoom
 {
     [RequireComponent(typeof(ZoomVariables))]
     public class ZoomManager : ScrollRect

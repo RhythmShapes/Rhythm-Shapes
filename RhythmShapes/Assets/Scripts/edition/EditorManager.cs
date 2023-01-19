@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using edition.panels;
+using UnityEngine;
 
 namespace edition
 {

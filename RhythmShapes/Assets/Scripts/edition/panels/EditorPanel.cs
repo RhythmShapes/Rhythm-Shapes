@@ -1,13 +1,13 @@
-using System;
 using System.IO;
 using AudioAnalysis;
+using edition.messages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using utils;
 
-namespace edition
+namespace edition.panels
 {
     public class EditorPanel : MonoBehaviour
     {

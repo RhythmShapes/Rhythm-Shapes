@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.test
 {
     public class TestSoundVolumeIcon : MonoBehaviour, IPointerClickHandler
     {

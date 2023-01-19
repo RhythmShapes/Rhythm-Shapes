@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.panels
 {
     public class RangeField : MonoBehaviour
     {

@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using edition.timeLine;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.test
 {
     public class ClickHandler : MonoBehaviour, IPointerClickHandler
     {

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using edition.messages;
+using edition.test;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
 using utils.XML;
 
-namespace edition
+namespace edition.timeLine
 {
     public class ShapeTimeLine : MonoBehaviour
     {

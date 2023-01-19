@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using edition.messages;
+using edition.timeLine;
 using models;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,7 +8,7 @@ using UnityEngine.UI;
 using utils;
 using utils.XML;
 
-namespace edition
+namespace edition.test
 {
     public class TestManager : MonoBehaviour
     {
@@ -59,8 +61,6 @@ namespace edition
             audioSource.Play();
             IsTestRunning = true;
             UpdateCursor(_time);
-            
-            onTestStart.Invoke(EditorModel.GetCurrentLevel());
         }
         
         public void PauseTest()
@@ -111,7 +111,9 @@ namespace edition
                 
                 float posX = ShapeTimeLine.GetPosX(audioSource.time);
                 testLine.UpdatePosX(posX);
-                UpdateScroll(posX);
+                
+                if(audioSource.isPlaying)
+                    UpdateScroll(posX);
             }
         }
 
@@ -142,6 +144,7 @@ namespace edition
 
                 newLevel.title = level.title;
                 newLevel.shapes = shapes.ToArray();
+                GameModel.Instance.Reset();
                 onTestStart.Invoke(newLevel);
             }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace edition
+namespace edition.zoom
 {
     public class ZoomVariables : MonoBehaviour
     {

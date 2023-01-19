@@ -4,10 +4,8 @@ using shape;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using utils.XML;
 
-namespace edition
+namespace edition.panels
 {
     public class InspectorPanel : MonoBehaviour
     {
