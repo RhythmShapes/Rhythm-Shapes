@@ -1,4 +1,3 @@
-using System;
 using models;
 using shape;
 using UnityEngine;
@@ -11,11 +10,10 @@ namespace edition
         [SerializeField] private AudioSource audioSource;
 
         private ShapeModel _current;
-        private bool _doAct;
 
         private void Update()
         {
-            if(!_doAct)
+            if(TestManager.IsTestRunning)
                 return;
             
             GameModel model = GameModel.Instance;
@@ -52,7 +50,7 @@ namespace edition
 
         public void OnShapeSelected()
         {
-            if (EditorModel.IsInspectingShape())
+            if (EditorModel.IsInspectingShape() && !TestManager.IsTestRunning)
             {
                 OnReset();
 
@@ -71,7 +69,6 @@ namespace edition
                     shapes = new[] { copy }
                 };
 
-                _doAct = true;
                 FindObjectOfType<LevelPreparator>().Init(level);
             }
         }
@@ -84,7 +81,7 @@ namespace edition
 
         public void OnPreparationDone()
         {
-            if (_doAct && GameModel.Instance.HasNextShapeModel())
+            if (!TestManager.IsTestRunning && GameModel.Instance.HasNextShapeModel())
             {
                 _current = GameModel.Instance.GetNextShapeModel();
                 audioSource.Play();
@@ -93,7 +90,7 @@ namespace edition
 
         public void OnShapeArrived()
         {
-            if (_doAct)
+            if (!TestManager.IsTestRunning)
             {
                 audioSource.Stop();
                 GameModel.Instance.PushShapeModel(_current);
@@ -104,11 +101,6 @@ namespace edition
         public void OnShapeChanged()
         {
             OnShapeSelected();
-        }
-
-        public void DoAct(bool act)
-        {
-            _doAct = act;
         }
     }
 }

@@ -17,9 +17,10 @@ namespace edition
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private UnityEvent<LevelDescription> onTestStart;
         [SerializeField] private UnityEvent onTestStop;
+        
+        public static bool IsTestRunning { get; private set; } = false;
 
         private bool _isPaused;
-        private bool _isTestRunning;
         private float _time;
 
         private void Start()
@@ -57,7 +58,7 @@ namespace edition
             
             audioSource.Play();
             audioSource.time = _time;
-            _isTestRunning = true;
+            IsTestRunning = true;
             
             onTestStart.Invoke(EditorModel.GetCurrentLevel());
         }
@@ -79,7 +80,7 @@ namespace edition
                 _time = audioSource.time;
                 audioSource.Stop();
                 _isPaused = false;
-                _isTestRunning = false;
+                IsTestRunning = false;
                 Time.timeScale = 1f;
                 GameModel.Instance.Reset();
                 onTestStop.Invoke();
@@ -100,12 +101,12 @@ namespace edition
 
         private void Update()
         {
-            if (_isTestRunning)
+            if (IsTestRunning)
             {
                 if (!audioSource.isPlaying && !_isPaused)
                 {
                     _time = audioSource.clip.length;
-                    _isTestRunning = false;
+                    IsTestRunning = false;
                 }
                 
                 float posX = ShapeTimeLine.GetPosX(audioSource.time);
@@ -127,7 +128,7 @@ namespace edition
 
         public void UpdateCursor(float time)
         {
-            if (_isTestRunning)
+            if (IsTestRunning)
             {
                 LevelDescription level = EditorModel.GetCurrentLevel();
                 LevelDescription newLevel = new LevelDescription();

@@ -73,12 +73,12 @@ namespace edition
             string sourceAudioPath = !GameInfo.IsNewLevel && EditorModel.UseLevelMusic
                 ? LevelTools.GetLevelAudioFilePath(EditorModel.OriginLevel.title)
                 : musicPathField.text;
-            analyseButton.enabled = false;
+            analyseButton.interactable = false;
 
             if (!CheckMusicPath(sourceAudioPath))
             {
                 NotificationsManager.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
-                analyseButton.enabled = true;
+                analyseButton.interactable = true;
                 return;
             }
 
