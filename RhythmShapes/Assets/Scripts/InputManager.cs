@@ -28,6 +28,10 @@ public class InputManager : MonoBehaviour
         _inputSystem.Player.Left.performed += _ => InputPerformed(Target.Left);
         _inputSystem.Player.Right.performed += _ => InputPerformed(Target.Right);
         _inputSystem.Player.Bottom.performed += _ => InputPerformed(Target.Bottom);
+        _inputSystem.Player.Top.canceled += _ => InputCanceled(Target.Top);
+        _inputSystem.Player.Left.canceled += _ => InputCanceled(Target.Left);
+        _inputSystem.Player.Right.canceled += _ => InputCanceled(Target.Right);
+        _inputSystem.Player.Bottom.canceled += _ => InputCanceled(Target.Bottom);
         _inputSystem.Player.Pause.performed += _ => PausePerformed();
         _inputSystem.UI.UnPause.performed += _ => UnPausePerformed();
     }
@@ -38,16 +42,31 @@ public class InputManager : MonoBehaviour
         _inputSystem.Player.Left.performed -= _ => InputPerformed(Target.Left);
         _inputSystem.Player.Right.performed -= _ => InputPerformed(Target.Right);
         _inputSystem.Player.Bottom.performed -= _ => InputPerformed(Target.Bottom);
+        _inputSystem.Player.Top.canceled -= _ => InputCanceled(Target.Top);
+        _inputSystem.Player.Left.canceled -= _ => InputCanceled(Target.Left);
+        _inputSystem.Player.Right.canceled -= _ => InputCanceled(Target.Right);
+        _inputSystem.Player.Bottom.canceled -= _ => InputCanceled(Target.Bottom);
         _inputSystem.Player.Pause.performed -= _ => PausePerformed();
         _inputSystem.UI.UnPause.performed -= _ => UnPausePerformed();
     }
 
     private void InputPerformed(Target target)
     {
+        GetComponent<TargetLightOnKeyPress>().On(target);
         if (GameModel.Instance.HasNextAttendedInput())
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);
             onInputPerformed.Invoke(target);
+        }
+    }
+    
+    private void InputCanceled(Target target)
+    {
+        GetComponent<TargetLightOnKeyPress>().Off(target);
+        if (GameModel.Instance.HasNextAttendedInput())
+        {
+            GameModel.Instance.GetNextAttendedInput().SetPressed(target,false);
+            // onInputPerformed.Invoke(target);
         }
     }
     

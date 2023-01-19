@@ -51,8 +51,6 @@ public class InputValidation : MonoBehaviour
                     }
                 }
             }
-            
-            input.ResetAllPressed();
         }
     }
 
