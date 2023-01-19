@@ -57,8 +57,8 @@ namespace edition
             testLine.gameObject.SetActive(true);
             
             audioSource.Play();
-            audioSource.time = _time;
             IsTestRunning = true;
+            UpdateCursor(_time);
             
             onTestStart.Invoke(EditorModel.GetCurrentLevel());
         }

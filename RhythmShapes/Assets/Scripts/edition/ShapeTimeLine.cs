@@ -313,7 +313,11 @@ namespace edition
                 return;
 
             foreach (var shape in _shapes)
-                shape.UpdateColor(shape == EditorModel.Shape ? GetShapeColor(shape.Description.target) : excludeColor);
+            {
+                bool found = shape == EditorModel.Shape;
+                shape.UpdateColor(found ? GetShapeColor(shape.Description.target) : excludeColor);
+                if(found) shape.SetBefore();
+            }
         }
 
         public void ResetExcludeColors()

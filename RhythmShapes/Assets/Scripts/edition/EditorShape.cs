@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using utils.XML;
 
@@ -28,6 +29,13 @@ namespace edition
         public void UpdateColor(Color color)
         {
             _image.color = color;
+        }
+
+        public void SetBefore()
+        {
+            Transform parent = transform.parent;
+            transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform);
+            transform.SetParent(parent);
         }
 
         private void Awake()
