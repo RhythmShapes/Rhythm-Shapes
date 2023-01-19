@@ -4,20 +4,21 @@ using shape;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using utils.XML;
 
-namespace edition
+namespace edition.panels
 {
     public class InspectorPanel : MonoBehaviour
     {
+        [Header("Panel components")]
+        [Space]
         [SerializeField] private GameObject emptyContentPanel;
         [SerializeField] private GameObject contentPanel;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private TMP_Dropdown typeField;
         [SerializeField] private TMP_Dropdown targetField;
         [SerializeField] private TMP_InputField pressTimeField;
-        [SerializeField] private Toggle goRightField;
+        [SerializeField] private TMP_Dropdown goRightField;
+        [Space]
         [SerializeField] private UnityEvent<ShapeType> onRequestChangeType;
         [SerializeField] private UnityEvent<Target> onRequestChangeTarget;
         [SerializeField] private UnityEvent<bool> onRequestChangeGoRight;
@@ -45,7 +46,7 @@ namespace edition
                     typeField.SetValueWithoutNotify((int) EditorModel.Shape.Description.type);
                     targetField.SetValueWithoutNotify((int) EditorModel.Shape.Description.target);
                     pressTimeField.SetTextWithoutNotify(EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture));
-                    goRightField.SetIsOnWithoutNotify(EditorModel.Shape.Description.goRight);
+                    goRightField.SetValueWithoutNotify(EditorModel.Shape.Description.goRight ? 1 : 0);
                     
                     emptyContentPanel.SetActive(false);
                     contentPanel.SetActive(true);
@@ -55,19 +56,32 @@ namespace edition
             gameObject.SetActive(active);
         }
 
-        public void OnChangeType(Int32 type)
+        public void OnChangeType(int type)
         {
+            if((ShapeType) type == EditorModel.Shape.Description.type)
+                return;
+            
+            EditorModel.HasShapeBeenModified = true;
             onRequestChangeType.Invoke((ShapeType) type);
         }
 
-        public void OnChangeTarget(Int32 target)
+        public void OnChangeTarget(int target)
         {
+            if((Target) target == EditorModel.Shape.Description.target)
+                return;
+
+            EditorModel.HasShapeBeenModified = true;
             onRequestChangeTarget.Invoke((Target) target);
         }
 
-        public void OnChangeGoRight(bool goRight)
+        public void OnChangeGoRight(int goRight)
         {
-            onRequestChangeGoRight.Invoke(goRight);
+            if(goRight == 1 && EditorModel.Shape.Description.goRight)
+                return;
+
+            EditorModel.HasShapeBeenModified = true;
+            // 0 = left, 1 = right
+            onRequestChangeGoRight.Invoke(goRight == 1);
         }
 
         public void OnChangePressTime(string textPressTime)
@@ -75,12 +89,16 @@ namespace edition
             if (!float.TryParse(textPressTime.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out var pressTime))
             {
                 //pressTimeField.GetComponentInParent<ErrorMessage>().ShowError("Invalid float");
-                pressTimeField.SetTextWithoutNotify("0");
-                return;
+                pressTime = 0f;
             }
             
             pressTime = Mathf.Clamp(pressTime, 0f, audioSource.clip.length);
             pressTimeField.SetTextWithoutNotify(pressTime.ToString(CultureInfo.InvariantCulture));
+
+            if(Math.Abs(pressTime - EditorModel.Shape.Description.timeToPress) == 0f)
+                return;
+            
+            EditorModel.HasShapeBeenModified = true;
             onRequestChangeTimeToPress.Invoke(pressTime);
         }
     }

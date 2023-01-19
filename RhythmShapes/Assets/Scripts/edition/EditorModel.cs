@@ -1,4 +1,5 @@
 ﻿using System;
+using edition.timeLine;
 using UnityEngine;
 using utils.XML;
 
@@ -13,6 +14,7 @@ namespace edition
         public static string LevelName { get; set; } = string.Empty;
         public static bool UseLevelMusic { get; set; }
         public static EditorShape Shape { get; set; }
+        public static bool HasShapeBeenModified { get; set; }
 
         public void SetLevel(LevelDescription level)
         {
@@ -31,11 +33,22 @@ namespace edition
             AnalyzedMusicPath = string.Empty;
             UseLevelMusic = true;
             Shape = null;
+            HasShapeBeenModified = false;
         }
         
         public void SetShape(EditorShape shape)
         {
             Shape = shape;
+        }
+
+        public static bool HasLevelSet()
+        {
+            return OriginLevel != null || AnalyzedLevel != null;
+        }
+
+        public static LevelDescription GetCurrentLevel()
+        {
+            return HasBeenAnalyzed() ? AnalyzedLevel : OriginLevel;
         }
 
         public static bool HasBeenAnalyzed()
@@ -46,6 +59,11 @@ namespace edition
         public static bool IsInspectingShape()
         {
             return Shape != null;
+        }
+
+        public void ResetInspectedShape()
+        {
+            Shape = null;
         }
     }
 }

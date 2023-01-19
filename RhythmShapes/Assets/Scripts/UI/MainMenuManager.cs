@@ -12,6 +12,12 @@ public class MainMenuManager : MonoBehaviour
         mainMenuCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
     }
+
+    public void LaunchEditor()
+    {
+        GameInfo.IsNewLevel = true;
+        SceneTransition.Instance.LoadScene(3);
+    }
     
     public void ShowOptions()
     {

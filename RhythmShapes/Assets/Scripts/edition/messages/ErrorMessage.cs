@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace edition
+namespace edition.messages
 {
     public class ErrorMessage : MonoBehaviour
     {

@@ -1,12 +1,13 @@
-using System;
 using System.IO;
+using AudioAnalysis;
+using edition.messages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using utils;
 
-namespace edition
+namespace edition.panels
 {
     public class EditorPanel : MonoBehaviour
     {
@@ -16,6 +17,8 @@ namespace edition
         [SerializeField] private GameObject musicPathObject;
         [SerializeField] private TMP_InputField musicPathField;
         [SerializeField] private TMP_InputField levelNameField;
+        [SerializeField] private RangeField minimalNoteDelayField;
+        [SerializeField] private RangeField peakThresholdField;
         [SerializeField] private Button analyseButton;
         
         [Space]
@@ -24,7 +27,6 @@ namespace edition
         [SerializeField] private ErrorMessage musicPathError;
         [SerializeField] private ErrorMessage levelNameError;
         [SerializeField] private PopupWindow popupWindow;
-        [SerializeField] private NotificationsManager notificationsManager;
         [Space]
         [SerializeField] private UnityEvent<string> onRequestAnalysis;
 
@@ -41,14 +43,21 @@ namespace edition
         public static void Init()
         {
             EditorModel.UseLevelMusic = !GameInfo.IsNewLevel;
-            _instance.useLevelMusicObject.SetActive(!GameInfo.IsNewLevel);
+            _instance.useLevelMusicObject.SetActive(EditorModel.UseLevelMusic);
             _instance.musicPathObject.SetActive(GameInfo.IsNewLevel);
+            _instance.minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
+            _instance.peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
         }
 
         public void SetActive(bool active)
         {
             if (!GameInfo.IsNewLevel && string.IsNullOrEmpty(levelNameField.text))
+            {
                 levelNameField.SetTextWithoutNotify(EditorModel.OriginLevel.title);
+                OnSetLevelName(EditorModel.OriginLevel.title);
+                minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
+                peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
+            }
 
             CheckFields();
             gameObject.SetActive(active);
@@ -64,12 +73,12 @@ namespace edition
             string sourceAudioPath = !GameInfo.IsNewLevel && EditorModel.UseLevelMusic
                 ? LevelTools.GetLevelAudioFilePath(EditorModel.OriginLevel.title)
                 : musicPathField.text;
-            analyseButton.enabled = false;
+            analyseButton.interactable = false;
 
             if (!CheckMusicPath(sourceAudioPath))
             {
-                notificationsManager.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
-                analyseButton.enabled = true;
+                NotificationsManager.ShowError("An error in the music path prevents starting the analysis. Please fix it and try again.");
+                analyseButton.interactable = true;
                 return;
             }
 
@@ -105,6 +114,16 @@ namespace edition
         {
             EditorModel.LevelName = levelName;
             CheckLevelName(levelName);
+        }
+
+        public void OnSetMinimalNoteDelay(float delay)
+        {
+            MultiRangeAnalysis.minimalNoteDelay = delay;
+        }
+
+        public void OnSetPeakThreshold(float threshold)
+        {
+            MultiRangeAnalysis.analysisThreshold = threshold;
         }
 
         public static bool CheckFields()

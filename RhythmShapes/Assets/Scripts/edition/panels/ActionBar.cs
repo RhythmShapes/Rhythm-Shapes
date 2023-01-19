@@ -1,14 +1,14 @@
-﻿using UnityEngine;
+﻿using edition.messages;
+using UnityEngine;
 using UnityEngine.Events;
 using utils;
 using utils.XML;
 
-namespace edition
+namespace edition.panels
 {
     public class ActionBar : MonoBehaviour
     {
         [SerializeField] private PopupWindow popupWindow;
-        [SerializeField] private NotificationsManager notificationsManager;
         [SerializeField] private UnityEvent<LevelDescription> onSaved;
 
         private bool _hasStartAnalysisDuringSave = false;
@@ -20,6 +20,20 @@ namespace edition
 
         public void OnQuit()
         {
+            //Quit without saving
+            if (EditorModel.HasBeenAnalyzed() || EditorModel.HasShapeBeenModified)
+            {
+                popupWindow.ShowQuestion(
+                    "Quit without saving ?",
+                    callback: confirm =>
+                    {
+                        if(confirm)
+                            SceneTransition.Instance.BackToMainMenu();
+                    });
+                
+                return;
+            }
+            
             SceneTransition.Instance.BackToMainMenu();
         }
 
@@ -31,14 +45,15 @@ namespace edition
             // Verify fields value
             if (!EditorPanel.CheckFields())
             {
-                notificationsManager.ShowError("An error prevents saving. Please fix it and try again.");
+                NotificationsManager.ShowError("An error prevents saving. Please fix it and try again.");
                 return;
             }
             
             // Nothing to save
-            if (!EditorModel.HasBeenAnalyzed() && !GameInfo.IsNewLevel && EditorModel.UseLevelMusic && levelName.Equals(EditorModel.OriginLevel.title))
+            if (!EditorModel.HasShapeBeenModified && !EditorModel.HasBeenAnalyzed() && !GameInfo.IsNewLevel
+                && EditorModel.UseLevelMusic && levelName.Equals(EditorModel.OriginLevel.title))
             {
-                notificationsManager.ShowInfo("Nothing to save.");
+                NotificationsManager.ShowInfo("Nothing to save.");
                 return;
             }
 
@@ -78,7 +93,7 @@ namespace edition
                 LevelTools.SaveLevelAudio(levelName, musicPath);
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
                 
-                notificationsManager.ShowInfo("Level saved !");
+                NotificationsManager.ShowInfo("Level saved !");
                 onSaved.Invoke(EditorModel.AnalyzedLevel);
                 return;
             }
@@ -105,9 +120,14 @@ namespace edition
                 // Change level data
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
                 newOriginLevel = EditorModel.AnalyzedLevel;
+            } else if (EditorModel.HasShapeBeenModified)
+            { 
+                // Change level data
+                LevelTools.SaveLevelData(levelName, EditorModel.OriginLevel);
+                newOriginLevel = EditorModel.OriginLevel;
             }
 
-            notificationsManager.ShowInfo("Level saved !");
+            NotificationsManager.ShowInfo("Level saved !");
             onSaved.Invoke(newOriginLevel);
         }
 

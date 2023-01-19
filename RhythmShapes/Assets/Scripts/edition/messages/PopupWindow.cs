@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace edition
+namespace edition.messages
 {
     public class PopupWindow : MonoBehaviour
     {
