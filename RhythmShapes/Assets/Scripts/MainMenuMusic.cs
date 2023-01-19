@@ -11,7 +11,7 @@ public class MainMenuMusic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioSource.volume = PlayerPrefsManager.Instance.GetPref("MusicVolume", 1f);
+        audioSource.volume = PlayerPrefsManager.GetPref("MusicVolume", 1f);
     }
 
     // Update is called once per frame

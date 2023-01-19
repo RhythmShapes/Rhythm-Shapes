@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using utils;
 
@@ -20,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
     public void LaunchEditor()
     {
         GameInfo.IsNewLevel = true;
-        SceneTransition.Instance.LoadScene(3);
+        SceneTransition.Instance.LoadScene(2);
     }
     
     public void ShowOptions()
@@ -41,7 +42,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartCalibration()
     { 
         // Debug.Log("StartCalibration");
-        SceneTransition.Instance.LoadScene(2);
+        SceneTransition.Instance.LoadScene(3);
     }
     
     public void CalibrationPlus1()
@@ -76,7 +77,7 @@ public class MainMenuManager : MonoBehaviour
     
     public void SetOffsetText()
     { 
-        PlayerPrefsManager.Instance.SetPref("InputOffset",GameInfo.Calibration);
+        PlayerPrefsManager.SetPref("InputOffset",GameInfo.Calibration);
         var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;
     }

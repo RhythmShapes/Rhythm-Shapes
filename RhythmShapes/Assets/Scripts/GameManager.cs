@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     [Header("Dev variables")]
     [Space]
     [SerializeField] private bool useDevVariables;
-    [SerializeField] private bool loadFromAnalyse;
     [SerializeField] private string devLevelName;
 
     private void Start()

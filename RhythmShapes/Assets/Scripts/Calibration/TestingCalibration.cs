@@ -8,12 +8,11 @@ using Input = UnityEngine.Windows.Input;
 public class TestingCalibration : MonoBehaviour
 {
     public static TestingCalibration Instance { get; private set; }
-    [SerializeField] private float calibration; //0,066417 //0,127751 //
+    public float calibration; //0,066417 //0,127751 //
+    private float gameCalibration;
     private Queue<float> inputReceivedTimeQueue = new();
     private Queue<float> shapeTheoricalPressTimeQueue = new();
     private float[] shapeTheoricalPressTime;
-    [SerializeField] private AudioSource _audioSource;
-    
     
     // [SerializeField] private UnityEvent<float> onCalibrationCalculated;
 
@@ -22,7 +21,9 @@ public class TestingCalibration : MonoBehaviour
         Debug.Assert(Instance == null);
         Instance = this;
 
-        calibration = GameInfo.Calibration;
+        calibration = 0;
+        gameCalibration = GameInfo.Calibration;
+        GameInfo.Calibration = 0;
         gameObject.GetComponent<TestingCalibration>().enabled = true;
         // onCalibrationCalculated ??= new UnityEvent<float>();
     }
@@ -37,22 +38,28 @@ public class TestingCalibration : MonoBehaviour
     {
         if (inputReceivedTimeQueue.Count == 0 || shapeTheoricalPressTimeQueue.Count == 0)
         {
-            Debug.Log("Count == 0");
-            if (calibration < -0.05)
+            // Debug.Log("Count == 0");
+            if (gameCalibration < -0.05)
             {
                 calibration = -0.05f;
             }
-            else if (calibration > 0.2f)
+            else if (gameCalibration > 0.2f)
             {
                 calibration = 0.2f;
             }
-            GameInfo.Calibration = calibration;
-            PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
+            else
+            {
+                calibration = gameCalibration;
+            }
+            // GameInfo.Calibration = calibration;
+            // PlayerPrefsManager.SetPref("InputOffset",calibration);
         }
         else
         {
+            // Debug.Log("Count != 0");
             if (inputReceivedTimeQueue.Count == shapeTheoricalPressTimeQueue.Count)
             {
+                // Debug.Log("inputCount == shapeCount");
                 int count = inputReceivedTimeQueue.Count;
                 float total = 0;
                 float diffI = 0;
@@ -73,9 +80,9 @@ public class TestingCalibration : MonoBehaviour
                     calibration = 0.2f;
                 }
                 
-                GameInfo.Calibration = calibration;
+                // GameInfo.Calibration = calibration;
                 // Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
-                PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
+                // PlayerPrefsManager.SetPref("InputOffset",calibration);
                 // onCalibrationCalculated.Invoke(total / count);
 
             }
@@ -83,6 +90,7 @@ public class TestingCalibration : MonoBehaviour
             {
                 if (inputReceivedTimeQueue.Count > shapeTheoricalPressTimeQueue.Count)
                 {
+                    Debug.Log("inputCount > shapeCount");
                     int count = inputReceivedTimeQueue.Count;
                     float total = 0;
                     float diffI = 0;
@@ -110,13 +118,14 @@ public class TestingCalibration : MonoBehaviour
                     {
                         calibration = 0.2f;
                     }
-                    GameInfo.Calibration = calibration;
+                    // GameInfo.Calibration = calibration;
                     // Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
-                    PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
+                    // PlayerPrefsManager.SetPref("InputOffset",calibration);
                     // onCalibrationCalculated.Invoke(total / count);
                 }
                 else if (inputReceivedTimeQueue.Count < shapeTheoricalPressTimeQueue.Count)
                 {
+                    Debug.Log("inputCount < shapeCount");
                     int count = shapeTheoricalPressTimeQueue.Count;
                     float total = 0;
                     float diffI = 0;
@@ -144,9 +153,9 @@ public class TestingCalibration : MonoBehaviour
                     {
                         calibration = 0.2f;
                     }
-                    GameInfo.Calibration = calibration;
+                    // GameInfo.Calibration = calibration;
                     // Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
-                    PlayerPrefsManager.Instance.SetPref("InputOffset",calibration);
+                    // PlayerPrefsManager.SetPref("InputOffset",calibration);
                     // onCalibrationCalculated.Invoke(total / count);
                 }
             }
@@ -156,14 +165,15 @@ public class TestingCalibration : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log("TestingCalibration -> Update 3, count : " + inputReceivedTimeQueue.Count + ", " +shapeTheoricalPressTimeQueue.Count);
+        // Debug.Log("TestingCalibration -> Update, count : " + inputReceivedTimeQueue.Count + ", " +shapeTheoricalPressTimeQueue.Count);
     }
 
-    public void EnqueueInputReceivedTimeQueue()
+    public void EnqueueInputReceivedTimeQueue(float value)
     {
-        // Debug.Log("EnqueueShapeTheoricalPressTimeQueue : "+ _audioSource.time);
-        inputReceivedTimeQueue.Enqueue(_audioSource.time);
-        // inputReceivedTimeQueue.Enqueue(value);
+        // Debug.Log("Testing Calibration -> EnqueueInputReceivedTimeQueue audioSource.time : "+ _audioSource.time);
+        // inputReceivedTimeQueue.Enqueue(_audioSource.time);
+        // Debug.Log("Testing Calibration -> EnqueueInputReceivedTimeQueue audioSource.time : "+value);
+        inputReceivedTimeQueue.Enqueue(value);
     }
     
     public void EnqueueShapeTheoricalPressTimeQueue(float value)
@@ -172,9 +182,22 @@ public class TestingCalibration : MonoBehaviour
         shapeTheoricalPressTimeQueue.Enqueue(value);
     }
 
-    public void ClearQueue()
+    public void ResetAll()
     {
         inputReceivedTimeQueue.Clear();
         shapeTheoricalPressTimeQueue.Clear();
+        calibration = 0;
+    }
+
+    public void SaveCalibration()
+    {
+        GameInfo.Calibration = calibration;
+        PlayerPrefsManager.SetPref("InputOffset",calibration);
+    }
+
+    public void SaveOldCalibration()
+    {
+        GameInfo.Calibration = gameCalibration;
+        PlayerPrefsManager.SetPref("InputOffset",gameCalibration);
     }
 }

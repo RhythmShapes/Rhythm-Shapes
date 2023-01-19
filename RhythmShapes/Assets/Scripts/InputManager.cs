@@ -68,7 +68,13 @@ public class InputManager : MonoBehaviour
             // Debug.Log("InputManager -> InputPerformed : " + gameObject.GetComponent<AudioSource>().time);
             if (SceneManager.GetActiveScene().name == "TestingCalibration")
             {
-                TestingCalibration.Instance.EnqueueInputReceivedTimeQueue();
+                var audioSource = gameObject.GetComponent<AudioSource>();
+                if (audioSource != null)
+                {
+                    TestingCalibration.Instance.EnqueueInputReceivedTimeQueue(audioSource.time);
+                }
+                
+                
             }
         }
     }

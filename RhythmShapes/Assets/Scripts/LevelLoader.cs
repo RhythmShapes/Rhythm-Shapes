@@ -73,7 +73,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevelFromRessourcesFolder(string levelName)
     {
-        string dataPath =  LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.CompleteDataFileName;
+        string dataPath =  LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.DataFileName;
         
         TextAsset xml = Resources.Load<TextAsset>(dataPath);
 
@@ -163,7 +163,7 @@ public class LevelLoader : MonoBehaviour
 
     private AudioClip LoadAudioFromRessourcesFolder(string levelName)
     {
-        string audioPath = LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.CompleteAudioFileName;
+        string audioPath = LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.AudioFileName;
         AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
         
         if (audioClip == null)
