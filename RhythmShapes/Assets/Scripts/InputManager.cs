@@ -23,17 +23,25 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         _inputSystem = new InputSystem();
-        _inputSystem.Player.Enable();
-        _inputSystem.Player.Top.performed += _ => InputPerformed(Target.Top);
-        _inputSystem.Player.Left.performed += _ => InputPerformed(Target.Left);
-        _inputSystem.Player.Right.performed += _ => InputPerformed(Target.Right);
-        _inputSystem.Player.Bottom.performed += _ => InputPerformed(Target.Bottom);
-        _inputSystem.Player.Top.canceled += _ => InputCanceled(Target.Top);
-        _inputSystem.Player.Left.canceled += _ => InputCanceled(Target.Left);
-        _inputSystem.Player.Right.canceled += _ => InputCanceled(Target.Right);
-        _inputSystem.Player.Bottom.canceled += _ => InputCanceled(Target.Bottom);
-        _inputSystem.Player.Pause.performed += _ => PausePerformed();
-        _inputSystem.UI.UnPause.performed += _ => UnPausePerformed();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            _inputSystem.UI.Enable();
+        }
+        else
+        {
+            _inputSystem.Player.Enable();
+            _inputSystem.Player.Top.performed += _ => InputPerformed(Target.Top);
+            _inputSystem.Player.Left.performed += _ => InputPerformed(Target.Left);
+            _inputSystem.Player.Right.performed += _ => InputPerformed(Target.Right);
+            _inputSystem.Player.Bottom.performed += _ => InputPerformed(Target.Bottom);
+            _inputSystem.Player.Top.canceled += _ => InputCanceled(Target.Top);
+            _inputSystem.Player.Left.canceled += _ => InputCanceled(Target.Left);
+            _inputSystem.Player.Right.canceled += _ => InputCanceled(Target.Right);
+            _inputSystem.Player.Bottom.canceled += _ => InputCanceled(Target.Bottom);
+            _inputSystem.Player.Pause.performed += _ => PausePerformed();
+            _inputSystem.UI.UnPause.performed += _ => UnPausePerformed();
+        }
+        
     }
 
     private void OnDisable()
@@ -57,6 +65,11 @@ public class InputManager : MonoBehaviour
         {
             GameModel.Instance.GetNextAttendedInput().SetPressed(target);
             onInputPerformed.Invoke(target);
+            // Debug.Log("InputManager -> InputPerformed : " + gameObject.GetComponent<AudioSource>().time);
+            if (SceneManager.GetActiveScene().name == "TestingCalibration")
+            {
+                TestingCalibration.Instance.EnqueueInputReceivedTimeQueue();
+            }
         }
     }
     

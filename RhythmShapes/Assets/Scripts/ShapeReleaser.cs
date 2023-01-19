@@ -3,6 +3,7 @@ using shape;
 using ui;
 using UnityEngine;
 using UnityEngine.Events;
+using utils;
 
 [RequireComponent(typeof(AudioSource))]
 public class ShapeReleaser : MonoBehaviour
@@ -25,7 +26,7 @@ public class ShapeReleaser : MonoBehaviour
         {
             AttendedInput input = model.GetNextAttendedInput();
 
-            if (_audioSource.time > input.TimeToPress + model.GoodPressedWindow)
+            if (_audioSource.time > input.TimeToPress + model.BadPressedWindow + GameInfo.Calibration)
             {
                 foreach (var shape in input.Shapes)
                 {

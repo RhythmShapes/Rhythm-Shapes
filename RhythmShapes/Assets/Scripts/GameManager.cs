@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,11 +7,17 @@ public class GameManager : MonoBehaviour
     [Header("Dev variables")]
     [Space]
     [SerializeField] private bool useDevVariables;
+    [SerializeField] private bool loadFromAnalyse;
     [SerializeField] private string devLevelName;
 
     private void Start()
     {
         string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
-        levelLoader.LoadLevelFromFile(levelName);
+        
+        
+        if (useDevVariables && SceneManager.GetActiveScene().buildIndex==3)
+            levelLoader.LoadLevelFromRessourcesFolder(levelName);
+        else
+            levelLoader.LoadLevelFromFile(levelName);
     }
 }

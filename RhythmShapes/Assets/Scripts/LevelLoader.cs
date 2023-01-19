@@ -71,6 +71,24 @@ public class LevelLoader : MonoBehaviour
         }));
     }
 
+    public void LoadLevelFromRessourcesFolder(string levelName)
+    {
+        string dataPath =  LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.CompleteDataFileName;
+        
+        TextAsset xml = Resources.Load<TextAsset>(dataPath);
+
+        if (xml == null)
+        {
+            Debug.LogError("Cannot find data file : " + dataPath);
+            return;
+        }
+        LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
+
+        targetAudioSource.clip = LoadAudioFromRessourcesFolder(levelName);
+
+        _currentLevelDescription = level;
+        onLoadedEvent.Invoke(level);
+    }
     // Uses _loadedAudioClip so it need to be not null
     /*public void LaunchAnalysis()
     {
@@ -141,5 +159,21 @@ public class LevelLoader : MonoBehaviour
             else Debug.LogError("The download process is not completely finished.");
         }
         else Debug.LogError("Unable to locate converted song file.");
+    }
+
+    private AudioClip LoadAudioFromRessourcesFolder(string levelName)
+    {
+        string audioPath = LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.CompleteAudioFileName;
+        AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
+        
+        if (audioClip == null)
+        {
+            Debug.LogError("Cannot find audio file : " + audioPath);
+            return null;
+        }
+
+        _loadedAudioClip = audioClip;
+        
+        return audioClip;
     }
 }
