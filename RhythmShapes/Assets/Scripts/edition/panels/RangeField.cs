@@ -26,18 +26,20 @@ namespace edition.panels
         private void Start()
         {
             slider.SetValueWithoutNotify(min); // Avoid onValueChanged of slider
-            slider.minValue = min;
-            slider.maxValue = max;
+            
+            slider.minValue = 0;
+            slider.maxValue = Mathf.RoundToInt(max / step);
+            
             string stepStr = step.ToString(CultureInfo.InvariantCulture);
             _rounding = stepStr[(stepStr.IndexOf(".", StringComparison.Ordinal) + 1)..].Length;
         }
 
         private void ParseAndSetValue(float value, bool notify = true)
         {
-            float steppedValue = Mathf.Round(value / step) * step;
+            float steppedValue = Mathf.RoundToInt(value / step) * step;
             float v = (float) Math.Round((decimal) Mathf.Clamp(steppedValue, min, max), _rounding, MidpointRounding.ToEven);
             
-            slider.SetValueWithoutNotify(v);
+            slider.SetValueWithoutNotify(Mathf.RoundToInt(v / step));
             field.SetTextWithoutNotify(v.ToString(CultureInfo.InvariantCulture));
             
             if(notify) onValueChanged.Invoke(value);
@@ -50,7 +52,7 @@ namespace edition.panels
 
         public void SetValue(float value)
         {
-            ParseAndSetValue(value);
+            ParseAndSetValue(value * step);
         }
 
         public void SetValue(string value)
