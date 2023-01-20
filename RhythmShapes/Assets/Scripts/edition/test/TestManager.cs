@@ -84,7 +84,6 @@ namespace edition.test
                 Time.timeScale = 1f;
                 GameModel.Instance.Reset();
                 onTestStop.Invoke();
-                //testLine.gameObject.SetActive(false);
             }
         }
         
