@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
@@ -88,7 +89,7 @@ namespace models
             return shape;
         }
 
-        public void PopShapeDescription()
+        public void PopShapeModel()
         {
             if(_shapeModels.Count > 0)
                 _shapeModels.Dequeue();
@@ -116,6 +117,17 @@ namespace models
         {
             if(_attendedInputs.Count > 0)
                 _attendedInputs.Dequeue();
+        }
+
+        public void Reset()
+        {
+            foreach (var shape in _attendedInputs.SelectMany(input => input.Shapes))
+            {
+                ShapeFactory.Instance.Release(shape);
+            }
+            
+            _attendedInputs.Clear();
+            _shapeModels.Clear();
         }
     }
 }

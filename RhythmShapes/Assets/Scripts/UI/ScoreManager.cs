@@ -97,7 +97,13 @@ public class ScoreManager : MonoBehaviour
         BadCounter = 0;
         MissCounter = 0;
         Score = 0;
+        Combo = 0;
         currrentAccuracy = 0;
+    }
+
+    public void PrintScoreDebug()
+    {
+        // Debug.Log("Score : "+ Score + ",PerfectCounter : "+ PerfectCounter+ ",GoodCounter : "+ GoodCounter+ ",OkCounter : "+ OkCounter+ ",BadCounter : "+ BadCounter+ ",MissCounter : "+ MissCounter);
     }
 }
 

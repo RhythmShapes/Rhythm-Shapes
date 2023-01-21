@@ -1,0 +1,651 @@
+fileFormatVersion: 2
+guid: 9afff40e0626c8842bcb0afbe59a3b14
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Music_icons_white_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 254.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cf90f87b5b92e54a8c8687d68c55359
+      internalID: 119352132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_1
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 254.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf709cb6bb49cad4d830ea86d9326f52
+      internalID: -611889928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_2
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 254.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca1d47c8468a0d54a82618404b37ca04
+      internalID: 894989438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_3
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 254.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17887a068ccc90045a99d43ca3c46195
+      internalID: 386884990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_4
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 254.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55f18520d1db5eb44b19c7c4b4a42e4e
+      internalID: 665637763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_5
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 254.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7943875150fd94bbbe6a508dbe567a
+      internalID: -1176202779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 170.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a30cfcc4ebb72ad4ba059643a8fba883
+      internalID: -1033448447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_7
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 170.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 673dd7783d2cbb9479061d02e70409c9
+      internalID: 1736800696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_8
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 170.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c6ed6beeca2af47bf385437fe50bc7
+      internalID: 1863200155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_9
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 170.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44df8b449a156b946b15b65bd7f51227
+      internalID: -65872834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_10
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 170.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48002fb54f80ef4a947efb62c04d2f2
+      internalID: -554065903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_11
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 170.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 832519da3535bf44ea7a7f0441bbc5a2
+      internalID: 7795513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 86.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 913da12c430a77d4cb42be12deb74c2c
+      internalID: 680171616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_13
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 86.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: beeef20de1c2be94f81e0aad2575a00a
+      internalID: -1280671912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_14
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 86.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d764078e1535024eb4d6ca4e68f7247
+      internalID: -688668920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_15
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 86.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5db31ee43e7c6ab4b9e87dde4e6fbb12
+      internalID: -407133639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_16
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 86.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d97e89cf4cb3bb843b0eed48cd55a356
+      internalID: -644927362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_17
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 86.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e5520572ac9a4b4ca46e012c1ec0265
+      internalID: 189661036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34746559ee8cec8469889f8bf40c2850
+      internalID: 2002613448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_19
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 2.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01691c5de27c8154a892a68fe9beebff
+      internalID: 861184482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_20
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 2.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50bf8829a43fe1147aba013abd3e572f
+      internalID: -1536989485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_21
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 2.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a3521af2f239df4bb6e1b1da6c26fe9
+      internalID: 842761884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_22
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 2.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdecd4665a84d6a4d90ca5802e8d3cc7
+      internalID: 1270758954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Music_icons_white_23
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 2.25
+        width: 84.833336
+        height: 84.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a08d15a255eb7584f85e9814e57569a3
+      internalID: -1317364790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Music_icons_white_6: -1033448447
+      Music_icons_white_2: 894989438
+      Music_icons_white_14: -688668920
+      Music_icons_white_4: 665637763
+      Music_icons_white_5: -1176202779
+      Music_icons_white_7: 1736800696
+      Music_icons_white_15: -407133639
+      Music_icons_white_17: 189661036
+      Music_icons_white_8: 1863200155
+      Music_icons_white_22: 1270758954
+      Music_icons_white_16: -644927362
+      Music_icons_white_18: 2002613448
+      Music_icons_white_23: -1317364790
+      Music_icons_white_12: 680171616
+      Music_icons_white_9: -65872834
+      Music_icons_white_0: 119352132
+      Music_icons_white_19: 861184482
+      Music_icons_white_20: -1536989485
+      Music_icons_white_3: 386884990
+      Music_icons_white_21: 842761884
+      Music_icons_white_10: -554065903
+      Music_icons_white_13: -1280671912
+      Music_icons_white_1: -611889928
+      Music_icons_white_11: 7795513
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

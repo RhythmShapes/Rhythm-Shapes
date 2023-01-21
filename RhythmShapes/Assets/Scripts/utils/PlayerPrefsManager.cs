@@ -12,17 +12,20 @@
         {
             effectsVolume.value = GetPref("EffectsVolume", 1f);
             musicVolume.value = GetPref("MusicVolume", 1f);
-            effectsVolume.onValueChanged.Invoke(effectsVolume.value);
-            musicVolume.onValueChanged.Invoke(musicVolume.value);
+            GameInfo.Calibration = GetPref("InputOffset",0.05f);
+            if(musicVolume != null)
+                effectsVolume.onValueChanged.Invoke(effectsVolume.value);
+            if(musicVolume != null)
+                musicVolume.onValueChanged.Invoke(musicVolume.value);
         }
 
-        private void SetPref(string key, float value)
+        public static void SetPref(string key, float value)
         {
             PlayerPrefs.SetFloat(key, value);
             PlayerPrefs.Save();
         }
 
-        private float GetPref(string key, float placeholder)
+        public static float GetPref(string key, float placeholder)
         {
             return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetFloat(key) : placeholder;
         }

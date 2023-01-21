@@ -11,7 +11,11 @@ public class MusicSelectionManager : MonoBehaviour
     {
         foreach (string levelName in Directory.GetDirectories(Path.Combine(Application.persistentDataPath, "Levels")))
         {
-            Instantiate(buttonPrefab, content).GetComponent<MenuButton>().Init(Path.GetFileName(levelName));
+            var fileName = Path.GetFileName(levelName);
+            if (fileName != "Calibration31sec")
+            {
+                Instantiate(buttonPrefab, content).GetComponent<MenuButton>().Init(fileName);
+            }
         }
     }
 }

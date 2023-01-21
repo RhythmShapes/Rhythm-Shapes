@@ -25,25 +25,33 @@ public class LevelPreparator : MonoBehaviour
                                       PathsManager.Instance.GetPathTotalDistance(ShapeType.Diamond);
         float circleSpeedAdjustment = PathsManager.Instance.GetPathTotalDistance(ShapeType.Circle) /
                                       PathsManager.Instance.GetPathTotalDistance(ShapeType.Diamond);
-        
-        foreach (var shapeDescription in level.shapes)
+
+        if (level.shapes != null)
         {
-            Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target, shapeDescription.goRight);
-            Color color = GetShapeColor(shapeDescription.target);
-            float speed = shapesSpeed * shapeDescription.type switch // speedAdjustment according to shape
+            GameModel.Instance.Reset();
+            Array.Sort(level.shapes, (shape, compare) => shape.timeToPress.CompareTo(compare.timeToPress));
+
+            foreach (var shapeDescription in level.shapes)
             {
-                ShapeType.Square =>  squareSpeedAdjustment,
-                ShapeType.Circle => circleSpeedAdjustment,
-                _ => 1
-            };
-            float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.type, shapeDescription.timeToPress, speed);
-            
-            if(timeToSpawn < 0)
-                continue;
-            
-            GameModel.Instance.PushShapeModel(
-                new ShapeModel(shapeDescription.type, shapeDescription.target, color, path, shapeDescription.timeToPress, timeToSpawn, speed)
-            );
+                Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target,
+                    shapeDescription.goRight);
+                Color color = GetShapeColor(shapeDescription.target);
+                float speed = shapesSpeed * shapeDescription.type switch // speedAdjustment according to shape
+                {
+                    ShapeType.Square => squareSpeedAdjustment,
+                    ShapeType.Circle => circleSpeedAdjustment,
+                    _ => 1
+                };
+                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.type, shapeDescription.timeToPress, speed);
+
+                if (timeToSpawn < 0)
+                    continue;
+
+                GameModel.Instance.PushShapeModel(
+                    new ShapeModel(shapeDescription.type, shapeDescription.target, color, path,
+                        shapeDescription.timeToPress, timeToSpawn, speed)
+                );
+            }
         }
         
         onReady.Invoke();
@@ -61,8 +69,9 @@ public class LevelPreparator : MonoBehaviour
         };
     }
 
-    private float GetShapeTimeToSpawn(ShapeType type, float timeToPress, float speed)
+    private float GetShapeTimeToSpawn(ShapeType type, float timeToPress, float speed, float travelTime = 0.85f)
     {
-        return timeToPress - PathsManager.Instance.GetPathTotalDistance(type) / speed;
+        return timeToPress - travelTime;
+        //return timeToPress - PathsManager.Instance.GetPathTotalDistance(type) / speed;
     }
 }

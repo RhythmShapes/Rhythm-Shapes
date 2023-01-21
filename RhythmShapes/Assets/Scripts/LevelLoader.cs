@@ -14,8 +14,6 @@ using utils.XML;
 
 public class LevelLoader : MonoBehaviour
 {
-    public static LevelLoader Instance { get; private set; }
-    
     [SerializeField] private AudioSource targetAudioSource;
     [SerializeField] private UnityEvent onLoadFromFileStart;
     [SerializeField] private UnityEvent onLoadFromAnalysisStart;
@@ -27,9 +25,6 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Assert(Instance == null);
-        Instance = this;
-        
         onLoadFromFileStart ??= new UnityEvent();
         onLoadFromAnalysisStart ??= new UnityEvent();
         onLoadedEvent ??= new UnityEvent<LevelDescription>();
@@ -76,6 +71,24 @@ public class LevelLoader : MonoBehaviour
         }));
     }
 
+    public void LoadLevelFromRessourcesFolder(string levelName)
+    {
+        string dataPath =  LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.DataFileName;
+        
+        TextAsset xml = Resources.Load<TextAsset>(dataPath);
+
+        if (xml == null)
+        {
+            Debug.LogError("Cannot find data file : " + dataPath);
+            return;
+        }
+        LevelDescription level = XmlHelpers.DeserializeFromXML<LevelDescription>(xml);
+
+        targetAudioSource.clip = LoadAudioFromRessourcesFolder(levelName);
+
+        _currentLevelDescription = level;
+        onLoadedEvent.Invoke(level);
+    }
     // Uses _loadedAudioClip so it need to be not null
     /*public void LaunchAnalysis()
     {
@@ -146,5 +159,21 @@ public class LevelLoader : MonoBehaviour
             else Debug.LogError("The download process is not completely finished.");
         }
         else Debug.LogError("Unable to locate converted song file.");
+    }
+
+    private AudioClip LoadAudioFromRessourcesFolder(string levelName)
+    {
+        string audioPath = LevelTools.LevelsFolderName + "/" + levelName + "/" + LevelTools.AudioFileName;
+        AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
+        
+        if (audioClip == null)
+        {
+            Debug.LogError("Cannot find audio file : " + audioPath);
+            return null;
+        }
+
+        _loadedAudioClip = audioClip;
+        
+        return audioClip;
     }
 }

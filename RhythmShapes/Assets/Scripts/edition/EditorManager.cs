@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using edition.panels;
+using UnityEngine;
 
 namespace edition
 {
     public class EditorManager : MonoBehaviour
     {
+        [SerializeField] private LevelLoader levelLoader;
         [Header("Dev variables")]
         [Space]
         [SerializeField] private bool useDevVariables;
@@ -13,11 +15,11 @@ namespace edition
         private void Start()
         {
             string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
-            GameInfo.IsNewLevel = useDevVariables && isNewLevel;
+            GameInfo.IsNewLevel = (useDevVariables && isNewLevel) || (!useDevVariables && GameInfo.IsNewLevel);
             EditorPanel.Init();
-        
+
             if (!GameInfo.IsNewLevel)
-                LevelLoader.Instance.LoadLevelFromFile(levelName);
+                levelLoader.LoadLevelFromFile(levelName);
         }
     }
 }
