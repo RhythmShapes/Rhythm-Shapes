@@ -36,7 +36,7 @@ namespace edition.zoom
 
         public override void OnScroll(PointerEventData eventData)
         {
-            float scrollValue = _input.UI.ScrollWheel.ReadValue<float>();
+            float scrollValue = _input.UI.ScrollWheel.ReadValue<Vector2>().y;
             
             if(scrollValue != 0)
                 Zoom(scrollValue, eventData.position);

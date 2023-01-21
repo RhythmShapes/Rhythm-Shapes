@@ -7,6 +7,7 @@ using edition.test;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
+using utils;
 using utils.XML;
 
 namespace edition.timeLine
@@ -64,6 +65,8 @@ namespace edition.timeLine
             {
                 foreach (var shape in level.shapes)
                 {
+                    shape.timeToPress = Utils.RoundTime(shape.timeToPress);
+                    
                     if(!IsShapeTimeValid(shape.timeToPress))
                         continue;
                     
@@ -204,7 +207,10 @@ namespace edition.timeLine
         {
             if (HasCloseShape(EditorModel.Shape.Description, target, EditorModel.Shape.Description.timeToPress))
             {
-                NotificationsManager.ShowError("Cannot change shape target to " + target + " because another shape is to close of the time : " + EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture) + "s. Try changing the Minimal delay between notes value.");
+                NotificationsManager.ShowError("Cannot change shape target to " + 
+                                               target + " because another shape is to close of the time : " + 
+                                               EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture) + 
+                                               "s. Try changing the Minimal delay between notes value.");
                 onShapeChanged.Invoke(EditorModel.Shape.Description, false);
                 return;
             }
@@ -234,7 +240,10 @@ namespace edition.timeLine
 
             if (HasCloseShape(EditorModel.Shape.Description, EditorModel.Shape.Description.target, pressTime))
             {
-                NotificationsManager.ShowError("Cannot change shape press time to " + pressTime.ToString(CultureInfo.InvariantCulture) + "s, because another shape is to close. Try changing the Minimal delay between notes value.");
+                NotificationsManager.ShowError("Cannot change shape press time to " + 
+                                               pressTime.ToString(CultureInfo.InvariantCulture) + "s with " + 
+                                               EditorModel.Shape.Description.target + 
+                                               " target, because another shape is to close. Try changing the Minimal delay between notes value.");
                 onShapeChanged.Invoke(EditorModel.Shape.Description, false);
                 return;
             }
@@ -308,7 +317,10 @@ namespace edition.timeLine
                 
                 if (HasCloseShape(shape, target, time))
                 {
-                    NotificationsManager.ShowError("Cannot create shape at " + time.ToString(CultureInfo.InvariantCulture) + "s, because another shape is to close. Try changing the Minimal delay between notes value.");
+                    NotificationsManager.ShowError("Cannot create shape at " + 
+                                                   time.ToString(CultureInfo.InvariantCulture) + "s with " + 
+                                                   target + 
+                                                   " target, because another shape is to close. Try changing the Minimal delay between notes value.");
                     return;
                 }
             }
