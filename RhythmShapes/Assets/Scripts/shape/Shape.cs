@@ -11,13 +11,13 @@ namespace shape
     [Serializable]
     public class Shape : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer secondarySpriteRenderer;
+        [SerializeField] private SpriteRenderer background;
+        [SerializeField] private SpriteRenderer outline;
         
         public ShapeType Type => _model.Type;
         public Target Target => _model.Target;
         public float TimeToPress => _model.TimeToPress;
 
-        private SpriteRenderer _spriteRenderer;
         private ShapeModel _model;
         private float _maxDistanceDelta = 0;
         private int _currentStep = 0;
@@ -30,8 +30,10 @@ namespace shape
         public void Init(ShapeModel model)
         {
             _model = model;
-            _spriteRenderer.color = model.Color;
-            secondarySpriteRenderer.gameObject.SetActive(false);
+            background.color = model.Color;
+            outline.color = model.Color;
+            background.sortingOrder = 2;
+            outline.sortingOrder = 1;
             _maxDistanceDelta = 0;
             _currentStep = 0;
             transform.position = _model.PathToFollow[0];
@@ -48,14 +50,11 @@ namespace shape
             }
         }
     
-        public void ShowSecondarySpriteRenderer()
+        public void ShowOutline()
         {
-            secondarySpriteRenderer.gameObject.SetActive(true);
-        }
-        
-        private void Awake()
-        {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            outline.color = Color.white;
+            background.sortingOrder = 2;
+            outline.sortingOrder = 1;
         }
 
 

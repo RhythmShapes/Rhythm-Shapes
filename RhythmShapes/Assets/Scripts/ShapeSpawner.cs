@@ -46,7 +46,7 @@ public class ShapeSpawner : MonoBehaviour
             {
                 foreach (var shape in shapes)
                 {
-                    shape.ShowSecondarySpriteRenderer();
+                    shape.ShowOutline();
                 }
                 model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
             }
