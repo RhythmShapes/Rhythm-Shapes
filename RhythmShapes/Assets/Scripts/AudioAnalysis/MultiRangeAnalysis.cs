@@ -68,8 +68,7 @@ namespace AudioAnalysis
                 maximums[i] = AudioTools.TimewiseLocalMaximums(amplitudeEvolutionPerFrequency[i], 30);
             }
             ProgressUtil.Update();
-
-
+            
             LevelDescription level = new LevelDescription { title = _clipName };
             List<ShapeDescription> shapes = new List<ShapeDescription>();
 
@@ -166,6 +165,7 @@ namespace AudioAnalysis
                             ShapeDescription shape = new ShapeDescription();
                             if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
                             {
+                                /*
                                 int selectedIndex = -1;
                                 int k = 1;
                                 while(selectedIndex == -1 && k < numberOfRanges)
@@ -185,7 +185,8 @@ namespace AudioAnalysis
                                     shapes.Add(shape);
                                     numberOfNotes++;
                                 }
-                                /*if (!usedTarget[(maxProbabilityIndex + 1) % 4])
+                                */
+                                if (!usedTarget[(maxProbabilityIndex + 1) % 4])
                                 {
                                     shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
                                     usedTarget[(maxProbabilityIndex + 1) % 4] = true;
@@ -211,10 +212,11 @@ namespace AudioAnalysis
                                     shape.timeToPress = oldTime;
                                     shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                                     shapes.Add(shape);
-                                }*/
+                                }
                                 else
                                 {
-                                    Debug.LogError("All Target Have Been Used" + j);
+                                    // ignore other notes
+                                    Debug.Log("All Target Have Been Used" + j);
                                     // Debug.Log(usedTarget[0]+", "+usedTarget[1]+", "+usedTarget[2]+", "+usedTarget[3]);
                                 }
                                 
@@ -228,7 +230,7 @@ namespace AudioAnalysis
                                 shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                                 shapes.Add(shape);
                                 numberOfNotes++;
-                                }
+                            }
                             // counter++;
                         }
                         else
