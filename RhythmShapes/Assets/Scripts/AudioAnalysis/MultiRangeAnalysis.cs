@@ -165,7 +165,7 @@ namespace AudioAnalysis
                             ShapeDescription shape = new ShapeDescription();
                             if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
                             {
-                                /*
+                                
                                 int selectedIndex = -1;
                                 int k = 1;
                                 while(selectedIndex == -1 && k < numberOfRanges)
@@ -174,6 +174,7 @@ namespace AudioAnalysis
                                     {
                                         selectedIndex = (maxProbabilityIndex+k) % numberOfRanges;
                                     }
+                                    k++;
                                 }
                                 if(selectedIndex != -1)
                                 {
@@ -185,7 +186,7 @@ namespace AudioAnalysis
                                     shapes.Add(shape);
                                     numberOfNotes++;
                                 }
-                                */
+                                /*
                                 if (!usedTarget[(maxProbabilityIndex + 1) % 4])
                                 {
                                     shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
@@ -213,6 +214,7 @@ namespace AudioAnalysis
                                     shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                                     shapes.Add(shape);
                                 }
+                                */
                                 else
                                 {
                                     // ignore other notes

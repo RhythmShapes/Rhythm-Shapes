@@ -65,7 +65,6 @@ public class LevelLoader : MonoBehaviour
             new Thread(() =>
             {
                 LevelDescription level = MultiRangeAnalysis.AnalyseMusic();
-                Debug.Log("multirangeAnalysis");
                 _currentLevelDescription = level;
                 _loaded = true;
             }).Start();
