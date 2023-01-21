@@ -5,6 +5,7 @@ using System.IO;
 using AudioAnalysis;
 using edition.panels;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -53,6 +54,13 @@ public class PresetDifficulty : MonoBehaviour
     [SerializeField] private string levelName;
     [SerializeField] private UnityEvent onRequestAnalysis;
     
+    [Space]
+    [Header("UI")]
+    [Space]
+    [SerializeField] private UnityEvent onNewButtonSelected;
+    
+    private bool firstSet = true;
+    
     public static PresetDifficulty Instance;
     private void Awake()
     {
@@ -60,13 +68,20 @@ public class PresetDifficulty : MonoBehaviour
         else Instance = this;
         
         onRequestAnalysis ??= new UnityEvent();
+        onNewButtonSelected ??= new UnityEvent();
+        
     }
 
-    public static void Init()
+    public void Init()
     {
-        Instance.minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
-        Instance.peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
-        Instance.doubleNoteThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
+        firstSet = true;
+    }
+
+    public void SetBaseValue()
+    {
+        minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
+        peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
+        doubleNoteThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
     }
 
     public void SetEasyPreset()
@@ -173,5 +188,14 @@ public class PresetDifficulty : MonoBehaviour
         }
 
         return true;
+    }
+
+    private void FixedUpdate()
+    {
+        if (firstSet)
+        {
+            firstSet = false;
+            onNewButtonSelected.Invoke();
+        }
     }
 }
