@@ -48,7 +48,7 @@ public class ShapeSpawner : MonoBehaviour
                 {
                     shape.ShowSecondarySpriteRenderer();
                 }
-                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray(),true));
             }
             else
             {

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using utils;
 
 public class MainMenuManager : MonoBehaviour
@@ -7,9 +8,11 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject optionMenuCanvas;
-    [SerializeField] private GameObject calibrationMenuCanvas;
     [SerializeField] private GameObject musicSelectionMenuCanvas;
+    [SerializeField] private GameObject calibrationMenuCanvas;
     [SerializeField] private TextMeshProUGUI offsetTextTMP;
+    [SerializeField] private GameObject difficultyCanvas;
+
     public void StartGame()
     { 
         // Debug.Log("StartGame");
@@ -122,5 +125,19 @@ public class MainMenuManager : MonoBehaviour
         }
         var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;
+    }
+    
+    public void ShowPresetPanel()
+    {
+        // Debug.Log("ShowPresetPanel");
+        musicSelectionMenuCanvas.SetActive(false);
+        difficultyCanvas.SetActive(true);
+    }
+    
+    public void HidePresetPanel()
+    {
+        // Debug.Log("HidePresetPanel");
+        difficultyCanvas.SetActive(false);
+        musicSelectionMenuCanvas.SetActive(true);
     }
 }

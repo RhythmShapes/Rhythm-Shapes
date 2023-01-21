@@ -12,9 +12,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
-        
-        
-        if (useDevVariables && SceneManager.GetActiveScene().buildIndex==3)
+
+        if (GameInfo.RequestAnalysis && GameInfo.IsNewLevel && SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Debug.Log("LoadLevelFromAnalysis");
+            GameInfo.RequestAnalysis = false;
+            levelLoader.LoadLevelFromAnalysis(PresetDifficulty.Instance.musicPath);
+        }
+        else if (useDevVariables && SceneManager.GetActiveScene().buildIndex==3)
             levelLoader.LoadLevelFromRessourcesFolder(levelName);
         else
             levelLoader.LoadLevelFromFile(levelName);
