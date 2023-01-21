@@ -106,6 +106,7 @@ namespace edition.test
                 {
                     _time = audioSource.clip.length;
                     IsTestRunning = false;
+                    Invoke("ResetModel", .1f);
                 }
                 
                 float posX = ShapeTimeLine.GetPosX(audioSource.time);
@@ -114,6 +115,11 @@ namespace edition.test
                 if(audioSource.isPlaying)
                     UpdateScroll(posX);
             }
+        }
+
+        private void ResetModel()
+        {
+            GameModel.Instance.Reset();
         }
 
         private void UpdateScroll(float posX)

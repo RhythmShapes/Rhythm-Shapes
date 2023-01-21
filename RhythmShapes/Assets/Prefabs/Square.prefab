@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0892d42c8fd9e4db0fae8ad44f1e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondarySpriteRenderer: {fileID: 1129003621772532052}
 --- !u!114 &1459628996912651758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0892d42c8fd9e4db0fae8ad44f1e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondarySpriteRenderer: {fileID: 0}
 --- !u!114 &1021960012302956703
 MonoBehaviour:
   m_ObjectHideFlags: 0
