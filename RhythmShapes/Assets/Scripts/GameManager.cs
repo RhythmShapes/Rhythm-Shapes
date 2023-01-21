@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
-        
-        
-        if (useDevVariables && SceneManager.GetActiveScene().buildIndex==3)
+
+        int index = SceneManager.GetActiveScene().buildIndex;
+        if (useDevVariables && (index == 3 || index == 4))
             levelLoader.LoadLevelFromRessourcesFolder(levelName);
         else
             levelLoader.LoadLevelFromFile(levelName);
