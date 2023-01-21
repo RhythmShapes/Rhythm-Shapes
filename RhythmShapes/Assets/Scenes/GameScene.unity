@@ -35245,18 +35245,6 @@ MonoBehaviour:
   onGameUnPaused:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297969609}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: DisableInputSystemUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 936210146}
         m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
         m_MethodName: StartPauseCountdown
@@ -60907,6 +60895,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 394448371}
@@ -60914,6 +60906,10 @@ PrefabInstance:
       propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 297969608}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetGamePauseStateFalse
@@ -60925,17 +60921,29 @@ PrefabInstance:
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 394448371}
+      objectReference: {fileID: 297969609}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 394448371}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
       objectReference: {fileID: 297969608}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetGamePauseStateFalse
+      value: DisableInputSystemUI
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetGamePauseStateFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: UnPause
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
@@ -60948,11 +60956,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: models.GameModel, Assembly-CSharp
+      value: InputManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: models.GameModel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936231492989, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: onPauseCountdownFinished.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8763668118453149982, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_fontSize

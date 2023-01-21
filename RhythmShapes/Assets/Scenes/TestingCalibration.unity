@@ -54721,18 +54721,6 @@ MonoBehaviour:
   onGameUnPaused:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802996569}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: DisableInputSystemUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8413089935373295249}
         m_TargetAssemblyTypeName: ui.GameCountdown, Assembly-CSharp
         m_MethodName: StartPauseCountdown
@@ -121666,6 +121654,18 @@ MonoBehaviour:
   onPauseCountdownFinished:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1802996569}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DisableInputSystemUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 874676911}
         m_TargetAssemblyTypeName: models.GameModel, Assembly-CSharp
         m_MethodName: SetGamePauseStateFalse
