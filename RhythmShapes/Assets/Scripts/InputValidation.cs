@@ -66,26 +66,26 @@ public class InputValidation : MonoBehaviour
     {
         GameModel model = GameModel.Instance;
 
-        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow + GameInfo.Calibration &&
-            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow + GameInfo.Calibration)
+        if (_audioSource.time >= input.TimeToPress - model.PerfectPressedWindow + GameInfo.InputCalibration &&
+            _audioSource.time <= input.TimeToPress + model.PerfectPressedWindow + GameInfo.InputCalibration)
         {
             return PressedAccuracy.Perfect;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow + GameInfo.Calibration&&
-            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow + GameInfo.Calibration)
+        if (_audioSource.time >= input.TimeToPress - model.GoodPressedWindow + GameInfo.InputCalibration&&
+            _audioSource.time <= input.TimeToPress + model.GoodPressedWindow + GameInfo.InputCalibration)
         {
             return PressedAccuracy.Good;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow + GameInfo.Calibration&&
-            _audioSource.time <= input.TimeToPress + model.OkPressedWindow + GameInfo.Calibration)
+        if (_audioSource.time >= input.TimeToPress - model.OkPressedWindow + GameInfo.InputCalibration&&
+            _audioSource.time <= input.TimeToPress + model.OkPressedWindow + GameInfo.InputCalibration)
         {
             return PressedAccuracy.Ok;
         }
         
-        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow + GameInfo.Calibration&&
-            _audioSource.time <= input.TimeToPress + model.BadPressedWindow + GameInfo.Calibration)
+        if (_audioSource.time >= input.TimeToPress - model.BadPressedWindow + GameInfo.InputCalibration&&
+            _audioSource.time <= input.TimeToPress + model.BadPressedWindow + GameInfo.InputCalibration)
         {
             return PressedAccuracy.Bad;
         }

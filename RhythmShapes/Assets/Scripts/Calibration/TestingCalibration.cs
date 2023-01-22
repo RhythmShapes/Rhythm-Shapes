@@ -22,8 +22,8 @@ public class TestingCalibration : MonoBehaviour
         Instance = this;
 
         calibration = 0;
-        gameCalibration = GameInfo.Calibration;
-        GameInfo.Calibration = 0;
+        gameCalibration = GameInfo.InputCalibration;
+        GameInfo.InputCalibration = 0;
         gameObject.GetComponent<TestingCalibration>().enabled = true;
         // onCalibrationCalculated ??= new UnityEvent<float>();
     }
@@ -191,13 +191,13 @@ public class TestingCalibration : MonoBehaviour
 
     public void SaveCalibration()
     {
-        GameInfo.Calibration = calibration;
+        GameInfo.InputCalibration = calibration;
         PlayerPrefsManager.SetPref("InputOffset",calibration);
     }
 
     public void SaveOldCalibration()
     {
-        GameInfo.Calibration = gameCalibration;
+        GameInfo.InputCalibration = gameCalibration;
         PlayerPrefsManager.SetPref("InputOffset",gameCalibration);
     }
 }

@@ -51,14 +51,14 @@ public class MainMenuManager : MonoBehaviour
     public void CalibrationPlus1()
     { 
         // Debug.Log("CalibrationPlus1");
-        GameInfo.Calibration += 0.001f;
-        if (GameInfo.Calibration < -0.05f)
+        GameInfo.InputCalibration += 0.001f;
+        if (GameInfo.InputCalibration < -0.05f)
         {
-            GameInfo.Calibration = -0.05f;
+            GameInfo.InputCalibration = -0.05f;
         }
-        else if (GameInfo.Calibration > 0.2f)
+        else if (GameInfo.InputCalibration > 0.2f)
         {
-            GameInfo.Calibration = 0.2f;
+            GameInfo.InputCalibration = 0.2f;
         }
         SetOffsetText();
     }
@@ -66,22 +66,22 @@ public class MainMenuManager : MonoBehaviour
     public void CalibrationMinus1()
     { 
         // Debug.Log("CalibrationPlus1");
-        GameInfo.Calibration -= 0.001f;
-        if (GameInfo.Calibration < -0.05f)
+        GameInfo.InputCalibration -= 0.001f;
+        if (GameInfo.InputCalibration < -0.05f)
         {
-            GameInfo.Calibration = -0.05f;
+            GameInfo.InputCalibration = -0.05f;
         }
-        else if (GameInfo.Calibration > 0.2f)
+        else if (GameInfo.InputCalibration > 0.2f)
         {
-            GameInfo.Calibration = 0.2f;
+            GameInfo.InputCalibration = 0.2f;
         }
         SetOffsetText();
     }
     
     public void SetOffsetText()
     { 
-        PlayerPrefsManager.SetPref("InputOffset",GameInfo.Calibration);
-        var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
+        PlayerPrefsManager.SetPref("InputOffset",GameInfo.InputCalibration);
+        var text = Mathf.RoundToInt(GameInfo.InputCalibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;
     }
     
@@ -115,15 +115,15 @@ public class MainMenuManager : MonoBehaviour
 
     private void SetupCalibrationText()
     {
-        if (GameInfo.Calibration < -0.05f)
+        if (GameInfo.InputCalibration < -0.05f)
         {
-            GameInfo.Calibration = -0.05f;
+            GameInfo.InputCalibration = -0.05f;
         }
-        else if (GameInfo.Calibration > 0.2f)
+        else if (GameInfo.InputCalibration > 0.2f)
         {
-            GameInfo.Calibration = 0.2f;
+            GameInfo.InputCalibration = 0.2f;
         }
-        var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
+        var text = Mathf.RoundToInt(GameInfo.InputCalibration*1000).ToString() + " ms";
         offsetTextTMP.text = text;
     }
     
