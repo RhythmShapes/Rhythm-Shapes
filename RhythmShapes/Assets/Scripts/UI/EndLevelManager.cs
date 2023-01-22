@@ -54,43 +54,43 @@ public class EndLevelManager : MonoBehaviour
     
     public void SetRankTitleText(string text)
     {
-        rankTitleTMP.text = "RANK : "+text;
+        rankTitleTMP.text = "Rank : "+text;
     }
     
     public void SetScoreTitleText()
     {
         var text = ScoreManager.Instance.Score.ToString();
-        scoreTitleTMP.text = "SCORE : "+text;
+        scoreTitleTMP.text = "Score : "+text;
     }
     
     public void SetPerfectCounterText()
     {
         var text = ScoreManager.Instance.PerfectCounter.ToString();
-        perfectCounterTMP.text = text + " PERFECT";
+        perfectCounterTMP.text = text + " Perfect";
     }
     
     public void SetGoodCounterText()
     {
         var text = ScoreManager.Instance.GoodCounter.ToString();
-        goodCounterTMP.text = text + " GOOD";
+        goodCounterTMP.text = text + " Good";
     }
     
     public void SetOkCounterText()
     {
         var text = ScoreManager.Instance.OkCounter.ToString();
-        okCounterTMP.text = text + " OK";
+        okCounterTMP.text = text + " Ok";
     }
     
     public void SetBadCounterText()
     {
         var text = ScoreManager.Instance.BadCounter.ToString();
-        badCounterTMP.text = text + " BAD";
+        badCounterTMP.text = text + " Bad";
     }
     
     public void SetMissCounterText()
     {
         var text = ScoreManager.Instance.MissCounter.ToString();
-        missCounterTMP.text = text + " MISS";
+        missCounterTMP.text = text + " Miss";
     }
     
     public void SetMusicImage(Texture2D texture)
