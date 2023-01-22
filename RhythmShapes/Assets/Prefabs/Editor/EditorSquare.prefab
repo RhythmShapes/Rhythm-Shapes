@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3522421644435802017}
   - component: {fileID: 2085762064529867509}
   - component: {fileID: 6860308626246234449}
+  - component: {fileID: -4658964355185264179}
+  - component: {fileID: 1533351657807565846}
   - component: {fileID: 3592981106973024385}
   m_Layer: 5
   m_Name: EditorSquare
@@ -94,6 +96,30 @@ MonoBehaviour:
   background: {fileID: 6116460996281141919}
   outline: {fileID: 2085762064529867509}
   doubleClickDelay: 0.3
+--- !u!114 &-4658964355185264179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795311679411260228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c97c347d7f4c638fead52ccee4a9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &1533351657807565846
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795311679411260228}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!95 &3592981106973024385
 Animator:
   serializedVersion: 4

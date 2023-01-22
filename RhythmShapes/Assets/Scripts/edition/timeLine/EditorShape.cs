@@ -29,10 +29,11 @@ namespace edition.timeLine
             _animator = GetComponent<Animator>();
         }
 
-        public void Init(ShapeDescription description, float posX, Color color, UnityAction onClick)
+        public void Init(ShapeDescription description, float posX, Color color, UnityAction onClick, UnityAction onDragStart)
         {
             Description = description;
             _onClickCallback = onClick;
+            GetComponent<DraggableShape>().SetDragBeginCallback(onDragStart);
             UpdateColor(color);
             UpdatePosX(posX);
         }
@@ -47,6 +48,11 @@ namespace edition.timeLine
         {
             _showOutline = show;
             UpdateColor(background.color);
+        }
+
+        public void ForceInvokeClickCallback()
+        {
+            _onClickCallback.Invoke();
         }
 
         public void SetBefore(bool before)

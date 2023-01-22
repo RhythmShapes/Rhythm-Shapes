@@ -14,6 +14,7 @@ namespace edition.timeLine
 {
     public class ShapeTimeLine : MonoBehaviour
     {
+        [SerializeField] private Canvas canvas;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private GameObject squareShapePrefab;
         [SerializeField] private GameObject circleShapePrefab;
@@ -33,6 +34,8 @@ namespace edition.timeLine
         [SerializeField] private UnityEvent onShapeDeselected;
         [SerializeField] private UnityEvent<ShapeDescription, bool> onShapeChanged;
 
+        public static float CanvasScaleFactor => _instance.canvas.scaleFactor;
+        
         private readonly List<EditorShape> _shapes = new();
         private float _posXCorrection = 0f;
 
@@ -147,6 +150,13 @@ namespace edition.timeLine
                 
                 EditorModel.Shape = editorShape;
                 onShapeSelected.Invoke();
+            }, () =>
+            {
+                if(TestManager.IsTestRunning)
+                    return;
+                
+                EditorModel.Shape = editorShape;
+                onShapeSelected.Invoke();
             });
 
             _shapes.Add(editorShape);
@@ -253,6 +263,12 @@ namespace edition.timeLine
             UpdateMultipleShapes();
             ExcludeButSelected();
             onShapeChanged.Invoke(EditorModel.Shape.Description, true);
+        }
+
+        public void UpdateSelectedPressTimeAndTarget(float pressTime, Target target)
+        {
+            UpdateSelectedTarget(target);
+            UpdateSelectedPressTime(pressTime);
         }
 
         public static void ForceSelectShape(ShapeDescription selectShape)
