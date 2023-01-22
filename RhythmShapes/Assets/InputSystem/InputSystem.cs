@@ -842,6 +842,94 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Editor"",
+            ""id"": ""44e12559-8f1b-4571-9ee9-00137b5b5b0c"",
+            ""actions"": [
+                {
+                    ""name"": ""Control"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf64c920-54a0-416f-beee-3d3dba34ad1e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Delete"",
+                    ""type"": ""Button"",
+                    ""id"": ""9484feca-6315-40a1-b06f-bb5140009606"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""KeyS"",
+                    ""type"": ""Button"",
+                    ""id"": ""8959f8d4-1fe1-4105-ba45-bcb72e714603"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""KeyQ"",
+                    ""type"": ""Button"",
+                    ""id"": ""d35e8fc5-bb6b-49c2-b05a-03762b28051a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8dc57adc-ed4a-400a-b0ef-45b7974fed49"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Control"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c023f771-c9e5-4d6a-b96b-18c3cc9067fe"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Delete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8f7e122-ddda-4358-ac3a-7324ecaf69b0"",
+                    ""path"": ""<Keyboard>/#(S)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eac796a4-e496-4b09-addf-fb29ba974491"",
+                    ""path"": ""<Keyboard>/#(Q)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyQ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -883,6 +971,12 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_UnPause = m_UI.FindAction("UnPause", throwIfNotFound: true);
+        // Editor
+        m_Editor = asset.FindActionMap("Editor", throwIfNotFound: true);
+        m_Editor_Control = m_Editor.FindAction("Control", throwIfNotFound: true);
+        m_Editor_Delete = m_Editor.FindAction("Delete", throwIfNotFound: true);
+        m_Editor_KeyS = m_Editor.FindAction("KeyS", throwIfNotFound: true);
+        m_Editor_KeyQ = m_Editor.FindAction("KeyQ", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1116,6 +1210,63 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Editor
+    private readonly InputActionMap m_Editor;
+    private IEditorActions m_EditorActionsCallbackInterface;
+    private readonly InputAction m_Editor_Control;
+    private readonly InputAction m_Editor_Delete;
+    private readonly InputAction m_Editor_KeyS;
+    private readonly InputAction m_Editor_KeyQ;
+    public struct EditorActions
+    {
+        private @InputSystem m_Wrapper;
+        public EditorActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Control => m_Wrapper.m_Editor_Control;
+        public InputAction @Delete => m_Wrapper.m_Editor_Delete;
+        public InputAction @KeyS => m_Wrapper.m_Editor_KeyS;
+        public InputAction @KeyQ => m_Wrapper.m_Editor_KeyQ;
+        public InputActionMap Get() { return m_Wrapper.m_Editor; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(EditorActions set) { return set.Get(); }
+        public void SetCallbacks(IEditorActions instance)
+        {
+            if (m_Wrapper.m_EditorActionsCallbackInterface != null)
+            {
+                @Control.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnControl;
+                @Control.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnControl;
+                @Control.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnControl;
+                @Delete.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnDelete;
+                @Delete.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnDelete;
+                @Delete.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnDelete;
+                @KeyS.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnKeyS;
+                @KeyS.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnKeyS;
+                @KeyS.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnKeyS;
+                @KeyQ.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnKeyQ;
+                @KeyQ.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnKeyQ;
+                @KeyQ.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnKeyQ;
+            }
+            m_Wrapper.m_EditorActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Control.started += instance.OnControl;
+                @Control.performed += instance.OnControl;
+                @Control.canceled += instance.OnControl;
+                @Delete.started += instance.OnDelete;
+                @Delete.performed += instance.OnDelete;
+                @Delete.canceled += instance.OnDelete;
+                @KeyS.started += instance.OnKeyS;
+                @KeyS.performed += instance.OnKeyS;
+                @KeyS.canceled += instance.OnKeyS;
+                @KeyQ.started += instance.OnKeyQ;
+                @KeyQ.performed += instance.OnKeyQ;
+                @KeyQ.canceled += instance.OnKeyQ;
+            }
+        }
+    }
+    public EditorActions @Editor => new EditorActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1146,5 +1297,12 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnUnPause(InputAction.CallbackContext context);
+    }
+    public interface IEditorActions
+    {
+        void OnControl(InputAction.CallbackContext context);
+        void OnDelete(InputAction.CallbackContext context);
+        void OnKeyS(InputAction.CallbackContext context);
+        void OnKeyQ(InputAction.CallbackContext context);
     }
 }

@@ -820,6 +820,94 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Editor",
+            "id": "44e12559-8f1b-4571-9ee9-00137b5b5b0c",
+            "actions": [
+                {
+                    "name": "Control",
+                    "type": "Button",
+                    "id": "bf64c920-54a0-416f-beee-3d3dba34ad1e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Delete",
+                    "type": "Button",
+                    "id": "9484feca-6315-40a1-b06f-bb5140009606",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "KeyS",
+                    "type": "Button",
+                    "id": "8959f8d4-1fe1-4105-ba45-bcb72e714603",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "KeyQ",
+                    "type": "Button",
+                    "id": "d35e8fc5-bb6b-49c2-b05a-03762b28051a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8dc57adc-ed4a-400a-b0ef-45b7974fed49",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Control",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c023f771-c9e5-4d6a-b96b-18c3cc9067fe",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8f7e122-ddda-4358-ac3a-7324ecaf69b0",
+                    "path": "<Keyboard>/#(S)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eac796a4-e496-4b09-addf-fb29ba974491",
+                    "path": "<Keyboard>/#(Q)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyQ",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
