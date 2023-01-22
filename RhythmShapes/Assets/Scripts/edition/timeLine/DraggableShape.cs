@@ -18,21 +18,21 @@ namespace edition.timeLine
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public void SetDragBeginCallback(UnityAction callback)
+        public void SetDragCallbacks(UnityAction onDragBegin)
         {
-            _onDragBeginCallback = callback;
+            _onDragBeginCallback = onDragBegin;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             _canvasGroup.blocksRaycasts = false;
-            _onDragBeginCallback.Invoke();
             _originPosition = _transform.anchoredPosition;
+            _onDragBeginCallback.Invoke();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if(!TestManager.IsTestRunning)
+            if (!TestManager.IsTestRunning)
                 _transform.anchoredPosition += eventData.delta / ShapeTimeLine.CanvasScaleFactor;
         }
 

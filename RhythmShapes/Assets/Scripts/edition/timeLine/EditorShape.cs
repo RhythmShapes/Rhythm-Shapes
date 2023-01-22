@@ -33,7 +33,7 @@ namespace edition.timeLine
         {
             Description = description;
             _onClickCallback = onClick;
-            GetComponent<DraggableShape>().SetDragBeginCallback(onDragStart);
+            GetComponent<DraggableShape>().SetDragCallbacks(onDragStart);
             UpdateColor(color);
             UpdatePosX(posX);
         }
