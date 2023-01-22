@@ -9,23 +9,27 @@ namespace shape
         [SerializeField] private float maxScale;
         
         private static float _maxScale = 1f;
-        private static float _signalLevel;
+        private static float _signalLevel = 1f;
+        private static AudioSource _source;
+
+        private const int SampleLength = 2048;
         
-        private float[] _signal = new float[2048];
+        private float[] _signal = new float[SampleLength];
         private float _oldSignalLevel = 1f;
         private float _maxSignalLevel = 1f;
 
         private void Start()
         {
             _maxScale = maxScale;
+            _source = source;
         }
 
         public static float GetScale(float minScale)
         {
-            return Mathf.Clamp(_signalLevel, minScale, _maxScale);
+            return !_source.isPlaying ? minScale : Mathf.Clamp(_signalLevel, minScale, _maxScale);
         }
         
-        void Update()
+        private void Update()
         {
             source.GetSpectrumData(_signal,0, FFTWindow.Rectangular);
             _signal = AudioTools.Normalize(_signal);
