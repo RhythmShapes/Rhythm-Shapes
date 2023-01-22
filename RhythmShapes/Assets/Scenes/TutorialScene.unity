@@ -60952,6 +60952,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+--- !u!1 &936210141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8413089935043515815, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+  m_PrefabInstance: {fileID: 936210140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &955412181
 GameObject:
   m_ObjectHideFlags: 0
@@ -120644,7 +120649,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8413089935043515814, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
   m_PrefabInstance: {fileID: 936210140}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 936210141}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e15e1d7a8852c44f81ed3df42ab9dda, type: 3}
@@ -120655,7 +120660,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8413089935043515808, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
   m_PrefabInstance: {fileID: 936210140}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 936210141}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd4dc2a34250b6349b65456d1cb7063b, type: 3}
@@ -120671,12 +120676,37 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8413089935043515811, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
   m_PrefabInstance: {fileID: 936210140}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 936210141}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02e4ad61c36336849b9597cceb73b636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8413089934317173632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936210141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa771edea0ea0064cba4f3ee6cd1ff9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regionName1: {fileID: 934565197}
+  regionName2: {fileID: 729023917}
+  regionName3: {fileID: 1843772893}
+  regionName4: {fileID: 1240516175}
+  regionName5: {fileID: 961851655}
+  tutorialTextCanvas: {fileID: 955412181}
+  timing1: 3.5
+  timing2: 8
+  timing3: 12
+  timing4: 20
+  timing5: 20
+  timingEnd: 36
+  fadeTime: 0.5
 --- !u!1 &8413089934510738352 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8413089934849615212, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
