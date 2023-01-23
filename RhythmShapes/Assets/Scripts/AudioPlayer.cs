@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-[Obsolete]
+//[Obsolete]
 public class AudioPlayer : MonoBehaviour
 {
     [SerializeField] [Min(0)] private float timeBefore;

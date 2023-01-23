@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using utils;
 
 public class MainMenuManager : MonoBehaviour
@@ -7,9 +8,12 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject optionMenuCanvas;
-    [SerializeField] private GameObject calibrationMenuCanvas;
     [SerializeField] private GameObject musicSelectionMenuCanvas;
-    [SerializeField] private TextMeshProUGUI offsetTextTMP;
+    [SerializeField] private GameObject calibrationMenuCanvas;
+    [SerializeField] private TextMeshProUGUI inputOffsetTextTMP;
+    [SerializeField] private TextMeshProUGUI audioOffsetTextTMP;
+    [SerializeField] private GameObject difficultyCanvas;
+
     public void StartGame()
     { 
         // Debug.Log("StartGame");
@@ -45,17 +49,23 @@ public class MainMenuManager : MonoBehaviour
         SceneTransition.Instance.LoadScene(3);
     }
     
+    public void StartAudioCalibration()
+    { 
+        // Debug.Log("StartCalibration");
+        SceneTransition.Instance.LoadScene(4);
+    }
+    
     public void CalibrationPlus1()
     { 
         // Debug.Log("CalibrationPlus1");
-        GameInfo.Calibration += 0.001f;
-        if (GameInfo.Calibration < -0.05f)
+        GameInfo.InputCalibration += 0.001f;
+        if (GameInfo.InputCalibration < -0.05f)
         {
-            GameInfo.Calibration = -0.05f;
+            GameInfo.InputCalibration = -0.05f;
         }
-        else if (GameInfo.Calibration > 0.2f)
+        else if (GameInfo.InputCalibration > 0.2f)
         {
-            GameInfo.Calibration = 0.2f;
+            GameInfo.InputCalibration = 0.2f;
         }
         SetOffsetText();
     }
@@ -63,23 +73,60 @@ public class MainMenuManager : MonoBehaviour
     public void CalibrationMinus1()
     { 
         // Debug.Log("CalibrationPlus1");
-        GameInfo.Calibration -= 0.001f;
-        if (GameInfo.Calibration < -0.05f)
+        GameInfo.InputCalibration -= 0.001f;
+        if (GameInfo.InputCalibration < -0.05f)
         {
-            GameInfo.Calibration = -0.05f;
+            GameInfo.InputCalibration = -0.05f;
         }
-        else if (GameInfo.Calibration > 0.2f)
+        else if (GameInfo.InputCalibration > 0.2f)
         {
-            GameInfo.Calibration = 0.2f;
+            GameInfo.InputCalibration = 0.2f;
         }
         SetOffsetText();
     }
-    
-    public void SetOffsetText()
+
+    private void SetOffsetText()
     { 
-        PlayerPrefsManager.SetPref("InputOffset",GameInfo.Calibration);
-        var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
-        offsetTextTMP.text = text;
+        PlayerPrefsManager.SetPref("InputOffset",GameInfo.InputCalibration);
+        var text = Mathf.RoundToInt(GameInfo.InputCalibration*1000).ToString() + " ms";
+        inputOffsetTextTMP.text = text;
+    }
+    
+    public void CalibrationAudioPlus1()
+    { 
+        // Debug.Log("CalibrationPlus1");
+        GameInfo.AudioCalibration += 0.001f;
+        if (GameInfo.AudioCalibration < -0.05f)
+        {
+            GameInfo.AudioCalibration = -0.05f;
+        }
+        else if (GameInfo.AudioCalibration > 0.2f)
+        {
+            GameInfo.AudioCalibration = 0.2f;
+        }
+        SetAudioOffsetText();
+    }
+    
+    public void CalibrationAudioMinus1()
+    { 
+        // Debug.Log("CalibrationPlus1");
+        GameInfo.AudioCalibration -= 0.001f;
+        if (GameInfo.AudioCalibration < -0.05f)
+        {
+            GameInfo.AudioCalibration = -0.05f;
+        }
+        else if (GameInfo.AudioCalibration > 0.2f)
+        {
+            GameInfo.AudioCalibration = 0.2f;
+        }
+        SetAudioOffsetText();
+    }
+
+    private void SetAudioOffsetText()
+    { 
+        PlayerPrefsManager.SetPref("AudioOffset",GameInfo.AudioCalibration);
+        var text = Mathf.RoundToInt(GameInfo.AudioCalibration*1000).ToString() + " ms";
+        audioOffsetTextTMP.text = text;
     }
     
     public void ShowCalibration()
@@ -88,6 +135,7 @@ public class MainMenuManager : MonoBehaviour
         optionMenuCanvas.SetActive(false);
         calibrationMenuCanvas.SetActive(true);
         SetupCalibrationText();
+        SetupAudioCalibrationText();
     }
     
     public void HideCalibration()
@@ -112,15 +160,43 @@ public class MainMenuManager : MonoBehaviour
 
     private void SetupCalibrationText()
     {
-        if (GameInfo.Calibration < -0.05f)
+        if (GameInfo.InputCalibration < -0.05f)
         {
-            GameInfo.Calibration = -0.05f;
+            GameInfo.InputCalibration = -0.05f;
         }
-        else if (GameInfo.Calibration > 0.2f)
+        else if (GameInfo.InputCalibration > 0.2f)
         {
-            GameInfo.Calibration = 0.2f;
+            GameInfo.InputCalibration = 0.2f;
         }
-        var text = Mathf.RoundToInt(GameInfo.Calibration*1000).ToString() + " ms";
-        offsetTextTMP.text = text;
+        var text = Mathf.RoundToInt(GameInfo.InputCalibration*1000).ToString() + " ms";
+        inputOffsetTextTMP.text = text;
+    }
+    
+    private void SetupAudioCalibrationText()
+    {
+        if (GameInfo.AudioCalibration < -0.05f)
+        {
+            GameInfo.AudioCalibration = -0.05f;
+        }
+        else if (GameInfo.AudioCalibration > 0.2f)
+        {
+            GameInfo.AudioCalibration = 0.2f;
+        }
+        var text = Mathf.RoundToInt(GameInfo.AudioCalibration*1000).ToString() + " ms";
+        audioOffsetTextTMP.text = text;
+    }
+    
+    public void ShowPresetPanel()
+    {
+        // Debug.Log("ShowPresetPanel");
+        musicSelectionMenuCanvas.SetActive(false);
+        difficultyCanvas.SetActive(true);
+    }
+    
+    public void HidePresetPanel()
+    {
+        // Debug.Log("HidePresetPanel");
+        difficultyCanvas.SetActive(false);
+        musicSelectionMenuCanvas.SetActive(true);
     }
 }
