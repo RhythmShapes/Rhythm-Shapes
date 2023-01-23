@@ -1,4 +1,5 @@
 ﻿using edition.messages;
+using edition.test;
 using UnityEngine;
 using UnityEngine.Events;
 using utils;
@@ -39,6 +40,13 @@ namespace edition.panels
 
         public void OnSave()
         {
+            // Is testing
+            if (TestManager.IsTestRunning)
+            {
+                NotificationsManager.ShowError("Cannot save when test is running.");
+                return;
+            }
+            
             string musicPath = EditorModel.MusicPath;
             string levelName = EditorModel.LevelName;
             

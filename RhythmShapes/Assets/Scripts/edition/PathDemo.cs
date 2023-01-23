@@ -56,7 +56,7 @@ namespace edition
                 OnReset();
 
                 ShapeDescription shapeDescription = EditorModel.Shape.Description;
-                ShapeDescription copy = new ShapeDescription()
+                ShapeDescription copy = new ShapeDescription
                 {
                     goRight = shapeDescription.goRight,
                     target = shapeDescription.target,

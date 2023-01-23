@@ -1,45 +1,20 @@
-using AudioAnalysis;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ReactToMusic : MonoBehaviour
+namespace shape
 {
-    public AudioSource source;
-    private float[] signal = new float[2048];
-    private float signalLevel;
-    private float oldSignalLevel;
-    private float maxSignalLevel = 1;
-
-    private void Start()
+    public class ReactToMusic : MonoBehaviour
     {
-        source = GameObject.Find("GameplayManager").GetComponent<AudioSource>();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        source.GetSpectrumData(signal,0, FFTWindow.Rectangular);
-        signal = AudioTools.Normalize(signal);
-        signalLevel = 0;
-        for(int i = 0; i < signal.Length; i++)
-        {
-            signalLevel += signal[i];
-        }
+        private float _originalScale = 1f;
 
-        if(signalLevel < oldSignalLevel)
+        private void Start()
         {
-            signalLevel = 0.9f*oldSignalLevel;
+            _originalScale = transform.localScale.x;
         }
-
-        if (signalLevel > maxSignalLevel)
+        
+        void Update()
         {
-            maxSignalLevel = signalLevel;
+            float scale = ReactToMusicManager.GetScale(_originalScale, .8f);
+            transform.localScale = new Vector3(scale, scale, scale);
         }
-        signalLevel = signalLevel / maxSignalLevel + 0.8f;
-        if (!float.IsNaN(signalLevel))
-        {
-            transform.localScale = new Vector3(signalLevel, signalLevel, signalLevel);
-        }
-        oldSignalLevel = signalLevel;
     }
 }

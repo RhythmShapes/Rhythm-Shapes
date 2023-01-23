@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using edition.messages;
 using edition.timeLine;
 using models;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using utils;
@@ -14,6 +16,7 @@ namespace edition.test
     {
         [SerializeField] private TestLine testLine;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioMixer audioMixer;
         [SerializeField] private RectTransform widthRef;
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private Slider volumeSlider;
@@ -28,6 +31,7 @@ namespace edition.test
         private void Start()
         {
             ResetCursor();
+            audioSource.volume = 1f;
             ChangeVolume(PlayerPrefsManager.GetPref("volume", 1f));
             onTestStart ??= new UnityEvent<LevelDescription>();
             onTestStop ??= new UnityEvent();
@@ -84,7 +88,6 @@ namespace edition.test
                 Time.timeScale = 1f;
                 GameModel.Instance.Reset();
                 onTestStop.Invoke();
-                //testLine.gameObject.SetActive(false);
             }
         }
         
@@ -96,7 +99,8 @@ namespace edition.test
         public void ChangeVolume(float volume)
         {
             volumeSlider.value = volume;
-            audioSource.volume = volume;
+            //audioSource.volume = volume;
+            Utils.SetAudioMixerVolume(audioMixer, volume);
         }
 
         private void Update()
@@ -107,6 +111,7 @@ namespace edition.test
                 {
                     _time = audioSource.clip.length;
                     IsTestRunning = false;
+                    Invoke("ResetModel", .1f);
                 }
                 
                 float posX = ShapeTimeLine.GetPosX(audioSource.time);
@@ -115,6 +120,11 @@ namespace edition.test
                 if(audioSource.isPlaying)
                     UpdateScroll(posX);
             }
+        }
+
+        private void ResetModel()
+        {
+            GameModel.Instance.Reset();
         }
 
         private void UpdateScroll(float posX)

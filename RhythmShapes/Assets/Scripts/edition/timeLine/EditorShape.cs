@@ -1,3 +1,4 @@
+using System;
 using edition.test;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,37 +12,61 @@ namespace edition.timeLine
     [RequireComponent(typeof(Image))]
     public class EditorShape : TestLine, IPointerClickHandler
     {
+        [SerializeField] private Image background;
+        [SerializeField] private Image outline;
         [SerializeField] private float doubleClickDelay = .5f;
         public ShapeDescription Description { get; private set; }
 
-        private Image _image;
+        private Animator _animator;
         private UnityAction _onClickCallback;
         private short _clickCount = 0;
         private float _clickTime = 0;
-        
-        public void Init(ShapeDescription description, float posX, Color color, UnityAction onClick)
+        private bool _showOutline;
+        private static readonly int IsSelected = Animator.StringToHash("IsSelected");
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        public void Init(ShapeDescription description, float posX, Color color, UnityAction onClick, UnityAction onDragStart)
         {
             Description = description;
             _onClickCallback = onClick;
+            GetComponent<DraggableShape>().SetDragCallbacks(onDragStart);
             UpdateColor(color);
             UpdatePosX(posX);
         }
 
         public void UpdateColor(Color color)
         {
-            _image.color = color;
+            background.color = color;
+            outline.color = _showOutline ? Color.white : color;
         }
 
-        public void SetBefore()
+        public void ShowOutline(bool show)
         {
+            _showOutline = show;
+            UpdateColor(background.color);
+        }
+
+        public void ForceInvokeClickCallback()
+        {
+            _onClickCallback.Invoke();
+        }
+
+        public void SetBefore(bool before)
+        {
+            if (!before)
+            {
+                _animator.SetBool(IsSelected, false);
+                return;
+            }
+
             Transform parent = transform.parent;
             transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform);
             transform.SetParent(parent);
-        }
-
-        private void Awake()
-        {
-            _image = GetComponent<Image>();
+            _animator.SetBool(IsSelected, true);
         }
 
         public void OnPointerClick(PointerEventData eventData)
