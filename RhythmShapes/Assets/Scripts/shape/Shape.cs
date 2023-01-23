@@ -57,6 +57,10 @@ namespace shape
             outline.sortingOrder = 1;
         }
 
+        public void ShiftTimeToPress(float amount)
+        {
+            _model.TimeToPress -= amount;
+        }
 
         void Update()
         {

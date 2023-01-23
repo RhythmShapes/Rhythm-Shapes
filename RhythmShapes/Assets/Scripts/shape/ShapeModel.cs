@@ -9,7 +9,7 @@ namespace shape
         public Target Target { get; }
         public Color Color { get; }
         public Vector2[] PathToFollow { get; }
-        public float TimeToPress { get; }
+        public float TimeToPress { get; set; }
         public float TimeToSpawn { get; }
         public float Speed { get; }
 
