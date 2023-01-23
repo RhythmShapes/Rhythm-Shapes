@@ -44,12 +44,12 @@ public class LevelPreparator : MonoBehaviour
                 };
                 float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.type, shapeDescription.timeToPress, speed);
 
-                if (timeToSpawn < 0)
+                if (timeToSpawn - GameInfo.AudioCalibration< 0)
                     continue;
 
                 GameModel.Instance.PushShapeModel(
                     new ShapeModel(shapeDescription.type, shapeDescription.target, color, path,
-                        shapeDescription.timeToPress, timeToSpawn, speed)
+                        shapeDescription.timeToPress + GameInfo.AudioCalibration, timeToSpawn + GameInfo.AudioCalibration, speed)
                 );
             }
         }

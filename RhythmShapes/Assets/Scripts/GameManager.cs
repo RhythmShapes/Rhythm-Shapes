@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
             GameInfo.RequestAnalysis = false;
             levelLoader.LoadLevelFromAnalysis(PresetDifficulty.Instance.musicPath);
         }
-        else if (useDevVariables && SceneManager.GetActiveScene().buildIndex==3)
+        else if (useDevVariables && (SceneManager.GetActiveScene().buildIndex==3||SceneManager.GetActiveScene().buildIndex==4))
             levelLoader.LoadLevelFromRessourcesFolder(levelName);
         else
             levelLoader.LoadLevelFromFile(levelName);

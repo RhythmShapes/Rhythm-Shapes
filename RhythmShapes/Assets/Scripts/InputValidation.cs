@@ -36,7 +36,7 @@ public class InputValidation : MonoBehaviour
             if (input.ShouldBePressed(target))
             {
                 // Debug.Log("InputValidation -> OnInputPerformed : " + input.TimeToPress);
-                if (SceneManager.GetActiveScene().name == "TestingCalibration")
+                if (SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
                 {
                     TestingCalibration.Instance.EnqueueShapeTheoricalPressTimeQueue(input.TimeToPress);
                 }

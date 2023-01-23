@@ -60519,6 +60519,26 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3223292944495579835, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: okClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 843f97bc30896364797d5c487731c9bf, type: 3}
+    - target: {fileID: 3223292944495579835, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: badClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8731624c22fb5e145b4921ec4d8db62a, type: 3}
+    - target: {fileID: 3223292944495579835, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: goodClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 83c5759fb25462a4da00def174b9f082, type: 3}
+    - target: {fileID: 3223292944495579835, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: missClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a1b234647f8216240868b263f21895e4, type: 3}
+    - target: {fileID: 3223292944495579835, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: perfectClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 68b2d6253343eb84c8c78548f7488ec6, type: 3}
     - target: {fileID: 4082366507859176292, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: Priority
       value: 129

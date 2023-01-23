@@ -12,7 +12,8 @@
         {
             effectsVolume.value = GetPref("EffectsVolume", 1f);
             musicVolume.value = GetPref("MusicVolume", 1f);
-            GameInfo.InputCalibration = GetPref("InputOffset",0.05f);
+            GameInfo.InputCalibration = GetPref("InputOffset",0f);
+            GameInfo.AudioCalibration = GetPref("AudioOffset", 0.05f);
             if(musicVolume != null)
                 effectsVolume.onValueChanged.Invoke(effectsVolume.value);
             if(musicVolume != null)

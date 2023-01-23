@@ -22,6 +22,20 @@ public class EndCalibration : MonoBehaviour
         endCalibrationCanvas.SetActive(false);
         GameModel.Instance.RestartGame();
     }
+    
+    public void GoToAudioScene()
+    {
+        Debug.Log("GoToAudioScene");
+        endCalibrationCanvas.SetActive(false);
+        SceneTransition.Instance.LoadScene(4);
+    }
+    
+    public void GoToInputScene()
+    {
+        Debug.Log("GoToInputScene");
+        endCalibrationCanvas.SetActive(false);
+        SceneTransition.Instance.LoadScene(3);
+    }
 
     public void BackToMenu()
     {
