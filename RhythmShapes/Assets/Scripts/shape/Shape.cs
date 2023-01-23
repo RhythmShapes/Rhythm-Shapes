@@ -51,6 +51,11 @@ namespace shape
         {
             _secondarySpriteRenderer.gameObject.SetActive(true);
         }
+
+        public void ShiftTimeToPress(float amount)
+        {
+            _model.TimeToPress -= amount;
+        }
         
         private void Awake()
         {
