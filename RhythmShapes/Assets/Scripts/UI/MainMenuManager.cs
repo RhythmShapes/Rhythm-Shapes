@@ -58,7 +58,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartTutorial()
     {
         // Debug.Log("StartTutorial");
-        SceneTransition.Instance.LoadScene(4);
+        SceneTransition.Instance.LoadScene(5);
     }
     
     public void CalibrationPlus1()

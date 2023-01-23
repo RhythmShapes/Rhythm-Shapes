@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
             GameInfo.RequestAnalysis = false;
             levelLoader.LoadLevelFromAnalysis(PresetDifficulty.Instance.musicPath);
         }
-        else if (useDevVariables && (index == 3 || index == 4))
+        else if (useDevVariables && index is 3 or 4 or 5)
             levelLoader.LoadLevelFromRessourcesFolder(levelName);
         else
             levelLoader.LoadLevelFromFile(levelName);
