@@ -32,7 +32,7 @@ namespace edition.test
         {
             ResetCursor();
             audioSource.volume = 1f;
-            ChangeVolume(PlayerPrefsManager.GetPref("volume", 1f));
+            ChangeVolume(PlayerPrefsManager.GetPref("MusicVolume", 1f));
             onTestStart ??= new UnityEvent<LevelDescription>();
             onTestStop ??= new UnityEvent();
         }

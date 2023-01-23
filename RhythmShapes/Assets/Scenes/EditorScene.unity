@@ -34111,7 +34111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 485366746}
-  useDevVariables: 1
+  useDevVariables: 0
   devLevelName: Hello
   isNewLevel: 0
 --- !u!4 &485366749
