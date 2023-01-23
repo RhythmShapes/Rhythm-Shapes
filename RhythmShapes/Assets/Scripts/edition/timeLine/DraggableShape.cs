@@ -11,6 +11,7 @@ namespace edition.timeLine
         private CanvasGroup _canvasGroup;
         private UnityAction _onDragBeginCallback;
         private Vector3 _originPosition;
+        private bool _isDragging;
         
         private void Awake()
         {
@@ -27,12 +28,13 @@ namespace edition.timeLine
         {
             _canvasGroup.blocksRaycasts = false;
             _originPosition = _transform.anchoredPosition;
+            _isDragging = !TestManager.IsTestRunning;
             _onDragBeginCallback.Invoke();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (!TestManager.IsTestRunning)
+            if (!TestManager.IsTestRunning && _isDragging)
                 _transform.anchoredPosition += eventData.delta / ShapeTimeLine.CanvasScaleFactor;
         }
 
@@ -40,6 +42,7 @@ namespace edition.timeLine
         {
             _canvasGroup.blocksRaycasts = true;
             _transform.anchoredPosition = _originPosition;
+            _isDragging = false;
         }
     }
 }

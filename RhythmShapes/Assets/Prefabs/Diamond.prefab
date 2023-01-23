@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5476925593244918780}
   - component: {fileID: 5476925593244918755}
   - component: {fileID: 5476925593244918781}
-  - component: {fileID: 3481452934017385021}
   m_Layer: 0
   m_Name: Diamond
   m_TagString: Untagged
@@ -185,17 +184,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 7293840870531065987}
   outline: {fileID: 5476925593244918755}
---- !u!114 &3481452934017385021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5476925593244918754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9931daf44a6c8c746b1f9d3018747f85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  peakScale: 10
-  maxScale: 1.5

@@ -1,15 +1,21 @@
 ﻿using AudioAnalysis;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace shape
 {
     public class ReactToMusicManager : MonoBehaviour
     {
         [SerializeField] private AudioSource source;
-        [SerializeField] private float maxScale;
+        [SerializeField] private float minScale = 1f;
+        [SerializeField] private float maxScale = 2f;
+        [SerializeField] private float peakScale = .1f;
+        [SerializeField] private float factor = 1f;
+        [SerializeField] [Range(1, SampleLength)] private int keptFrequency;
+        [SerializeField] private float reduceRate = 1f;
+        [SerializeField] private float show = 0f;
         
         private static float _maxScale = 1f;
-        private static float _signalLevel = 1f;
         private static AudioSource _source;
 
         private const int SampleLength = 2048;
@@ -18,38 +24,47 @@ namespace shape
         private float _oldSignalLevel = 1f;
         private float _maxSignalLevel = 1f;
 
+        public static float SignalLevel { get; private set; } = 1f;
+
+        public static float GetScale(float minScale, float maxScale)
+        {
+            return Mathf.Clamp(SignalLevel * (maxScale - minScale) + minScale, minScale, maxScale);
+        }
+
         private void Start()
         {
             _maxScale = maxScale;
             _source = source;
-        }
-
-        public static float GetScale(float minScale)
-        {
-            return !_source.isPlaying ? minScale : Mathf.Clamp(_signalLevel, minScale, _maxScale);
         }
         
         private void Update()
         {
             source.GetSpectrumData(_signal,0, FFTWindow.Rectangular);
             _signal = AudioTools.Normalize(_signal);
-            _signalLevel = 0f;
+            SignalLevel = 0f;
             
-            foreach (var level in _signal)
+            for (int i = 0; i < keptFrequency; i++)
             {
-                if(float.IsNaN(level)) continue;
-                
-                _signalLevel += level;
+                if(float.IsNaN(_signal[i])) continue;
+                SignalLevel += _signal[i];
             }
 
-            if(_signalLevel < _oldSignalLevel)
-                _signalLevel = 0.9f*_oldSignalLevel;
+            /*if(_signalLevel < _oldSignalLevel)
+                _signalLevel = 0.9f * _oldSignalLevel;*/
 
-            if (_signalLevel > _maxSignalLevel)
-                _maxSignalLevel = _signalLevel;
+            if (SignalLevel > _maxSignalLevel)
+                _maxSignalLevel = SignalLevel;
 
-            _signalLevel = _signalLevel / _maxSignalLevel + 0.8f;
-            _oldSignalLevel = _signalLevel;
+            float newSignal = (SignalLevel / _maxSignalLevel + minScale) * factor;
+            SignalLevel = newSignal >= peakScale ? newSignal : minScale;
+
+            //Debug.Log(_signalLevel+"  "+_oldSignalLevel);
+            if (SignalLevel <= _oldSignalLevel && SignalLevel > minScale)
+                /*SignalLevel = 0.9f * _oldSignalLevel;*/SignalLevel -= reduceRate * Time.deltaTime;
+
+            SignalLevel = Mathf.Min(SignalLevel, maxScale);
+            _oldSignalLevel = SignalLevel;
+            show = SignalLevel;
         }
     }
 }

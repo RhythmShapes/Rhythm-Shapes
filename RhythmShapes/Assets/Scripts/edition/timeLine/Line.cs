@@ -57,7 +57,7 @@ namespace edition.timeLine
 
         public void OnDrop(PointerEventData eventData)
         {
-            if(TestManager.IsTestRunning) return;
+            if(TestManager.IsTestRunning || !EditorModel.IsInspectingShape()) return;
             
             float time = PosToTime(eventData, scrollbar, _transform.rect.width);
             onDragDrop.Invoke(time, target);

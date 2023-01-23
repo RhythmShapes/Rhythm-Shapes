@@ -23,6 +23,8 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    public float length => timeBefore + _audioSource.clip.length + timeAfter;
+
     public float audioTime => _audioSource.time;
 
     public bool isPlaying { get; private set; }

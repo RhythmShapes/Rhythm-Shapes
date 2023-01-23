@@ -30,7 +30,7 @@ namespace edition.timeLine
         [SerializeField] private Color bottomColor;
         [SerializeField] private Color excludeColor;
         [SerializeField] private UnityEvent onDisplayDone;
-        [SerializeField] private UnityEvent onShapeSelected;
+        [SerializeField] private UnityEvent<ShapeDescription[]> onShapeSelected;
         [SerializeField] private UnityEvent onShapeDeselected;
         [SerializeField] private UnityEvent<ShapeDescription, bool> onShapeChanged;
 
@@ -51,7 +51,7 @@ namespace edition.timeLine
         {
             _posXCorrection = topLine.position.x;
             onDisplayDone ??= new UnityEvent();
-            onShapeSelected ??= new UnityEvent();
+            onShapeSelected ??= new UnityEvent<ShapeDescription[]>();
             onShapeDeselected ??= new UnityEvent();
             onShapeChanged ??= new UnityEvent<ShapeDescription, bool>();
         }
@@ -148,19 +148,31 @@ namespace edition.timeLine
                     return;
                 }
                 
-                EditorModel.Shape = editorShape;
-                onShapeSelected.Invoke();
+                ShapeSelected(editorShape);
             }, () =>
             {
                 if(TestManager.IsTestRunning)
                     return;
                 
-                EditorModel.Shape = editorShape;
-                onShapeSelected.Invoke();
+                ShapeSelected(editorShape);
             });
 
             _shapes.Add(editorShape);
             return editorShape;
+        }
+
+        private void ShapeSelected(EditorShape selectedShape)
+        {
+            List<ShapeDescription> selected = new List<ShapeDescription> { selectedShape.Description };
+
+            foreach (var shape in _shapes)
+            {
+                if(shape.Description.timeToPress.Equals(selectedShape.Description.timeToPress))
+                    selected.Add(shape.Description);
+            }
+
+            EditorModel.Shape = selectedShape;
+            onShapeSelected.Invoke(selected.ToArray());
         }
 
         private Color GetShapeColor(Target target)
@@ -271,7 +283,7 @@ namespace edition.timeLine
             UpdateSelectedPressTime(pressTime);
         }
 
-        public static void ForceSelectShape(ShapeDescription selectShape)
+        public void ForceSelectShape(ShapeDescription selectShape)
         {
             foreach (var editorShape in _instance._shapes)
             {
@@ -279,8 +291,7 @@ namespace edition.timeLine
                 
                 if (selectShape.IsEqualTo(shape))
                 {
-                    EditorModel.Shape = editorShape;
-                    _instance.onShapeSelected.Invoke();
+                    ShapeSelected(editorShape);
                     return;
                 }
             }
