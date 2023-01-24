@@ -110,8 +110,11 @@ namespace edition.test
                 if (!audioSource.isPlaying && !_isPaused)
                 {
                     _time = audioSource.clip.length;
+                    _isPaused = false;
                     IsTestRunning = false;
                     Invoke("ResetModel", .1f);
+                    onTestStop.Invoke();
+                    return;
                 }
                 
                 float posX = ShapeTimeLine.GetPosX(audioSource.time);

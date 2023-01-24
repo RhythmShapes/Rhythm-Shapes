@@ -48,11 +48,9 @@ namespace edition.timeLine
                 }
 
                 if (_endGraduation == null)
-                {
                     _endGraduation = Instantiate(specialGraduationPrefab, graduationsContent).GetComponent<Graduation>();
-                }
-                else
-                    _endGraduation.Init(ShapeTimeLine.GetPosX(audioLen), ((float) Math.Round(audioLen, 1)).ToString(CultureInfo.InvariantCulture), Color.red);
+                
+                _endGraduation.Init(ShapeTimeLine.GetPosX(audioLen), ((float) Math.Round(audioLen, 1)).ToString(CultureInfo.InvariantCulture), Color.red);
 
                 for (int i = _listI; i < listLen; i++)
                 {

@@ -40,9 +40,10 @@ public class LevelPreparator : MonoBehaviour
 
             foreach (var shapeDescription in level.shapes)
             {
-                shapeDescription.timeToPress = Utils.RoundTime(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
+                shapeDescription.timeToPress = Utils.RoundTime(shapeDescription.timeToPress);
+                float timeToPress = shapeDescription.timeToPress + GameInfo.AudioCalibration;
                 
-                if (shapeDescription.timeToPress < 0f || shapeDescription.timeToPress > _audioSource.clip.length)
+                if (timeToPress < 0f || timeToPress > _audioSource.clip.length)
                     continue;
                 
                 Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target,
@@ -54,6 +55,7 @@ public class LevelPreparator : MonoBehaviour
                     ShapeType.Circle => circleSpeedAdjustment,
                     _ => 1
                 };
+                
                 float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
 
                 if (timeToSpawn < 0f || timeToSpawn > _audioSource.clip.length)
