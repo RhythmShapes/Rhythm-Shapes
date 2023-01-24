@@ -11,20 +11,20 @@ namespace ui
     public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISubmitHandler, ISelectHandler
     {
         private string _levelName;
-        public int NumberOfNotes  { get; private set; }
-        public float NumberOfNotesPerSecond  { get; private set; }
-        public float MinimalNoteDelay { get; private set; }
-        public float AnalysisThreshold { get; private set; }
-        public float DoubleNoteAnalysisThreshold { get; private set; }
+        public int numberOfNotes;
+        public float numberOfNotesPerSecond;
+        public float minimalNoteDelay;
+        public int numberOfDoubleNotes;
+        public float audioLength;
 
         public void Init(string levelName,LevelDescription levelDescription)
         {
             _levelName = levelName;
-            NumberOfNotes = levelDescription.numberOfNotes;
-            NumberOfNotesPerSecond = levelDescription.numberOfNotesPerSecond;
-            MinimalNoteDelay = levelDescription.minimalNoteDelay;
-            AnalysisThreshold = levelDescription.analysisThreshold;
-            DoubleNoteAnalysisThreshold = levelDescription.doubleNoteAnalysisThreshold;
+            numberOfNotes = levelDescription.numberOfNotes;
+            numberOfNotesPerSecond = levelDescription.numberOfNotesPerSecond;
+            minimalNoteDelay = levelDescription.minimalNoteDelay;
+            numberOfDoubleNotes = levelDescription.numberOfDoubleNotes;
+            audioLength = levelDescription.audioLength;
             GetComponentInChildren<TextMeshProUGUI>().text = _levelName;
             GetComponent<Button>().onClick.AddListener(OnClickButton);
         }
@@ -48,7 +48,7 @@ namespace ui
 
         public void OnSelect(BaseEventData eventData)
         {
-            MusicSelectionManager.Instance.SetLevelDifficultyText(NumberOfNotes,NumberOfNotesPerSecond,MinimalNoteDelay,AnalysisThreshold,DoubleNoteAnalysisThreshold);
+            MusicSelectionManager.Instance.SetLevelDifficultyText(numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
             //Debug.Log(NumberOfNotes+", "+NumberOfNotesPerSecond+", "+MinimalNoteDelay+", "+AnalysisThreshold+", "+DoubleNoteAnalysisThreshold);
         }
     }

@@ -10,7 +10,13 @@ namespace utils.XML
         public string title;
         
         [XmlElement]
+        public float audioLength;
+
+        [XmlElement]
         public int numberOfNotes;
+        
+        [XmlElement]
+        public int numberOfDoubleNotes;
         
         [XmlElement]
         public float numberOfNotesPerSecond;

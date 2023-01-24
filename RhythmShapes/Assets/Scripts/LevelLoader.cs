@@ -67,6 +67,7 @@ public class LevelLoader : MonoBehaviour
             {
                 LevelDescription level = MultiRangeAnalysis.AnalyseMusic();
                 level.numberOfNotesPerSecond = level.numberOfNotes / audioClipLength;
+                level.audioLength = audioClipLength;
                 _currentLevelDescription = level;
                 _loaded = true;
             }).Start();

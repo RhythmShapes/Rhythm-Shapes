@@ -77,6 +77,7 @@ namespace AudioAnalysis
 
             float[][] noteProbability = new float[numberOfRanges][];
             int numberOfNotes = 0;
+            int numberOfDoubleNotes = 0;
             int freqMin = 0;
             for(int i = 0; i < numberOfRanges; i++)
             {
@@ -104,6 +105,7 @@ namespace AudioAnalysis
             // int counter = 0;
             bool[] usedTarget = new []{false, false, false, false};
             bool[] allFalse = new []{false, false, false, false};
+            bool belowMinDelay = false;
             int curatedFreqMin = 20000;
             int curatedFreqMax = 20;
             for (int j = 0; j < noteProbability[0].Length; j++)
@@ -131,12 +133,14 @@ namespace AudioAnalysis
                     }
                     if (maxProbability > doubleNoteAnalysisThreshold)
                     {
+                        
                         if (noteTime - oldTime < minimalNoteDelay)
                         {
                             continue;
                         }
                         else
                         {
+                            numberOfDoubleNotes++;
                             numberOfNotes++;
                             ShapeDescription shape1 = new ShapeDescription();
                             shape1.target = (shape.Target)maxProbabilityIndex;
@@ -158,17 +162,17 @@ namespace AudioAnalysis
                             shape2.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape2);
                             oldTime = noteTime;
-                            
+
+                            belowMinDelay = true;
+
                         }
                     }
                     else
                     {
                         if(noteTime-oldTime < minimalNoteDelay) {
-                            numberOfNotes++;
                             ShapeDescription shape = new ShapeDescription();
                             if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
                             {
-                                
                                 int selectedIndex = -1;
                                 int k = 1;
                                 while(selectedIndex == -1 && k < numberOfRanges)
@@ -188,36 +192,12 @@ namespace AudioAnalysis
                                     shape.goRight = ((selectedIndex + j) % 2).Equals(0);
                                     shapes.Add(shape);
                                     numberOfNotes++;
+                                    if (!belowMinDelay)
+                                    {
+                                        belowMinDelay = true;
+                                        numberOfDoubleNotes++;
+                                    }
                                 }
-                                /*
-                                if (!usedTarget[(maxProbabilityIndex + 1) % 4])
-                                {
-                                    shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
-                                    usedTarget[(maxProbabilityIndex + 1) % 4] = true;
-                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                    shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                    shapes.Add(shape);
-                                }
-                                else if (!usedTarget[(maxProbabilityIndex + 2) % 4])
-                                {
-                                    shape.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
-                                    usedTarget[(maxProbabilityIndex + 2) % 4] = true;
-                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                    shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                    shapes.Add(shape);
-                                }
-                                else if (!usedTarget[(maxProbabilityIndex + 3) % 4])
-                                {
-                                    shape.target = (shape.Target)((maxProbabilityIndex + 3) % 4);
-                                    usedTarget[(maxProbabilityIndex + 3) % 4] = true;
-                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                    shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                    shapes.Add(shape);
-                                }
-                                */
                                 else
                                 {
                                     // ignore other notes
@@ -237,6 +217,7 @@ namespace AudioAnalysis
                                 numberOfNotes++;
                             }
                             // counter++;
+                            continue;
                         }
                         else
                         {
@@ -250,6 +231,7 @@ namespace AudioAnalysis
                             shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape);
                             oldTime = noteTime;
+                            belowMinDelay = false;
                             // counter = 1;
                         }
                     }
@@ -257,6 +239,7 @@ namespace AudioAnalysis
             }
 
             level.numberOfNotes = numberOfNotes;
+            level.numberOfDoubleNotes = numberOfDoubleNotes;
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
             

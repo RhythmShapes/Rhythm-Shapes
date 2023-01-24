@@ -6,6 +6,7 @@ using ui;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using utils;
 using utils.XML;
 
@@ -14,10 +15,11 @@ public class MusicSelectionManager : MonoBehaviour
     [SerializeField] private RectTransform content;
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private TextMeshProUGUI numberOfNotesTextTMP;
+    [SerializeField] private TextMeshProUGUI audioLengthTextTMP;
     [SerializeField] private TextMeshProUGUI numberOfNotesPerSecondTextTMP;
     [SerializeField] private TextMeshProUGUI minimalNoteDelayTextTMP;
-    [SerializeField] private TextMeshProUGUI analysisThresholdTextTMP;
-    [SerializeField] private TextMeshProUGUI doubleNoteAnalysisThresholdTextTMP;
+    [SerializeField] private TextMeshProUGUI numberOfDoubleNotesTextTMP;
+    
     public static MusicSelectionManager Instance { get; private set; }
 
     private void Awake()
@@ -35,23 +37,15 @@ public class MusicSelectionManager : MonoBehaviour
     }
 
 
-    public void SetLevelDifficultyText (int nbNotes, float nbNotesPerSec, float minNoteDelay, float analysisThreshold, float doubleNoteAnalysisThreshold)
+    public void SetLevelDifficultyText (int nbNotes, float audioLength, float nbNotesPerSec, float minNoteDelay, int nbDoubleNotes)
     {
-        if (numberOfNotesTextTMP != null && 
-            numberOfNotesPerSecondTextTMP != null && 
-            minimalNoteDelayTextTMP != null && 
-            analysisThresholdTextTMP != null && 
-            doubleNoteAnalysisThresholdTextTMP != null)
-        {
-            numberOfNotesTextTMP.text = nbNotes.ToString();
-            numberOfNotesPerSecondTextTMP.text = nbNotesPerSec.ToString("F3");
-            minimalNoteDelayTextTMP.text = minNoteDelay.ToString("F3");
-            analysisThresholdTextTMP.text = analysisThreshold.ToString("F3");
-            doubleNoteAnalysisThresholdTextTMP.text = doubleNoteAnalysisThreshold.ToString("F3");
-            return;
-        }
-        
-        Debug.LogError("At least One Text is not set");
+        numberOfNotesTextTMP.text = nbNotes.ToString();
+        var minutes = audioLength / 60;
+        var seconds = audioLength % 60;
+        audioLengthTextTMP.text = Mathf.Floor(minutes)+" m "+ Mathf.RoundToInt(seconds )+" s";
+        numberOfNotesPerSecondTextTMP.text = nbNotesPerSec.ToString("F3");
+        minimalNoteDelayTextTMP.text = minNoteDelay.ToString("F2");
+        numberOfDoubleNotesTextTMP.text = nbDoubleNotes.ToString();
         
     }
 }
