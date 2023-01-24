@@ -24,6 +24,8 @@ public class ScoreManager : MonoBehaviour
     public int Score { get; private set; } = 0;
     public int Combo { get; private set; } = 0;
     
+    public int BestCombo { get; private set; } = 0;
+    
     private float currrentAccuracy;
     private int currentNumberOfShape = 0;
 
@@ -42,16 +44,19 @@ public class ScoreManager : MonoBehaviour
         {
             case PressedAccuracy.Perfect:
                 Combo++;
+                if (Combo > BestCombo) BestCombo++;
                 amount = perfectPoints * GetComboValue();
                 PerfectCounter++;
                 break;
             case PressedAccuracy.Good:
                 Combo++;
+                if (Combo > BestCombo) BestCombo++;
                 amount = goodPoints * GetComboValue();
                 GoodCounter++;
                 break;
             case PressedAccuracy.Ok:
                 Combo++;
+                if (Combo > BestCombo) BestCombo++;
                 amount = okPoints * GetComboValue();
                 OkCounter++;
                 break;
@@ -70,8 +75,8 @@ public class ScoreManager : MonoBehaviour
         }
 
         Score += amount;
-        // currentNumberOfShape++;
-        // currrentAccuracy = (500*perfectCounter + 200*goodCounter + 75*okCounter + 40*goodCounter + 10*badCounter)/((float)500*currentNumberOfShape);
+        currentNumberOfShape++;
+        currrentAccuracy = (500*PerfectCounter + 200*GoodCounter + 75*OkCounter + 40*GoodCounter + 10*BadCounter)/((float)500*currentNumberOfShape);
     }
 
     private int GetComboValue()
@@ -82,6 +87,11 @@ public class ScoreManager : MonoBehaviour
     public int GetScore()
     {
         return Score;
+    }
+    
+    public int GetBestCombo()
+    {
+        return BestCombo;
     }
     
     public float GetAccuracy()
@@ -98,7 +108,9 @@ public class ScoreManager : MonoBehaviour
         MissCounter = 0;
         Score = 0;
         Combo = 0;
+        currentNumberOfShape = 0;
         currrentAccuracy = 0;
+        BestCombo = 0;
     }
 
     public void PrintScoreDebug()

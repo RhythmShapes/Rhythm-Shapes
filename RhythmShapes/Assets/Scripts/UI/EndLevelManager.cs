@@ -13,6 +13,7 @@ public class EndLevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject endLevelMenuCanvas; 
     [SerializeField] private TextMeshProUGUI levelTitleTMP;
+    [SerializeField] private TextMeshProUGUI bestComboTMP;
     [SerializeField] private TextMeshProUGUI rankTitleTMP;
     [SerializeField] private TextMeshProUGUI scoreTitleTMP;
     [SerializeField] private TextMeshProUGUI perfectCounterTMP;
@@ -20,6 +21,7 @@ public class EndLevelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI okCounterTMP;
     [SerializeField] private TextMeshProUGUI badCounterTMP;
     [SerializeField] private TextMeshProUGUI missCounterTMP;
+    [SerializeField] private TextMeshProUGUI accuracyTMP;
     [SerializeField] private RawImage musicImage;
     [SerializeField] private Transform mainCamera;
 
@@ -102,4 +104,17 @@ public class EndLevelManager : MonoBehaviour
     {
         musicImage.texture = texture;
     }
+
+    public void SetBestCombo()
+    {
+        var text = ScoreManager.Instance.BestCombo.ToString();
+        bestComboTMP.text = "Best Combo : "+text;
+    }
+    
+    public void SetAccuracy()
+    {
+        var text = ScoreManager.Instance.GetAccuracy()*100;
+        accuracyTMP.text = text.ToString("F1");
+    }
+    
 }
