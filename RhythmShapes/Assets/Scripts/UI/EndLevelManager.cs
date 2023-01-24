@@ -23,6 +23,11 @@ public class EndLevelManager : MonoBehaviour
     [SerializeField] private RawImage musicImage;
     [SerializeField] private Transform mainCamera;
 
+    [Header("Dev variables")]
+    [Space]
+    [SerializeField] private bool useDevVariables = false;
+    [SerializeField] private string devLevelName = "LEVELTEST";
+
     public void ShowEndLevelMenu()
     {
         mainCamera.position = Vector3.zero;
@@ -48,7 +53,7 @@ public class EndLevelManager : MonoBehaviour
     
     public void SetLevelTitleText()
     {
-        var text = GameInfo.LevelName;
+        var text = useDevVariables ? devLevelName : GameInfo.LevelName;
         levelTitleTMP.text = text;
     }
     

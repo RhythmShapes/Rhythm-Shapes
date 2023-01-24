@@ -60719,6 +60719,14 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 999424393}
+    - target: {fileID: 8413089935043515811, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: devLevelName
+      value: Tutorial Song
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089935043515811, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: useDevVariables
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089935043515815, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Name
       value: UI
