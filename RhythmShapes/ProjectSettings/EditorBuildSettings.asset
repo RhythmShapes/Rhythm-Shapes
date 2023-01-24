@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AudioCalibration.unity
     guid: 82842af76c9a7d24a9696ad71f014e85
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: cd69053d777cdc84cb215ce7052418c8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1b6681e2245f10149b98ce08f75c324b, type: 2}
