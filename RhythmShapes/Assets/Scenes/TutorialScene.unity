@@ -40427,7 +40427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 545324342}
   useDevVariables: 1
-  devLevelName: TutorialSong
+  devLevelName: Tutorial Song
 --- !u!4 &545324345
 Transform:
   m_ObjectHideFlags: 0
@@ -120805,12 +120805,12 @@ MonoBehaviour:
   regionName4: {fileID: 1240516175}
   regionName5: {fileID: 961851655}
   tutorialTextCanvas: {fileID: 955412181}
-  timing1: 3.5
-  timing2: 8
-  timing3: 12
-  timing4: 20
-  timing5: 20
-  timingEnd: 36
+  timing1: 4
+  timing2: 13
+  timing3: 21
+  timing4: 37
+  timing5: 37
+  timingEnd: 66
   fadeTime: 0.5
 --- !u!1 &8413089934510738352 stripped
 GameObject:
