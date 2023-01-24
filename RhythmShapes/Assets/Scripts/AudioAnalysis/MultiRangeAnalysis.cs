@@ -70,6 +70,9 @@ namespace AudioAnalysis
             ProgressUtil.Update();
             
             LevelDescription level = new LevelDescription { title = _clipName };
+            level.minimalNoteDelay = minimalNoteDelay;
+            level.analysisThreshold = analysisThreshold;
+            level.doubleNoteAnalysisThreshold = doubleNoteAnalysisThreshold;
             List<ShapeDescription> shapes = new List<ShapeDescription>();
 
             float[][] noteProbability = new float[numberOfRanges][];
@@ -252,12 +255,8 @@ namespace AudioAnalysis
                     }
                 }
             }
-            for(int i = 0;i< shapes.Count;i++)
-            {
-                /*TODO remap the shape type according to the detected frequency of the 
-                 * note relatively to the maxFreq and minFreq of the audioClip*/
-            }
-            
+
+            level.numberOfNotes = numberOfNotes;
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
             
