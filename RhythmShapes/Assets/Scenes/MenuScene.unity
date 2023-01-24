@@ -4846,9 +4846,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 1705817349}
   slider: {fileID: 971181405}
-  min: 0.1
+  min: 0.01
   max: 5
-  step: 0.1
+  step: 0.01
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7141,9 +7141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 963309333}
   slider: {fileID: 884965103}
-  min: 0.1
+  min: 0.01
   max: 5
-  step: 0.1
+  step: 0.01
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -12320,9 +12320,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 33867024}
   slider: {fileID: 517270389}
-  min: 0.1
+  min: 0.01
   max: 1
-  step: 0.1
+  step: 0.01
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -13280,6 +13280,7 @@ MonoBehaviour:
   inputOffsetTextTMP: {fileID: 1339640848}
   audioOffsetTextTMP: {fileID: 812927348}
   difficultyCanvas: {fileID: 1273473249}
+  scrollBarVertical: {fileID: 1514665422}
 --- !u!114 &1601444086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13777,6 +13778,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1601444085}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1601444085}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: SetupSliderPositionToTheTop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

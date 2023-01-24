@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI inputOffsetTextTMP;
     [SerializeField] private TextMeshProUGUI audioOffsetTextTMP;
     [SerializeField] private GameObject difficultyCanvas;
+    [SerializeField] private Scrollbar scrollBarVertical;
 
     public void StartGame()
     { 
@@ -204,5 +205,10 @@ public class MainMenuManager : MonoBehaviour
         // Debug.Log("HidePresetPanel");
         difficultyCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
+    }
+
+    public void SetupSliderPositionToTheTop()
+    {
+        scrollBarVertical.value = 1;
     }
 }
