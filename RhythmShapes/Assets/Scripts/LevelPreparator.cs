@@ -19,10 +19,12 @@ public class LevelPreparator : MonoBehaviour
     public const float TravelTime = 0.85f;
     
     private AudioSource _audioSource;
+    private AudioPlayer _audioPlayer;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _audioPlayer = GetComponent<AudioPlayer>();
         onReady ??= new UnityEvent();
     }
 
@@ -41,9 +43,9 @@ public class LevelPreparator : MonoBehaviour
             foreach (var shapeDescription in level.shapes)
             {
                 shapeDescription.timeToPress = Utils.RoundTime(shapeDescription.timeToPress);
-                float timeToPress = shapeDescription.timeToPress + GameInfo.AudioCalibration;
+                float press = shapeDescription.timeToPress + GameInfo.AudioCalibration;
                 
-                if (timeToPress < 0f || timeToPress > _audioSource.clip.length)
+                if (press < 0f || press > _audioPlayer.length)
                     continue;
                 
                 Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target,
@@ -56,9 +58,10 @@ public class LevelPreparator : MonoBehaviour
                     _ => 1
                 };
                 
-                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
+                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.timeToPress);
+                float spawn = timeToSpawn + GameInfo.AudioCalibration;
 
-                if (timeToSpawn < 0f || timeToSpawn > _audioSource.clip.length)
+                if (spawn < 0f || spawn > _audioPlayer.length)
                     continue;
                 
                 GameModel.Instance.PushShapeModel(

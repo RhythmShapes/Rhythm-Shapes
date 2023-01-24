@@ -9,6 +9,7 @@ namespace edition.timeLine
     public class Ruler : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioPlayer audioPlayer;
         [SerializeField] private Transform graduationsContent;
         [SerializeField] private GameObject graduationPrefab;
         [SerializeField] private GameObject specialGraduationPrefab;
@@ -35,8 +36,7 @@ namespace edition.timeLine
 
             int listLen = _graduations.Count;
             float precision = GetGraduationPrecision();
-            AudioClip clip = audioSource.clip;
-            float audioLen = clip != null ? clip.length : 0f;
+            float audioLen = audioPlayer.clip != null ? audioPlayer.clip.length : 0f;
 
             if (audioLen > 0f)
             {

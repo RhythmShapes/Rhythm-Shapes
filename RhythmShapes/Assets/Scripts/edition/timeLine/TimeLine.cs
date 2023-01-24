@@ -8,6 +8,7 @@ namespace edition.timeLine
     public class TimeLine : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioPlayer audioPlayer;
         [SerializeField] private GridLayoutGroup gridLayoutGroup;
         [SerializeField] private float widthPerLength = 1f;
         [SerializeField] private float startOffset = 10f;
@@ -50,8 +51,7 @@ namespace edition.timeLine
 
         public void UpdateWidth()
         {
-            AudioClip clip = audioSource.clip;
-            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            float audioLen = audioPlayer.clip != null && audioPlayer.length > 0f ? audioPlayer.length : 1f;
             Width = audioLen * WidthPerLength;
             
             _transform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, RealWidth);

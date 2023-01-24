@@ -1,55 +1,58 @@
-using UnityEngine;
 using System;
-using ui;
 using shape;
+using ui;
+using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class HitSoundManager : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private AudioClip perfectClip;
-    [SerializeField] private AudioClip goodClip;
-    [SerializeField] private AudioClip okClip;
-    [SerializeField] private AudioClip badClip;
-    [SerializeField] private AudioClip missClip;
-
-    private AudioSource _hitSoundSource;
-
-    public static HitSoundManager Instance { get; private set; }
-
-    private void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public class HitSoundManager : MonoBehaviour
     {
-        Debug.Assert(Instance == null);
-        Instance = this;
-    }
+        [SerializeField] private AudioClip perfectClip;
+        [SerializeField] private AudioClip goodClip;
+        [SerializeField] private AudioClip okClip;
+        [SerializeField] private AudioClip badClip;
+        [SerializeField] private AudioClip missClip;
 
-    void Start()
-    {
-        _hitSoundSource = GetComponent<AudioSource>();
-    }
+        private AudioSource _hitSoundSource;
 
-    public void OnInputValidated(Target target, PressedAccuracy accuracy)
-    {
-        switch (accuracy)
+        public static HitSoundManager Instance { get; private set; }
+
+        private void Awake()
         {
-            case PressedAccuracy.Perfect:
-                _hitSoundSource.clip = perfectClip;
-                break;
-            case PressedAccuracy.Good:
-                _hitSoundSource.clip = goodClip;
-                break;
-            case PressedAccuracy.Ok:
-                _hitSoundSource.clip = okClip;
-                break;
-            case PressedAccuracy.Bad:
-                _hitSoundSource.clip = badClip;
-                break;
-            case PressedAccuracy.Missed:
-                _hitSoundSource.clip = missClip;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            Debug.Assert(Instance == null);
+            Instance = this;
         }
 
-        _hitSoundSource.Play();
+        void Start()
+        {
+            _hitSoundSource = GetComponent<AudioSource>();
+        }
+
+        public void OnInputValidated(Target target, PressedAccuracy accuracy)
+        {
+            switch (accuracy)
+            {
+                case PressedAccuracy.Perfect:
+                    _hitSoundSource.clip = perfectClip;
+                    break;
+                case PressedAccuracy.Good:
+                    _hitSoundSource.clip = goodClip;
+                    break;
+                case PressedAccuracy.Ok:
+                    _hitSoundSource.clip = okClip;
+                    break;
+                case PressedAccuracy.Bad:
+                    _hitSoundSource.clip = badClip;
+                    break;
+                case PressedAccuracy.Missed:
+                    _hitSoundSource.clip = missClip;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            _hitSoundSource.Play();
+        }
     }
 }
