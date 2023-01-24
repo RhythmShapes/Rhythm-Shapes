@@ -120799,18 +120799,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa771edea0ea0064cba4f3ee6cd1ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionName0: {fileID: 2025402186}
   regionName1: {fileID: 934565197}
   regionName2: {fileID: 729023917}
   regionName3: {fileID: 1843772893}
   regionName4: {fileID: 1240516175}
   regionName5: {fileID: 961851655}
   tutorialTextCanvas: {fileID: 955412181}
-  timing1: 4
-  timing2: 13
-  timing3: 21
-  timing4: 37
-  timing5: 37
-  timingEnd: 66
+  timeIn1: 4
+  timeOut1: 31
+  timeIn2: 13
+  timeOut2: 22
+  timeIn3: 21
+  timeOut3: 14
+  timeIn4: 35
+  timeOut4: 25
+  timeIn5: 35
+  timeOut5: 25
+  timingEnd: 67
   fadeTime: 0.5
 --- !u!1 &8413089934510738352 stripped
 GameObject:
