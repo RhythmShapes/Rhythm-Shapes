@@ -46,14 +46,12 @@ namespace ui
 
             while (comboText.alpha > 0f)
             {
-                Debug.Log(comboText.alpha);
                 comboText.alpha = Mathf.Max(0f, comboText.alpha - alphaDecrease * Time.deltaTime);
                 Vector3 pos = comboText.transform.position;
                 pos.y -= lostComboFallSpeed * Time.deltaTime;
                 comboText.transform.position = pos;
                 yield return null;
             }
-            Debug.Log(comboText.alpha);
             
             comboText.gameObject.SetActive(false);
             comboText.alpha = originAlpha;
