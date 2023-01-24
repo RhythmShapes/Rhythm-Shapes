@@ -385,6 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2083197757353303790}
+  scoreAnimator: {fileID: 0}
 --- !u!1 &8413089934498631849
 GameObject:
   m_ObjectHideFlags: 0
@@ -6168,4 +6169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboText: {fileID: 8763668118453149982}
+  comboAnimator: {fileID: 0}
   prefixText: Combo x
+  lostComboAnimDuration: 0.1
+  lostComboFallSpeed: 50
