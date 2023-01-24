@@ -13,7 +13,7 @@ namespace shape
         
         void Update()
         {
-            float scale = ReactToMusicManager.GetScale(_originalScale, .8f);
+            float scale = ReactToMusicManager.GetScale(_originalScale, .4f);
             transform.localScale = new Vector3(scale, scale, scale);
         }
     }
