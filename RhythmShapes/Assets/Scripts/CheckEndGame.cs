@@ -4,9 +4,9 @@ using UnityEngine.Events;
 
 public class CheckEndGame : MonoBehaviour
 {
-
     [SerializeField] private UnityEvent onGameEnded;
     private AudioSource _audioSource;
+    private AudioPlayer _audioPlayer;
     private float _audioLength;
     private float _timeCounter = 0;
 
@@ -17,8 +17,8 @@ public class CheckEndGame : MonoBehaviour
 
     public void Init()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioLength = _audioSource.clip.length;
+        _audioPlayer = GetComponent<AudioPlayer>();
+        _audioLength = _audioPlayer.length;
         _timeCounter = 0;
     }
 
@@ -26,7 +26,7 @@ public class CheckEndGame : MonoBehaviour
     {
         if (!GameModel.Instance.isGamePaused)
         {
-            _timeCounter = _audioSource.time > 0 ? _audioSource.time : _timeCounter;
+            _timeCounter = _audioPlayer.time > 0 ? _audioPlayer.time : _timeCounter;
             _timeCounter += Time.deltaTime;
 
             if (_timeCounter - (_audioLength + 2*GameModel.Instance.BadPressedWindow) > 0)

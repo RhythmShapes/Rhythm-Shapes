@@ -16,6 +16,7 @@ namespace edition.timeLine
     {
         [SerializeField] private Canvas canvas;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioPlayer audioPlayer;
         [SerializeField] private GameObject squareShapePrefab;
         [SerializeField] private GameObject circleShapePrefab;
         [SerializeField] private GameObject diamondShapePrefab;
@@ -98,8 +99,8 @@ namespace edition.timeLine
         private bool IsShapeTimeValid(float timeToPress)
         {
             float timeToSpawn = LevelPreparator.GetShapeTimeToSpawn(timeToPress);
-            return timeToPress >= 0f && timeToPress <= audioSource.clip.length 
-                                     && timeToSpawn >= 0f && timeToSpawn <= audioSource.clip.length;
+            return timeToPress >= 0f && timeToPress <= audioPlayer.length 
+                                     && timeToSpawn >= 0f && timeToSpawn <= audioPlayer.length;
         }
 
         public void UpdateTimeLine()
@@ -189,16 +190,16 @@ namespace edition.timeLine
 
         public static float GetPosX(float timeToPress)
         {
-            AudioClip clip = _instance.audioSource.clip;
-            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            AudioPlayer player = _instance.audioPlayer;
+            float audioLen = player.clip != null && player.length > 0f ? player.length : 1f;
             float ratio = timeToPress / audioLen;
             return TimeLine.StartOffset + ratio * TimeLine.Width;
         }
 
         public static float GetTimeFromPos(float posX)
         {
-            AudioClip clip = _instance.audioSource.clip;
-            float audioLen = clip != null && clip.length > 0f ? clip.length : 1f;
+            AudioPlayer player = _instance.audioPlayer;
+            float audioLen = player.clip != null && player.length > 0f ? player.length : 1f;
             float time = posX / TimeLine.Width * audioLen;
             
             return Mathf.Clamp(time, 0f, audioLen);
@@ -327,7 +328,7 @@ namespace edition.timeLine
             if (level.shapes == null)
                 return;
 
-            time = Mathf.Clamp(time, LevelPreparator.TravelTime, audioSource.clip.length);
+            time = Mathf.Clamp(time, LevelPreparator.TravelTime, audioPlayer.length);
 
             ShapeDescription shape = new ShapeDescription()
             {

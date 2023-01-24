@@ -11,10 +11,12 @@ public class ShapeReleaser : MonoBehaviour
     [SerializeField] private UnityEvent<Target, PressedAccuracy> onInputMissed;
     
     private AudioSource _audioSource;
+    private AudioPlayer _audioPlayer;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _audioPlayer = GetComponent<AudioPlayer>();
         onInputMissed ??= new UnityEvent<Target, PressedAccuracy>();
     }
     
@@ -26,7 +28,7 @@ public class ShapeReleaser : MonoBehaviour
         {
             AttendedInput input = model.GetNextAttendedInput();
 
-            if (_audioSource.time > input.TimeToPress + model.BadPressedWindow + GameInfo.InputCalibration)
+            if (_audioPlayer.time > input.TimeToPress + GameInfo.AudioCalibration + model.BadPressedWindow + GameInfo.InputCalibration)
             {
                 foreach (var shape in input.Shapes)
                 {

@@ -201,7 +201,7 @@ namespace AudioAnalysis
                                 else
                                 {
                                     // ignore other notes
-                                    Debug.Log("All Target Have Been Used" + j);
+                                    //Debug.Log("All Target Have Been Used" + j);
                                     // Debug.Log(usedTarget[0]+", "+usedTarget[1]+", "+usedTarget[2]+", "+usedTarget[3]);
                                 }
                                 

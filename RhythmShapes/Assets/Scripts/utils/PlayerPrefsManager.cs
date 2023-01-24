@@ -1,4 +1,6 @@
-﻿namespace utils
+﻿using UnityEngine.Audio;
+
+namespace utils
 {
     using UnityEngine;
     using UnityEngine.UI;
@@ -10,14 +12,20 @@
 
         private void Start()
         {
-            effectsVolume.value = GetPref("EffectsVolume", 1f);
-            musicVolume.value = GetPref("MusicVolume", 1f);
             GameInfo.InputCalibration = GetPref("InputOffset",0f);
             GameInfo.AudioCalibration = GetPref("AudioOffset", 0.05f);
-            if(musicVolume != null)
+
+            if (effectsVolume != null)
+            {
+                effectsVolume.value = GetPref("EffectsVolume", 1f);
                 effectsVolume.onValueChanged.Invoke(effectsVolume.value);
-            if(musicVolume != null)
+            }
+
+            if (musicVolume != null)
+            {
+                musicVolume.value = GetPref("MusicVolume", 1f);
                 musicVolume.onValueChanged.Invoke(musicVolume.value);
+            }
         }
 
         public static void SetPref(string key, float value)

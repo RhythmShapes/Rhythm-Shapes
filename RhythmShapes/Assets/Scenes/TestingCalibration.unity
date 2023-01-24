@@ -102475,6 +102475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802996575}
   - component: {fileID: 1802996568}
+  - component: {fileID: 1802996577}
   - component: {fileID: 1802996576}
   - component: {fileID: 1802996574}
   - component: {fileID: 1802996573}
@@ -102894,6 +102895,21 @@ MonoBehaviour:
   leftTargetColor: {fileID: 1032305091}
   bottomTargetColor: {fileID: 1032305096}
   shapesSpeed: 10
+--- !u!114 &1802996577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802996567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbcd6b5f62bbcc049952d21bff209daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1802996568}
+  timeBefore: 0
+  timeAfter: 0.1
 --- !u!1 &1841404967
 GameObject:
   m_ObjectHideFlags: 0
@@ -123567,6 +123583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1407901384}
   pauseMenuCanvas: {fileID: 1993948422}
+  audioMixer: {fileID: 0}
 --- !u!4 &8413089934420076109
 Transform:
   m_ObjectHideFlags: 0
@@ -123936,8 +123953,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1802996568}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+      - m_Target: {fileID: 1802996577}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -123975,9 +123992,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1802996568}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: UnPause
+      - m_Target: {fileID: 1802996577}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

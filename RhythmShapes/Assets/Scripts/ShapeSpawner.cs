@@ -8,10 +8,12 @@ using UnityEngine;
 public class ShapeSpawner : MonoBehaviour
 {
     private AudioSource _audioSource;
+    private AudioPlayer _audioPlayer;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _audioPlayer = GetComponent<AudioPlayer>();
     }
 
     private void Update()
@@ -23,11 +25,11 @@ public class ShapeSpawner : MonoBehaviour
         {
             ShapeModel shapeModel = model.GetNextShapeModel();
             
-            if (shapeModel.TimeToSpawn <= _audioSource.time)
+            if (shapeModel.TimeToSpawn + GameInfo.AudioCalibration <= _audioPlayer.time)
             {
                 if (shapes.Count > 0 && Math.Abs(shapes[0].TimeToPress - shapeModel.TimeToPress) != 0f)
                 {
-                    model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+                    model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress + GameInfo.AudioCalibration, shapes.ToArray()));
                     shapes.Clear();
                 }
                 
@@ -48,11 +50,11 @@ public class ShapeSpawner : MonoBehaviour
                 {
                     shape.ShowOutline();
                 }
-                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray(),true));
+                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress + GameInfo.AudioCalibration, shapes.ToArray(),true));
             }
             else
             {
-                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress, shapes.ToArray()));
+                model.PushAttendedInput(new AttendedInput(shapes[0].TimeToPress + GameInfo.AudioCalibration, shapes.ToArray()));
             }
         }
     }

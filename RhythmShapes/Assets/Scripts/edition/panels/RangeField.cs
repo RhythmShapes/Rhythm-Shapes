@@ -20,18 +20,13 @@ namespace edition.panels
 
         private void Awake()
         {
-            onValueChanged ??= new UnityEvent<float>();
-        }
-
-        private void Start()
-        {
             slider.SetValueWithoutNotify(min); // Avoid onValueChanged of slider
-            
             slider.minValue = 0;
             slider.maxValue = Mathf.RoundToInt(max / step);
             
             string stepStr = step.ToString(CultureInfo.InvariantCulture);
             _rounding = stepStr[(stepStr.IndexOf(".", StringComparison.Ordinal) + 1)..].Length;
+            onValueChanged ??= new UnityEvent<float>();
         }
 
         private void ParseAndSetValue(float value, bool notify = true)

@@ -16,7 +16,9 @@ namespace edition.test
     {
         [SerializeField] private TestLine testLine;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioPlayer audioPlayer;
         [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private AudioSource hitSoundSource;
         [SerializeField] private RectTransform widthRef;
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private Slider volumeSlider;
@@ -31,7 +33,7 @@ namespace edition.test
         private void Start()
         {
             ResetCursor();
-            audioSource.volume = 1f;
+            audioPlayer.volume = 1f;
             ChangeVolume(PlayerPrefsManager.GetPref("MusicVolume", 1f));
             onTestStart ??= new UnityEvent<LevelDescription>();
             onTestStop ??= new UnityEvent();
@@ -41,13 +43,13 @@ namespace edition.test
         {
             if (_isPaused)
             {
-                audioSource.UnPause();
+                audioPlayer.Play();
                 Time.timeScale = 1f;
                 _isPaused = false;
                 return;
             }
             
-            if(audioSource.isPlaying)
+            if(audioPlayer.isPlaying)
                 return;
 
             if (!EditorModel.HasLevelSet())
@@ -56,22 +58,22 @@ namespace edition.test
                 return;
             }
 
-            audioSource.mute = false;
-            audioSource.Stop();
+            audioPlayer.mute = false;
+            audioPlayer.Stop();
             
-            testLine.Init(ShapeTimeLine.GetPosX(audioSource.time));
+            testLine.Init(ShapeTimeLine.GetPosX(audioPlayer.time));
             testLine.gameObject.SetActive(true);
             
-            audioSource.Play();
+            audioPlayer.Play();
             IsTestRunning = true;
             UpdateCursor(_time);
         }
         
         public void PauseTest()
         {
-            if (audioSource.isPlaying)
+            if (audioPlayer.isPlaying)
             {
-                audioSource.Pause();
+                audioPlayer.Pause();
                 Time.timeScale = 0f;
                 _isPaused = true;
             }
@@ -79,10 +81,10 @@ namespace edition.test
         
         public void StopTest()
         {
-            if (audioSource.isPlaying || _isPaused)
+            if (audioPlayer.isPlaying || _isPaused)
             {
-                _time = audioSource.time;
-                audioSource.Stop();
+                _time = audioPlayer.time;
+                audioPlayer.Stop();
                 _isPaused = false;
                 IsTestRunning = false;
                 Time.timeScale = 1f;
@@ -99,7 +101,7 @@ namespace edition.test
         public void ChangeVolume(float volume)
         {
             volumeSlider.value = volume;
-            //audioSource.volume = volume;
+            hitSoundSource.volume = volume;
             Utils.SetAudioMixerVolume(audioMixer, volume);
         }
 
@@ -107,17 +109,20 @@ namespace edition.test
         {
             if (IsTestRunning)
             {
-                if (!audioSource.isPlaying && !_isPaused)
+                if (!audioPlayer.isPlaying && !_isPaused)
                 {
-                    _time = audioSource.clip.length;
+                    _time = audioPlayer.length;
+                    _isPaused = false;
                     IsTestRunning = false;
                     Invoke("ResetModel", .1f);
+                    onTestStop.Invoke();
+                    return;
                 }
                 
-                float posX = ShapeTimeLine.GetPosX(audioSource.time);
+                float posX = ShapeTimeLine.GetPosX(audioPlayer.time - GameInfo.AudioCalibration - GameModel.Instance.BadPressedWindow*2);
                 testLine.UpdatePosX(posX);
                 
-                if(audioSource.isPlaying)
+                if(audioPlayer.isPlaying)
                     UpdateScroll(posX);
             }
         }
@@ -135,7 +140,13 @@ namespace edition.test
             float viewEnd = viewStart + viewWidth;
 
             if (posX < viewStart || posX > viewEnd)
-                scrollbar.value = Mathf.Clamp((posX) / widthOffset, 0f, 1f);
+                scrollbar.value = Mathf.Clamp(posX / widthOffset, 0f, 1f);
+        }
+
+        public void UpdateCursor()
+        {
+            float posX = ShapeTimeLine.GetPosX(audioPlayer.isPlaying ? audioPlayer.time : _time);
+            testLine.UpdatePosX(posX);
         }
 
         public void UpdateCursor(float time)
@@ -161,8 +172,8 @@ namespace edition.test
             testLine.UpdatePosX(ShapeTimeLine.GetPosX(time));
             _time = time;
 
-            if (audioSource.isPlaying || _isPaused)
-                audioSource.time = time;
+            if (audioPlayer.isPlaying || _isPaused)
+                audioPlayer.time = time + GameInfo.AudioCalibration + GameModel.Instance.BadPressedWindow * 2;
         }
     }
 }
