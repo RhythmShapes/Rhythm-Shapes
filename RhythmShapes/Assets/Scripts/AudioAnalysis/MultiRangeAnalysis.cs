@@ -12,7 +12,7 @@ namespace AudioAnalysis
     public static class MultiRangeAnalysis
     {
         [SerializeField]
-        private static int numberOfRanges = 4;
+        private static int numberOfRanges = 3;
 
         [SerializeField]
         public static float minimalNoteDelay = 0.1f;
@@ -81,7 +81,7 @@ namespace AudioAnalysis
             int freqMin = 0;
             for(int i = 0; i < numberOfRanges; i++)
             {
-                int freqMax = (int)(Mathf.Exp((i+1)*Mathf.Log(AudioTools.SampleSize) / numberOfRanges ));
+                int freqMax = (int)(Mathf.Pow(4f, (i+1)*Mathf.Log(AudioTools.SampleSize) / (Mathf.Log(4f) * numberOfRanges) ));
                 if(freqMax >= maximums.Length) { freqMax = maximums.Length-1; }
                 noteProbability[i] = new float[amplitudeEvolutionPerFrequency[0].Length];
                 for(int j = 0; j < noteProbability[i].Length; j++)
