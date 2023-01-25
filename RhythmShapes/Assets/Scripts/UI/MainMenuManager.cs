@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject optionMenuCanvas;
     [SerializeField] private GameObject musicSelectionMenuCanvas;
     [SerializeField] private GameObject calibrationMenuCanvas;
+    [SerializeField] private GameObject editorSelectionMenuCanvas;
     [SerializeField] private TextMeshProUGUI inputOffsetTextTMP;
     [SerializeField] private TextMeshProUGUI audioOffsetTextTMP;
     [SerializeField] private GameObject difficultyCanvas;
@@ -20,6 +21,13 @@ public class MainMenuManager : MonoBehaviour
         // Debug.Log("StartGame");
         mainMenuCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
+        SetOffsetText();
+    }
+    
+    public void ShowEditorSelection()
+    { 
+        mainMenuCanvas.SetActive(false);
+        editorSelectionMenuCanvas.SetActive(true);
         SetOffsetText();
     }
 
@@ -162,6 +170,7 @@ public class MainMenuManager : MonoBehaviour
     { 
         // Debug.Log("BackToMainMenu");
         musicSelectionMenuCanvas.SetActive(false);
+        editorSelectionMenuCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
 

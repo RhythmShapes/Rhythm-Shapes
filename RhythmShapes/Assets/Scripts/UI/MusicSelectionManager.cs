@@ -13,6 +13,7 @@ using utils.XML;
 public class MusicSelectionManager : MonoBehaviour
 {
     [SerializeField] private RectTransform content;
+    [SerializeField] private RectTransform editorContent;
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private TextMeshProUGUI numberOfNotesTextTMP;
     [SerializeField] private TextMeshProUGUI audioLengthTextTMP;
@@ -33,6 +34,7 @@ public class MusicSelectionManager : MonoBehaviour
         foreach (string levelName in Directory.GetDirectories(Path.Combine(Application.persistentDataPath, "Levels")))
         {
             Instantiate(buttonPrefab, content).GetComponent<MenuButton>().Init(Path.GetFileName(levelName), LevelTools.LoadLevelData(levelName));
+            Instantiate(buttonPrefab, editorContent).GetComponent<MenuButton>().Init(Path.GetFileName(levelName), LevelTools.LoadLevelData(levelName), true);
         }
     }
 

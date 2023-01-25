@@ -16,6 +16,7 @@ namespace ui
         public float minimalNoteDelay;
         public int numberOfDoubleNotes;
         public float audioLength;
+        private bool _launchEditor;
 
         public void Init(string levelName,LevelDescription levelDescription)
         {
@@ -27,13 +28,29 @@ namespace ui
             audioLength = levelDescription.audioLength;
             GetComponentInChildren<TextMeshProUGUI>().text = _levelName;
             GetComponent<Button>().onClick.AddListener(OnClickButton);
+            _launchEditor = false;
+        }
+        
+        public void Init(string levelName,LevelDescription levelDescription, bool launchEditor)
+        {
+            Init(levelName, levelDescription);
+            _launchEditor = launchEditor;
         }
 
         private void OnClickButton()
         {
-            GameInfo.LevelName = _levelName;
-            GameInfo.IsNewLevel = false;
-            SceneTransition.Instance.LoadNextScene();
+            if (_launchEditor)
+            {
+                GameInfo.LevelName = _levelName;
+                GameInfo.IsNewLevel = false;
+                SceneTransition.Instance.LoadScene(2);
+            }
+            else
+            {
+                GameInfo.LevelName = _levelName;
+                GameInfo.IsNewLevel = false;
+                SceneTransition.Instance.LoadNextScene();
+            }
         }
         
         public void OnPointerEnter(PointerEventData eventData)
