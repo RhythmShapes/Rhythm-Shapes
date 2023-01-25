@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using AudioAnalysis;
 using edition.messages;
 using edition.test;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
+using utils;
 using utils.XML;
 
 namespace edition.timeLine
 {
     public class ShapeTimeLine : MonoBehaviour
     {
+        [SerializeField] private Canvas canvas;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private GameObject squareShapePrefab;
         [SerializeField] private GameObject circleShapePrefab;
@@ -19,15 +23,19 @@ namespace edition.timeLine
         [SerializeField] private Transform rightLine;
         [SerializeField] private Transform leftLine;
         [SerializeField] private Transform bottomLine;
+        [SerializeField] private NoSpawnZone noSpawnZone;
         [SerializeField] private Color topColor;
         [SerializeField] private Color rightColor;
         [SerializeField] private Color leftColor;
         [SerializeField] private Color bottomColor;
         [SerializeField] private Color excludeColor;
         [SerializeField] private UnityEvent onDisplayDone;
-        [SerializeField] private UnityEvent onShapeSelected;
+        [SerializeField] private UnityEvent<ShapeDescription[]> onShapeSelected;
         [SerializeField] private UnityEvent onShapeDeselected;
+        [SerializeField] private UnityEvent<ShapeDescription, bool> onShapeChanged;
 
+        public static float CanvasScaleFactor => _instance.canvas.scaleFactor;
+        
         private readonly List<EditorShape> _shapes = new();
         private float _posXCorrection = 0f;
 
@@ -43,8 +51,9 @@ namespace edition.timeLine
         {
             _posXCorrection = topLine.position.x;
             onDisplayDone ??= new UnityEvent();
-            onShapeSelected ??= new UnityEvent();
+            onShapeSelected ??= new UnityEvent<ShapeDescription[]>();
             onShapeDeselected ??= new UnityEvent();
+            onShapeChanged ??= new UnityEvent<ShapeDescription, bool>();
         }
 
         public void DisplayLevel(LevelDescription level)
@@ -59,12 +68,38 @@ namespace edition.timeLine
             {
                 foreach (var shape in level.shapes)
                 {
-                    CreateShape(shape);
+                    shape.timeToPress = Utils.RoundTime(shape.timeToPress);
+                    
+                    if(!IsShapeTimeValid(shape.timeToPress))
+                        continue;
+                    
+                    EditorShape created = CreateShape(shape);
+                    
+                    foreach (var editorShape in _shapes)
+                    {
+                        if(editorShape == created)
+                            continue;
+
+                        if (editorShape.Description.timeToPress.Equals(created.Description.timeToPress))
+                        {
+                            editorShape.ShowOutline(true);
+                            created.ShowOutline(true);
+                            break;
+                        }
+                    }
                 }
             }
             
+            UpdateNoSpawnZone();
             EditorModel.Shape = null;
             onDisplayDone.Invoke();
+        }
+
+        private bool IsShapeTimeValid(float timeToPress)
+        {
+            float timeToSpawn = LevelPreparator.GetShapeTimeToSpawn(timeToPress);
+            return timeToPress >= 0f && timeToPress <= audioSource.clip.length 
+                                     && timeToSpawn >= 0f && timeToSpawn <= audioSource.clip.length;
         }
 
         public void UpdateTimeLine()
@@ -73,6 +108,14 @@ namespace edition.timeLine
             {
                 shape.UpdatePosX(GetPosX(shape.Description.timeToPress));
             }
+
+            UpdateNoSpawnZone();
+        }
+
+        private void UpdateNoSpawnZone()
+        {
+            float start = GetPosX(0f);
+            noSpawnZone.Init(start, GetPosX(LevelPreparator.TravelTime) - start);
         }
 
         private EditorShape CreateShape(ShapeDescription shape)
@@ -105,12 +148,31 @@ namespace edition.timeLine
                     return;
                 }
                 
-                EditorModel.Shape = editorShape;
-                onShapeSelected.Invoke();
+                ShapeSelected(editorShape);
+            }, () =>
+            {
+                if(TestManager.IsTestRunning)
+                    return;
+                
+                ShapeSelected(editorShape);
             });
 
             _shapes.Add(editorShape);
             return editorShape;
+        }
+
+        private void ShapeSelected(EditorShape selectedShape)
+        {
+            List<ShapeDescription> selected = new List<ShapeDescription> { selectedShape.Description };
+
+            foreach (var shape in _shapes)
+            {
+                if(shape.Description.timeToPress.Equals(selectedShape.Description.timeToPress))
+                    selected.Add(shape.Description);
+            }
+
+            EditorModel.Shape = selectedShape;
+            onShapeSelected.Invoke(selected.ToArray());
         }
 
         private Color GetShapeColor(Target target)
@@ -158,28 +220,70 @@ namespace edition.timeLine
             _shapes.Remove(EditorModel.Shape);
             Destroy(EditorModel.Shape.gameObject);
             EditorModel.Shape = CreateShape(EditorModel.Shape.Description);
+            UpdateMultipleShapes();
+            ExcludeButSelected();
+            onShapeChanged.Invoke(EditorModel.Shape.Description, true);
         }
 
         public void UpdateSelectedTarget(Target target)
         {
+            if (HasCloseShape(EditorModel.Shape.Description, target, EditorModel.Shape.Description.timeToPress))
+            {
+                NotificationsManager.ShowError("Cannot change shape target to " + 
+                                               target + " because another shape is to close of the time : " + 
+                                               EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture) + 
+                                               "s. Try changing the Minimal delay between notes value.");
+                onShapeChanged.Invoke(EditorModel.Shape.Description, false);
+                return;
+            }
+            
             EditorModel.Shape.Description.target = target;
             _shapes.Remove(EditorModel.Shape);
             Destroy(EditorModel.Shape.gameObject);
             EditorModel.Shape = CreateShape(EditorModel.Shape.Description);
+            UpdateMultipleShapes();
+            ExcludeButSelected();
+            onShapeChanged.Invoke(EditorModel.Shape.Description, true);
         }
 
         public void UpdateSelectedGoRight(bool goRight)
         {
             EditorModel.Shape.Description.goRight = goRight;
+            onShapeChanged.Invoke(EditorModel.Shape.Description, true);
         }
 
         public void UpdateSelectedPressTime(float pressTime)
         {
+            if (!IsShapeTimeValid(pressTime))
+            {
+                onShapeChanged.Invoke(EditorModel.Shape.Description, false);
+                return;
+            }
+
+            if (HasCloseShape(EditorModel.Shape.Description, EditorModel.Shape.Description.target, pressTime))
+            {
+                NotificationsManager.ShowError("Cannot change shape press time to " + 
+                                               pressTime.ToString(CultureInfo.InvariantCulture) + "s with " + 
+                                               EditorModel.Shape.Description.target + 
+                                               " target, because another shape is to close. Try changing the Minimal delay between notes value.");
+                onShapeChanged.Invoke(EditorModel.Shape.Description, false);
+                return;
+            }
+            
             EditorModel.Shape.Description.timeToPress = pressTime;
             EditorModel.Shape.UpdatePosX(GetPosX(pressTime));
+            UpdateMultipleShapes();
+            ExcludeButSelected();
+            onShapeChanged.Invoke(EditorModel.Shape.Description, true);
         }
 
-        public static void ForceSelectShape(ShapeDescription selectShape)
+        public void UpdateSelectedPressTimeAndTarget(float pressTime, Target target)
+        {
+            UpdateSelectedTarget(target);
+            UpdateSelectedPressTime(pressTime);
+        }
+
+        public void ForceSelectShape(ShapeDescription selectShape)
         {
             foreach (var editorShape in _instance._shapes)
             {
@@ -187,8 +291,7 @@ namespace edition.timeLine
                 
                 if (selectShape.IsEqualTo(shape))
                 {
-                    EditorModel.Shape = editorShape;
-                    _instance.onShapeSelected.Invoke();
+                    ShapeSelected(editorShape);
                     return;
                 }
             }
@@ -223,15 +326,8 @@ namespace edition.timeLine
 
             if (level.shapes == null)
                 return;
-            
-            /*foreach (var shapeDescription in level.shapes)
-            {
-                if (shapeDescription.target == target && Mathf.Abs(shapeDescription.timeToPress - time) < MultiRangeAnalysis.minimalNoteDelay)
-                {
-                    NotificationsManager.ShowError("Cannot create shape at " + time.ToString(CultureInfo.InvariantCulture) + "s, because another shape is to close. Try changing the Minimal delay between notes value.");
-                    return;
-                }
-            }*/
+
+            time = Mathf.Clamp(time, LevelPreparator.TravelTime, audioSource.clip.length);
 
             ShapeDescription shape = new ShapeDescription()
             {
@@ -240,6 +336,21 @@ namespace edition.timeLine
                 timeToPress = time,
                 type = ShapeType.Square
             };
+            
+            foreach (var shapeDescription in level.shapes)
+            {
+                if(!IsShapeTimeValid(shapeDescription.timeToPress))
+                    continue;
+                
+                if (HasCloseShape(shape, target, time))
+                {
+                    NotificationsManager.ShowError("Cannot create shape at " + 
+                                                   time.ToString(CultureInfo.InvariantCulture) + "s with " + 
+                                                   target + 
+                                                   " target, because another shape is to close. Try changing the Minimal delay between notes value.");
+                    return;
+                }
+            }
 
             ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length + 1];
             Array.Copy(level.shapes, shapes, level.shapes.Length);
@@ -249,6 +360,20 @@ namespace edition.timeLine
             EditorModel.HasShapeBeenModified = true;
             DisplayLevel(level);
             ForceSelectShape(shape);
+        }
+
+        private bool HasCloseShape(ShapeDescription description, Target target, float time)
+        {
+            foreach (var shape in _shapes)
+            {
+                if (description != shape.Description && target == shape.Description.target
+                    && Mathf.Abs(shape.Description.timeToPress - time) < MultiRangeAnalysis.minimalNoteDelay)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static void OnDeleteShapeStatic(EditorShape shape)
@@ -314,18 +439,45 @@ namespace edition.timeLine
             if (!EditorModel.IsInspectingShape())
                 return;
 
+            bool isSelectedMultiple = false;
             foreach (var shape in _shapes)
             {
                 bool found = shape == EditorModel.Shape;
-                shape.UpdateColor(found ? GetShapeColor(shape.Description.target) : excludeColor);
-                if(found) shape.SetBefore();
+                bool isMultiple = shape.Description.timeToPress.Equals(EditorModel.Shape.Description.timeToPress);
+                
+                shape.UpdateColor(found || isMultiple ? GetShapeColor(shape.Description.target) : excludeColor);
+                shape.SetBefore(found);
+                isSelectedMultiple = isSelectedMultiple || isMultiple && !found;
             }
         }
 
         public void ResetExcludeColors()
         {
             foreach (var shape in _shapes)
+            {
                 shape.UpdateColor(GetShapeColor(shape.Description.target));
+                shape.SetBefore(false);
+            }
+        }
+
+        private void UpdateMultipleShapes()
+        {
+            foreach (var shape in _shapes) 
+                shape.ShowOutline(false);
+            
+            foreach (var shape in _shapes)
+            {
+                bool show = false;
+                
+                foreach (var shape2 in _shapes)
+                {
+                    bool show2 = shape != shape2 && shape.Description.timeToPress.Equals(shape2.Description.timeToPress);
+                    show = show || show2;
+                    if(show2) shape2.ShowOutline(true);
+                }
+                
+                shape.ShowOutline(show);
+            }
         }
     }
 }

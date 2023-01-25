@@ -1,3 +1,4 @@
+using edition.test;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,12 +7,14 @@ using UnityEngine.UI;
 
 namespace edition.timeLine
 {
-    public class Line : MonoBehaviour, IPointerClickHandler
+    public class Line : MonoBehaviour, IPointerClickHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private float doubleClickDelay = .5f;
         [SerializeField] private Target target;
+        [SerializeField] private Image outline;
         [SerializeField] private UnityEvent<float, Target> onDoubleClick;
+        [SerializeField] private UnityEvent<float, Target> onDragDrop;
 
         private RectTransform _transform;
         private short _clickCount = 0;
@@ -21,6 +24,7 @@ namespace edition.timeLine
         {
             _transform = GetComponent<RectTransform>();
             onDoubleClick ??= new UnityEvent<float, Target>();
+            onDragDrop ??= new UnityEvent<float, Target>();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -39,6 +43,24 @@ namespace edition.timeLine
                 _clickCount = 1;
                 _clickTime = eventData.clickTime;
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            outline.enabled = true;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            outline.enabled = false;
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            if(TestManager.IsTestRunning || !EditorModel.IsInspectingShape()) return;
+            
+            float time = PosToTime(eventData, scrollbar, _transform.rect.width);
+            onDragDrop.Invoke(time, target);
         }
 
         public static float PosToTime(PointerEventData eventData, Scrollbar scrollbar, float componentWidth)

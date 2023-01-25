@@ -3,8 +3,10 @@ using models;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
+using utils;
 using utils.XML;
 
+[RequireComponent(typeof(AudioSource))]
 public class LevelPreparator : MonoBehaviour
 {
     [SerializeField] private UnityEvent onReady;
@@ -14,8 +16,13 @@ public class LevelPreparator : MonoBehaviour
     [SerializeField] private SpriteRenderer bottomTargetColor;
     [SerializeField] private float shapesSpeed;
 
+    public const float TravelTime = 0.85f;
+    
+    private AudioSource _audioSource;
+
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
         onReady ??= new UnityEvent();
     }
 
@@ -33,6 +40,11 @@ public class LevelPreparator : MonoBehaviour
 
             foreach (var shapeDescription in level.shapes)
             {
+                shapeDescription.timeToPress = Utils.RoundTime(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
+                
+                if (shapeDescription.timeToPress < 0f || shapeDescription.timeToPress > _audioSource.clip.length)
+                    continue;
+                
                 Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target,
                     shapeDescription.goRight);
                 Color color = GetShapeColor(shapeDescription.target);
@@ -42,11 +54,11 @@ public class LevelPreparator : MonoBehaviour
                     ShapeType.Circle => circleSpeedAdjustment,
                     _ => 1
                 };
-                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.type, shapeDescription.timeToPress, speed);
+                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
 
-                if (timeToSpawn < 0)
+                if (timeToSpawn < 0f || timeToSpawn > _audioSource.clip.length)
                     continue;
-
+                
                 GameModel.Instance.PushShapeModel(
                     new ShapeModel(shapeDescription.type, shapeDescription.target, color, path,
                         shapeDescription.timeToPress, timeToSpawn, speed)
@@ -69,9 +81,8 @@ public class LevelPreparator : MonoBehaviour
         };
     }
 
-    private float GetShapeTimeToSpawn(ShapeType type, float timeToPress, float speed, float travelTime = 0.85f)
+    public static float GetShapeTimeToSpawn(float timeToPress, float travelTime = TravelTime)
     {
         return timeToPress - travelTime;
-        //return timeToPress - PathsManager.Instance.GetPathTotalDistance(type) / speed;
     }
 }

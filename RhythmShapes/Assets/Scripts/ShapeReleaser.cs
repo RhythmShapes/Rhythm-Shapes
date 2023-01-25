@@ -26,7 +26,7 @@ public class ShapeReleaser : MonoBehaviour
         {
             AttendedInput input = model.GetNextAttendedInput();
 
-            if (_audioSource.time > input.TimeToPress + model.BadPressedWindow + GameInfo.Calibration)
+            if (_audioSource.time > input.TimeToPress + model.BadPressedWindow + GameInfo.InputCalibration)
             {
                 foreach (var shape in input.Shapes)
                 {

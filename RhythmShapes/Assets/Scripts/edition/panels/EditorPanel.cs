@@ -19,6 +19,7 @@ namespace edition.panels
         [SerializeField] private TMP_InputField levelNameField;
         [SerializeField] private RangeField minimalNoteDelayField;
         [SerializeField] private RangeField peakThresholdField;
+        [SerializeField] private RangeField doubleNotePeakThresholdField;
         [SerializeField] private Button analyseButton;
         
         [Space]
@@ -47,6 +48,7 @@ namespace edition.panels
             _instance.musicPathObject.SetActive(GameInfo.IsNewLevel);
             _instance.minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
             _instance.peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
+            _instance.doubleNotePeakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
         }
 
         public void SetActive(bool active)
@@ -57,6 +59,7 @@ namespace edition.panels
                 OnSetLevelName(EditorModel.OriginLevel.title);
                 minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
                 peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
+                doubleNotePeakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
             }
 
             CheckFields();
@@ -119,11 +122,21 @@ namespace edition.panels
         public void OnSetMinimalNoteDelay(float delay)
         {
             MultiRangeAnalysis.minimalNoteDelay = delay;
+            minimalNoteDelayField.SetValueWithoutNotify(delay);
         }
 
         public void OnSetPeakThreshold(float threshold)
         {
             MultiRangeAnalysis.analysisThreshold = threshold;
+            peakThresholdField.SetValueWithoutNotify(threshold);
+            doubleNotePeakThresholdField.SetValueWithoutNotify(Mathf.Max(threshold, MultiRangeAnalysis.doubleNoteAnalysisThreshold));
+        }
+
+        public void OnSetDoubleNotePeakThreshold(float threshold)
+        {
+            threshold = Mathf.Max(threshold, MultiRangeAnalysis.analysisThreshold);
+            MultiRangeAnalysis.doubleNoteAnalysisThreshold = threshold;
+            doubleNotePeakThresholdField.SetValueWithoutNotify(threshold);
         }
 
         public static bool CheckFields()

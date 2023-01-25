@@ -4,6 +4,8 @@ using shape;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using utils;
+using utils.XML;
 
 namespace edition.panels
 {
@@ -61,7 +63,6 @@ namespace edition.panels
             if((ShapeType) type == EditorModel.Shape.Description.type)
                 return;
             
-            EditorModel.HasShapeBeenModified = true;
             onRequestChangeType.Invoke((ShapeType) type);
         }
 
@@ -70,7 +71,6 @@ namespace edition.panels
             if((Target) target == EditorModel.Shape.Description.target)
                 return;
 
-            EditorModel.HasShapeBeenModified = true;
             onRequestChangeTarget.Invoke((Target) target);
         }
 
@@ -79,7 +79,6 @@ namespace edition.panels
             if(goRight == 1 && EditorModel.Shape.Description.goRight)
                 return;
 
-            EditorModel.HasShapeBeenModified = true;
             // 0 = left, 1 = right
             onRequestChangeGoRight.Invoke(goRight == 1);
         }
@@ -87,19 +86,25 @@ namespace edition.panels
         public void OnChangePressTime(string textPressTime)
         {
             if (!float.TryParse(textPressTime.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out var pressTime))
-            {
-                //pressTimeField.GetComponentInParent<ErrorMessage>().ShowError("Invalid float");
                 pressTime = 0f;
-            }
             
-            pressTime = Mathf.Clamp(pressTime, 0f, audioSource.clip.length);
-            pressTimeField.SetTextWithoutNotify(pressTime.ToString(CultureInfo.InvariantCulture));
+            pressTime = Mathf.Clamp(pressTime, LevelPreparator.TravelTime, audioSource.clip.length);
+            pressTime = Utils.RoundTime(pressTime);
+            //pressTimeField.SetTextWithoutNotify(pressTime.ToString(CultureInfo.InvariantCulture));
 
             if(Math.Abs(pressTime - EditorModel.Shape.Description.timeToPress) == 0f)
                 return;
             
-            EditorModel.HasShapeBeenModified = true;
             onRequestChangeTimeToPress.Invoke(pressTime);
+        }
+
+        public void OnSelectedChanged(ShapeDescription shape, bool changed)
+        {
+            typeField.SetValueWithoutNotify((int) shape.type);
+            targetField.SetValueWithoutNotify((int) shape.target);
+            pressTimeField.SetTextWithoutNotify(shape.timeToPress.ToString(CultureInfo.InvariantCulture));
+            goRightField.SetValueWithoutNotify(shape.goRight ? 1 : 0);
+            if(changed) EditorModel.HasShapeBeenModified = true;
         }
     }
 }

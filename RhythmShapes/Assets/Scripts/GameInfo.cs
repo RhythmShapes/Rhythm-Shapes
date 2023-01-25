@@ -6,5 +6,7 @@ public static class GameInfo
 {
     public static string LevelName;
     public static bool IsNewLevel;
-    public static float Calibration;
+    public static float InputCalibration;
+    public static float AudioCalibration;
+    public static bool RequestAnalysis;
 }
