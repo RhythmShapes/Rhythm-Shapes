@@ -60936,9 +60936,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 6be68273b454fc844b1896891f5d6e39, type: 3}
     - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 297969609}
+    - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: InputManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.size
       value: 3
@@ -60948,8 +60964,12 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

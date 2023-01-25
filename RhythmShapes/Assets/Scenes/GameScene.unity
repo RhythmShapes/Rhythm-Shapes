@@ -61364,6 +61364,10 @@ PrefabInstance:
       value: MenuButton
       objectReference: {fileID: 0}
     - target: {fileID: 8413089934784750946, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934784750946, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 297969609}
@@ -61392,9 +61396,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1030204713}
     - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 297969609}
+    - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 297969609}
+    - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DisableInputSystemUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InputManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8413089934832039641, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -62420,6 +62440,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1211213116}
     - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936200891513, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 297969609}
@@ -62432,8 +62456,12 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8413089936200891515, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
