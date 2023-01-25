@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using utils;
+using utils.XML;
 
 namespace edition.panels
 {
@@ -57,6 +58,14 @@ namespace edition.panels
             {
                 levelNameField.SetTextWithoutNotify(EditorModel.OriginLevel.title);
                 OnSetLevelName(EditorModel.OriginLevel.title);
+            }
+
+            if (!GameInfo.IsNewLevel && EditorModel.HasLevelSet())
+            {
+                LevelDescription level = EditorModel.GetCurrentLevel();
+                MultiRangeAnalysis.minimalNoteDelay = level.minimalNoteDelay;
+                MultiRangeAnalysis.analysisThreshold = level.analysisThreshold;
+                MultiRangeAnalysis.doubleNoteAnalysisThreshold = level.doubleNoteAnalysisThreshold;
             }
             
             minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);

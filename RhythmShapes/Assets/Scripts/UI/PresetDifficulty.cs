@@ -82,6 +82,7 @@ public class PresetDifficulty : MonoBehaviour
         minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
         peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
         doubleNoteThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
+        SetEasyPreset();
     }
 
     public void SetEasyPreset()

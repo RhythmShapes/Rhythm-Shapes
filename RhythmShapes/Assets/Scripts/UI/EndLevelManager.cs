@@ -114,7 +114,7 @@ public class EndLevelManager : MonoBehaviour
     public void SetAccuracy()
     {
         var text = ScoreManager.Instance.GetAccuracy()*100;
-        accuracyTMP.text = text.ToString("F1");
+        accuracyTMP.text = text.ToString("F1") + "%";
     }
     
 }

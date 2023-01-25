@@ -61665,18 +61665,18 @@ PrefabInstance:
     - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 297969609}
+      objectReference: {fileID: 936210148}
     - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 297969609}
     - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisableInputSystemUI
+      value: BackToMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8413089934784750957, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InputManager, Assembly-CSharp
+      value: EndLevelManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8413089934832039641, guid: 5cb2700fc34e90443a26d36a80324a7a, type: 3}
       propertyPath: m_IsActive
@@ -68187,7 +68187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.56586, y: -644.52295}
+  m_AnchoredPosition: {x: 959.80615, y: -645.1636}
   m_SizeDelta: {x: 1400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1033280751
@@ -123459,7 +123459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.56586, y: -454.84097}
+  m_AnchoredPosition: {x: 959.80615, y: -455.05453}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122056438
