@@ -225,9 +225,9 @@ namespace AudioAnalysis
                             }
                             else
                             {
-                                shape.target = (shape.Target)maxProbabilityIndex;
+                                shape.target = (shape.Target)((maxProbabilityIndex + j)%4);
                                 usedTarget[maxProbabilityIndex] = true;
-                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                                 shape.timeToPress = oldTime;
                                 shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                                 shapes.Add(shape);
@@ -239,10 +239,10 @@ namespace AudioAnalysis
                         {
                             numberOfNotes++;
                             ShapeDescription shape = new ShapeDescription();
-                            shape.target = (shape.Target)maxProbabilityIndex;
+                            shape.target = (shape.Target)((maxProbabilityIndex+j)%4);
                             usedTarget = allFalse;
                             usedTarget[maxProbabilityIndex] = true;
-                            shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape.timeToPress = noteTime;
                             shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape);
