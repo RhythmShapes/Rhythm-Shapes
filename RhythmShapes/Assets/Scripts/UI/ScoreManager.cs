@@ -76,7 +76,7 @@ public class ScoreManager : MonoBehaviour
 
         Score += amount;
         currentNumberOfShape++;
-        currrentAccuracy = (500*PerfectCounter + 200*GoodCounter + 75*OkCounter + 40*GoodCounter + 10*BadCounter)/((float)500*currentNumberOfShape);
+        currrentAccuracy = (300*PerfectCounter + 200*GoodCounter + 75*OkCounter + 40*GoodCounter + 10*BadCounter)/((float)300*currentNumberOfShape);
     }
 
     private int GetComboValue()
