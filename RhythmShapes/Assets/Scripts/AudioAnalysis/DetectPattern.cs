@@ -6,17 +6,64 @@ namespace AudioAnalysis
 {
     public class DetectPattern : MonoBehaviour
     {
-        void DetectedPatterns(List<Shape> shapes)
+        List<List<List<Shape>>> PatternBeginEnd(List<Shape> shapes, float sigma)
         {
-            /*
-            List<List<int>> connectedIndexes = ConnectedIndexes(shapes, 0f);
-            int length = connectedIndexes.Count;
+            List<List<List<Shape>>> listpatern = new List<List<List<Shape>>>();
 
-            for (int i = 0; i < length; i++)
+            List<List<int>> connectedIndexes = ConnectedIndexes(shapes, sigma);
+
+            int length_left = connectedIndexes.Count;
+            int index = 0;
+
+            while (length_left - index > 0)
             {
+                List<List<Shape>> pattern = new List<List<Shape>>();
 
+                List<int> connectedIndex = connectedIndexes[index];
+                List<int> connectedIndexNext;
+
+                for (int j = 0; j < connectedIndex.Count; j++)
+                {
+                    List<Shape> shapesInPattern = new List<Shape>();
+
+                    if (length_left - index == 1)
+                    {
+                        connectedIndex = connectedIndexes[index];
+                        shapesInPattern.Add(shapes[connectedIndex[0]]);
+                        shapesInPattern.Add(shapes[connectedIndex[0] + 1]);
+                        connectedIndex.RemoveAt(0);
+
+                        index++;
+
+                        pattern.Add(shapesInPattern);
+                    }
+                    else
+                    {
+                        connectedIndexNext = connectedIndexes[index + 1];
+
+                        while (connectedIndex[0] == connectedIndexNext[0] - 1)
+                        {
+                            shapesInPattern.Add(shapes[connectedIndex[0]]);
+                            connectedIndex.RemoveAt(0);
+
+                            index++;
+
+                            connectedIndex = connectedIndexes[index];
+                            connectedIndexNext = connectedIndexes[index + 1];
+                        }
+
+                        // On est sorti de la boucle, connectedIndexes[index] correspond donc à la dernière shape du Pattern
+                        connectedIndex = connectedIndexes[index];
+                        shapesInPattern.Add(shapes[connectedIndex[0]]);
+                        shapesInPattern.Add(shapes[connectedIndex[0] + 1]);
+                        connectedIndex.RemoveAt(0);
+
+                        pattern.Add(shapesInPattern);
+                    } 
+                }
+                listpatern.Add(pattern);
             }
-            */
+            return listpatern;
         }
 
         List<List<int>> ConnectedIndexes(List<Shape> shapes, float sigma)
@@ -26,7 +73,7 @@ namespace AudioAnalysis
 
             int length = shapes.Count;
 
-            for (int i = 0; i < length - 2; i++) 
+            for (int i = 0; i < length - 3; i++) 
             {
                 if (alreadyChecked.Contains(i)) continue;
 
@@ -41,7 +88,7 @@ namespace AudioAnalysis
                 {
                     // On regarde si la première shape est la même
                     Shape observedShape = shapes[j];
-                    if(observedShape.Type == currentShape.Type) 
+                    if (observedShape.Type == currentShape.Type) 
                     {
                         // On regarde si la deuxième shape est la même
                         Shape observedNextShape = shapes[j + 1];

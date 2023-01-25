@@ -8,16 +8,18 @@ namespace AudioAnalysis
 
     public static class PostAnalysisTools
     {
-        public static int FirstBeatTime(Shape[] shapes, float bpm)
+        public static int FirstBeatIndex(Shape[] shapes, float bpm)
         {
             float bps = bpm / 60;
-            float maxStartTime = shapes[0].TimeToPress + 3 * bps;
+            float maxStartTime = shapes[0].TimeToPress + 3 / bps;
             int k = 0;
             List<int> startIndexes = new List<int>();
-            while (shapes[k].TimeToPress < maxStartTime)
+            while (k<shapes.Length && shapes[k].TimeToPress < maxStartTime)
             {
                 startIndexes.Add(k);
+                k++;
             }
+            Debug.Log(startIndexes.Count);
             int maxCount = 0;
             int startIndex = 0;
             foreach (int index in startIndexes)
@@ -40,10 +42,15 @@ namespace AudioAnalysis
             return startIndex;
         }
         public static void snapNotesToBPMGrid(Shape[] shapes, float bpm, float firstNoteTime, float precision)
+            /*
+             * NB: precision désigne la précision en fraction de beat.
+             */
         {
+            precision = precision * 60 / bpm;
+            Debug.Log("PRECisiON: " + precision);
             for (int i = 0; i < shapes.Length; i++)
             {
-                float shift = -(((shapes[i].TimeToPress - firstNoteTime) % precision) - precision);
+                float shift = (((shapes[i].TimeToPress - firstNoteTime) % precision) - precision);
                 shapes[i].ShiftTimeToPress(shift);
             }
         }
@@ -54,6 +61,13 @@ namespace AudioAnalysis
             return Mathf.FloorToInt( (shapes[end].TimeToPress - firstNoteTime) * bpm / 60);
         }
 
+        public static void RoundTimingToMilliseconds(Shape[] shapes)
+        {
+            foreach(Shape shape in shapes)
+            {
+                shape.ShiftTimeToPress(shape.TimeToPress - (Mathf.Round(shape.TimeToPress*1000)/1000));
+            }
+        }
         public static Shape[] MelodicalPatternRepetition(Shape[] shapes, float bpm, float firstNoteTime, float matchingThreshold)
         {
             float bps = bpm / 60;
@@ -129,7 +143,7 @@ namespace AudioAnalysis
                         union.Add(firstHalf[k]);
                     }
                 }
-                float iou = intersection.Count / union.Count;
+                float iou = (float)intersection.Count / union.Count;
                 if (iou > matchingThreshold)
                 {
                     union.AddRange(union);
@@ -138,7 +152,7 @@ namespace AudioAnalysis
                 else
                 {
                     Shape[] shapes_l = MelodicalPatternRepetition(firstHalf.ToArray(), bpm, firstNoteTime, matchingThreshold);
-                    Shape[] shapes_r = MelodicalPatternRepetition(secondHalf.ToArray(), bpm, FirstBeatTime(secondHalf.ToArray(),bpm), matchingThreshold);
+                    Shape[] shapes_r = MelodicalPatternRepetition(secondHalf.ToArray(), bpm, secondHalf[FirstBeatIndex(secondHalf.ToArray(),bpm)].TimeToPress, matchingThreshold);
                     for (int k = 0; k < shapes.Length; k++)
                     {
                         if (k < shapes_l.Length)
