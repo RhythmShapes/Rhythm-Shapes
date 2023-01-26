@@ -16,13 +16,15 @@ public class LevelPreparator : MonoBehaviour
     [SerializeField] private SpriteRenderer bottomTargetColor;
     [SerializeField] private float shapesSpeed;
 
-    public const float TravelTime = 0.85f;
+    public const float TravelTime = 0.9375f;
     
     private AudioSource _audioSource;
+    private AudioPlayer _audioPlayer;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _audioPlayer = GetComponent<AudioPlayer>();
         onReady ??= new UnityEvent();
     }
 
@@ -40,9 +42,10 @@ public class LevelPreparator : MonoBehaviour
 
             foreach (var shapeDescription in level.shapes)
             {
-                shapeDescription.timeToPress = Utils.RoundTime(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
+                shapeDescription.timeToPress = Utils.RoundTime(shapeDescription.timeToPress);
+                float press = shapeDescription.timeToPress + GameInfo.AudioCalibration;
                 
-                if (shapeDescription.timeToPress < 0f || shapeDescription.timeToPress > _audioSource.clip.length)
+                if (press < 0f || press > _audioPlayer.length)
                     continue;
                 
                 Vector2[] path = PathsManager.Instance.GetPath(shapeDescription.type, shapeDescription.target,
@@ -54,9 +57,11 @@ public class LevelPreparator : MonoBehaviour
                     ShapeType.Circle => circleSpeedAdjustment,
                     _ => 1
                 };
-                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.timeToPress) + GameInfo.AudioCalibration;
+                
+                float timeToSpawn = GetShapeTimeToSpawn(shapeDescription.timeToPress);
+                float spawn = timeToSpawn + GameInfo.AudioCalibration;
 
-                if (timeToSpawn < 0f || timeToSpawn > _audioSource.clip.length)
+                if (spawn < 0f || spawn > _audioPlayer.length)
                     continue;
                 
                 GameModel.Instance.PushShapeModel(

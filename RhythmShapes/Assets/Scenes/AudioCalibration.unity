@@ -482,9 +482,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5678,9 +5678,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5856,9 +5856,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -30920,7 +30920,7 @@ GameObject:
   - component: {fileID: 504784898}
   - component: {fileID: 504784897}
   m_Layer: 0
-  m_Name: Image
+  m_Name: BlackScreenImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51390,6 +51390,7 @@ RectTransform:
   m_Children:
   - {fileID: 504784896}
   - {fileID: 1607358715}
+  - {fileID: 1291330154}
   m_Father: {fileID: 1232869468}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51501,9 +51502,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -56682,9 +56683,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -76929,6 +76930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 652607754}
   pauseMenuCanvas: {fileID: 631597059}
+  audioMixer: {fileID: 0}
 --- !u!114 &1232869470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77208,6 +77210,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270296996}
   m_CullTransparentMesh: 1
+--- !u!224 &1291330154 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+  m_PrefabInstance: {fileID: 5314197929974899793}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1325290353
 GameObject:
   m_ObjectHideFlags: 0
@@ -87118,9 +87125,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -92528,8 +92535,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2058798779}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+      - m_Target: {fileID: 2058798788}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -92567,9 +92574,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2058798779}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: UnPause
+      - m_Target: {fileID: 2058798788}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -107789,9 +107796,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -113223,9 +113230,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23137255, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.8862745, g: 0.41960785, b: 0.9529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -118443,8 +118450,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2058798779}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+      - m_Target: {fileID: 2058798788}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
@@ -118521,8 +118528,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2058798779}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+      - m_Target: {fileID: 2058798788}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
         m_MethodName: Stop
         m_Mode: 1
         m_Arguments:
@@ -118990,6 +118997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2058798786}
   - component: {fileID: 2058798779}
+  - component: {fileID: 2058798788}
   - component: {fileID: 2058798787}
   - component: {fileID: 2058798785}
   - component: {fileID: 2058798784}
@@ -119397,6 +119405,21 @@ MonoBehaviour:
   leftTargetColor: {fileID: 1077755118}
   bottomTargetColor: {fileID: 1077755123}
   shapesSpeed: 10
+--- !u!114 &2058798788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058798778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbcd6b5f62bbcc049952d21bff209daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 2058798779}
+  timeBefore: 0
+  timeAfter: 0.1
 --- !u!1 &2075665984
 GameObject:
   m_ObjectHideFlags: 0
@@ -119611,6 +119634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   calibration: 0
+  dots: []
 --- !u!4 &2122152372
 Transform:
   m_ObjectHideFlags: 0
@@ -124515,3 +124539,112 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1001 &5314197929974899793
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 904744809}
+    m_Modifications:
+    - target: {fileID: 5314197930989389368, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_Name
+      value: TimeSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197930989389373, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: audioPlayer
+      value: 
+      objectReference: {fileID: 2058798788}
+    - target: {fileID: 5314197931041640236, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314197931041640236, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}

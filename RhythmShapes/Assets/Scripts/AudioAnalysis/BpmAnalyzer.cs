@@ -86,6 +86,37 @@ namespace AudioAnalysis
             return bpm;
         }
 
+        public static int GetBPM(float[] totalSamples, int clipSamples, int channels, int frequency)
+        {
+            //Initialise tous les match à 0
+            for (int i = 0; i < bpmMatchDatas.Length; i++)
+            {
+                bpmMatchDatas[i].match = 0f;
+            }
+            //Debug.Log("Channels : " + channels);
+
+            int splitFrameSize = Mathf.FloorToInt(((float)frequency / (float)BASE_FREQUENCY) * ((float)channels / (float)BASE_CHANNELS) * (float)BASE_SPLIT_SAMPLE_SIZE);
+
+
+            // Create volume array from all sample data
+            var volumeArr = CreateVolumeArray(totalSamples, frequency, channels, splitFrameSize);
+
+            // Search bpm from volume array
+            int bpm = SearchBpm(volumeArr, frequency, splitFrameSize);
+            //Debug.Log("Matched BPM : " + bpm);
+
+            /*
+            var strBuilder = new StringBuilder("BPM Match Data List\n");
+            for (int i = 0; i < bpmMatchDatas.Length; i++)
+            {
+                strBuilder.Append("bpm : " + bpmMatchDatas[i].bpm + ", match : " + Mathf.FloorToInt(bpmMatchDatas[i].match * 10000f) + "\n");
+            }
+            Debug.Log(strBuilder.ToString());
+            */
+
+            return bpm;
+        }
+
         /// <summary>
         /// Create volume array from all sample data
         /// </summary>

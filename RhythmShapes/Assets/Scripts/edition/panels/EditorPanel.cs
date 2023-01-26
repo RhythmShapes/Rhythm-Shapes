@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using utils;
+using utils.XML;
 
 namespace edition.panels
 {
@@ -57,10 +58,19 @@ namespace edition.panels
             {
                 levelNameField.SetTextWithoutNotify(EditorModel.OriginLevel.title);
                 OnSetLevelName(EditorModel.OriginLevel.title);
-                minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
-                peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
-                doubleNotePeakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
             }
+
+            if (!GameInfo.IsNewLevel && EditorModel.HasLevelSet())
+            {
+                LevelDescription level = EditorModel.GetCurrentLevel();
+                MultiRangeAnalysis.minimalNoteDelay = level.minimalNoteDelay;
+                MultiRangeAnalysis.analysisThreshold = level.analysisThreshold;
+                MultiRangeAnalysis.doubleNoteAnalysisThreshold = level.doubleNoteAnalysisThreshold;
+            }
+            
+            minimalNoteDelayField.SetValueWithoutNotify(MultiRangeAnalysis.minimalNoteDelay);
+            peakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.analysisThreshold);
+            doubleNotePeakThresholdField.SetValueWithoutNotify(MultiRangeAnalysis.doubleNoteAnalysisThreshold);
 
             CheckFields();
             gameObject.SetActive(active);
@@ -129,7 +139,12 @@ namespace edition.panels
         {
             MultiRangeAnalysis.analysisThreshold = threshold;
             peakThresholdField.SetValueWithoutNotify(threshold);
-            doubleNotePeakThresholdField.SetValueWithoutNotify(Mathf.Max(threshold, MultiRangeAnalysis.doubleNoteAnalysisThreshold));
+
+            if (MultiRangeAnalysis.doubleNoteAnalysisThreshold < threshold)
+            {
+                MultiRangeAnalysis.doubleNoteAnalysisThreshold = threshold;
+                doubleNotePeakThresholdField.SetValueWithoutNotify(threshold);
+            }
         }
 
         public void OnSetDoubleNotePeakThreshold(float threshold)

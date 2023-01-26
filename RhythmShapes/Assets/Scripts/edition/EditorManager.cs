@@ -16,6 +16,7 @@ namespace edition
         {
             string levelName = useDevVariables ? devLevelName : GameInfo.LevelName;
             GameInfo.IsNewLevel = (useDevVariables && isNewLevel) || (!useDevVariables && GameInfo.IsNewLevel);
+            EditorModel.Reset();
             EditorPanel.Init();
 
             if (!GameInfo.IsNewLevel)

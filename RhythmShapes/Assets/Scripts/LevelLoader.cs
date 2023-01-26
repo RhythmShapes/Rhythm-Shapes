@@ -53,7 +53,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevelFromAnalysis(string sourceAudioPath)
     {
         _loaded = false;
-        ProgressUtil.Init(7);
+        ProgressUtil.Init(10);
         
         StartCoroutine(LoadAudio(sourceAudioPath, () =>
         {
@@ -61,10 +61,13 @@ public class LevelLoader : MonoBehaviour
             ProgressUtil.Update();
             MultiRangeAnalysis.Init(_loadedAudioClip);
             onLoadFromAnalysisStart.Invoke();
+            var audioClipLength = _loadedAudioClip.length;
         
             new Thread(() =>
             {
                 LevelDescription level = MultiRangeAnalysis.AnalyseMusic();
+                level.numberOfNotesPerSecond = level.numberOfNotes / audioClipLength;
+                level.audioLength = audioClipLength;
                 _currentLevelDescription = level;
                 _loaded = true;
             }).Start();

@@ -144,6 +144,12 @@ namespace edition.panels
             
         }
 
+        public void OnHelp()
+        {
+            if(popupWindow != null)
+                popupWindow.ShowHelp();
+        }
+
         private void ShowPopupError(string message)
         {
             if(popupWindow != null)

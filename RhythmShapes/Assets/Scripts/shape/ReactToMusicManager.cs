@@ -13,10 +13,6 @@ namespace shape
         [SerializeField] private float factor = 1f;
         [SerializeField] [Range(1, SampleLength)] private int keptFrequency;
         [SerializeField] private float reduceRate = 1f;
-        [SerializeField] private float show = 0f;
-        
-        private static float _maxScale = 1f;
-        private static AudioSource _source;
 
         private const int SampleLength = 2048;
         
@@ -29,12 +25,6 @@ namespace shape
         public static float GetScale(float minScale, float maxScale)
         {
             return Mathf.Clamp(SignalLevel * (maxScale - minScale) + minScale, minScale, maxScale);
-        }
-
-        private void Start()
-        {
-            _maxScale = maxScale;
-            _source = source;
         }
         
         private void Update()
@@ -64,7 +54,6 @@ namespace shape
 
             SignalLevel = Mathf.Min(SignalLevel, maxScale);
             _oldSignalLevel = SignalLevel;
-            show = SignalLevel;
         }
     }
 }

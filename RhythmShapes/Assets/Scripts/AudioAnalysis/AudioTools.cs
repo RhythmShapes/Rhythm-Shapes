@@ -124,7 +124,7 @@ namespace AudioAnalysis
             return Mathf.Sqrt(sum) / data.Length;
         }
 
-        public static float[] GetBPM(float[] totalSamples, int clipSamples, int channels, float frequency)
+        public static float[] GetBPMs(float[] totalSamples, int clipSamples, int channels, float frequency)
         {
             float[][] spectrum = FFT(totalSamples, clipSamples,  channels, SampleSize);
             float[] BPMS = new float[spectrum.Length];
@@ -152,6 +152,39 @@ namespace AudioAnalysis
                 BPMS[i] = currentBPM;
             }
             return BPMS;
+        }
+
+        public static float GetBPM(float[] totalSamples, int clipSamples, int channels, int frequency)
+        {
+            float[][] spectrum = FFT(totalSamples, clipSamples, channels, SampleSize);
+            float[] BPMS = new float[spectrum.Length];
+            float[] averageEnergies = new float[spectrum.Length];
+            for (int i = 0; i < spectrum.Length; i++)
+            {
+                averageEnergies[i] = AverageEnergy(spectrum[i]);
+            }
+            float averageEnergy = 0;
+            for (int i = 0; i < averageEnergies.Length; i++)
+            {
+                averageEnergy += averageEnergies[i];
+            }
+            averageEnergy /= averageEnergies.Length;
+
+
+            int lastBeatIndex = 0;
+            float currentBPM = 0;
+            float BPM = 0;
+            for (int i = 0; i < averageEnergies.Length; i++)
+            {
+                if (averageEnergies[i] > averageEnergy && i > lastBeatIndex)
+                {
+                    currentBPM = 60/((float)(i - lastBeatIndex) / frequency);
+                    lastBeatIndex = i;
+                }
+                BPMS[i] = currentBPM;
+                BPM += currentBPM;
+            }
+            return BPM/BPMS.Length;
         }
 
         public static float[] Normalize(float[] data)

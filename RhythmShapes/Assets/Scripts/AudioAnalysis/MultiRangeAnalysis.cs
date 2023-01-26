@@ -12,7 +12,7 @@ namespace AudioAnalysis
     public static class MultiRangeAnalysis
     {
         [SerializeField]
-        private static int numberOfRanges = 4;
+        private static int numberOfRanges = 3;
 
         [SerializeField]
         public static float minimalNoteDelay = 0.1f;
@@ -20,7 +20,7 @@ namespace AudioAnalysis
         public static float analysisThreshold = 0.3f;
         public static float doubleNoteAnalysisThreshold = 0.4f;
         private static string _clipName;
-        private static float _clipFrequency;
+        private static int _clipFrequency;
         private static float[] _totalSamples;
         private static int _clipSamples;
         private static int _clipChannels;
@@ -37,7 +37,7 @@ namespace AudioAnalysis
         
         public static LevelDescription AnalyseMusic()
         {
-            float[] BPMs = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
+            float bpm = BPMAnalyzer.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
             ProgressUtil.Update();
             
             float[][] fftData = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
@@ -70,14 +70,18 @@ namespace AudioAnalysis
             ProgressUtil.Update();
             
             LevelDescription level = new LevelDescription { title = _clipName };
+            level.minimalNoteDelay = minimalNoteDelay;
+            level.analysisThreshold = analysisThreshold;
+            level.doubleNoteAnalysisThreshold = doubleNoteAnalysisThreshold;
             List<ShapeDescription> shapes = new List<ShapeDescription>();
 
             float[][] noteProbability = new float[numberOfRanges][];
             int numberOfNotes = 0;
+            int numberOfDoubleNotes = 0;
             int freqMin = 0;
             for(int i = 0; i < numberOfRanges; i++)
             {
-                int freqMax = (int)(Mathf.Exp((i+1)*Mathf.Log(AudioTools.SampleSize) / numberOfRanges ));
+                int freqMax = (int) Mathf.Pow( 200f, (i+1)*Mathf.Log(AudioTools.SampleSize) / (Mathf.Log(200f) * numberOfRanges) );
                 if(freqMax >= maximums.Length) { freqMax = maximums.Length-1; }
                 noteProbability[i] = new float[amplitudeEvolutionPerFrequency[0].Length];
                 for(int j = 0; j < noteProbability[i].Length; j++)
@@ -98,9 +102,12 @@ namespace AudioAnalysis
             ProgressUtil.Update();
 
             float oldTime = 0;
+            float firstNoteTime = 0;
+            int doubleNoteCycle = 0;
             // int counter = 0;
             bool[] usedTarget = new []{false, false, false, false};
             bool[] allFalse = new []{false, false, false, false};
+            bool belowMinDelay = false;
             int curatedFreqMin = 20000;
             int curatedFreqMax = 20;
             for (int j = 0; j < noteProbability[0].Length; j++)
@@ -117,7 +124,13 @@ namespace AudioAnalysis
                 }
                 if (maxProbability > analysisThreshold)
                 {
+                    if(numberOfNotes == 0 && numberOfDoubleNotes == 0)
+                    {
+                        firstNoteTime = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                        firstNoteTime = Mathf.Round(firstNoteTime * 1000) / 1000;
+                    }
                     float noteTime = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                    noteTime = PostAnalysisTools.SnapTimeToBPMGrid(noteTime, bpm, firstNoteTime, 1f / 12);
                     if( j > curatedFreqMax)
                     {
                         curatedFreqMax = j;
@@ -128,18 +141,20 @@ namespace AudioAnalysis
                     }
                     if (maxProbability > doubleNoteAnalysisThreshold)
                     {
+                        
                         if (noteTime - oldTime < minimalNoteDelay)
                         {
                             continue;
                         }
                         else
                         {
+                            numberOfDoubleNotes++;
                             numberOfNotes++;
                             ShapeDescription shape1 = new ShapeDescription();
-                            shape1.target = (shape.Target)maxProbabilityIndex;
+                            shape1.target = (shape.Target)((maxProbabilityIndex+doubleNoteCycle)%4);
                             usedTarget = allFalse;
-                            usedTarget[maxProbabilityIndex] = true;
-                            shape1.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            usedTarget[(maxProbabilityIndex+doubleNoteCycle)%4] = true;
+                            shape1.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape1.timeToPress = noteTime;
                             shape1.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape1);
@@ -147,117 +162,112 @@ namespace AudioAnalysis
                             
                             numberOfNotes++;
                             ShapeDescription shape2 = new ShapeDescription();
-                            shape2.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
+                            shape2.target = (shape.Target)((maxProbabilityIndex+j+doubleNoteCycle)%4==(maxProbabilityIndex+doubleNoteCycle)%4 ?(maxProbabilityIndex+j+doubleNoteCycle+1)%4 : (maxProbabilityIndex+j+doubleNoteCycle)%4);
                             usedTarget = allFalse;
-                            usedTarget[(maxProbabilityIndex + 2) % 4] = true;
-                            shape2.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            usedTarget[(maxProbabilityIndex+j+doubleNoteCycle)%4==(maxProbabilityIndex+doubleNoteCycle)%4 ?(maxProbabilityIndex+j+doubleNoteCycle+1)%4 : (maxProbabilityIndex+j+doubleNoteCycle)%4] = true;
+                            shape2.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape2.timeToPress = noteTime;
                             shape2.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape2);
                             oldTime = noteTime;
-                            
+
+                            belowMinDelay = true;
+                            doubleNoteCycle++;
+
+
                         }
                     }
                     else
                     {
                         if(noteTime-oldTime < minimalNoteDelay) {
-                            numberOfNotes++;
                             ShapeDescription shape = new ShapeDescription();
                             if (usedTarget[maxProbabilityIndex]) // if both shapes go to same target 
                             {
-                                
                                 int selectedIndex = -1;
                                 int k = 1;
-                                while(selectedIndex == -1 && k < numberOfRanges)
+                                while(selectedIndex == -1 && k < 4)
                                 {
-                                    if (!usedTarget[(maxProbabilityIndex + k) % numberOfRanges])
+                                    if (!usedTarget[(maxProbabilityIndex + k) % 4]) // 4 = numberOftargets, variable à généraliser si update donnant lieu à des niveaux avec un nombre différent de targets
                                     {
-                                        selectedIndex = (maxProbabilityIndex+k) % numberOfRanges;
+                                        selectedIndex = (maxProbabilityIndex+k);
                                     }
                                     k++;
                                 }
                                 if(selectedIndex != -1)
                                 {
                                     shape.target = (shape.Target)selectedIndex;
-                                    usedTarget[selectedIndex] = true;
-                                    shape.type = (shape.ShapeType)((selectedIndex + j) % 3);
+                                    usedTarget[selectedIndex%4] = true;
+                                    shape.type = (shape.ShapeType)((selectedIndex) % 3);
                                     shape.timeToPress = oldTime;
                                     shape.goRight = ((selectedIndex + j) % 2).Equals(0);
                                     shapes.Add(shape);
                                     numberOfNotes++;
+                                    if (!belowMinDelay)
+                                    {
+                                        belowMinDelay = true;
+                                        numberOfDoubleNotes++;
+                                    }
                                 }
-                                /*
-                                if (!usedTarget[(maxProbabilityIndex + 1) % 4])
-                                {
-                                    shape.target = (shape.Target)((maxProbabilityIndex + 1) % 4);
-                                    usedTarget[(maxProbabilityIndex + 1) % 4] = true;
-                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                    shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                    shapes.Add(shape);
-                                }
-                                else if (!usedTarget[(maxProbabilityIndex + 2) % 4])
-                                {
-                                    shape.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
-                                    usedTarget[(maxProbabilityIndex + 2) % 4] = true;
-                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                    shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                    shapes.Add(shape);
-                                }
-                                else if (!usedTarget[(maxProbabilityIndex + 3) % 4])
-                                {
-                                    shape.target = (shape.Target)((maxProbabilityIndex + 3) % 4);
-                                    usedTarget[(maxProbabilityIndex + 3) % 4] = true;
-                                    shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
-                                    shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
-                                    shapes.Add(shape);
-                                }
-                                */
                                 else
                                 {
                                     // ignore other notes
-                                    Debug.Log("All Target Have Been Used" + j);
+                                    //Debug.Log("All Target Have Been Used" + j);
                                     // Debug.Log(usedTarget[0]+", "+usedTarget[1]+", "+usedTarget[2]+", "+usedTarget[3]);
                                 }
                                 
                             }
                             else
                             {
-                                shape.target = (shape.Target)maxProbabilityIndex;
-                                usedTarget[maxProbabilityIndex] = true;
-                                shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                                shape.target = (shape.Target)((maxProbabilityIndex + j)%4);
+                                usedTarget[(maxProbabilityIndex+j)%4] = true;
+                                shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                                 shape.timeToPress = oldTime;
                                 shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                                 shapes.Add(shape);
                                 numberOfNotes++;
                             }
                             // counter++;
+                            continue;
                         }
                         else
                         {
                             numberOfNotes++;
                             ShapeDescription shape = new ShapeDescription();
-                            shape.target = (shape.Target)maxProbabilityIndex;
+                            shape.target = (shape.Target)((maxProbabilityIndex+j)%4);
                             usedTarget = allFalse;
-                            usedTarget[maxProbabilityIndex] = true;
-                            shape.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            usedTarget[(maxProbabilityIndex+j)%4] = true;
+                            shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape.timeToPress = noteTime;
                             shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape);
                             oldTime = noteTime;
+                            belowMinDelay = false;
                             // counter = 1;
                         }
                     }
                 }
             }
-            for(int i = 0;i< shapes.Count;i++)
+            ProgressUtil.Update();
+
+            level.numberOfNotes = numberOfNotes;
+            level.numberOfDoubleNotes = numberOfDoubleNotes;
+            ShapeDescription[] finalShapes = shapes.ToArray();
+            while(bpm > 240)
             {
-                /*TODO remap the shape type according to the detected frequency of the 
-                 * note relatively to the maxFreq and minFreq of the audioClip*/
+                bpm /= 2;
             }
-            
+            while (bpm < 80)
+            {
+                bpm *= 2;
+            }
+            Debug.Log("BPM = " + bpm);
+            //LevelPreparator.TravelTime = 2* 60 / bpm;
+            PostAnalysisTools.RoundTimingToMilliseconds(finalShapes);
+            ProgressUtil.Update();
+            int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
+            PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f/ 12);
+            ProgressUtil.Update();
+            PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.91f);
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
             

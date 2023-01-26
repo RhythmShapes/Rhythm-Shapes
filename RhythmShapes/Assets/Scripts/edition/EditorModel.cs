@@ -16,6 +16,13 @@ namespace edition
         public static EditorShape Shape { get; set; }
         public static bool HasShapeBeenModified { get; set; }
 
+        public static void Reset()
+        {
+            OriginLevel = null;
+            AnalyzedLevel = null;
+            HasShapeBeenModified = false;
+        }
+
         public void SetLevel(LevelDescription level)
         {
             if (!GameInfo.IsNewLevel && OriginLevel == null)

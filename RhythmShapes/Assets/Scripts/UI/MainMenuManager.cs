@@ -10,15 +10,24 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject optionMenuCanvas;
     [SerializeField] private GameObject musicSelectionMenuCanvas;
     [SerializeField] private GameObject calibrationMenuCanvas;
+    [SerializeField] private GameObject editorSelectionMenuCanvas;
     [SerializeField] private TextMeshProUGUI inputOffsetTextTMP;
     [SerializeField] private TextMeshProUGUI audioOffsetTextTMP;
     [SerializeField] private GameObject difficultyCanvas;
+    [SerializeField] private Scrollbar scrollBarVertical;
 
     public void StartGame()
     { 
         // Debug.Log("StartGame");
         mainMenuCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
+        SetOffsetText();
+    }
+    
+    public void ShowEditorSelection()
+    { 
+        mainMenuCanvas.SetActive(false);
+        editorSelectionMenuCanvas.SetActive(true);
         SetOffsetText();
     }
 
@@ -161,6 +170,7 @@ public class MainMenuManager : MonoBehaviour
     { 
         // Debug.Log("BackToMainMenu");
         musicSelectionMenuCanvas.SetActive(false);
+        editorSelectionMenuCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
 
@@ -204,5 +214,10 @@ public class MainMenuManager : MonoBehaviour
         // Debug.Log("HidePresetPanel");
         difficultyCanvas.SetActive(false);
         musicSelectionMenuCanvas.SetActive(true);
+    }
+
+    public void SetupSliderPositionToTheTop()
+    {
+        scrollBarVertical.value = 1;
     }
 }

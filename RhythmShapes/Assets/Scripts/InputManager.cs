@@ -3,6 +3,7 @@ using models;
 using shape;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
@@ -30,32 +31,72 @@ public class InputManager : MonoBehaviour
         else
         {
             _inputSystem.Player.Enable();
-            _inputSystem.Player.Top.performed += _ => InputPerformed(Target.Top);
-            _inputSystem.Player.Left.performed += _ => InputPerformed(Target.Left);
-            _inputSystem.Player.Right.performed += _ => InputPerformed(Target.Right);
-            _inputSystem.Player.Bottom.performed += _ => InputPerformed(Target.Bottom);
-            _inputSystem.Player.Top.canceled += _ => InputCanceled(Target.Top);
-            _inputSystem.Player.Left.canceled += _ => InputCanceled(Target.Left);
-            _inputSystem.Player.Right.canceled += _ => InputCanceled(Target.Right);
-            _inputSystem.Player.Bottom.canceled += _ => InputCanceled(Target.Bottom);
-            _inputSystem.Player.Pause.performed += _ => PausePerformed();
-            _inputSystem.UI.UnPause.performed += _ => UnPausePerformed();
+            _inputSystem.Player.Top.performed += PerformTop;
+            _inputSystem.Player.Left.performed += PerformLeft;
+            _inputSystem.Player.Right.performed += PerformRight;
+            _inputSystem.Player.Bottom.performed += PerformBottom;
+            _inputSystem.Player.Top.canceled += CancelTop;
+            _inputSystem.Player.Left.canceled += CancelLeft;
+            _inputSystem.Player.Right.canceled += CancelRight;
+            _inputSystem.Player.Bottom.canceled += CancelBottom;
+            _inputSystem.Player.Pause.performed += PausePerformed;
+            _inputSystem.UI.UnPause.performed += UnPausePerformed;
         }
         
     }
 
     private void OnDisable()
     {
-        _inputSystem.Player.Top.performed -= _ => InputPerformed(Target.Top);
-        _inputSystem.Player.Left.performed -= _ => InputPerformed(Target.Left);
-        _inputSystem.Player.Right.performed -= _ => InputPerformed(Target.Right);
-        _inputSystem.Player.Bottom.performed -= _ => InputPerformed(Target.Bottom);
-        _inputSystem.Player.Top.canceled -= _ => InputCanceled(Target.Top);
-        _inputSystem.Player.Left.canceled -= _ => InputCanceled(Target.Left);
-        _inputSystem.Player.Right.canceled -= _ => InputCanceled(Target.Right);
-        _inputSystem.Player.Bottom.canceled -= _ => InputCanceled(Target.Bottom);
-        _inputSystem.Player.Pause.performed -= _ => PausePerformed();
-        _inputSystem.UI.UnPause.performed -= _ => UnPausePerformed();
+        _inputSystem.Player.Top.performed -= PerformTop;
+        _inputSystem.Player.Left.performed -= PerformLeft;
+        _inputSystem.Player.Right.performed -= PerformRight;
+        _inputSystem.Player.Bottom.performed -= PerformBottom;
+        _inputSystem.Player.Top.canceled -= CancelTop;
+        _inputSystem.Player.Left.canceled -= CancelLeft;
+        _inputSystem.Player.Right.canceled -= CancelRight;
+        _inputSystem.Player.Bottom.canceled -= CancelBottom;
+        _inputSystem.Player.Pause.performed -= PausePerformed;
+        _inputSystem.UI.UnPause.performed -= UnPausePerformed;
+    }
+
+    private void PerformTop(InputAction.CallbackContext callbackContext)
+    {
+        InputPerformed(Target.Top);
+    }
+
+    private void PerformLeft(InputAction.CallbackContext callbackContext)
+    {
+        InputPerformed(Target.Left);
+    }
+
+    private void PerformRight(InputAction.CallbackContext callbackContext)
+    {
+        InputPerformed(Target.Right);
+    }
+
+    private void PerformBottom(InputAction.CallbackContext callbackContext)
+    {
+        InputPerformed(Target.Bottom);
+    }
+
+    private void CancelTop(InputAction.CallbackContext callbackContext)
+    {
+        InputCanceled(Target.Top);
+    }
+
+    private void CancelLeft(InputAction.CallbackContext callbackContext)
+    {
+        InputCanceled(Target.Left);
+    }
+
+    private void CancelRight(InputAction.CallbackContext callbackContext)
+    {
+        InputCanceled(Target.Right);
+    }
+
+    private void CancelBottom(InputAction.CallbackContext callbackContext)
+    {
+        InputCanceled(Target.Bottom);
     }
 
     private void InputPerformed(Target target)
@@ -89,7 +130,7 @@ public class InputManager : MonoBehaviour
         }
     }
     
-    private void PausePerformed()
+    private void PausePerformed(InputAction.CallbackContext callbackContext)
     {
         
         if (!GameModel.Instance.isGamePaused)
@@ -99,7 +140,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void UnPausePerformed()
+    private void UnPausePerformed(InputAction.CallbackContext callbackContext)
     {
         if (GameModel.Instance.isGamePaused)
         {

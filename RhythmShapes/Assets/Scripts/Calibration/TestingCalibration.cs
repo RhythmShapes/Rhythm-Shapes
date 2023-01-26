@@ -9,13 +9,12 @@ public class TestingCalibration : MonoBehaviour
 {
     public static TestingCalibration Instance { get; private set; }
     public float calibration; //0,066417 //0,127751 //
+    [SerializeField] private GameObject[] dots;
     private float gameInputCalibration;
     private float gameAudioCalibration;
     private Queue<float> inputReceivedTimeQueue = new();
     private Queue<float> shapeTheoricalPressTimeQueue = new();
     private float[] shapeTheoricalPressTime;
-    
-    // [SerializeField] private UnityEvent<float> onCalibrationCalculated;
 
     private void Awake()
     {
@@ -28,7 +27,6 @@ public class TestingCalibration : MonoBehaviour
         GameInfo.InputCalibration = 0;
         GameInfo.AudioCalibration = 0;
         gameObject.GetComponent<TestingCalibration>().enabled = true;
-        // onCalibrationCalculated ??= new UnityEvent<float>();
     }
 
     private void OnDisable()
@@ -86,7 +84,6 @@ public class TestingCalibration : MonoBehaviour
                 // GameInfo.Calibration = calibration;
                 // Debug.Log("TestingCalibration -> CalculateMean 1, calibration : "+ total / count);
                 // PlayerPrefsManager.SetPref("InputOffset",calibration);
-                // onCalibrationCalculated.Invoke(total / count);
 
             }
             else
@@ -124,7 +121,6 @@ public class TestingCalibration : MonoBehaviour
                     // GameInfo.Calibration = calibration;
                     // Debug.Log("TestingCalibration -> CalculateMean 2, calibration : "+ total / count);
                     // PlayerPrefsManager.SetPref("InputOffset",calibration);
-                    // onCalibrationCalculated.Invoke(total / count);
                 }
                 else if (inputReceivedTimeQueue.Count < shapeTheoricalPressTimeQueue.Count)
                 {
@@ -159,7 +155,6 @@ public class TestingCalibration : MonoBehaviour
                     // GameInfo.Calibration = calibration;
                     // Debug.Log("TestingCalibration -> CalculateMean 3, calibration : "+ total / count);
                     // PlayerPrefsManager.SetPref("InputOffset",calibration);
-                    // onCalibrationCalculated.Invoke(total / count);
                 }
             }
         }
