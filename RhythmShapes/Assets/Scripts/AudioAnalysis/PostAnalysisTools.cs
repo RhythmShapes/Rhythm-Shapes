@@ -55,6 +55,12 @@ namespace AudioAnalysis
             }
         }
 
+        public static float SnapTimeToBPMGrid(float time, float bpm, float firstNoteTime, float precision)
+        {
+            precision = precision * 60 / bpm;
+            return (time - (((time-firstNoteTime)%precision)-precision));
+        }
+
         public static int LengthInBeats(ShapeDescription[] shapes, float bpm, float firstNoteTime)
         {
             int end = shapes.Length - 1;

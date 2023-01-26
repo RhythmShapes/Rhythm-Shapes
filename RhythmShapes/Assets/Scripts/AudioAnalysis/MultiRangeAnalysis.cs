@@ -102,6 +102,7 @@ namespace AudioAnalysis
             ProgressUtil.Update();
 
             float oldTime = 0;
+            float firstNoteTime = 0;
             int doubleNoteCycle = 0;
             // int counter = 0;
             bool[] usedTarget = new []{false, false, false, false};
@@ -123,7 +124,13 @@ namespace AudioAnalysis
                 }
                 if (maxProbability > analysisThreshold)
                 {
+                    if(numberOfNotes == 0 && numberOfDoubleNotes == 0)
+                    {
+                        firstNoteTime = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                        firstNoteTime = Mathf.Round(firstNoteTime * 1000) / 1000;
+                    }
                     float noteTime = AudioTools.timeFromIndex(j, _clipFrequency) * AudioTools.SampleSize;
+                    noteTime = PostAnalysisTools.SnapTimeToBPMGrid(noteTime, bpm, firstNoteTime, 1f / 12);
                     if( j > curatedFreqMax)
                     {
                         curatedFreqMax = j;
@@ -240,6 +247,7 @@ namespace AudioAnalysis
                     }
                 }
             }
+            ProgressUtil.Update();
 
             level.numberOfNotes = numberOfNotes;
             level.numberOfDoubleNotes = numberOfDoubleNotes;
@@ -255,8 +263,10 @@ namespace AudioAnalysis
             Debug.Log("BPM = " + bpm);
             //LevelPreparator.TravelTime = 2* 60 / bpm;
             PostAnalysisTools.RoundTimingToMilliseconds(finalShapes);
+            ProgressUtil.Update();
             int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
             PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f/ 12);
+            ProgressUtil.Update();
             PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.91f);
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
