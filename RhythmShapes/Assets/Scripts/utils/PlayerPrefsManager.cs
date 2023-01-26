@@ -12,8 +12,8 @@ namespace utils
 
         private void Start()
         {
-            GameInfo.InputCalibration = GetPref("InputOffset",0f);
-            GameInfo.AudioCalibration = GetPref("AudioOffset", 0.05f);
+            GameInfo.InputCalibration = GetPref("InputOffset",0.05f);
+            GameInfo.AudioCalibration = GetPref("AudioOffset", 0);
 
             if (effectsVolume != null)
             {
