@@ -1,9 +1,9 @@
 namespace shape
 {
-    public enum ShapeType 
+    public enum ShapeType
     {
-        Square,
-        Circle,
         Diamond,
+        Circle,
+        Square,
     }
 }
