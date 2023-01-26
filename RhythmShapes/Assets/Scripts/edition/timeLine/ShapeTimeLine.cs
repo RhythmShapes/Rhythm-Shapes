@@ -230,8 +230,8 @@ namespace edition.timeLine
         {
             if (HasCloseShape(EditorModel.Shape.Description, target, EditorModel.Shape.Description.timeToPress))
             {
-                NotificationsManager.ShowError("Cannot change shape target to " + 
-                                               target + " because another shape is to close of the time : " + 
+                NotificationsManager.ShowError("Cannot change note target to " + 
+                                               target + " because another note is to close of the time : " + 
                                                EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture) + 
                                                "s. Try changing the Minimal delay between notes value.");
                 onShapeChanged.Invoke(EditorModel.Shape.Description, false);
@@ -263,10 +263,10 @@ namespace edition.timeLine
 
             if (HasCloseShape(EditorModel.Shape.Description, EditorModel.Shape.Description.target, pressTime))
             {
-                NotificationsManager.ShowError("Cannot change shape press time to " + 
+                NotificationsManager.ShowError("Cannot change note press time to " + 
                                                pressTime.ToString(CultureInfo.InvariantCulture) + "s with " + 
                                                EditorModel.Shape.Description.target + 
-                                               " target, because another shape is to close. Try changing the Minimal delay between notes value.");
+                                               " target, because another note is to close. Try changing the Minimal delay between notes value.");
                 onShapeChanged.Invoke(EditorModel.Shape.Description, false);
                 return;
             }
@@ -319,7 +319,7 @@ namespace edition.timeLine
             
             if (!EditorModel.HasLevelSet())
             {
-                NotificationsManager.ShowError("A music has to be analysed before creating a new shape.");
+                NotificationsManager.ShowError("A music has to be analysed before adding a new note.");
                 return;
             }
             
@@ -345,10 +345,10 @@ namespace edition.timeLine
                 
                 if (HasCloseShape(shape, target, time))
                 {
-                    NotificationsManager.ShowError("Cannot create shape at " + 
+                    NotificationsManager.ShowError("Cannot create note at " + 
                                                    time.ToString(CultureInfo.InvariantCulture) + "s with " + 
                                                    target + 
-                                                   " target, because another shape is to close. Try changing the Minimal delay between notes value.");
+                                                   " target, because another note is to close. Try changing the Minimal delay between notes value.");
                     return;
                 }
             }

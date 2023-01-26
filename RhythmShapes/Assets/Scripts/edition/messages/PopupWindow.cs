@@ -10,6 +10,7 @@ namespace edition.messages
         [SerializeField] private GameObject hiddenContent;
         [SerializeField] private GameObject infoButtons;
         [SerializeField] private GameObject questionButtons;
+        [SerializeField] private GameObject helpWindow;
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private TextMeshProUGUI title;
@@ -36,6 +37,11 @@ namespace edition.messages
         {
             _infoCallback = callback;
             Show(message, titleValue, errorIcon, false);
+        }
+
+        public void ShowHelp()
+        {
+            helpWindow.SetActive(true);
         }
 
         private void Show(string message, string titleValue, Sprite iconImage, bool isQuestion)
