@@ -102,6 +102,7 @@ namespace AudioAnalysis
             ProgressUtil.Update();
 
             float oldTime = 0;
+            int doubleNoteCycle = 0;
             // int counter = 0;
             bool[] usedTarget = new []{false, false, false, false};
             bool[] allFalse = new []{false, false, false, false};
@@ -143,10 +144,10 @@ namespace AudioAnalysis
                             numberOfDoubleNotes++;
                             numberOfNotes++;
                             ShapeDescription shape1 = new ShapeDescription();
-                            shape1.target = (shape.Target)maxProbabilityIndex;
+                            shape1.target = (shape.Target)((maxProbabilityIndex+doubleNoteCycle)%4);
                             usedTarget = allFalse;
-                            usedTarget[maxProbabilityIndex] = true;
-                            shape1.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            usedTarget[(maxProbabilityIndex+doubleNoteCycle)%4] = true;
+                            shape1.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape1.timeToPress = noteTime;
                             shape1.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape1);
@@ -154,16 +155,18 @@ namespace AudioAnalysis
                             
                             numberOfNotes++;
                             ShapeDescription shape2 = new ShapeDescription();
-                            shape2.target = (shape.Target)((maxProbabilityIndex + 2) % 4);
+                            shape2.target = (shape.Target)((maxProbabilityIndex+j+doubleNoteCycle)%4==(maxProbabilityIndex+doubleNoteCycle)%4 ?(maxProbabilityIndex+j+doubleNoteCycle+1)%4 : (maxProbabilityIndex+j+doubleNoteCycle)%4);
                             usedTarget = allFalse;
-                            usedTarget[(maxProbabilityIndex + 2) % 4] = true;
-                            shape2.type = (shape.ShapeType)((maxProbabilityIndex + j) % 3);
+                            usedTarget[(maxProbabilityIndex+j+doubleNoteCycle)%4==(maxProbabilityIndex+doubleNoteCycle)%4 ?(maxProbabilityIndex+j+doubleNoteCycle+1)%4 : (maxProbabilityIndex+j+doubleNoteCycle)%4] = true;
+                            shape2.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape2.timeToPress = noteTime;
                             shape2.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape2);
                             oldTime = noteTime;
 
                             belowMinDelay = true;
+                            doubleNoteCycle++;
+
 
                         }
                     }
@@ -175,11 +178,11 @@ namespace AudioAnalysis
                             {
                                 int selectedIndex = -1;
                                 int k = 1;
-                                while(selectedIndex == -1 && k < numberOfRanges)
+                                while(selectedIndex == -1 && k < 4)
                                 {
-                                    if (!usedTarget[(maxProbabilityIndex + k) % numberOfRanges])
+                                    if (!usedTarget[(maxProbabilityIndex + k) % 4])
                                     {
-                                        selectedIndex = (maxProbabilityIndex+k) % numberOfRanges;
+                                        selectedIndex = (maxProbabilityIndex+k) % 4;
                                     }
                                     k++;
                                 }
@@ -209,7 +212,7 @@ namespace AudioAnalysis
                             else
                             {
                                 shape.target = (shape.Target)((maxProbabilityIndex + j)%4);
-                                usedTarget[maxProbabilityIndex] = true;
+                                usedTarget[(maxProbabilityIndex+j)%4] = true;
                                 shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                                 shape.timeToPress = oldTime;
                                 shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
@@ -225,7 +228,7 @@ namespace AudioAnalysis
                             ShapeDescription shape = new ShapeDescription();
                             shape.target = (shape.Target)((maxProbabilityIndex+j)%4);
                             usedTarget = allFalse;
-                            usedTarget[maxProbabilityIndex] = true;
+                            usedTarget[(maxProbabilityIndex+j)%4] = true;
                             shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                             shape.timeToPress = noteTime;
                             shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
