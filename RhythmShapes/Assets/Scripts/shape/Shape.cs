@@ -82,7 +82,7 @@ namespace shape
             {
                 _maxDistanceDelta += Time.deltaTime * _model.Speed;
                 _currentTime += Time.deltaTime;
-                _currentNormalizedTime = _currentTime / 0.85f;
+                _currentNormalizedTime = _currentTime / LevelPreparator.TravelTime;
                 _currentMaxDistanceDelta = _pathLength * Mathf.Clamp01(TransitionCurves.CubicBezier(0f, .3f, 1f, .7f, _currentNormalizedTime).y) - _pathDistances[_currentStep];
                 
             }
