@@ -77,7 +77,7 @@ namespace AudioAnalysis
             float bps = bpm / 60;
             int segmentLengthInBeats = LengthInBeats(shapes, bpm, firstNoteTime);
             int segmentLengthInBars = segmentLengthInBeats / 4;
-            if (segmentLengthInBars < 8)
+            if (segmentLengthInBars < 4)
             {
                 return shapes;
             }
@@ -108,14 +108,15 @@ namespace AudioAnalysis
                 List<ShapeDescription> intersection = new List<ShapeDescription>();
 
                 float timeDelta = secondHalf[0].timeToPress - firstHalf[0].timeToPress;
-
+                Debug.Log(timeDelta);
                 int i = 0;
                 int j = 0;
                 while (i < firstHalf.Count && j < secondHalf.Count)
                 {
-                    if (Mathf.Approximately(firstHalf[i].timeToPress, secondHalf[j].timeToPress))
+                    if (secondHalf[j].timeToPress-timeDelta - firstHalf[i].timeToPress < (60/bpm)/6)
                     {
                         intersection.Add(firstHalf[i]);
+                        union.Add(firstHalf[i]);
                         i++;
                         j++;
                     }
@@ -150,12 +151,15 @@ namespace AudioAnalysis
                 float iou = (float)intersection.Count / union.Count;
                 if (iou > matchingThreshold)
                 {
-                    Debug.Log("PATTERN DETECTED SUCCESSFULLY");
-                    union.AddRange(union);
-                    return union.ToArray();
+                    Debug.Log("PATTERN DETECTED SUCCESSFULLY AT:" + iou + " CONFIDENCE AND SEGMENT LENGTH IN BARS = " + segmentLengthInBars );
+                    List<ShapeDescription> resultingShapes = new List<ShapeDescription>();
+                    resultingShapes.AddRange(firstHalf);
+                    resultingShapes.AddRange(firstHalf);
+                    return resultingShapes.ToArray();
                 }
                 else
                 {
+                    Debug.Log("NO PATTERN FOUND TRYING AT LOWER RES");
                     ShapeDescription[] shapes_l = RythmicPatternRepetition(firstHalf.ToArray(), bpm, firstNoteTime, matchingThreshold);
                     ShapeDescription[] shapes_r = RythmicPatternRepetition(secondHalf.ToArray(), bpm, secondHalf[FirstBeatIndex(secondHalf.ToArray(),bpm)].timeToPress, matchingThreshold);
                     for (int k = 0; k < shapes_l.Length + shapes_r.Length; k++)
@@ -176,10 +180,10 @@ namespace AudioAnalysis
             //Si le nombre de mesures est impair, on enlève la dernière et on réessaie.
             else
             {
-
+                Debug.Log("ODD BAR COUNT");
                 List<ShapeDescription> shortenedSong = new List<ShapeDescription>();
                 float shortenedSongLength = (segmentLengthInBars - 1) * 4 / bps;
-
+                Debug.Log("Segment Length: " + segmentLengthInBars * 4 / bps + "Shortened Segemtn length" + shortenedSongLength);
                 for (int i = 0; shapes[i].timeToPress < shortenedSongLength; i++)
                 {
                     shortenedSong.Add(shapes[i]);

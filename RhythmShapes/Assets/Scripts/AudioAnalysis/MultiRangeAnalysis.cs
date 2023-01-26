@@ -243,14 +243,21 @@ namespace AudioAnalysis
 
             level.numberOfNotes = numberOfNotes;
             level.numberOfDoubleNotes = numberOfDoubleNotes;
-            Debug.Log("BPM = "+bpm);
             ShapeDescription[] finalShapes = shapes.ToArray();
-            if(bpm>80 && bpm < 220)
+            while(bpm > 240)
             {
-                int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
-                PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f/ 12);
-                PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.2f);
+                bpm /= 2;
             }
+            while (bpm < 80)
+            {
+                bpm *= 2;
+            }
+            Debug.Log("BPM = " + bpm);
+            //LevelPreparator.TravelTime = 2* 60 / bpm;
+            PostAnalysisTools.RoundTimingToMilliseconds(finalShapes);
+            int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
+            PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f/ 12);
+            PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.91f);
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
             
