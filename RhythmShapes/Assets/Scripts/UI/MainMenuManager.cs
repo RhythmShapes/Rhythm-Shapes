@@ -15,6 +15,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI audioOffsetTextTMP;
     [SerializeField] private GameObject difficultyCanvas;
     [SerializeField] private Scrollbar scrollBarVertical;
+    [SerializeField] private Scrollbar editorScrollBarVertical;
 
     public void StartGame()
     { 
@@ -219,5 +220,6 @@ public class MainMenuManager : MonoBehaviour
     public void SetupSliderPositionToTheTop()
     {
         scrollBarVertical.value = 1;
+        editorScrollBarVertical.value = 1;
     }
 }

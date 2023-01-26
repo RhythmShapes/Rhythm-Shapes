@@ -16868,6 +16868,7 @@ MonoBehaviour:
   audioOffsetTextTMP: {fileID: 812927348}
   difficultyCanvas: {fileID: 1273473249}
   scrollBarVertical: {fileID: 1514665422}
+  editorScrollBarVertical: {fileID: 1861953650}
 --- !u!114 &1601444086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16962,12 +16963,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 2092766951}
   buttonPrefab: {fileID: 7036132098465372154, guid: 73f0643b721ff3d44b865d7b3d134888, type: 3}
-  difficultyContent: {fileID: 1532098339}
-  numberOfNotesTextTMP: {fileID: 880652588}
-  audioLengthTextTMP: {fileID: 1699497457}
-  numberOfNotesPerSecondTextTMP: {fileID: 1170375079}
-  minimalNoteDelayTextTMP: {fileID: 334393829}
-  numberOfDoubleNotesTextTMP: {fileID: 986731480}
+  difficultyContent: {fileID: 0}
+  numberOfNotesTextTMP: {fileID: 0}
+  audioLengthTextTMP: {fileID: 0}
+  numberOfNotesPerSecondTextTMP: {fileID: 0}
+  minimalNoteDelayTextTMP: {fileID: 0}
+  numberOfDoubleNotesTextTMP: {fileID: 0}
   launchEditor: 0
 --- !u!1 &1613495613
 GameObject:
