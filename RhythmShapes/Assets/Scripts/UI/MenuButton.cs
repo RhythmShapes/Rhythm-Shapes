@@ -65,7 +65,10 @@ namespace ui
 
         public void OnSelect(BaseEventData eventData)
         {
-            MusicSelectionManager.Instance.SetLevelDifficultyText(numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
+            if(_launchEditor)
+                EditorMusicSelectionManager.Instance.SetLevelDifficultyText(numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
+            else
+                MusicSelectionManager.Instance.SetLevelDifficultyText(numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
             //Debug.Log(NumberOfNotes+", "+NumberOfNotesPerSecond+", "+MinimalNoteDelay+", "+AnalysisThreshold+", "+DoubleNoteAnalysisThreshold);
         }
     }

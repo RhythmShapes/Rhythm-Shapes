@@ -13,13 +13,14 @@ using utils.XML;
 public class MusicSelectionManager : MonoBehaviour
 {
     [SerializeField] private RectTransform content;
-    [SerializeField] private RectTransform editorContent;
     [SerializeField] private GameObject buttonPrefab;
+    [SerializeField] private GameObject difficultyContent;
     [SerializeField] private TextMeshProUGUI numberOfNotesTextTMP;
     [SerializeField] private TextMeshProUGUI audioLengthTextTMP;
     [SerializeField] private TextMeshProUGUI numberOfNotesPerSecondTextTMP;
     [SerializeField] private TextMeshProUGUI minimalNoteDelayTextTMP;
     [SerializeField] private TextMeshProUGUI numberOfDoubleNotesTextTMP;
+    [SerializeField] private bool launchEditor;
     
     public static MusicSelectionManager Instance { get; private set; }
 
@@ -33,14 +34,15 @@ public class MusicSelectionManager : MonoBehaviour
     {
         foreach (string levelName in Directory.GetDirectories(Path.Combine(Application.persistentDataPath, "Levels")))
         {
-            Instantiate(buttonPrefab, content).GetComponent<MenuButton>().Init(Path.GetFileName(levelName), LevelTools.LoadLevelData(levelName));
-            Instantiate(buttonPrefab, editorContent).GetComponent<MenuButton>().Init(Path.GetFileName(levelName), LevelTools.LoadLevelData(levelName), true);
+            Instantiate(buttonPrefab, content).GetComponent<MenuButton>().Init(Path.GetFileName(levelName), LevelTools.LoadLevelData(levelName), launchEditor);
         }
+        difficultyContent.SetActive(false);
     }
 
 
     public void SetLevelDifficultyText (int nbNotes, float audioLength, float nbNotesPerSec, float minNoteDelay, int nbDoubleNotes)
     {
+        difficultyContent.SetActive(true);
         numberOfNotesTextTMP.text = nbNotes.ToString();
         var minutes = audioLength / 60;
         var seconds = audioLength % 60;
