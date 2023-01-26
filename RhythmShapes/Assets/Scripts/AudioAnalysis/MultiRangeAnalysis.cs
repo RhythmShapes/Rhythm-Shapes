@@ -81,7 +81,7 @@ namespace AudioAnalysis
             int freqMin = 0;
             for(int i = 0; i < numberOfRanges; i++)
             {
-                int freqMax = (int)(Mathf.Pow(4f, (i+1)*Mathf.Log(AudioTools.SampleSize) / (Mathf.Log(4f) * numberOfRanges) ));
+                int freqMax = (int)(Mathf.Pow(.5f, (i+1)*Mathf.Log(AudioTools.SampleSize) / (Mathf.Log(.5f) * numberOfRanges) ));
                 if(freqMax >= maximums.Length) { freqMax = maximums.Length-1; }
                 noteProbability[i] = new float[amplitudeEvolutionPerFrequency[0].Length];
                 for(int j = 0; j < noteProbability[i].Length; j++)
