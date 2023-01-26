@@ -20,7 +20,6 @@ namespace AudioAnalysis
                 startIndexes.Add(k);
                 k++;
             }
-            Debug.Log(startIndexes.Count);
             int maxCount = 0;
             int startIndex = 0;
             foreach (int index in startIndexes)
@@ -48,7 +47,7 @@ namespace AudioAnalysis
              */
         {
             precision = precision * 60 / bpm;
-            Debug.Log("PRECisiON: " + precision);
+            Debug.Log("PRECISION: " + precision);
             for (int i = 0; i < shapes.Length; i++)
             {
                 float shift = (((shapes[i].timeToPress - firstNoteTime) % precision) - precision);
@@ -59,6 +58,10 @@ namespace AudioAnalysis
         public static int LengthInBeats(ShapeDescription[] shapes, float bpm, float firstNoteTime)
         {
             int end = shapes.Length - 1;
+            if(end <= 0)
+            {
+                return 0;
+            }
             return Mathf.FloorToInt( (shapes[end].timeToPress - firstNoteTime) * bpm / 60);
         }
 
@@ -147,6 +150,7 @@ namespace AudioAnalysis
                 float iou = (float)intersection.Count / union.Count;
                 if (iou > matchingThreshold)
                 {
+                    Debug.Log("PATTERN DETECTED SUCCESSFULLY");
                     union.AddRange(union);
                     return union.ToArray();
                 }
@@ -154,7 +158,7 @@ namespace AudioAnalysis
                 {
                     ShapeDescription[] shapes_l = RythmicPatternRepetition(firstHalf.ToArray(), bpm, firstNoteTime, matchingThreshold);
                     ShapeDescription[] shapes_r = RythmicPatternRepetition(secondHalf.ToArray(), bpm, secondHalf[FirstBeatIndex(secondHalf.ToArray(),bpm)].timeToPress, matchingThreshold);
-                    for (int k = 0; k < shapes.Length; k++)
+                    for (int k = 0; k < shapes_l.Length + shapes_r.Length; k++)
                     {
                         if (k < shapes_l.Length)
                         {

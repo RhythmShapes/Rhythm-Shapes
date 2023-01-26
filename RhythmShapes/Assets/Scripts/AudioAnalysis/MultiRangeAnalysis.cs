@@ -20,7 +20,7 @@ namespace AudioAnalysis
         public static float analysisThreshold = 0.3f;
         public static float doubleNoteAnalysisThreshold = 0.4f;
         private static string _clipName;
-        private static float _clipFrequency;
+        private static int _clipFrequency;
         private static float[] _totalSamples;
         private static int _clipSamples;
         private static int _clipChannels;
@@ -37,7 +37,7 @@ namespace AudioAnalysis
         
         public static LevelDescription AnalyseMusic()
         {
-            float bpm = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
+            float bpm = BPMAnalyzer.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
             ProgressUtil.Update();
             
             float[][] fftData = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
@@ -243,7 +243,14 @@ namespace AudioAnalysis
 
             level.numberOfNotes = numberOfNotes;
             level.numberOfDoubleNotes = numberOfDoubleNotes;
-            Debug.Log(bpm);
+            Debug.Log("BPM = "+bpm);
+            ShapeDescription[] finalShapes = shapes.ToArray();
+            if(bpm>80 && bpm < 220)
+            {
+                int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
+                PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f/ 12);
+                PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.2f);
+            }
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
             

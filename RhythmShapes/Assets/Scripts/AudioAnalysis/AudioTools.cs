@@ -154,7 +154,7 @@ namespace AudioAnalysis
             return BPMS;
         }
 
-        public static float GetBPM(float[] totalSamples, int clipSamples, int channels, float frequency)
+        public static float GetBPM(float[] totalSamples, int clipSamples, int channels, int frequency)
         {
             float[][] spectrum = FFT(totalSamples, clipSamples, channels, SampleSize);
             float[] BPMS = new float[spectrum.Length];
@@ -178,7 +178,7 @@ namespace AudioAnalysis
             {
                 if (averageEnergies[i] > averageEnergy && i > lastBeatIndex)
                 {
-                    currentBPM = ((float)(i - lastBeatIndex) / frequency)/60;
+                    currentBPM = 60/((float)(i - lastBeatIndex) / frequency);
                     lastBeatIndex = i;
                 }
                 BPMS[i] = currentBPM;
