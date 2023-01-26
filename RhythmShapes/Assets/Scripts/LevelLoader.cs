@@ -53,7 +53,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevelFromAnalysis(string sourceAudioPath)
     {
         _loaded = false;
-        ProgressUtil.Init(7);
+        ProgressUtil.Init(10);
         
         StartCoroutine(LoadAudio(sourceAudioPath, () =>
         {
