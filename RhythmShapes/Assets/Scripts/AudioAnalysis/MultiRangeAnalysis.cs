@@ -37,7 +37,7 @@ namespace AudioAnalysis
         
         public static LevelDescription AnalyseMusic()
         {
-            float[] BPMs = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
+            float bpm = AudioTools.GetBPM(_totalSamples, _clipSamples, _clipChannels, _clipFrequency);
             ProgressUtil.Update();
             
             float[][] fftData = AudioTools.FFT(_totalSamples, _clipSamples, _clipChannels, AudioTools.SampleSize);
@@ -180,17 +180,17 @@ namespace AudioAnalysis
                                 int k = 1;
                                 while(selectedIndex == -1 && k < 4)
                                 {
-                                    if (!usedTarget[(maxProbabilityIndex + k) % 4])
+                                    if (!usedTarget[(maxProbabilityIndex + k) % 4]) // 4 = numberOftargets, variable à généraliser si update donnant lieu à des niveaux avec un nombre différent de targets
                                     {
-                                        selectedIndex = (maxProbabilityIndex+k) % 4;
+                                        selectedIndex = (maxProbabilityIndex+k);
                                     }
                                     k++;
                                 }
                                 if(selectedIndex != -1)
                                 {
                                     shape.target = (shape.Target)selectedIndex;
-                                    usedTarget[selectedIndex] = true;
-                                    shape.type = (shape.ShapeType)((selectedIndex + j) % 3);
+                                    usedTarget[selectedIndex%4] = true;
+                                    shape.type = (shape.ShapeType)((selectedIndex) % 3);
                                     shape.timeToPress = oldTime;
                                     shape.goRight = ((selectedIndex + j) % 2).Equals(0);
                                     shapes.Add(shape);
@@ -243,6 +243,7 @@ namespace AudioAnalysis
 
             level.numberOfNotes = numberOfNotes;
             level.numberOfDoubleNotes = numberOfDoubleNotes;
+            Debug.Log(bpm);
             level.shapes = shapes.ToArray();
             ProgressUtil.Update();
             
