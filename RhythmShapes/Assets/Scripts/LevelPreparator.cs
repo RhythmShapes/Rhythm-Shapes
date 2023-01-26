@@ -16,7 +16,7 @@ public class LevelPreparator : MonoBehaviour
     [SerializeField] private SpriteRenderer bottomTargetColor;
     [SerializeField] private float shapesSpeed;
 
-    public const float TravelTime = 0.85f;
+    public const float TravelTime = 0.9375f;
     
     private AudioSource _audioSource;
     private AudioPlayer _audioPlayer;
