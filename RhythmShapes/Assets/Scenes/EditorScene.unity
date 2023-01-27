@@ -40426,7 +40426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5104482615135473629, guid: 41d8e6fcb410fd9409e73dcc20e3aa4b, type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
-      value: Square
+      value: Diamond
       objectReference: {fileID: 0}
     - target: {fileID: 5104482615135473629, guid: 41d8e6fcb410fd9409e73dcc20e3aa4b, type: 3}
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
@@ -40434,7 +40434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5104482615135473629, guid: 41d8e6fcb410fd9409e73dcc20e3aa4b, type: 3}
       propertyPath: m_Options.m_Options.Array.data[2].m_Text
-      value: Diamond
+      value: Square
       objectReference: {fileID: 0}
     - target: {fileID: 5104482615135473629, guid: 41d8e6fcb410fd9409e73dcc20e3aa4b, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -57865,8 +57865,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 616014278}
   m_HandleRect: {fileID: 616014277}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -137498,19 +137498,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5859883331887064597, guid: 1b3ef1a51e32b2d43823a7584be9620f, type: 3}
       propertyPath: m_text
-      value: "Analysis panel fields :\n\n Checking the \"Use level music\" field
+      value: 'Analysis panel fields :
+
+
+        Checking the "Use level music" field
         means using the music saved on your computer for this level. Unchecking it
-        allows you to choose another music for this level.\n\nThe \"Minimal note
-        delay\" field corresponds to the minimal time in second needed between to
-        notes on the same target. The bigger it is, the bigger will be the time between
-        the notes on a same target.\n\nThe \"Peak threshold\" field corresponds to
-        the intensity of the music at a specific time needed to add a note at this
-        time. The bigger it is, the fewer notes there are.\n\nThe \"Double notes
-        peak threshold\" field is the same as the \"Peak threshold\" but for double
-        notes (2 notes needed to be pressed at the same time). The bigger it is,
-        the fewer double notes there are.\n\n\"Shortcuts :\n\nctrl + Q : Quit Editor\nctrl
-        + S : save level\nDouble left click on a line : add a note under the cursor\ndelete
-        or double right click on a note : remove this note"
+        allows you to choose another music for this level.
+
+
+        The "Minimal
+        note delay" field corresponds to the minimal time in second needed between
+        to notes on the same target. The bigger it is, the bigger will be the time
+        between the notes on a same target.
+
+
+        The "Peak threshold" field
+        corresponds to the intensity of the music at a specific time needed to add
+        a note at this time. The bigger it is, the fewer notes there are.
+
+
+        The
+        "Double notes peak threshold" field is the same as the "Peak threshold" but
+        for double notes (2 notes needed to be pressed at the same time). The bigger
+        it is, the fewer double notes there are.
+
+
+        Shortcuts :
+
+
+        ctrl
+        + Q : quit editor
+
+        ctrl + S : save level
+
+        Double left click
+        on a line : add a note under the cursor
+
+        delete or double right click
+        on a note : remove this note'
       objectReference: {fileID: 0}
     - target: {fileID: 6434610317850565226, guid: 1b3ef1a51e32b2d43823a7584be9620f, type: 3}
       propertyPath: m_Name
