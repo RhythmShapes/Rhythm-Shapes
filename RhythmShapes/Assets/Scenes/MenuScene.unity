@@ -12882,8 +12882,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'During calibration, press the RIGHT button at the THIRD beat or when the
-    note reaches tthe RIGHT target
+  m_text: 'During calibration, press the RIGHT button on the THIRD beat or when the
+    note reaches the RIGHT target
 
 
     Press START to start the calibration'
@@ -16963,12 +16963,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 2092766951}
   buttonPrefab: {fileID: 7036132098465372154, guid: 73f0643b721ff3d44b865d7b3d134888, type: 3}
-  difficultyContent: {fileID: 0}
-  numberOfNotesTextTMP: {fileID: 0}
-  audioLengthTextTMP: {fileID: 0}
-  numberOfNotesPerSecondTextTMP: {fileID: 0}
-  minimalNoteDelayTextTMP: {fileID: 0}
-  numberOfDoubleNotesTextTMP: {fileID: 0}
+  difficultyContent: {fileID: 1532098339}
+  numberOfNotesTextTMP: {fileID: 880652588}
+  audioLengthTextTMP: {fileID: 1699497457}
+  numberOfNotesPerSecondTextTMP: {fileID: 1170375079}
+  minimalNoteDelayTextTMP: {fileID: 334393829}
+  numberOfDoubleNotesTextTMP: {fileID: 986731480}
   launchEditor: 0
 --- !u!1 &1613495613
 GameObject:
