@@ -262,13 +262,16 @@ namespace AudioAnalysis
             }
             Debug.Log("BPM = " + bpm);
             //LevelPreparator.TravelTime = 2* 60 / bpm;
-            PostAnalysisTools.RoundTimingToMilliseconds(finalShapes);
-            ProgressUtil.Update();
-            int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
-            PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f/ 12);
-            ProgressUtil.Update();
-            PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.91f);
-            level.shapes = shapes.ToArray();
+            if (finalShapes != null && finalShapes.Length > 0)
+            {
+                PostAnalysisTools.RoundTimingToMilliseconds(finalShapes);
+                ProgressUtil.Update();
+                int fbi = PostAnalysisTools.FirstBeatIndex(finalShapes, bpm);
+                PostAnalysisTools.snapNotesToBPMGrid(finalShapes, bpm, finalShapes[fbi].timeToPress, 1f / 12);
+                ProgressUtil.Update();
+                PostAnalysisTools.RythmicPatternRepetition(finalShapes, bpm, finalShapes[fbi].timeToPress, 0.91f);
+            }
+            level.shapes =  finalShapes;
             ProgressUtil.Update();
             
             return level;
