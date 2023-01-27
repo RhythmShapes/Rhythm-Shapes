@@ -1,159 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LevelDescription xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="TutorialSong">
-  <ShapeDescription>
-    <type>Circle</type>
-    <target>Right</target>
-    <timeToPress>0.65</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Circle</type>
-    <target>Top</target>
-    <timeToPress>0.65</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
+<LevelDescription xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Tutorial Song">
   <ShapeDescription>
     <type>Diamond</type>
     <target>Left</target>
-    <timeToPress>1.625</timeToPress>
+    <timeToPress>3.019</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Left</target>
-    <timeToPress>3.622</timeToPress>
+    <timeToPress>7.012</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Right</target>
-    <timeToPress>5.666</timeToPress>
+    <timeToPress>11.006</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Right</target>
-    <timeToPress>7.663</timeToPress>
+    <timeToPress>15</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Bottom</target>
-    <timeToPress>9.66</timeToPress>
+    <timeToPress>18.994</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Bottom</target>
-    <timeToPress>11.656</timeToPress>
+    <timeToPress>22.988</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Diamond</type>
     <target>Top</target>
-    <timeToPress>13.653</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Circle</type>
-    <target>Top</target>
-    <timeToPress>15.65</timeToPress>
+    <timeToPress>27.028</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
+    <target>Top</target>
+    <timeToPress>31.022</timeToPress>
+    <goRight>true</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Diamond</type>
     <target>Right</target>
-    <timeToPress>17.647</timeToPress>
+    <timeToPress>35.016</timeToPress>
+    <goRight>true</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Diamond</type>
+    <target>Left</target>
+    <timeToPress>35.016</timeToPress>
+    <goRight>true</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Diamond</type>
+    <target>Bottom</target>
+    <timeToPress>39.01</timeToPress>
+    <goRight>true</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Diamond</type>
+    <target>Top</target>
+    <timeToPress>39.01</timeToPress>
     <goRight>true</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Circle</type>
     <target>Left</target>
-    <timeToPress>17.647</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Diamond</type>
-    <target>Left</target>
-    <timeToPress>19.644</timeToPress>
+    <timeToPress>43.003</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
-    <type>Diamond</type>
+    <type>Circle</type>
+    <target>Bottom</target>
+    <timeToPress>43.003</timeToPress>
+    <goRight>false</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Circle</type>
+    <target>Left</target>
+    <timeToPress>46.997</timeToPress>
+    <goRight>false</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Circle</type>
     <target>Top</target>
-    <timeToPress>19.644</timeToPress>
+    <timeToPress>46.997</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Right</target>
-    <timeToPress>21.641</timeToPress>
-    <goRight>true</goRight>
+    <timeToPress>51.037</timeToPress>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Top</target>
-    <timeToPress>21.641</timeToPress>
-    <goRight>true</goRight>
+    <timeToPress>51.037</timeToPress>
+    <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
-    <type>Circle</type>
+    <type>Square</type>
     <target>Right</target>
-    <timeToPress>23.638</timeToPress>
+    <timeToPress>54.985</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
-    <type>Circle</type>
+    <type>Square</type>
     <target>Bottom</target>
-    <timeToPress>23.638</timeToPress>
+    <timeToPress>54.985</timeToPress>
+    <goRight>true</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Square</type>
+    <target>Right</target>
+    <timeToPress>59.025</timeToPress>
     <goRight>false</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Diamond</type>
-    <target>Bottom</target>
-    <timeToPress>25.635</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Diamond</type>
-    <target>Top</target>
-    <timeToPress>25.635</timeToPress>
-    <goRight>true</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
     <target>Left</target>
-    <timeToPress>27.632</timeToPress>
+    <timeToPress>59.025</timeToPress>
     <goRight>false</goRight>
   </ShapeDescription>
   <ShapeDescription>
     <type>Square</type>
-    <target>Bottom</target>
-    <timeToPress>27.632</timeToPress>
-    <goRight>false</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Circle</type>
-    <target>Right</target>
-    <timeToPress>29.629</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Circle</type>
-    <target>Left</target>
-    <timeToPress>29.629</timeToPress>
-    <goRight>true</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Diamond</type>
-    <target>Bottom</target>
-    <timeToPress>31.626</timeToPress>
-    <goRight>false</goRight>
-  </ShapeDescription>
-  <ShapeDescription>
-    <type>Diamond</type>
     <target>Top</target>
-    <timeToPress>31.626</timeToPress>
-    <goRight>false</goRight>
+    <timeToPress>63.019</timeToPress>
+    <goRight>true</goRight>
+  </ShapeDescription>
+  <ShapeDescription>
+    <type>Square</type>
+    <target>Bottom</target>
+    <timeToPress>63.019</timeToPress>
+    <goRight>true</goRight>
   </ShapeDescription>
 </LevelDescription>
