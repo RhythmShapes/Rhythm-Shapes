@@ -102873,18 +102873,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3223292943872139607}
-        m_TargetAssemblyTypeName: HitSoundManager, Assembly-CSharp
-        m_MethodName: OnInputValidated
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1802996574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108595,7 +108583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -108631,7 +108619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5314197930989389371, guid: dbe6de0d708f2304cac8473094f01a73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
