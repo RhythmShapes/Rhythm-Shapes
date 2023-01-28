@@ -324,10 +324,6 @@ namespace edition.timeLine
             }
             
             LevelDescription level = EditorModel.GetCurrentLevel();
-
-            if (level.shapes == null)
-                return;
-
             time = Mathf.Clamp(time, LevelPreparator.TravelTime, audioPlayer.length);
 
             ShapeDescription shape = new ShapeDescription()
@@ -337,26 +333,33 @@ namespace edition.timeLine
                 timeToPress = time,
                 type = ShapeType.Square
             };
-            
-            foreach (var shapeDescription in level.shapes)
-            {
-                if(!IsShapeTimeValid(shapeDescription.timeToPress))
-                    continue;
-                
-                if (HasCloseShape(shape, target, time))
-                {
-                    NotificationsManager.ShowError("Cannot create note at " + 
-                                                   time.ToString(CultureInfo.InvariantCulture) + "s with " + 
-                                                   target + 
-                                                   " target, because another note is to close. Try changing the Minimal delay between notes value.");
-                    return;
-                }
-            }
 
-            ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length + 1];
-            Array.Copy(level.shapes, shapes, level.shapes.Length);
-            level.shapes = shapes;
-            level.shapes[^1] = shape;
+            if (level.shapes != null)
+            {
+                foreach (var shapeDescription in level.shapes)
+                {
+                    if (!IsShapeTimeValid(shapeDescription.timeToPress))
+                        continue;
+
+                    if (HasCloseShape(shape, target, time))
+                    {
+                        NotificationsManager.ShowError("Cannot create note at " +
+                                                       time.ToString(CultureInfo.InvariantCulture) + "s with " +
+                                                       target +
+                                                       " target, because another note is to close. Try changing the Minimal delay between notes value.");
+                        return;
+                    }
+                }
+
+                ShapeDescription[] shapes = new ShapeDescription[level.shapes.Length + 1];
+                Array.Copy(level.shapes, shapes, level.shapes.Length);
+                level.shapes = shapes;
+                level.shapes[^1] = shape;
+            }
+            else
+            {
+                level.shapes = new[] { shape };
+            }
 
             EditorModel.HasShapeBeenModified = true;
             DisplayLevel(level);
