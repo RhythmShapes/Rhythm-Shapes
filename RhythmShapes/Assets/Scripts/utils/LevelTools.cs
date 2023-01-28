@@ -39,6 +39,11 @@ namespace utils
             return File.Exists(path);
         }
 
+        public static string GetAllLevelsFolderPath()
+        {
+            return Path.Combine(Application.persistentDataPath, LevelsFolderName);
+        }
+
         public static string GetLevelFolderPath(string levelName)
         {
             return Path.Combine(Application.persistentDataPath, LevelsFolderName, levelName);

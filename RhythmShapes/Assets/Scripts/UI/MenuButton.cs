@@ -1,5 +1,6 @@
 ﻿using System;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -65,11 +66,10 @@ namespace ui
 
         public void OnSelect(BaseEventData eventData)
         {
-            if(_launchEditor)
-                EditorMusicSelectionManager.Instance.SetLevelDifficultyText(numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
+            if (_launchEditor)
+                EditorMusicSelectionManager.Instance.SetLevelDifficultyText(_levelName,numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
             else
-                MusicSelectionManager.Instance.SetLevelDifficultyText(numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
-            //Debug.Log(NumberOfNotes+", "+NumberOfNotesPerSecond+", "+MinimalNoteDelay+", "+AnalysisThreshold+", "+DoubleNoteAnalysisThreshold);
+                MusicSelectionManager.Instance.SetLevelDifficultyText(_levelName,numberOfNotes,audioLength,numberOfNotesPerSecond,minimalNoteDelay,numberOfDoubleNotes);
         }
     }
 }

@@ -10,6 +10,9 @@ namespace utils
         [SerializeField] private Slider effectsVolume;
         [SerializeField] private Slider musicVolume;
 
+        public const string ScoreSuffix = ":score";
+        public const string ComboSuffix = ":combo";
+
         private void Start()
         {
             GameInfo.InputCalibration = GetPref("InputOffset",0.05f);
@@ -28,6 +31,11 @@ namespace utils
             }
         }
 
+        public static bool HasPref(string key)
+        {
+            return PlayerPrefs.HasKey(key);
+        }
+
         public static void SetPref(string key, float value)
         {
             PlayerPrefs.SetFloat(key, value);
@@ -37,6 +45,12 @@ namespace utils
         public static float GetPref(string key, float placeholder)
         {
             return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetFloat(key) : placeholder;
+        }
+
+        public static void DeletePref(string key)
+        {
+            PlayerPrefs.DeleteKey(key);
+            PlayerPrefs.Save();
         }
 
         public void UpdateEffectVolume()

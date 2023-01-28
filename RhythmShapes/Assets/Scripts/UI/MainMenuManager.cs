@@ -219,7 +219,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void SetupSliderPositionToTheTop()
     {
-        scrollBarVertical.value = 1;
-        editorScrollBarVertical.value = 1;
+        scrollBarVertical.value = 1f;
+        editorScrollBarVertical.value = 1f;
     }
 }

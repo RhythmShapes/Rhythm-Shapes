@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using shape;
 using ui;
+using utils;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -116,6 +117,18 @@ public class ScoreManager : MonoBehaviour
     public void PrintScoreDebug()
     {
         // Debug.Log("Score : "+ Score + ",PerfectCounter : "+ PerfectCounter+ ",GoodCounter : "+ GoodCounter+ ",OkCounter : "+ OkCounter+ ",BadCounter : "+ BadCounter+ ",MissCounter : "+ MissCounter);
+    }
+
+    public void Save()
+    {
+        string scoreKey = GameInfo.LevelName + PlayerPrefsManager.ScoreSuffix;
+        string comboKey = GameInfo.LevelName + PlayerPrefsManager.ComboSuffix;
+        
+        if(!PlayerPrefsManager.HasPref(scoreKey) || PlayerPrefsManager.GetPref(scoreKey, 0f) < Score)
+            PlayerPrefsManager.SetPref(scoreKey, Score);
+        
+        if(!PlayerPrefsManager.HasPref(comboKey) || PlayerPrefsManager.GetPref(comboKey, 0f) < BestCombo)
+            PlayerPrefsManager.SetPref(comboKey, BestCombo);
     }
 }
 

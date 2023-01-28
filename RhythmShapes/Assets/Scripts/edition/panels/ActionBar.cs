@@ -100,6 +100,8 @@ namespace edition.panels
                 LevelTools.CreateLevelFolder(levelName);
                 LevelTools.SaveLevelAudio(levelName, musicPath);
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ScoreSuffix);
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ComboSuffix);
                 
                 NotificationsManager.ShowInfo("Level saved !");
                 onSaved.Invoke(EditorModel.AnalyzedLevel);
@@ -115,6 +117,13 @@ namespace edition.panels
                 LevelTools.CopyLevelAudio(oldLevelName, levelName);
                 LevelTools.SaveLevelData(levelName, EditorModel.OriginLevel);
                 LevelTools.DeleteLevelFolder(oldLevelName);
+                
+                string oldScoreKey = oldLevelName + PlayerPrefsManager.ScoreSuffix;
+                string oldComboKey = oldLevelName + PlayerPrefsManager.ComboSuffix;
+                PlayerPrefsManager.SetPref(levelName + PlayerPrefsManager.ScoreSuffix, PlayerPrefsManager.GetPref(oldScoreKey, 0f));
+                PlayerPrefsManager.SetPref(levelName + PlayerPrefsManager.ComboSuffix, PlayerPrefsManager.GetPref(oldComboKey, 0f));
+                PlayerPrefsManager.DeletePref(oldScoreKey);
+                PlayerPrefsManager.DeletePref(oldComboKey);
             }
 
             if (!string.IsNullOrEmpty(musicPath))
