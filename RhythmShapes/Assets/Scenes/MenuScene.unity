@@ -19588,12 +19588,48 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1601444085}
-          m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
           m_MethodName: StartGame
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1601444088}
+          m_TargetAssemblyTypeName: UI.MusicSelectionManager, Assembly-CSharp
+          m_MethodName: SetList
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1601444085}
+          m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+          m_MethodName: SetupSliderPositionToTheTop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1656708977}
+          m_TargetAssemblyTypeName: UnityEngine.EventSystems.EventSystem, UnityEngine.UI
+          m_MethodName: SetSelectedGameObject
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 239861952}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -19646,6 +19682,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1601444085}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1601444088}
+        m_TargetAssemblyTypeName: UI.MusicSelectionManager, Assembly-CSharp
+        m_MethodName: SetList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24118,6 +24166,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1031162911}
+        m_TargetAssemblyTypeName: UI.MusicSelectionManager, Assembly-CSharp
+        m_MethodName: SetList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1601444085}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
         m_MethodName: SetupSliderPositionToTheTop
@@ -24208,6 +24268,30 @@ MonoBehaviour:
         - m_Target: {fileID: 1601444085}
           m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
           m_MethodName: ShowEditorSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1031162911}
+          m_TargetAssemblyTypeName: UI.MusicSelectionManager, Assembly-CSharp
+          m_MethodName: SetList
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1601444085}
+          m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+          m_MethodName: SetupSliderPositionToTheTop
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -26893,18 +26977,6 @@ MonoBehaviour:
             m_IntArgument: 3
             m_FloatArgument: 0
             m_StringArgument: EditorScene
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1656708977}
-          m_TargetAssemblyTypeName: UnityEngine.EventSystems.EventSystem, UnityEngine.UI
-          m_MethodName: SetSelectedGameObject
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 908947542}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 16

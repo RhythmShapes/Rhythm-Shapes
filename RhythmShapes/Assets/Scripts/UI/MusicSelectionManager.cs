@@ -35,7 +35,7 @@ namespace UI
             SetList();
         }
 
-        private void SetList()
+        public void SetList()
         {
             for (int i = 0; i < content.childCount; i++)
                 Destroy(content.GetChild(i).gameObject);
@@ -63,6 +63,11 @@ namespace UI
             string comboKey = levelName + PlayerPrefsManager.ComboSuffix;
             bestScoreTextTMP.text = PlayerPrefsManager.HasPref(scoreKey) ? PlayerPrefsManager.GetPref(scoreKey, 0f).ToString("F0") : "None";
             bestComboTextTMP.text = PlayerPrefsManager.HasPref(comboKey) ? PlayerPrefsManager.GetPref(comboKey, 0f).ToString("F0") : "None";
+        }
+
+        public void UnsetDifficulty()
+        {
+            difficultyContent.SetActive(false);
         }
 
         public void DeleteLevel()
