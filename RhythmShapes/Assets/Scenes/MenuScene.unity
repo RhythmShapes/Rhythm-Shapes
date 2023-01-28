@@ -18671,12 +18671,12 @@ MonoBehaviour:
   analysisDoubleNoteThresholdSlider: {fileID: 884965103}
   easyMinimalDelay: 0.5
   easyPeakThreshold: 0.4
-  easyDoubleNoteThreshold: 5
-  mediumMinimalDelay: 0.2
+  easyDoubleNoteThreshold: 1
+  mediumMinimalDelay: 0.3
   mediumPeakThreshold: 0.3
-  mediumDoubleNoteThreshold: 5
-  hardMinimalDelay: 0.1
-  hardPeakThreshold: 0.3
+  mediumDoubleNoteThreshold: 0.6
+  hardMinimalDelay: 0.2
+  hardPeakThreshold: 0.2
   hardDoubleNoteThreshold: 0.4
   musicPath: 
   levelName: 
