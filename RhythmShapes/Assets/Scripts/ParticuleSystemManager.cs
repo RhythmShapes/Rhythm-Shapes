@@ -131,6 +131,8 @@ public class ParticuleSystemManager : MonoBehaviour
                         throw new ArgumentOutOfRangeException(nameof(target), target, null);
                 }
                 break;
+            case PressedAccuracy.Missed:
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(pressedAccuracy), pressedAccuracy, null);
         }
