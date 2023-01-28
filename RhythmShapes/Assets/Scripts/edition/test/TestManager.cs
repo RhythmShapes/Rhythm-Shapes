@@ -157,10 +157,13 @@ namespace edition.test
                 LevelDescription newLevel = new LevelDescription();
                 List<ShapeDescription> shapes = new List<ShapeDescription>();
 
-                foreach (var shape in level.shapes)
+                if (level.shapes != null)
                 {
-                    if(shape.timeToPress > time)
-                        shapes.Add(shape);
+                    foreach (var shape in level.shapes)
+                    {
+                        if (shape.timeToPress > time)
+                            shapes.Add(shape);
+                    }
                 }
 
                 newLevel.title = level.title;
