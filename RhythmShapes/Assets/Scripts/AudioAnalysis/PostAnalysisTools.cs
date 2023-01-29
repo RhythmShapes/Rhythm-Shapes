@@ -168,7 +168,7 @@ namespace AudioAnalysis
                     Debug.Log("NO PATTERN FOUND TRYING AT LOWER RES");
                     ShapeDescription[] shapes_l = RythmicPatternRepetition(firstHalf.ToArray(), bpm, firstNoteTime, matchingThreshold);
                     ShapeDescription[] shapes_r = RythmicPatternRepetition(secondHalf.ToArray(), bpm, secondHalf[FirstBeatIndex(secondHalf.ToArray(),bpm)].timeToPress, matchingThreshold);
-                    for (int k = 0; k < shapes_l.Length + shapes_r.Length; k++)
+                    for (int k = 0; k < shapes_l.Length + shapes_r.Length && k < shapes.Length; k++)
                     {
                         if (k < shapes_l.Length)
                         {

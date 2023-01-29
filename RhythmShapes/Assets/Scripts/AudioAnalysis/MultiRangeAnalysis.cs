@@ -195,7 +195,7 @@ namespace AudioAnalysis
                                 }
                                 if(selectedIndex != -1)
                                 {
-                                    shape.target = (shape.Target)selectedIndex;
+                                    shape.target = (shape.Target)(selectedIndex%4);
                                     usedTarget[selectedIndex%4] = true;
                                     shape.type = (shape.ShapeType)((selectedIndex) % 3);
                                     shape.timeToPress = oldTime;
