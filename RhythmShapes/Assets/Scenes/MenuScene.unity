@@ -6426,7 +6426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 1705817349}
   slider: {fileID: 971181405}
-  min: 0
+  min: 0.01
   max: 1
   step: 0.01
   onValueChanged:
@@ -9264,7 +9264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 963309333}
   slider: {fileID: 884965103}
-  min: 0
+  min: 0.01
   max: 1
   step: 0.01
   onValueChanged:
@@ -16889,7 +16889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 33867024}
   slider: {fileID: 517270389}
-  min: 0
+  min: 0.01
   max: 5
   step: 0.01
   onValueChanged:
