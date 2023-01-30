@@ -1,3 +1,4 @@
+using System;
 using edition.test;
 using shape;
 using UnityEngine;
@@ -58,6 +59,7 @@ namespace edition.timeLine
         public void OnDrop(PointerEventData eventData)
         {
             if(TestManager.IsTestRunning || !EditorModel.IsInspectingShape()) return;
+            if(eventData.pointerDrag.GetComponent<EditorShape>() != EditorModel.Shape) return;
             
             float time = PosToTime(eventData, scrollbar, _transform.rect.width);
             onDragDrop.Invoke(time, target);

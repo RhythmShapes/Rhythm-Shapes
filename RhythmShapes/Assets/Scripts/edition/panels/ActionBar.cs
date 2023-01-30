@@ -130,6 +130,8 @@ namespace edition.panels
             { 
                 // Change level audio
                 LevelTools.SaveLevelAudio(levelName, musicPath);
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ScoreSuffix);
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ComboSuffix);
             }
 
             if (EditorModel.HasBeenAnalyzed())
@@ -137,11 +139,15 @@ namespace edition.panels
                 // Change level data
                 LevelTools.SaveLevelData(levelName, EditorModel.AnalyzedLevel);
                 newOriginLevel = EditorModel.AnalyzedLevel;
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ScoreSuffix);
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ComboSuffix);
             } else if (EditorModel.HasShapeBeenModified)
             { 
                 // Change level data
                 LevelTools.SaveLevelData(levelName, EditorModel.OriginLevel);
                 newOriginLevel = EditorModel.OriginLevel;
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ScoreSuffix);
+                PlayerPrefsManager.DeletePref(levelName + PlayerPrefsManager.ComboSuffix);
             }
 
             NotificationsManager.ShowInfo("Level saved !");

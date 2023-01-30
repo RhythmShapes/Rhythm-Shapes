@@ -226,7 +226,7 @@ namespace edition.timeLine
             onShapeChanged.Invoke(EditorModel.Shape.Description, true);
         }
 
-        public void UpdateSelectedTarget(Target target)
+        public bool UpdateSelectedTarget(Target target)
         {
             if (HasCloseShape(EditorModel.Shape.Description, target, EditorModel.Shape.Description.timeToPress))
             {
@@ -235,7 +235,7 @@ namespace edition.timeLine
                                                EditorModel.Shape.Description.timeToPress.ToString(CultureInfo.InvariantCulture) + 
                                                "s. Try changing the Minimal delay between notes value.");
                 onShapeChanged.Invoke(EditorModel.Shape.Description, false);
-                return;
+                return false;
             }
             
             EditorModel.Shape.Description.target = target;
@@ -245,6 +245,8 @@ namespace edition.timeLine
             UpdateMultipleShapes();
             ExcludeButSelected();
             onShapeChanged.Invoke(EditorModel.Shape.Description, true);
+
+            return true;
         }
 
         public void UpdateSelectedGoRight(bool goRight)
@@ -280,8 +282,8 @@ namespace edition.timeLine
 
         public void UpdateSelectedPressTimeAndTarget(float pressTime, Target target)
         {
-            UpdateSelectedTarget(target);
-            UpdateSelectedPressTime(pressTime);
+            if(UpdateSelectedTarget(target))
+                UpdateSelectedPressTime(pressTime);
         }
 
         public void ForceSelectShape(ShapeDescription selectShape)
