@@ -22,3 +22,5 @@ Check out our latest build on [Itch.io](https://ushermay.itch.io/rhythm-shapes).
 # <a name="#assets">External assets</a>
 - [Runtime File Browser](https://assetstore.unity.com/packages/tools/gui/runtime-file-browser-113006#description)
 - [UniBpmAnalyzer](https://github.com/WestHillApps/UniBpmAnalyzer)
+- [Main Music](https://ncs.io/Whatever)
+- [Sparkles](https://www.vecteezy.com/vector-art/14320373-star-shine-effects-flash-lights-glare-and-flare)
