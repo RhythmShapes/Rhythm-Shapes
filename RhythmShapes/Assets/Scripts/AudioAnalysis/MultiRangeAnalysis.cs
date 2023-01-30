@@ -102,6 +102,7 @@ namespace AudioAnalysis
             ProgressUtil.Update();
 
             float oldTime = 0;
+            bool oldGoRight = false;
             float firstNoteTime = 0;
             int doubleNoteCycle = 0;
             // int counter = 0;
@@ -168,6 +169,7 @@ namespace AudioAnalysis
                             shape2.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape2);
                             oldTime = noteTime;
+                            oldGoRight = shape2.goRight;
 
                             belowMinDelay = true;
                             doubleNoteCycle++;
@@ -195,7 +197,7 @@ namespace AudioAnalysis
                                     usedTarget[selectedIndex%4] = true;
                                     shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                                     shape.timeToPress = oldTime;
-                                    shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                    shape.goRight = oldGoRight;
                                     shapes.Add(shape);
                                     numberOfNotes++;
                                     if (!belowMinDelay)
@@ -218,7 +220,7 @@ namespace AudioAnalysis
                                 usedTarget[(maxProbabilityIndex+j)%4] = true;
                                 shape.type = (shape.ShapeType)((maxProbabilityIndex) % 3);
                                 shape.timeToPress = oldTime;
-                                shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
+                                shape.goRight = oldGoRight;
                                 shapes.Add(shape);
                                 numberOfNotes++;
                             }
@@ -237,6 +239,7 @@ namespace AudioAnalysis
                             shape.goRight = ((maxProbabilityIndex + j) % 2).Equals(0);
                             shapes.Add(shape);
                             oldTime = noteTime;
+                            oldGoRight = shape.goRight;
                             belowMinDelay = false;
                             // counter = 1;
                         }
