@@ -226,7 +226,12 @@ namespace edition.timeLine
             onShapeChanged.Invoke(EditorModel.Shape.Description, true);
         }
 
-        public bool UpdateSelectedTarget(Target target)
+        public void UpdateSelectedTarget(Target target)
+        {
+            UpdateSelectedTargetWithReturn(target);
+        }
+
+        public bool UpdateSelectedTargetWithReturn(Target target)
         {
             if (HasCloseShape(EditorModel.Shape.Description, target, EditorModel.Shape.Description.timeToPress))
             {
@@ -282,7 +287,7 @@ namespace edition.timeLine
 
         public void UpdateSelectedPressTimeAndTarget(float pressTime, Target target)
         {
-            if(UpdateSelectedTarget(target))
+            if(UpdateSelectedTargetWithReturn(target))
                 UpdateSelectedPressTime(pressTime);
         }
 
