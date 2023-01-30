@@ -24894,6 +24894,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990188965}
   m_CullTransparentMesh: 1
+--- !u!1 &1990831935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1990831937}
+  - component: {fileID: 1990831936}
+  m_Layer: 0
+  m_Name: CheatCodeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1990831936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990831935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8560872e08608154bba1505791ff384f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circle: {fileID: 6834344386689168725, guid: 8b36a67463fb9ba4ebee627a55ee2c26, type: 3}
+  square: {fileID: 6641044785536530068, guid: 8a152c80c89e53146a74c6a9f29a455e, type: 3}
+  diamond: {fileID: 5476925593244918755, guid: 59cb898688405f24aacbe6576d2127de, type: 3}
+  base_circle: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  base_square: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  base_diamond: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  jin: {fileID: 21300000, guid: 5f1741d20c6f23642b6db2a8a8e44d5a, type: 3}
+  ensiie: {fileID: 21300000, guid: 2f395fdc53adab7489ff72d3fafd8e34, type: 3}
+  tsp: {fileID: 21300000, guid: de7bd02d10573a7488534e5de36fb252, type: 3}
+--- !u!4 &1990831937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990831935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0851264, y: -3.1729958, z: -2.3017716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1991547943
 GameObject:
   m_ObjectHideFlags: 0
