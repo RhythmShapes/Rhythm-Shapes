@@ -68,7 +68,7 @@ public class JIN2023 : MonoBehaviour
         diamond.sprite = jin;
         circle.sprite = ensiie;
         square.sprite = tsp;
-        Debug.Log("CheatCodeActivated");
+        Debug.Log("CheatCodeActivated, welcome to JIN2023");
     }
 
     private void Update()
@@ -76,7 +76,6 @@ public class JIN2023 : MonoBehaviour
         if(Input.inputString.Length ==1)
         {
             CheatCode(Input.inputString.ToUpper());
-            Debug.Log("Checking CheatCode: " + Input.inputString.ToUpper());
         }
         if(code == completedCode)
         {
