@@ -120,6 +120,12 @@ public class PresetDifficulty : MonoBehaviour
     public void SetPeakThreshold(float value)
     {
         MultiRangeAnalysis.analysisThreshold = value;
+
+        if (MultiRangeAnalysis.doubleNoteAnalysisThreshold < value)
+        {
+            MultiRangeAnalysis.doubleNoteAnalysisThreshold = value;
+            doubleNoteThresholdField.SetValueWithoutNotify(value);
+        }
     }
     
     public void SetDoubleNoteThreshold(float value)
