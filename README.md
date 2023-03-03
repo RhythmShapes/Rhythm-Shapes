@@ -9,7 +9,7 @@ The main goal of this project was to include an algorithm that is able to genera
 Some parameters of this algorithm can be modified by players before the analysis, so they can manipulate the difficulty of their levels.\
 Finally, Rhythm Shapes also includes a level editor for users that would like to change any detail of their levels.
 The editor is very useful to see the results of a music analysis into a zoomable timeline of notes over time, but also to add/remove/change a note and to test the level directly into it before saving it.\
-Check out our latest build on [Itch.io](https://ushermay.itch.io/rhythm-shapes).
+Check out our latest build on [Itch.io](https://ushermay.itch.io/rhythm-shapes).\
 See presentation video on [YouTube (french)](https://youtu.be/5sg7hMi_low).
 
 ## <a name="#team">Team</a>
